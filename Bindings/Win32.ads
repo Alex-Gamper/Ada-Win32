@@ -1,8 +1,4 @@
 package Win32 is
-   ------------------------------------------------------------------------
-   -- Enums
-   ------------------------------------------------------------------------
-   
    type EXCEPTION_DISPOSITION is (
       ExceptionContinueExecution,
       ExceptionContinueSearch,
