@@ -2385,10 +2385,10 @@ package Win32 is
    -- type PKTMOBJECT_TYPE is access all KTMOBJECT_TYPE;
    -- type PKTMOBJECT_CURSOR is access all KTMOBJECT_CURSOR;
    -- type PTP_VERSION is access all DWORD;
-   -- type TP_CALLBACK_INSTANCE is null record;
-   -- type PTP_CALLBACK_INSTANCE is access all TP_CALLBACK_INSTANCE;
-   -- type TP_POOL is null record;
-   -- type PTP_POOL is access all TP_POOL;
+   type TP_CALLBACK_INSTANCE is null record; -- Incomplete/Opaque Type
+   type PTP_CALLBACK_INSTANCE is access all TP_CALLBACK_INSTANCE;
+   type TP_POOL is null record; -- Incomplete/Opaque Type
+   type PTP_POOL is access all TP_POOL;
    type TP_CALLBACK_PRIORITY is (
       TP_CALLBACK_PRIORITY_HIGH,
       TP_CALLBACK_PRIORITY_NORMAL,
@@ -2405,18 +2405,18 @@ package Win32 is
    
    -- type PTP_POOL_STACK_INFORMATION is access all TP_POOL_STACK_INFORMATION;
    -- type PTP_CLEANUP_GROUP is access all TP_CLEANUP_GROUP;
-   -- type TP_CLEANUP_GROUP is null record;
-   -- type ACTIVATION_CONTEXT is null record;
+   type TP_CLEANUP_GROUP is null record; -- Incomplete/Opaque Type
+   type ACTIVATION_CONTEXT is null record; -- Incomplete/Opaque Type
    -- type PTP_CALLBACK_ENVIRON is access all TP_CALLBACK_ENVIRON_V3;
-   -- type TP_WORK is null record;
-   -- type PTP_WORK is access all TP_WORK;
-   -- type TP_TIMER is null record;
-   -- type PTP_TIMER is access all TP_TIMER;
+   type TP_WORK is null record; -- Incomplete/Opaque Type
+   type PTP_WORK is access all TP_WORK;
+   type TP_TIMER is null record; -- Incomplete/Opaque Type
+   type PTP_TIMER is access all TP_TIMER;
    -- type PTP_WAIT is access all TP_WAIT;
-   -- type TP_WAIT is null record;
-   -- type TP_IO is null record;
-   -- type PTP_IO is access all TP_IO;
-   -- type TEB is null record;
+   type TP_WAIT is null record; -- Incomplete/Opaque Type
+   type TP_IO is null record; -- Incomplete/Opaque Type
+   type PTP_IO is access all TP_IO;
+   type TEB is null record; -- Incomplete/Opaque Type
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt.h
    subtype crt_bool is Boolean;
    subtype errno_t is Int32;
@@ -2424,8 +2424,8 @@ package Win32 is
    subtype wctype_t is UInt16;
    subtype time32_t is Int32;
    subtype time64_t is Int64;
-   -- type crt_locale_data is null record;
-   -- type crt_multibyte_data is null record;
+   type crt_locale_data is null record; -- Incomplete/Opaque Type
+   type crt_multibyte_data is null record; -- Incomplete/Opaque Type
    -- type locale_t is access all crt_locale_pointers;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_wctype.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\ctype.h
@@ -2855,9 +2855,9 @@ package Win32 is
    -- type LPPROCESS_INFORMATION is access all PROCESS_INFORMATION;
    -- type LPSTARTUPINFOA is access all STARTUPINFOA;
    -- type LPSTARTUPINFOW is access all STARTUPINFOW;
-   -- type PROC_THREAD_ATTRIBUTE_LIST is null record;
-   -- type PPROC_THREAD_ATTRIBUTE_LIST is access all PROC_THREAD_ATTRIBUTE_LIST;
-   -- type LPPROC_THREAD_ATTRIBUTE_LIST is access all PROC_THREAD_ATTRIBUTE_LIST;
+   type PROC_THREAD_ATTRIBUTE_LIST is null record; -- Incomplete/Opaque Type
+   type PPROC_THREAD_ATTRIBUTE_LIST is access all PROC_THREAD_ATTRIBUTE_LIST;
+   type LPPROC_THREAD_ATTRIBUTE_LIST is access all PROC_THREAD_ATTRIBUTE_LIST;
    type THREAD_INFORMATION_CLASS is (
       ThreadMemoryPriority,
       ThreadAbsoluteCpuPriority,
@@ -4852,7 +4852,7 @@ package Win32 is
    -- type POPEN_PRINTER_PROPS_INFOA is access all OPEN_PRINTER_PROPS_INFOA;
    -- type POPEN_PRINTER_PROPS_INFOW is access all OPEN_PRINTER_PROPS_INFOW;
    -- type PNC_ADDRESS is access all tagNC_ADDRESS;
-   -- type NET_ADDRESS_INFO_x is null record;
+   type NET_ADDRESS_INFO_x is null record; -- Incomplete/Opaque Type
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winperf.h
    -- type PPERF_DATA_BLOCK is access all PERF_DATA_BLOCK;
    -- type PPERF_OBJECT_TYPE is access all PERF_OBJECT_TYPE;
@@ -5592,16 +5592,16 @@ package Win32 is
    type RPC_BUFPTR is access all UInt8;
    subtype RPC_LENGTH is UInt32;
    -- type PARRAY_INFO is access all ARRAY_INFO;
-   -- type NDR_ASYNC_MESSAGE is null record;
-   -- type PNDR_ASYNC_MESSAGE is access all NDR_ASYNC_MESSAGE;
-   -- type NDR_CORRELATION_INFO is null record;
-   -- type PNDR_CORRELATION_INFO is access all NDR_CORRELATION_INFO;
+   type NDR_ASYNC_MESSAGE is null record; -- Incomplete/Opaque Type
+   type PNDR_ASYNC_MESSAGE is access all NDR_ASYNC_MESSAGE;
+   type NDR_CORRELATION_INFO is null record; -- Incomplete/Opaque Type
+   type PNDR_CORRELATION_INFO is access all NDR_CORRELATION_INFO;
    type PFORMAT_STRING is access all UInt8;
    -- type PMIDL_SYNTAX_INFO is access all MIDL_SYNTAX_INFO;
    -- type MIDL_SYNTAX_INFO; -- forward declaration
-   -- type NDR_ALLOC_ALL_NODES_CONTEXT is null record;
-   -- type NDR_POINTER_QUEUE_STATE is null record;
-   -- type NDR_PROC_CONTEXT is null record;
+   type NDR_ALLOC_ALL_NODES_CONTEXT is null record; -- Incomplete/Opaque Type
+   type NDR_POINTER_QUEUE_STATE is null record; -- Incomplete/Opaque Type
+   type NDR_PROC_CONTEXT is null record; -- Incomplete/Opaque Type
    -- type IRpcChannelBuffer; -- forward declaration
    -- type PMIDL_STUB_MESSAGE is access all MIDL_STUB_MESSAGE;
    -- type PGENERIC_BINDING_ROUTINE_PAIR is access all GENERIC_BINDING_ROUTINE_PAIR;
@@ -7738,8 +7738,8 @@ package Win32 is
    for PRINT_EXECUTION_CONTEXT'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\prsht.h
-   -- type PSP is null record;
-   -- type HPROPSHEETPAGE is access all PSP;
+   type PSP is null record; -- Incomplete/Opaque Type
+   type HPROPSHEETPAGE is access all PSP;
    -- type PROPSHEETPAGEA; -- forward declaration
    -- type PROPSHEETPAGEW; -- forward declaration
    -- type LPPROPSHEETPAGEA_V1 is access all PROPSHEETPAGEA_V1;
@@ -7939,9 +7939,9 @@ package Win32 is
    -- type AsyncIPipeLong; -- forward declaration
    -- type IPipeDouble; -- forward declaration
    -- type AsyncIPipeDouble; -- forward declaration
-   -- type IEnumContextProps is null record;
-   -- type IContext is null record;
-   -- type IObjContext is null record;
+   type IEnumContextProps is null record; -- Incomplete/Opaque Type
+   type IContext is null record; -- Incomplete/Opaque Type
+   type IObjContext is null record; -- Incomplete/Opaque Type
    -- type IComThreadingInfo; -- forward declaration
    -- type IProcessInitControl; -- forward declaration
    -- type IFastRundown; -- forward declaration
@@ -10201,12 +10201,12 @@ package Win32 is
    -- type IXMLDOMParseError; -- forward declaration
    -- type IXTLRuntime; -- forward declaration
    -- type XMLDOMDocumentEvents; -- forward declaration
-   -- type DOMDocument is null record;
-   -- type DOMFreeThreadedDocument is null record;
+   type DOMDocument is null record; -- Incomplete/Opaque Type
+   type DOMFreeThreadedDocument is null record; -- Incomplete/Opaque Type
    -- type IXMLHttpRequest; -- forward declaration
-   -- type XMLHTTPRequest is null record;
+   type XMLHTTPRequest is null record; -- Incomplete/Opaque Type
    -- type IXMLDSOControl; -- forward declaration
-   -- type XMLDSOControl is null record;
+   type XMLDSOControl is null record; -- Incomplete/Opaque Type
    -- type IXMLElementCollection; -- forward declaration
    -- type IXMLDocument; -- forward declaration
    -- type IXMLDocument2; -- forward declaration
@@ -10214,7 +10214,7 @@ package Win32 is
    -- type IXMLElement2; -- forward declaration
    -- type IXMLAttribute; -- forward declaration
    -- type IXMLError; -- forward declaration
-   -- type XMLDocument is null record;
+   type XMLDocument is null record; -- Incomplete/Opaque Type
    type tagDOMNodeType is (
       NODE_INVALID,
       NODE_ELEMENT,
@@ -10294,7 +10294,7 @@ package Win32 is
    );
    for PIDMSI_STATUS_VALUE'Size use 32;
    
-   -- type PMemoryAllocator is null record;
+   type PMemoryAllocator is null record; -- Incomplete/Opaque Type
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\oleauto.h
    type tagREGKIND is (
       REGKIND_DEFAULT,
@@ -10428,7 +10428,7 @@ package Win32 is
    
    -- type PSC_NOTIFICATION_CALLBACK is access all SC_NOTIFICATION_CALLBACK;
    -- type PSC_NOTIFICATION_REGISTRATION is access all SC_NOTIFICATION_REGISTRATION;
-   -- type SC_NOTIFICATION_REGISTRATION is null record;
+   type SC_NOTIFICATION_REGISTRATION is null record; -- Incomplete/Opaque Type
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mcx.h
    -- type PMODEMDEVCAPS is access all MODEMDEVCAPS;
    -- type LPMODEMDEVCAPS is access all MODEMDEVCAPS;
@@ -10473,6 +10473,6 @@ package Win32 is
    -- type PIMECHARPOSITION is access all tagIMECHARPOSITION;
    -- <invalid>
    type NSConstantString_tag is null record;
-   -- type type_info is null record;
+   type type_info is null record; -- Incomplete/Opaque Type
    type builtin_va_list is access all Character;
 end;
