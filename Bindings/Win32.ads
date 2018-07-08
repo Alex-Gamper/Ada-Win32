@@ -45,6 +45,8 @@ package Win32 is
    );
    for EXCEPTION_DISPOSITION'Size use 32;
    
+   -- type EXCEPTION_RECORD; -- forward declaration
+   -- type CONTEXT; -- forward declaration
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\windef.h
    -- type HWND is access all HWND_x;
    -- type HHOOK is access all HHOOK_x;
@@ -2083,6 +2085,7 @@ package Win32 is
    -- type PCIMAGE_POLICY_METADATA is access all IMAGE_POLICY_METADATA;
    -- type PRTL_RESOURCE_DEBUG is access all RTL_CRITICAL_SECTION_DEBUG;
    -- type PRTL_CRITICAL_SECTION_DEBUG is access all RTL_CRITICAL_SECTION_DEBUG;
+   -- type RTL_CRITICAL_SECTION; -- forward declaration
    -- type PRTL_CRITICAL_SECTION is access all RTL_CRITICAL_SECTION;
    -- type PRTL_SRWLOCK is access all RTL_SRWLOCK;
    -- type PRTL_CONDITION_VARIABLE is access all RTL_CONDITION_VARIABLE;
@@ -2167,7 +2170,9 @@ package Win32 is
    -- type PHARDWARE_COUNTER_DATA is access all HARDWARE_COUNTER_DATA;
    -- type PPERFORMANCE_DATA is access all PERFORMANCE_DATA;
    -- type PEVENTLOGRECORD is access all EVENTLOGRECORD;
+   -- type EVENTSFORLOGFILE; -- forward declaration
    -- type PEVENTSFORLOGFILE is access all EVENTSFORLOGFILE;
+   -- type PACKEDEVENTINFO; -- forward declaration
    -- type PPACKEDEVENTINFO is access all PACKEDEVENTINFO;
    type CM_SERVICE_NODE_TYPE is (
       DriverType,
@@ -2380,7 +2385,9 @@ package Win32 is
    -- type PKTMOBJECT_TYPE is access all KTMOBJECT_TYPE;
    -- type PKTMOBJECT_CURSOR is access all KTMOBJECT_CURSOR;
    -- type PTP_VERSION is access all DWORD;
+   -- type TP_CALLBACK_INSTANCE is null record;
    -- type PTP_CALLBACK_INSTANCE is access all TP_CALLBACK_INSTANCE;
+   -- type TP_POOL is null record;
    -- type PTP_POOL is access all TP_POOL;
    type TP_CALLBACK_PRIORITY is (
       TP_CALLBACK_PRIORITY_HIGH,
@@ -2398,11 +2405,18 @@ package Win32 is
    
    -- type PTP_POOL_STACK_INFORMATION is access all TP_POOL_STACK_INFORMATION;
    -- type PTP_CLEANUP_GROUP is access all TP_CLEANUP_GROUP;
+   -- type TP_CLEANUP_GROUP is null record;
+   -- type ACTIVATION_CONTEXT is null record;
    -- type PTP_CALLBACK_ENVIRON is access all TP_CALLBACK_ENVIRON_V3;
+   -- type TP_WORK is null record;
    -- type PTP_WORK is access all TP_WORK;
+   -- type TP_TIMER is null record;
    -- type PTP_TIMER is access all TP_TIMER;
    -- type PTP_WAIT is access all TP_WAIT;
+   -- type TP_WAIT is null record;
+   -- type TP_IO is null record;
    -- type PTP_IO is access all TP_IO;
+   -- type TEB is null record;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt.h
    subtype crt_bool is Boolean;
    subtype errno_t is Int32;
@@ -2410,6 +2424,8 @@ package Win32 is
    subtype wctype_t is UInt16;
    subtype time32_t is Int32;
    subtype time64_t is Int64;
+   -- type crt_locale_data is null record;
+   -- type crt_multibyte_data is null record;
    -- type locale_t is access all crt_locale_pointers;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_wctype.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\ctype.h
@@ -2839,6 +2855,7 @@ package Win32 is
    -- type LPPROCESS_INFORMATION is access all PROCESS_INFORMATION;
    -- type LPSTARTUPINFOA is access all STARTUPINFOA;
    -- type LPSTARTUPINFOW is access all STARTUPINFOW;
+   -- type PROC_THREAD_ATTRIBUTE_LIST is null record;
    -- type PPROC_THREAD_ATTRIBUTE_LIST is access all PROC_THREAD_ATTRIBUTE_LIST;
    -- type LPPROC_THREAD_ATTRIBUTE_LIST is access all PROC_THREAD_ATTRIBUTE_LIST;
    type THREAD_INFORMATION_CLASS is (
@@ -3484,7 +3501,9 @@ package Win32 is
    subtype MENUTEMPLATEA is Void;
    subtype MENUTEMPLATEW is Void;
    -- type LPCBT_CREATEWNDA is access all tagCBT_CREATEWNDA;
+   -- type tagCREATESTRUCTA; -- forward declaration
    -- type LPCBT_CREATEWNDW is access all tagCBT_CREATEWNDW;
+   -- type tagCREATESTRUCTW; -- forward declaration
    -- type LPCBTACTIVATESTRUCT is access all tagCBTACTIVATESTRUCT;
    -- type PWTSSESSION_NOTIFICATION is access all tagWTSSESSION_NOTIFICATION;
    -- type LPSHELLHOOKINFO is access all SHELLHOOKINFO;
@@ -4493,6 +4512,7 @@ package Win32 is
    );
    for RPC_ASYNC_EVENT'Size use 32;
    
+   -- type RPC_ASYNC_STATE; -- forward declaration
    -- type PFN_RPCNOTIFICATION_ROUTINE is access all RPCNOTIFICATION_ROUTINE;
    -- type PRPC_ASYNC_NOTIFICATION_INFO is access all RPC_ASYNC_NOTIFICATION_INFO;
    -- type PRPC_ASYNC_STATE is access all RPC_ASYNC_STATE;
@@ -4832,6 +4852,7 @@ package Win32 is
    -- type POPEN_PRINTER_PROPS_INFOA is access all OPEN_PRINTER_PROPS_INFOA;
    -- type POPEN_PRINTER_PROPS_INFOW is access all OPEN_PRINTER_PROPS_INFOW;
    -- type PNC_ADDRESS is access all tagNC_ADDRESS;
+   -- type NET_ADDRESS_INFO_x is null record;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winperf.h
    -- type PPERF_DATA_BLOCK is access all PERF_DATA_BLOCK;
    -- type PPERF_OBJECT_TYPE is access all PERF_OBJECT_TYPE;
@@ -5031,6 +5052,7 @@ package Win32 is
    -- type PCERT_ID is access all CERT_ID;
    -- type PCMSG_SIGNER_ENCODE_INFO is access all CMSG_SIGNER_ENCODE_INFO;
    -- type PCMSG_SIGNED_ENCODE_INFO is access all CMSG_SIGNED_ENCODE_INFO;
+   -- type CMSG_RECIPIENT_ENCODE_INFO; -- forward declaration
    -- type PCMSG_RECIPIENT_ENCODE_INFO is access all CMSG_RECIPIENT_ENCODE_INFO;
    -- type PCMSG_ENVELOPED_ENCODE_INFO is access all CMSG_ENVELOPED_ENCODE_INFO;
    -- type PCMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO is access all CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO;
@@ -5120,6 +5142,7 @@ package Win32 is
    -- type PCTL_VERIFY_USAGE_STATUS is access all CTL_VERIFY_USAGE_STATUS;
    -- type PCERT_REVOCATION_CRL_INFO is access all CERT_REVOCATION_CRL_INFO;
    -- type PCERT_REVOCATION_CHAIN_PARA is access all CERT_REVOCATION_CHAIN_PARA;
+   -- type CERT_REVOCATION_CHAIN_PARA; -- forward declaration
    -- type PCERT_REVOCATION_PARA is access all CERT_REVOCATION_PARA;
    -- type PCERT_REVOCATION_STATUS is access all CERT_REVOCATION_STATUS;
    -- type PCRYPT_VERIFY_CERT_SIGN_STRONG_PROPERTIES_INFO is access all CRYPT_VERIFY_CERT_SIGN_STRONG_PROPERTIES_INFO;
@@ -5158,6 +5181,7 @@ package Win32 is
    -- type PCERT_SIMPLE_CHAIN is access all CERT_SIMPLE_CHAIN;
    -- type PCCERT_SIMPLE_CHAIN is access all CERT_SIMPLE_CHAIN;
    -- type PCERT_CHAIN_CONTEXT is access all CERT_CHAIN_CONTEXT;
+   -- type CERT_CHAIN_CONTEXT; -- forward declaration
    -- type PCCERT_CHAIN_CONTEXT is access all CERT_CHAIN_CONTEXT;
    -- type PCERT_USAGE_MATCH is access all CERT_USAGE_MATCH;
    -- type PCTL_USAGE_MATCH is access all CTL_USAGE_MATCH;
@@ -5180,6 +5204,7 @@ package Win32 is
    -- type PSSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_STATUS is access all SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_STATUS;
    type HCERT_SERVER_OCSP_RESPONSE is access all Void;
    -- type PCERT_SERVER_OCSP_RESPONSE_CONTEXT is access all CERT_SERVER_OCSP_RESPONSE_CONTEXT;
+   -- type CERT_SERVER_OCSP_RESPONSE_CONTEXT; -- forward declaration
    -- type PCCERT_SERVER_OCSP_RESPONSE_CONTEXT is access all CERT_SERVER_OCSP_RESPONSE_CONTEXT;
    -- type PCERT_SERVER_OCSP_RESPONSE_OPEN_PARA is access all CERT_SERVER_OCSP_RESPONSE_OPEN_PARA;
    -- type PCERT_SELECT_CHAIN_PARA is access all CERT_SELECT_CHAIN_PARA;
@@ -5561,13 +5586,23 @@ package Win32 is
    type NDR_CCONTEXT is access all Void;
    -- type PSCONTEXT_QUEUE is access all SCONTEXT_QUEUE;
    subtype error_status_t is UInt32;
+   -- type MIDL_STUB_MESSAGE; -- forward declaration
+   -- type MIDL_STUB_DESC; -- forward declaration
+   -- type FULL_PTR_XLAT_TABLES; -- forward declaration
    type RPC_BUFPTR is access all Uint8;
    subtype RPC_LENGTH is UInt32;
    -- type PARRAY_INFO is access all ARRAY_INFO;
+   -- type NDR_ASYNC_MESSAGE is null record;
    -- type PNDR_ASYNC_MESSAGE is access all NDR_ASYNC_MESSAGE;
+   -- type NDR_CORRELATION_INFO is null record;
    -- type PNDR_CORRELATION_INFO is access all NDR_CORRELATION_INFO;
    type PFORMAT_STRING is access all Uint8;
    -- type PMIDL_SYNTAX_INFO is access all MIDL_SYNTAX_INFO;
+   -- type MIDL_SYNTAX_INFO; -- forward declaration
+   -- type NDR_ALLOC_ALL_NODES_CONTEXT is null record;
+   -- type NDR_POINTER_QUEUE_STATE is null record;
+   -- type NDR_PROC_CONTEXT is null record;
+   -- type IRpcChannelBuffer; -- forward declaration
    -- type PMIDL_STUB_MESSAGE is access all MIDL_STUB_MESSAGE;
    -- type PGENERIC_BINDING_ROUTINE_PAIR is access all GENERIC_BINDING_ROUTINE_PAIR;
    -- type PGENERIC_BINDING_INFO is access all GENERIC_BINDING_INFO;
@@ -5683,6 +5718,7 @@ package Win32 is
    );
    for PROXY_PHASE'Size use 32;
    
+   -- type IRpcStubBuffer; -- forward declaration
    type RPC_SS_THREAD_HANDLE is access all Void;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\rpcnsip.h
    -- type PRPC_IMPORT_CONTEXT_P is access all RPC_IMPORT_CONTEXT_P;
@@ -7404,6 +7440,7 @@ package Win32 is
    -- type PDISK_EXTENT is access all DISK_EXTENT;
    -- type PVOLUME_DISK_EXTENTS is access all VOLUME_DISK_EXTENTS;
    -- type PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION is access all VOLUME_GET_GPT_ATTRIBUTES_INFORMATION;
+   -- type IO_IRP_EXT_TRACK_OFFSET_HEADER; -- forward declaration
    -- type PIO_IRP_EXT_TRACK_OFFSET_HEADER is access all IO_IRP_EXT_TRACK_OFFSET_HEADER;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\winsmcrd.h
    -- type PSCARD_IO_REQUEST is access all SCARD_IO_REQUEST;
@@ -7701,7 +7738,10 @@ package Win32 is
    for PRINT_EXECUTION_CONTEXT'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\prsht.h
+   -- type PSP is null record;
    -- type HPROPSHEETPAGE is access all PSP;
+   -- type PROPSHEETPAGEA; -- forward declaration
+   -- type PROPSHEETPAGEW; -- forward declaration
    -- type LPPROPSHEETPAGEA_V1 is access all PROPSHEETPAGEA_V1;
    -- type LPCPROPSHEETPAGEA_V1 is access all PROPSHEETPAGEA_V1;
    -- type LPPROPSHEETPAGEA_V2 is access all PROPSHEETPAGEA_V2;
@@ -7729,6 +7769,7 @@ package Win32 is
    -- type LPPSHNOTIFY is access all PSHNOTIFY;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\ole2.h
    -- type LPOLESTREAM is access all OLESTREAM;
+   -- type OLESTREAM; -- forward declaration
    -- type LPOLESTREAMVTBL is access all OLESTREAMVTBL;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\objbase.h
    type tagCOINIT is (
@@ -7798,6 +7839,7 @@ package Win32 is
    );
    for tagSTDMSHLFLAGS'Size use 32;
    
+   -- type tagPROPVARIANT; -- forward declaration
    type tagCOWAIT_FLAGS is (
       COWAIT_DEFAULT,
       COWAIT_WAITALL,
@@ -7844,9 +7886,67 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_wstdlib.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\stdlib.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\unknwnbase.h
+   -- type IUnknown; -- forward declaration
+   -- type AsyncIUnknown; -- forward declaration
+   -- type IClassFactory; -- forward declaration
    -- type LPUNKNOWN is access all IUnknown;
    -- type LPCLASSFACTORY is access all IClassFactory;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\objidlbase.h
+   -- type IMarshal; -- forward declaration
+   -- type INoMarshal; -- forward declaration
+   -- type IAgileObject; -- forward declaration
+   -- type IActivationFilter; -- forward declaration
+   -- type IMarshal2; -- forward declaration
+   -- type IMalloc; -- forward declaration
+   -- type IStdMarshalInfo; -- forward declaration
+   -- type IExternalConnection; -- forward declaration
+   -- type IMultiQI; -- forward declaration
+   -- type AsyncIMultiQI; -- forward declaration
+   -- type IInternalUnknown; -- forward declaration
+   -- type IEnumUnknown; -- forward declaration
+   -- type IEnumString; -- forward declaration
+   -- type ISequentialStream; -- forward declaration
+   -- type IStream; -- forward declaration
+   -- type IRpcChannelBuffer2; -- forward declaration
+   -- type IAsyncRpcChannelBuffer; -- forward declaration
+   -- type IRpcChannelBuffer3; -- forward declaration
+   -- type IRpcSyntaxNegotiate; -- forward declaration
+   -- type IRpcProxyBuffer; -- forward declaration
+   -- type IPSFactoryBuffer; -- forward declaration
+   -- type IChannelHook; -- forward declaration
+   -- type IClientSecurity; -- forward declaration
+   -- type IServerSecurity; -- forward declaration
+   -- type IRpcOptions; -- forward declaration
+   -- type IGlobalOptions; -- forward declaration
+   -- type ISurrogate; -- forward declaration
+   -- type IGlobalInterfaceTable; -- forward declaration
+   -- type ISynchronize; -- forward declaration
+   -- type ISynchronizeHandle; -- forward declaration
+   -- type ISynchronizeEvent; -- forward declaration
+   -- type ISynchronizeContainer; -- forward declaration
+   -- type ISynchronizeMutex; -- forward declaration
+   -- type ICancelMethodCalls; -- forward declaration
+   -- type IAsyncManager; -- forward declaration
+   -- type ICallFactory; -- forward declaration
+   -- type IRpcHelper; -- forward declaration
+   -- type IReleaseMarshalBuffers; -- forward declaration
+   -- type IWaitMultiple; -- forward declaration
+   -- type IAddrTrackingControl; -- forward declaration
+   -- type IAddrExclusionControl; -- forward declaration
+   -- type IPipeByte; -- forward declaration
+   -- type AsyncIPipeByte; -- forward declaration
+   -- type IPipeLong; -- forward declaration
+   -- type AsyncIPipeLong; -- forward declaration
+   -- type IPipeDouble; -- forward declaration
+   -- type AsyncIPipeDouble; -- forward declaration
+   -- type IEnumContextProps is null record;
+   -- type IContext is null record;
+   -- type IObjContext is null record;
+   -- type IComThreadingInfo; -- forward declaration
+   -- type IProcessInitControl; -- forward declaration
+   -- type IFastRundown; -- forward declaration
+   -- type IMarshalingStream; -- forward declaration
+   -- type IAgileReference; -- forward declaration
    -- type LPMARSHAL is access all IMarshal;
    type tagACTIVATIONTYPE is (
       ACTIVATIONTYPE_UNCATEGORIZED,
@@ -8168,6 +8268,46 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\cguid.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\coml2api.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\objidl.h
+   -- type IMallocSpy; -- forward declaration
+   -- type IBindCtx; -- forward declaration
+   -- type IEnumMoniker; -- forward declaration
+   -- type IRunnableObject; -- forward declaration
+   -- type IRunningObjectTable; -- forward declaration
+   -- type IPersist; -- forward declaration
+   -- type IPersistStream; -- forward declaration
+   -- type IMoniker; -- forward declaration
+   -- type IROTData; -- forward declaration
+   -- type IEnumSTATSTG; -- forward declaration
+   -- type IStorage; -- forward declaration
+   -- type IPersistFile; -- forward declaration
+   -- type IPersistStorage; -- forward declaration
+   -- type ILockBytes; -- forward declaration
+   -- type IEnumFORMATETC; -- forward declaration
+   -- type IEnumSTATDATA; -- forward declaration
+   -- type IRootStorage; -- forward declaration
+   -- type IAdviseSink; -- forward declaration
+   -- type AsyncIAdviseSink; -- forward declaration
+   -- type IAdviseSink2; -- forward declaration
+   -- type AsyncIAdviseSink2; -- forward declaration
+   -- type IDataObject; -- forward declaration
+   -- type IDataAdviseHolder; -- forward declaration
+   -- type IMessageFilter; -- forward declaration
+   -- type IClassActivator; -- forward declaration
+   -- type IFillLockBytes; -- forward declaration
+   -- type IProgressNotify; -- forward declaration
+   -- type ILayoutStorage; -- forward declaration
+   -- type IBlockingLock; -- forward declaration
+   -- type ITimeAndNoticeControl; -- forward declaration
+   -- type IOplockStorage; -- forward declaration
+   -- type IDirectWriterLock; -- forward declaration
+   -- type IUrlMon; -- forward declaration
+   -- type IForegroundTransfer; -- forward declaration
+   -- type IThumbnailExtractor; -- forward declaration
+   -- type IDummyHICONIncluder; -- forward declaration
+   -- type IProcessLock; -- forward declaration
+   -- type ISurrogateService; -- forward declaration
+   -- type IInitializeSpy; -- forward declaration
+   -- type IApartmentShutdown; -- forward declaration
    -- type LPMALLOCSPY is access all IMallocSpy;
    -- type LPBC is access all IBindCtx;
    -- type LPBINDCTX is access all IBindCtx;
@@ -8378,6 +8518,10 @@ package Win32 is
    -- type LPINITIALIZESPY is access all IInitializeSpy;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\unknwn.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\propidlbase.h
+   -- type IPropertyStorage; -- forward declaration
+   -- type IPropertySetStorage; -- forward declaration
+   -- type IEnumSTATPROPSTG; -- forward declaration
+   -- type IEnumSTATPROPSETSTG; -- forward declaration
    -- type LPVERSIONEDSTREAM is access all tagVersionedStream;
    -- type LPPROPVARIANT is access all tagPROPVARIANT;
    -- type LPPROPERTYSETSTORAGE is access all IPropertySetStorage;
@@ -8385,9 +8529,33 @@ package Win32 is
    -- type LPENUMSTATPROPSETSTG is access all IEnumSTATPROPSETSTG;
    -- type LPPROPERTYSTORAGE is access all IPropertyStorage;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\oaidl.h
+   -- type ICreateTypeInfo; -- forward declaration
+   -- type ICreateTypeInfo2; -- forward declaration
+   -- type ICreateTypeLib; -- forward declaration
+   -- type ICreateTypeLib2; -- forward declaration
+   -- type IDispatch; -- forward declaration
+   -- type IEnumVARIANT; -- forward declaration
+   -- type ITypeComp; -- forward declaration
+   -- type ITypeInfo; -- forward declaration
+   -- type ITypeInfo2; -- forward declaration
+   -- type ITypeLib; -- forward declaration
+   -- type ITypeLib2; -- forward declaration
+   -- type ITypeChangeEvents; -- forward declaration
+   -- type IErrorInfo; -- forward declaration
+   -- type ICreateErrorInfo; -- forward declaration
+   -- type ISupportErrorInfo; -- forward declaration
+   -- type ITypeFactory; -- forward declaration
+   -- type ITypeMarshal; -- forward declaration
+   -- type IRecordInfo; -- forward declaration
+   -- type IErrorLog; -- forward declaration
+   -- type IPropertyBag; -- forward declaration
+   -- type ITypeLibRegistrationReader; -- forward declaration
+   -- type ITypeLibRegistration; -- forward declaration
    -- type LPSAFEARRAYBOUND is access all tagSAFEARRAYBOUND;
+   -- type wireVARIANT; -- forward declaration
    -- type wireVARIANT is access all wireVARIANT;
    -- type wireBRECORD is access all wireBRECORD;
+   -- type wireBRECORD; -- forward declaration
    type tagSF_TYPE is (
       SF_I2,
       SF_I4,
@@ -8419,6 +8587,7 @@ package Win32 is
    -- type wireSAFEARRAY is access all wireSAFEARRAY;
    -- type wirePSAFEARRAY is access all wireSAFEARRAY;
    -- type LPSAFEARRAY is access all SAFEARRAY;
+   -- type tagVARIANT; -- forward declaration
    -- type LPVARIANT is access all VARIANT;
    -- type LPVARIANTARG is access all VARIANT;
    type tagTYPEKIND is (
@@ -8445,6 +8614,7 @@ package Win32 is
    );
    for tagTYPEKIND'Size use 32;
    
+   -- type tagARRAYDESC; -- forward declaration
    -- type LPPARAMDESCEX is access all tagPARAMDESCEX;
    -- type LPPARAMDESC is access all tagPARAMDESC;
    -- type LPIDLDESC is access all tagIDLDESC;
@@ -8714,6 +8884,61 @@ package Win32 is
    -- type LPERRORLOG is access all IErrorLog;
    -- type LPPROPERTYBAG is access all IPropertyBag;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\urlmon.h
+   -- type IPersistMoniker; -- forward declaration
+   -- type IMonikerProp; -- forward declaration
+   -- type IBindProtocol; -- forward declaration
+   -- type IBinding; -- forward declaration
+   -- type IBindStatusCallback; -- forward declaration
+   -- type IBindStatusCallbackEx; -- forward declaration
+   -- type IAuthenticate; -- forward declaration
+   -- type IAuthenticateEx; -- forward declaration
+   -- type IHttpNegotiate; -- forward declaration
+   -- type IHttpNegotiate2; -- forward declaration
+   -- type IHttpNegotiate3; -- forward declaration
+   -- type IWinInetFileStream; -- forward declaration
+   -- type IWindowForBindingUI; -- forward declaration
+   -- type ICodeInstall; -- forward declaration
+   -- type IUri; -- forward declaration
+   -- type IUriContainer; -- forward declaration
+   -- type IUriBuilder; -- forward declaration
+   -- type IUriBuilderFactory; -- forward declaration
+   -- type IWinInetInfo; -- forward declaration
+   -- type IHttpSecurity; -- forward declaration
+   -- type IWinInetHttpInfo; -- forward declaration
+   -- type IWinInetHttpTimeouts; -- forward declaration
+   -- type IWinInetCacheHints; -- forward declaration
+   -- type IWinInetCacheHints2; -- forward declaration
+   -- type IBindHost; -- forward declaration
+   -- type IInternet; -- forward declaration
+   -- type IInternetBindInfo; -- forward declaration
+   -- type IInternetBindInfoEx; -- forward declaration
+   -- type IInternetProtocolRoot; -- forward declaration
+   -- type IInternetProtocol; -- forward declaration
+   -- type IInternetProtocolEx; -- forward declaration
+   -- type IInternetProtocolSink; -- forward declaration
+   -- type IInternetProtocolSinkStackable; -- forward declaration
+   -- type IInternetSession; -- forward declaration
+   -- type IInternetThreadSwitch; -- forward declaration
+   -- type IInternetPriority; -- forward declaration
+   -- type IInternetProtocolInfo; -- forward declaration
+   -- type IInternetSecurityMgrSite; -- forward declaration
+   -- type IInternetSecurityManager; -- forward declaration
+   -- type IInternetSecurityManagerEx; -- forward declaration
+   -- type IInternetSecurityManagerEx2; -- forward declaration
+   -- type IZoneIdentifier; -- forward declaration
+   -- type IZoneIdentifier2; -- forward declaration
+   -- type IInternetHostSecurityManager; -- forward declaration
+   -- type IInternetZoneManager; -- forward declaration
+   -- type IInternetZoneManagerEx; -- forward declaration
+   -- type IInternetZoneManagerEx2; -- forward declaration
+   -- type ISoftDistExt; -- forward declaration
+   -- type ICatalogFileInfo; -- forward declaration
+   -- type IDataFilter; -- forward declaration
+   -- type IEncodingFilterFactory; -- forward declaration
+   -- type IWrappedProtocol; -- forward declaration
+   -- type IGetBindHandle; -- forward declaration
+   -- type IBindCallbackRedirect; -- forward declaration
+   -- type IBindHttpSecurity; -- forward declaration
    type IEObjectType is (
       IE_EPM_OBJECT_EVENT,
       IE_EPM_OBJECT_MUTEX,
@@ -9717,6 +9942,30 @@ package Win32 is
    -- type LPPROTOCOL_ARGUMENT is access all tagPROTOCOL_ARGUMENT;
    -- type LPBINDCALLBACKREDIRECT is access all IBindCallbackRedirect;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\oleidl.h
+   -- type IOleAdviseHolder; -- forward declaration
+   -- type IOleCache; -- forward declaration
+   -- type IOleCache2; -- forward declaration
+   -- type IOleCacheControl; -- forward declaration
+   -- type IParseDisplayName; -- forward declaration
+   -- type IOleContainer; -- forward declaration
+   -- type IOleClientSite; -- forward declaration
+   -- type IOleObject; -- forward declaration
+   -- type IOleWindow; -- forward declaration
+   -- type IOleLink; -- forward declaration
+   -- type IOleItemContainer; -- forward declaration
+   -- type IOleInPlaceUIWindow; -- forward declaration
+   -- type IOleInPlaceActiveObject; -- forward declaration
+   -- type IOleInPlaceFrame; -- forward declaration
+   -- type IOleInPlaceObject; -- forward declaration
+   -- type IOleInPlaceSite; -- forward declaration
+   -- type IContinue; -- forward declaration
+   -- type IViewObject; -- forward declaration
+   -- type IViewObject2; -- forward declaration
+   -- type IDropSource; -- forward declaration
+   -- type IDropTarget; -- forward declaration
+   -- type IDropSourceNotify; -- forward declaration
+   -- type IEnterpriseDropTarget; -- forward declaration
+   -- type IEnumOLEVERB; -- forward declaration
    -- type LPOLEADVISEHOLDER is access all IOleAdviseHolder;
    -- type LPOLECACHE is access all IOleCache;
    -- type LPOLECACHE2 is access all IOleCache2;
@@ -9929,8 +10178,43 @@ package Win32 is
    for tagOLEVERBATTRIB'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\servprov.h
+   -- type IServiceProvider; -- forward declaration
    -- type LPSERVICEPROVIDER is access all IServiceProvider;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\msxml.h
+   -- type IXMLDOMImplementation; -- forward declaration
+   -- type IXMLDOMNode; -- forward declaration
+   -- type IXMLDOMDocumentFragment; -- forward declaration
+   -- type IXMLDOMDocument; -- forward declaration
+   -- type IXMLDOMNodeList; -- forward declaration
+   -- type IXMLDOMNamedNodeMap; -- forward declaration
+   -- type IXMLDOMCharacterData; -- forward declaration
+   -- type IXMLDOMAttribute; -- forward declaration
+   -- type IXMLDOMElement; -- forward declaration
+   -- type IXMLDOMText; -- forward declaration
+   -- type IXMLDOMComment; -- forward declaration
+   -- type IXMLDOMProcessingInstruction; -- forward declaration
+   -- type IXMLDOMCDATASection; -- forward declaration
+   -- type IXMLDOMDocumentType; -- forward declaration
+   -- type IXMLDOMNotation; -- forward declaration
+   -- type IXMLDOMEntity; -- forward declaration
+   -- type IXMLDOMEntityReference; -- forward declaration
+   -- type IXMLDOMParseError; -- forward declaration
+   -- type IXTLRuntime; -- forward declaration
+   -- type XMLDOMDocumentEvents; -- forward declaration
+   -- type DOMDocument is null record;
+   -- type DOMFreeThreadedDocument is null record;
+   -- type IXMLHttpRequest; -- forward declaration
+   -- type XMLHTTPRequest is null record;
+   -- type IXMLDSOControl; -- forward declaration
+   -- type XMLDSOControl is null record;
+   -- type IXMLElementCollection; -- forward declaration
+   -- type IXMLDocument; -- forward declaration
+   -- type IXMLDocument2; -- forward declaration
+   -- type IXMLElement; -- forward declaration
+   -- type IXMLElement2; -- forward declaration
+   -- type IXMLAttribute; -- forward declaration
+   -- type IXMLError; -- forward declaration
+   -- type XMLDocument is null record;
    type tagDOMNodeType is (
       NODE_INVALID,
       NODE_ELEMENT,
@@ -10010,6 +10294,7 @@ package Win32 is
    );
    for PIDMSI_STATUS_VALUE'Size use 32;
    
+   -- type PMemoryAllocator is null record;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\oleauto.h
    type tagREGKIND is (
       REGKIND_DEFAULT,
@@ -10143,6 +10428,7 @@ package Win32 is
    
    -- type PSC_NOTIFICATION_CALLBACK is access all SC_NOTIFICATION_CALLBACK;
    -- type PSC_NOTIFICATION_REGISTRATION is access all SC_NOTIFICATION_REGISTRATION;
+   -- type SC_NOTIFICATION_REGISTRATION is null record;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mcx.h
    -- type PMODEMDEVCAPS is access all MODEMDEVCAPS;
    -- type LPMODEMDEVCAPS is access all MODEMDEVCAPS;
@@ -10186,5 +10472,7 @@ package Win32 is
    -- type LPIMECHARPOSITION is access all tagIMECHARPOSITION;
    -- type PIMECHARPOSITION is access all tagIMECHARPOSITION;
    -- <invalid>
+   type NSConstantString_tag is null record;
+   -- type type_info is null record;
    type builtin_va_list is access all Character;
 end;
