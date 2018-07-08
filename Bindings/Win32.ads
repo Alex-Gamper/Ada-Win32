@@ -105,12 +105,12 @@ package Win32 is
    -- type PULONG is access all ULONG;
    subtype USHORT is UInt16;
    -- type PUSHORT is access all USHORT;
-   subtype UCHAR is Uint8;
+   subtype UCHAR is UInt8;
    -- type PUCHAR is access all UCHAR;
    type PSZ is access all Character;
    subtype DWORD is UInt32;
    subtype BOOL is Int32;
-   subtype BYTE is Uint8;
+   subtype BYTE is UInt8;
    subtype WORD is UInt16;
    subtype FLOAT is Standard.Float;
    -- type PFLOAT is access all FLOAT;
@@ -218,8 +218,8 @@ package Win32 is
    -- type PCNZCH is access all CHAR;
    subtype TCHAR is Character;
    type PTCHAR is access all Character;
-   subtype TBYTE is Uint8;
-   type PTBYTE is access all Uint8;
+   subtype TBYTE is UInt8;
+   type PTBYTE is access all UInt8;
    -- type PSHORT is access all SHORT;
    -- type PLONG is access all LONG;
    -- type PPROCESSOR_NUMBER is access all PROCESSOR_NUMBER;
@@ -2434,7 +2434,7 @@ package Win32 is
    type PINT16 is access all Int16;
    type PINT32 is access all Int32;
    type PINT64 is access all Int64;
-   type PUINT8 is access all Uint8;
+   type PUINT8 is access all UInt8;
    type PUINT16 is access all UInt16;
    type PUINT32 is access all UInt32;
    type PUINT64 is access all UInt64;
@@ -4364,7 +4364,7 @@ package Win32 is
    type I_RPC_HANDLE is access all Void;
    subtype RPC_STATUS is Int32;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcdce.h
-   type RPC_CSTR is access all Uint8;
+   type RPC_CSTR is access all UInt8;
    type RPC_WSTR is access all UInt16;
    type RPC_CWSTR is access all UInt16;
    type RPC_IF_HANDLE is access all Void;
@@ -4860,7 +4860,7 @@ package Win32 is
    -- type PPERF_INSTANCE_DEFINITION is access all PERF_INSTANCE_DEFINITION;
    -- type PPERF_COUNTER_BLOCK is access all PERF_COUNTER_BLOCK;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winsock.h
-   subtype u_char is Uint8;
+   subtype u_char is UInt8;
    subtype u_short is UInt16;
    subtype u_int is UInt32;
    subtype u_long is UInt32;
@@ -5582,21 +5582,21 @@ package Win32 is
    for tagTYSPEC'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcndr.h
-   subtype boolean is Uint8;
+   subtype boolean is UInt8;
    type NDR_CCONTEXT is access all Void;
    -- type PSCONTEXT_QUEUE is access all SCONTEXT_QUEUE;
    subtype error_status_t is UInt32;
    -- type MIDL_STUB_MESSAGE; -- forward declaration
    -- type MIDL_STUB_DESC; -- forward declaration
    -- type FULL_PTR_XLAT_TABLES; -- forward declaration
-   type RPC_BUFPTR is access all Uint8;
+   type RPC_BUFPTR is access all UInt8;
    subtype RPC_LENGTH is UInt32;
    -- type PARRAY_INFO is access all ARRAY_INFO;
    -- type NDR_ASYNC_MESSAGE is null record;
    -- type PNDR_ASYNC_MESSAGE is access all NDR_ASYNC_MESSAGE;
    -- type NDR_CORRELATION_INFO is null record;
    -- type PNDR_CORRELATION_INFO is access all NDR_CORRELATION_INFO;
-   type PFORMAT_STRING is access all Uint8;
+   type PFORMAT_STRING is access all UInt8;
    -- type PMIDL_SYNTAX_INFO is access all MIDL_SYNTAX_INFO;
    -- type MIDL_SYNTAX_INFO; -- forward declaration
    -- type NDR_ALLOC_ALL_NODES_CONTEXT is null record;
