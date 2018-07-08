@@ -1,6 +1,34 @@
 package Win32 is
+   
+   type Int8  is range -(2**(8  - Integer'(1))) .. +(2**(8  - Integer'(1))) -1;
+   type Int16 is range -(2**(16 - Integer'(1))) .. +(2**(16 - Integer'(1))) -1;
+   type Int32 is range -(2**(32 - Integer'(1))) .. +(2**(32 - Integer'(1))) -1;
+   type Int64 is range -(2**(64 - Integer'(1))) .. +(2**(64 - Integer'(1))) -1;
+   
+   type Int8_Ptr  is access Int8;
+   type Int16_Ptr is access Int16;
+   type Int32_Ptr is access Int32;
+   type Int64_Ptr is access Int64;
+   
+   type UInt8  is mod 2 ** 8;
+   type UInt16 is mod 2 ** 16;
+   type UInt32 is mod 2 ** 32;
+   type UInt64 is mod 2 ** 64;
+   
+   type UInt8_Ptr  is access UInt8;
+   type UInt16_Ptr is access UInt16;
+   type UInt32_Ptr is access UInt32;
+   type UInt64_Ptr is access UInt64;
+   
+   type Void is null record;
+   
    -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\vadefs.h
+   subtype uintptr_t is UInt32;
    -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\vcruntime.h
+   subtype size_t is UInt32;
+   subtype ptrdiff_t is Int32;
+   subtype intptr_t is Int32;
+   subtype vcrt_bool is Boolean;
    -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\excpt.h
    type EXCEPTION_DISPOSITION is (
       ExceptionContinueExecution,
@@ -32,7 +60,28 @@ package Win32 is
    for DPI_AWARENESS'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\minwindef.h
+   subtype ULONG is UInt32;
+   subtype USHORT is UInt16;
+   subtype UCHAR is Uint8;
+   subtype DWORD is UInt32;
+   subtype BOOL is Int32;
+   subtype BYTE is Uint8;
+   subtype WORD is UInt16;
+   subtype FLOAT is Standard.Float;
+   subtype INT is Int32;
+   subtype UINT is UInt32;
+   subtype HFILE is Int32;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winnt.h
+   subtype POINTER_64_INT is UInt32;
+   subtype CHAR is Character;
+   subtype SHORT is Int16;
+   subtype LONG is Int32;
+   subtype WCHAR is Wide_Character;
+   subtype UCSCHAR is UInt32;
+   subtype TCHAR is Character;
+   subtype TBYTE is Uint8;
+   subtype HRESULT is Int32;
+   subtype CCHAR is Character;
    type COMPARTMENT_ID is (
       UNSPECIFIED_COMPARTMENT_ID,
       DEFAULT_COMPARTMENT_ID
@@ -43,6 +92,8 @@ package Win32 is
    );
    for COMPARTMENT_ID'Size use 32;
    
+   subtype LONGLONG is Int64;
+   subtype ULONGLONG is UInt64;
    type SID_NAME_USE is (
       SidTypeUser,
       SidTypeGroup,
@@ -1792,9 +1843,29 @@ package Win32 is
    for TP_CALLBACK_PRIORITY'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt.h
+   subtype crt_bool is Boolean;
+   subtype errno_t is Int32;
+   subtype wint_t is UInt16;
+   subtype wctype_t is UInt16;
+   subtype time32_t is Int32;
+   subtype time64_t is Int64;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_wctype.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\ctype.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\basetsd.h
+   subtype LONG32 is Int32;
+   subtype ULONG32 is UInt32;
+   subtype DWORD32 is UInt32;
+   subtype INT_PTR is Int32;
+   subtype UINT_PTR is UInt32;
+   subtype LONG_PTR is Int32;
+   subtype ULONG_PTR is UInt32;
+   subtype UHALF_PTR is UInt16;
+   subtype HALF_PTR is Int16;
+   subtype SHANDLE_PTR is Int32;
+   subtype HANDLE_PTR is UInt32;
+   subtype LONG64 is Int64;
+   subtype ULONG64 is UInt64;
+   subtype DWORD64 is UInt64;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\errno.h
    -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\vcruntime_string.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_memcpy_s.h
@@ -2191,6 +2262,8 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\realtimeapiset.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\timezoneapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wingdi.h
+   subtype FXPT16DOT16 is Int32;
+   subtype FXPT2DOT30 is Int32;
    type DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY is (
       DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INTERNAL,
       DISPLAYCONFIG_OUTPUT_TECHNOLOGY_OTHER,
@@ -2380,6 +2453,8 @@ package Win32 is
    for DISPLAYCONFIG_COLOR_ENCODING'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winuser.h
+   subtype MENUTEMPLATEA is Void;
+   subtype MENUTEMPLATEW is Void;
    type DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS is (
       DCDC_DEFAULT,
       DCDC_DISABLE_FONT_UPDATE,
@@ -2693,6 +2768,7 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\joystickapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\nb30.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpc.h
+   subtype RPC_STATUS is Int32;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcdce.h
    type RPC_HTTP_REDIRECTOR_STAGE is (
       RPCHTTP_RS_REDIRECT,
@@ -3117,8 +3193,13 @@ package Win32 is
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winperf.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winsock.h
+   subtype u_char is Uint8;
+   subtype u_short is UInt16;
+   subtype u_int is UInt32;
+   subtype u_long is UInt32;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\inaddr.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wincrypt.h
+   subtype ALG_ID is UInt32;
    type CertKeyType is (
       KeyTypeOther,
       KeyTypeVirtualSmartCard,
@@ -3275,6 +3356,9 @@ package Win32 is
    );
    for tagSTATFLAG'Size use 32;
    
+   subtype DATE is Long_Float;
+   subtype VARIANT_BOOL is Int16;
+   subtype VARTYPE is UInt16;
    type VARENUM is (
       VT_EMPTY,
       VT_NULL,
@@ -3402,6 +3486,23 @@ package Win32 is
    for tagTYSPEC'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcndr.h
+   subtype boolean is Uint8;
+   subtype error_status_t is UInt32;
+   subtype RPC_LENGTH is UInt32;
+   type USER_MARSHAL_CB_TYPE is (
+      USER_MARSHAL_CB_BUFFER_SIZE,
+      USER_MARSHAL_CB_MARSHALL,
+      USER_MARSHAL_CB_UNMARSHALL,
+      USER_MARSHAL_CB_FREE
+   );
+   for USER_MARSHAL_CB_TYPE use (
+      USER_MARSHAL_CB_BUFFER_SIZE => 0,
+      USER_MARSHAL_CB_MARSHALL => 1,
+      USER_MARSHAL_CB_UNMARSHALL => 2,
+      USER_MARSHAL_CB_FREE => 3
+   );
+   for USER_MARSHAL_CB_TYPE'Size use 32;
+   
    type IDL_CS_CONVERT is (
       IDL_CS_NO_CONVERT,
       IDL_CS_IN_PLACE_CONVERT,
@@ -3423,20 +3524,6 @@ package Win32 is
       XLAT_CLIENT => 2
    );
    for XLAT_SIDE'Size use 32;
-   
-   type USER_MARSHAL_CB_TYPE is (
-      USER_MARSHAL_CB_BUFFER_SIZE,
-      USER_MARSHAL_CB_MARSHALL,
-      USER_MARSHAL_CB_UNMARSHALL,
-      USER_MARSHAL_CB_FREE
-   );
-   for USER_MARSHAL_CB_TYPE use (
-      USER_MARSHAL_CB_BUFFER_SIZE => 0,
-      USER_MARSHAL_CB_MARSHALL => 1,
-      USER_MARSHAL_CB_UNMARSHALL => 2,
-      USER_MARSHAL_CB_FREE => 3
-   );
-   for USER_MARSHAL_CB_TYPE'Size use 32;
    
    type system_handle_t is (
       SYSTEM_HANDLE_FILE,
@@ -3504,6 +3591,7 @@ package Win32 is
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\rpcnsip.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\wtypesbase.h
+   subtype DOUBLE is Long_Float;
    type tagMEMCTX is (
       MEMCTX_SAME,
       MEMCTX_UNKNOWN,
@@ -5024,94 +5112,6 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\stdlib.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\unknwnbase.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\objidlbase.h
-   type tagRPCOPT_PROPERTIES is (
-      COMBND_RPCTIMEOUT,
-      COMBND_SERVER_LOCALITY,
-      COMBND_RESERVED1,
-      COMBND_RESERVED2,
-      COMBND_RESERVED3,
-      COMBND_RESERVED4
-   );
-   for tagRPCOPT_PROPERTIES use (
-      COMBND_RPCTIMEOUT => 1,
-      COMBND_SERVER_LOCALITY => 2,
-      COMBND_RESERVED1 => 4,
-      COMBND_RESERVED2 => 5,
-      COMBND_RESERVED3 => 8,
-      COMBND_RESERVED4 => 16
-   );
-   for tagRPCOPT_PROPERTIES'Size use 32;
-   
-   type tagGLOBALOPT_PROPERTIES is (
-      COMGLB_EXCEPTION_HANDLING,
-      COMGLB_APPID,
-      COMGLB_RPC_THREADPOOL_SETTING,
-      COMGLB_RO_SETTINGS,
-      COMGLB_UNMARSHALING_POLICY,
-      COMGLB_PROPERTIES_RESERVED1
-   );
-   for tagGLOBALOPT_PROPERTIES use (
-      COMGLB_EXCEPTION_HANDLING => 1,
-      COMGLB_APPID => 2,
-      COMGLB_RPC_THREADPOOL_SETTING => 3,
-      COMGLB_RO_SETTINGS => 4,
-      COMGLB_UNMARSHALING_POLICY => 5,
-      COMGLB_PROPERTIES_RESERVED1 => 6
-   );
-   for tagGLOBALOPT_PROPERTIES'Size use 32;
-   
-   type APTTYPE is (
-      APTTYPE_CURRENT,
-      APTTYPE_STA,
-      APTTYPE_MTA,
-      APTTYPE_NA,
-      APTTYPE_MAINSTA
-   );
-   for APTTYPE use (
-      APTTYPE_CURRENT => -1,
-      APTTYPE_STA => 0,
-      APTTYPE_MTA => 1,
-      APTTYPE_NA => 2,
-      APTTYPE_MAINSTA => 3
-   );
-   for APTTYPE'Size use 32;
-   
-   type THDTYPE is (
-      THDTYPE_BLOCKMESSAGES,
-      THDTYPE_PROCESSMESSAGES
-   );
-   for THDTYPE use (
-      THDTYPE_BLOCKMESSAGES => 0,
-      THDTYPE_PROCESSMESSAGES => 1
-   );
-   for THDTYPE'Size use 32;
-   
-   type CO_MARSHALING_CONTEXT_ATTRIBUTES is (
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_1,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_2,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_3,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_4,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_5,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_6,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_7,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_8,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_9,
-      CO_MARSHALING_SOURCE_IS_APP_CONTAINER
-   );
-   for CO_MARSHALING_CONTEXT_ATTRIBUTES use (
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_1 => -2147483648,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_2 => -2147483647,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_3 => -2147483646,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_4 => -2147483645,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_5 => -2147483644,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_6 => -2147483643,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_7 => -2147483642,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_8 => -2147483641,
-      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_9 => -2147483640,
-      CO_MARSHALING_SOURCE_IS_APP_CONTAINER => 0
-   );
-   for CO_MARSHALING_CONTEXT_ATTRIBUTES'Size use 32;
-   
    type tagACTIVATIONTYPE is (
       ACTIVATIONTYPE_UNCATEGORIZED,
       ACTIVATIONTYPE_FROM_MONIKER,
@@ -5218,6 +5218,24 @@ package Win32 is
    );
    for tagEOLE_AUTHENTICATION_CAPABILITIES'Size use 32;
    
+   type tagRPCOPT_PROPERTIES is (
+      COMBND_RPCTIMEOUT,
+      COMBND_SERVER_LOCALITY,
+      COMBND_RESERVED1,
+      COMBND_RESERVED2,
+      COMBND_RESERVED3,
+      COMBND_RESERVED4
+   );
+   for tagRPCOPT_PROPERTIES use (
+      COMBND_RPCTIMEOUT => 1,
+      COMBND_SERVER_LOCALITY => 2,
+      COMBND_RESERVED1 => 4,
+      COMBND_RESERVED2 => 5,
+      COMBND_RESERVED3 => 8,
+      COMBND_RESERVED4 => 16
+   );
+   for tagRPCOPT_PROPERTIES'Size use 32;
+   
    type tagRPCOPT_SERVER_LOCALITY_VALUES is (
       SERVER_LOCALITY_PROCESS_LOCAL,
       SERVER_LOCALITY_MACHINE_LOCAL,
@@ -5229,6 +5247,24 @@ package Win32 is
       SERVER_LOCALITY_REMOTE => 2
    );
    for tagRPCOPT_SERVER_LOCALITY_VALUES'Size use 32;
+   
+   type tagGLOBALOPT_PROPERTIES is (
+      COMGLB_EXCEPTION_HANDLING,
+      COMGLB_APPID,
+      COMGLB_RPC_THREADPOOL_SETTING,
+      COMGLB_RO_SETTINGS,
+      COMGLB_UNMARSHALING_POLICY,
+      COMGLB_PROPERTIES_RESERVED1
+   );
+   for tagGLOBALOPT_PROPERTIES use (
+      COMGLB_EXCEPTION_HANDLING => 1,
+      COMGLB_APPID => 2,
+      COMGLB_RPC_THREADPOOL_SETTING => 3,
+      COMGLB_RO_SETTINGS => 4,
+      COMGLB_UNMARSHALING_POLICY => 5,
+      COMGLB_PROPERTIES_RESERVED1 => 6
+   );
+   for tagGLOBALOPT_PROPERTIES'Size use 32;
    
    type tagGLOBALOPT_EH_VALUES is (
       COMGLB_EXCEPTION_HANDLE,
@@ -5324,29 +5360,61 @@ package Win32 is
    );
    for APTTYPEQUALIFIER'Size use 32;
    
+   type APTTYPE is (
+      APTTYPE_CURRENT,
+      APTTYPE_STA,
+      APTTYPE_MTA,
+      APTTYPE_NA,
+      APTTYPE_MAINSTA
+   );
+   for APTTYPE use (
+      APTTYPE_CURRENT => -1,
+      APTTYPE_STA => 0,
+      APTTYPE_MTA => 1,
+      APTTYPE_NA => 2,
+      APTTYPE_MAINSTA => 3
+   );
+   for APTTYPE'Size use 32;
+   
+   type THDTYPE is (
+      THDTYPE_BLOCKMESSAGES,
+      THDTYPE_PROCESSMESSAGES
+   );
+   for THDTYPE use (
+      THDTYPE_BLOCKMESSAGES => 0,
+      THDTYPE_PROCESSMESSAGES => 1
+   );
+   for THDTYPE'Size use 32;
+   
+   type CO_MARSHALING_CONTEXT_ATTRIBUTES is (
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_1,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_2,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_3,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_4,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_5,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_6,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_7,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_8,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_9,
+      CO_MARSHALING_SOURCE_IS_APP_CONTAINER
+   );
+   for CO_MARSHALING_CONTEXT_ATTRIBUTES use (
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_1 => -2147483648,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_2 => -2147483647,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_3 => -2147483646,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_4 => -2147483645,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_5 => -2147483644,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_6 => -2147483643,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_7 => -2147483642,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_8 => -2147483641,
+      CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_9 => -2147483640,
+      CO_MARSHALING_SOURCE_IS_APP_CONTAINER => 0
+   );
+   for CO_MARSHALING_CONTEXT_ATTRIBUTES'Size use 32;
+   
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\cguid.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\coml2api.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\objidl.h
-   type tagApplicationType is (
-      ServerApplication,
-      LibraryApplication
-   );
-   for tagApplicationType use (
-      ServerApplication => 0,
-      LibraryApplication => 1
-   );
-   for tagApplicationType'Size use 32;
-   
-   type tagShutdownType is (
-      IdleShutdown,
-      ForcedShutdown
-   );
-   for tagShutdownType use (
-      IdleShutdown => 0,
-      ForcedShutdown => 1
-   );
-   for tagShutdownType'Size use 32;
-   
    type tagBIND_FLAGS is (
       BIND_MAYBOTHERUSER,
       BIND_JUSTTESTEXISTENCE
@@ -5499,9 +5567,57 @@ package Win32 is
    );
    for tagPENDINGMSG'Size use 32;
    
+   type tagApplicationType is (
+      ServerApplication,
+      LibraryApplication
+   );
+   for tagApplicationType use (
+      ServerApplication => 0,
+      LibraryApplication => 1
+   );
+   for tagApplicationType'Size use 32;
+   
+   type tagShutdownType is (
+      IdleShutdown,
+      ForcedShutdown
+   );
+   for tagShutdownType use (
+      IdleShutdown => 0,
+      ForcedShutdown => 1
+   );
+   for tagShutdownType'Size use 32;
+   
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\unknwn.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\propidlbase.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\oaidl.h
+   type tagSF_TYPE is (
+      SF_I2,
+      SF_I4,
+      SF_BSTR,
+      SF_DISPATCH,
+      SF_ERROR,
+      SF_VARIANT,
+      SF_UNKNOWN,
+      SF_I1,
+      SF_I8,
+      SF_RECORD,
+      SF_HAVEIID
+   );
+   for tagSF_TYPE use (
+      SF_I2 => 2,
+      SF_I4 => 3,
+      SF_BSTR => 8,
+      SF_DISPATCH => 9,
+      SF_ERROR => 10,
+      SF_VARIANT => 12,
+      SF_UNKNOWN => 13,
+      SF_I1 => 16,
+      SF_I8 => 20,
+      SF_RECORD => 36,
+      SF_HAVEIID => 32781
+   );
+   for tagSF_TYPE'Size use 32;
+   
    type tagTYPEKIND is (
       TKIND_ENUM,
       TKIND_RECORD,
@@ -5526,23 +5642,31 @@ package Win32 is
    );
    for tagTYPEKIND'Size use 32;
    
-   type tagDESCKIND is (
-      DESCKIND_NONE,
-      DESCKIND_FUNCDESC,
-      DESCKIND_VARDESC,
-      DESCKIND_TYPECOMP,
-      DESCKIND_IMPLICITAPPOBJ,
-      DESCKIND_MAX
+   type tagCALLCONV is (
+      CC_FASTCALL,
+      CC_CDECL,
+      CC_MSCPASCAL,
+      CC_MACPASCAL,
+      CC_STDCALL,
+      CC_FPFASTCALL,
+      CC_SYSCALL,
+      CC_MPWCDECL,
+      CC_MPWPASCAL,
+      CC_MAX
    );
-   for tagDESCKIND use (
-      DESCKIND_NONE => 0,
-      DESCKIND_FUNCDESC => 1,
-      DESCKIND_VARDESC => 2,
-      DESCKIND_TYPECOMP => 3,
-      DESCKIND_IMPLICITAPPOBJ => 4,
-      DESCKIND_MAX => 5
+   for tagCALLCONV use (
+      CC_FASTCALL => 0,
+      CC_CDECL => 1,
+      CC_MSCPASCAL => 2,
+      CC_MACPASCAL => 3,
+      CC_STDCALL => 4,
+      CC_FPFASTCALL => 5,
+      CC_SYSCALL => 6,
+      CC_MPWCDECL => 7,
+      CC_MPWPASCAL => 8,
+      CC_MAX => 9
    );
-   for tagDESCKIND'Size use 32;
+   for tagCALLCONV'Size use 32;
    
    type tagFUNCKIND is (
       FUNC_VIRTUAL,
@@ -5574,32 +5698,6 @@ package Win32 is
    );
    for tagINVOKEKIND'Size use 32;
    
-   type tagCALLCONV is (
-      CC_FASTCALL,
-      CC_CDECL,
-      CC_MSCPASCAL,
-      CC_MACPASCAL,
-      CC_STDCALL,
-      CC_FPFASTCALL,
-      CC_SYSCALL,
-      CC_MPWCDECL,
-      CC_MPWPASCAL,
-      CC_MAX
-   );
-   for tagCALLCONV use (
-      CC_FASTCALL => 0,
-      CC_CDECL => 1,
-      CC_MSCPASCAL => 2,
-      CC_MACPASCAL => 3,
-      CC_STDCALL => 4,
-      CC_FPFASTCALL => 5,
-      CC_SYSCALL => 6,
-      CC_MPWCDECL => 7,
-      CC_MPWPASCAL => 8,
-      CC_MAX => 9
-   );
-   for tagCALLCONV'Size use 32;
-   
    type tagVARKIND is (
       VAR_PERINSTANCE,
       VAR_STATIC,
@@ -5613,70 +5711,6 @@ package Win32 is
       VAR_DISPATCH => 3
    );
    for tagVARKIND'Size use 32;
-   
-   type tagSYSKIND is (
-      SYS_WIN16,
-      SYS_WIN32,
-      SYS_MAC,
-      SYS_WIN64
-   );
-   for tagSYSKIND use (
-      SYS_WIN16 => 0,
-      SYS_WIN32 => 1,
-      SYS_MAC => 2,
-      SYS_WIN64 => 3
-   );
-   for tagSYSKIND'Size use 32;
-   
-   type tagCHANGEKIND is (
-      CHANGEKIND_ADDMEMBER,
-      CHANGEKIND_DELETEMEMBER,
-      CHANGEKIND_SETNAMES,
-      CHANGEKIND_SETDOCUMENTATION,
-      CHANGEKIND_GENERAL,
-      CHANGEKIND_INVALIDATE,
-      CHANGEKIND_CHANGEFAILED,
-      CHANGEKIND_MAX
-   );
-   for tagCHANGEKIND use (
-      CHANGEKIND_ADDMEMBER => 0,
-      CHANGEKIND_DELETEMEMBER => 1,
-      CHANGEKIND_SETNAMES => 2,
-      CHANGEKIND_SETDOCUMENTATION => 3,
-      CHANGEKIND_GENERAL => 4,
-      CHANGEKIND_INVALIDATE => 5,
-      CHANGEKIND_CHANGEFAILED => 6,
-      CHANGEKIND_MAX => 7
-   );
-   for tagCHANGEKIND'Size use 32;
-   
-   type tagSF_TYPE is (
-      SF_I2,
-      SF_I4,
-      SF_BSTR,
-      SF_DISPATCH,
-      SF_ERROR,
-      SF_VARIANT,
-      SF_UNKNOWN,
-      SF_I1,
-      SF_I8,
-      SF_RECORD,
-      SF_HAVEIID
-   );
-   for tagSF_TYPE use (
-      SF_I2 => 2,
-      SF_I4 => 3,
-      SF_BSTR => 8,
-      SF_DISPATCH => 9,
-      SF_ERROR => 10,
-      SF_VARIANT => 12,
-      SF_UNKNOWN => 13,
-      SF_I1 => 16,
-      SF_I8 => 20,
-      SF_RECORD => 36,
-      SF_HAVEIID => 32781
-   );
-   for tagSF_TYPE'Size use 32;
    
    type tagTYPEFLAGS is (
       TYPEFLAG_FAPPOBJECT,
@@ -5778,6 +5812,38 @@ package Win32 is
    );
    for tagVARFLAGS'Size use 32;
    
+   type tagDESCKIND is (
+      DESCKIND_NONE,
+      DESCKIND_FUNCDESC,
+      DESCKIND_VARDESC,
+      DESCKIND_TYPECOMP,
+      DESCKIND_IMPLICITAPPOBJ,
+      DESCKIND_MAX
+   );
+   for tagDESCKIND use (
+      DESCKIND_NONE => 0,
+      DESCKIND_FUNCDESC => 1,
+      DESCKIND_VARDESC => 2,
+      DESCKIND_TYPECOMP => 3,
+      DESCKIND_IMPLICITAPPOBJ => 4,
+      DESCKIND_MAX => 5
+   );
+   for tagDESCKIND'Size use 32;
+   
+   type tagSYSKIND is (
+      SYS_WIN16,
+      SYS_WIN32,
+      SYS_MAC,
+      SYS_WIN64
+   );
+   for tagSYSKIND use (
+      SYS_WIN16 => 0,
+      SYS_WIN32 => 1,
+      SYS_MAC => 2,
+      SYS_WIN64 => 3
+   );
+   for tagSYSKIND'Size use 32;
+   
    type tagLIBFLAGS is (
       LIBFLAG_FRESTRICTED,
       LIBFLAG_FCONTROL,
@@ -5792,173 +5858,29 @@ package Win32 is
    );
    for tagLIBFLAGS'Size use 32;
    
+   type tagCHANGEKIND is (
+      CHANGEKIND_ADDMEMBER,
+      CHANGEKIND_DELETEMEMBER,
+      CHANGEKIND_SETNAMES,
+      CHANGEKIND_SETDOCUMENTATION,
+      CHANGEKIND_GENERAL,
+      CHANGEKIND_INVALIDATE,
+      CHANGEKIND_CHANGEFAILED,
+      CHANGEKIND_MAX
+   );
+   for tagCHANGEKIND use (
+      CHANGEKIND_ADDMEMBER => 0,
+      CHANGEKIND_DELETEMEMBER => 1,
+      CHANGEKIND_SETNAMES => 2,
+      CHANGEKIND_SETDOCUMENTATION => 3,
+      CHANGEKIND_GENERAL => 4,
+      CHANGEKIND_INVALIDATE => 5,
+      CHANGEKIND_CHANGEFAILED => 6,
+      CHANGEKIND_MAX => 7
+   );
+   for tagCHANGEKIND'Size use 32;
+   
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\urlmon.h
-   type MIDL_IMonikerProp_0001 is (
-      MIMETYPEPROP,
-      USE_SRC_URL,
-      CLASSIDPROP,
-      TRUSTEDDOWNLOADPROP,
-      POPUPLEVELPROP
-   );
-   for MIDL_IMonikerProp_0001 use (
-      MIMETYPEPROP => 0,
-      USE_SRC_URL => 1,
-      CLASSIDPROP => 2,
-      TRUSTEDDOWNLOADPROP => 3,
-      POPUPLEVELPROP => 4
-   );
-   for MIDL_IMonikerProp_0001'Size use 32;
-   
-   type MIDL_IUri_0001 is (
-      Uri_PROPERTY_ABSOLUTE_URI,
-      Uri_PROPERTY_AUTHORITY,
-      Uri_PROPERTY_DISPLAY_URI,
-      Uri_PROPERTY_DOMAIN,
-      Uri_PROPERTY_EXTENSION,
-      Uri_PROPERTY_FRAGMENT,
-      Uri_PROPERTY_HOST,
-      Uri_PROPERTY_PASSWORD,
-      Uri_PROPERTY_PATH,
-      Uri_PROPERTY_PATH_AND_QUERY,
-      Uri_PROPERTY_QUERY,
-      Uri_PROPERTY_RAW_URI,
-      Uri_PROPERTY_SCHEME_NAME,
-      Uri_PROPERTY_USER_INFO,
-      Uri_PROPERTY_USER_NAME,
-      Uri_PROPERTY_HOST_TYPE,
-      Uri_PROPERTY_PORT,
-      Uri_PROPERTY_SCHEME,
-      Uri_PROPERTY_ZONE
-   );
-   for MIDL_IUri_0001 use (
-      Uri_PROPERTY_ABSOLUTE_URI => 0,
-      Uri_PROPERTY_AUTHORITY => 1,
-      Uri_PROPERTY_DISPLAY_URI => 2,
-      Uri_PROPERTY_DOMAIN => 3,
-      Uri_PROPERTY_EXTENSION => 4,
-      Uri_PROPERTY_FRAGMENT => 5,
-      Uri_PROPERTY_HOST => 6,
-      Uri_PROPERTY_PASSWORD => 7,
-      Uri_PROPERTY_PATH => 8,
-      Uri_PROPERTY_PATH_AND_QUERY => 9,
-      Uri_PROPERTY_QUERY => 10,
-      Uri_PROPERTY_RAW_URI => 11,
-      Uri_PROPERTY_SCHEME_NAME => 12,
-      Uri_PROPERTY_USER_INFO => 13,
-      Uri_PROPERTY_USER_NAME => 14,
-      Uri_PROPERTY_HOST_TYPE => 15,
-      Uri_PROPERTY_PORT => 16,
-      Uri_PROPERTY_SCHEME => 17,
-      Uri_PROPERTY_ZONE => 18
-   );
-   for MIDL_IUri_0001'Size use 32;
-   
-   type tagPARSEACTION is (
-      PARSE_CANONICALIZE,
-      PARSE_FRIENDLY,
-      PARSE_SECURITY_URL,
-      PARSE_ROOTDOCUMENT,
-      PARSE_DOCUMENT,
-      PARSE_ANCHOR,
-      PARSE_ENCODE_IS_UNESCAPE,
-      PARSE_DECODE_IS_ESCAPE,
-      PARSE_PATH_FROM_URL,
-      PARSE_URL_FROM_PATH,
-      PARSE_MIME,
-      PARSE_SERVER,
-      PARSE_SCHEMA,
-      PARSE_SITE,
-      PARSE_DOMAIN,
-      PARSE_LOCATION,
-      PARSE_SECURITY_DOMAIN,
-      PARSE_ESCAPE,
-      PARSE_UNESCAPE
-   );
-   for tagPARSEACTION use (
-      PARSE_CANONICALIZE => 1,
-      PARSE_FRIENDLY => 2,
-      PARSE_SECURITY_URL => 3,
-      PARSE_ROOTDOCUMENT => 4,
-      PARSE_DOCUMENT => 5,
-      PARSE_ANCHOR => 6,
-      PARSE_ENCODE_IS_UNESCAPE => 7,
-      PARSE_DECODE_IS_ESCAPE => 8,
-      PARSE_PATH_FROM_URL => 9,
-      PARSE_URL_FROM_PATH => 10,
-      PARSE_MIME => 11,
-      PARSE_SERVER => 12,
-      PARSE_SCHEMA => 13,
-      PARSE_SITE => 14,
-      PARSE_DOMAIN => 15,
-      PARSE_LOCATION => 16,
-      PARSE_SECURITY_DOMAIN => 17,
-      PARSE_ESCAPE => 18,
-      PARSE_UNESCAPE => 19
-   );
-   for tagPARSEACTION'Size use 32;
-   
-   type tagQUERYOPTION is (
-      QUERY_EXPIRATION_DATE,
-      QUERY_TIME_OF_LAST_CHANGE,
-      QUERY_CONTENT_ENCODING,
-      QUERY_CONTENT_TYPE,
-      QUERY_REFRESH,
-      QUERY_RECOMBINE,
-      QUERY_CAN_NAVIGATE,
-      QUERY_USES_NETWORK,
-      QUERY_IS_CACHED,
-      QUERY_IS_INSTALLEDENTRY,
-      QUERY_IS_CACHED_OR_MAPPED,
-      QUERY_USES_CACHE,
-      QUERY_IS_SECURE,
-      QUERY_IS_SAFE,
-      QUERY_USES_HISTORYFOLDER,
-      QUERY_IS_CACHED_AND_USABLE_OFFLINE
-   );
-   for tagQUERYOPTION use (
-      QUERY_EXPIRATION_DATE => 1,
-      QUERY_TIME_OF_LAST_CHANGE => 2,
-      QUERY_CONTENT_ENCODING => 3,
-      QUERY_CONTENT_TYPE => 4,
-      QUERY_REFRESH => 5,
-      QUERY_RECOMBINE => 6,
-      QUERY_CAN_NAVIGATE => 7,
-      QUERY_USES_NETWORK => 8,
-      QUERY_IS_CACHED => 9,
-      QUERY_IS_INSTALLEDENTRY => 10,
-      QUERY_IS_CACHED_OR_MAPPED => 11,
-      QUERY_USES_CACHE => 12,
-      QUERY_IS_SECURE => 13,
-      QUERY_IS_SAFE => 14,
-      QUERY_USES_HISTORYFOLDER => 15,
-      QUERY_IS_CACHED_AND_USABLE_OFFLINE => 16
-   );
-   for tagQUERYOPTION'Size use 32;
-   
-   type URLZONEREG is (
-      URLZONEREG_DEFAULT,
-      URLZONEREG_HKLM,
-      URLZONEREG_HKCU
-   );
-   for URLZONEREG use (
-      URLZONEREG_DEFAULT => 0,
-      URLZONEREG_HKLM => 1,
-      URLZONEREG_HKCU => 2
-   );
-   for URLZONEREG'Size use 32;
-   
-   type MIDL_IGetBindHandle_0001 is (
-      BINDHANDLETYPES_APPCACHE,
-      BINDHANDLETYPES_DEPENDENCY,
-      BINDHANDLETYPES_COUNT
-   );
-   for MIDL_IGetBindHandle_0001 use (
-      BINDHANDLETYPES_APPCACHE => 0,
-      BINDHANDLETYPES_DEPENDENCY => 1,
-      BINDHANDLETYPES_COUNT => 2
-   );
-   for MIDL_IGetBindHandle_0001'Size use 32;
-   
    type IEObjectType is (
       IE_EPM_OBJECT_EVENT,
       IE_EPM_OBJECT_MUTEX,
@@ -5980,6 +5902,22 @@ package Win32 is
       IE_EPM_OBJECT_REGISTRY => 7
    );
    for IEObjectType'Size use 32;
+   
+   type MIDL_IMonikerProp_0001 is (
+      MIMETYPEPROP,
+      USE_SRC_URL,
+      CLASSIDPROP,
+      TRUSTEDDOWNLOADPROP,
+      POPUPLEVELPROP
+   );
+   for MIDL_IMonikerProp_0001 use (
+      MIMETYPEPROP => 0,
+      USE_SRC_URL => 1,
+      CLASSIDPROP => 2,
+      TRUSTEDDOWNLOADPROP => 3,
+      POPUPLEVELPROP => 4
+   );
+   for MIDL_IMonikerProp_0001'Size use 32;
    
    type MIDL_IBindStatusCallback_0001 is (
       BINDVERB_GET,
@@ -6405,6 +6343,50 @@ package Win32 is
    );
    for MIDL_ICodeInstall_0001'Size use 32;
    
+   type MIDL_IUri_0001 is (
+      Uri_PROPERTY_ABSOLUTE_URI,
+      Uri_PROPERTY_AUTHORITY,
+      Uri_PROPERTY_DISPLAY_URI,
+      Uri_PROPERTY_DOMAIN,
+      Uri_PROPERTY_EXTENSION,
+      Uri_PROPERTY_FRAGMENT,
+      Uri_PROPERTY_HOST,
+      Uri_PROPERTY_PASSWORD,
+      Uri_PROPERTY_PATH,
+      Uri_PROPERTY_PATH_AND_QUERY,
+      Uri_PROPERTY_QUERY,
+      Uri_PROPERTY_RAW_URI,
+      Uri_PROPERTY_SCHEME_NAME,
+      Uri_PROPERTY_USER_INFO,
+      Uri_PROPERTY_USER_NAME,
+      Uri_PROPERTY_HOST_TYPE,
+      Uri_PROPERTY_PORT,
+      Uri_PROPERTY_SCHEME,
+      Uri_PROPERTY_ZONE
+   );
+   for MIDL_IUri_0001 use (
+      Uri_PROPERTY_ABSOLUTE_URI => 0,
+      Uri_PROPERTY_AUTHORITY => 1,
+      Uri_PROPERTY_DISPLAY_URI => 2,
+      Uri_PROPERTY_DOMAIN => 3,
+      Uri_PROPERTY_EXTENSION => 4,
+      Uri_PROPERTY_FRAGMENT => 5,
+      Uri_PROPERTY_HOST => 6,
+      Uri_PROPERTY_PASSWORD => 7,
+      Uri_PROPERTY_PATH => 8,
+      Uri_PROPERTY_PATH_AND_QUERY => 9,
+      Uri_PROPERTY_QUERY => 10,
+      Uri_PROPERTY_RAW_URI => 11,
+      Uri_PROPERTY_SCHEME_NAME => 12,
+      Uri_PROPERTY_USER_INFO => 13,
+      Uri_PROPERTY_USER_NAME => 14,
+      Uri_PROPERTY_HOST_TYPE => 15,
+      Uri_PROPERTY_PORT => 16,
+      Uri_PROPERTY_SCHEME => 17,
+      Uri_PROPERTY_ZONE => 18
+   );
+   for MIDL_IUri_0001'Size use 32;
+   
    type MIDL_IUri_0002 is (
       Uri_HOST_UNKNOWN,
       Uri_HOST_DNS,
@@ -6523,6 +6505,50 @@ package Win32 is
    );
    for tagOIBDG_FLAGS'Size use 32;
    
+   type tagPARSEACTION is (
+      PARSE_CANONICALIZE,
+      PARSE_FRIENDLY,
+      PARSE_SECURITY_URL,
+      PARSE_ROOTDOCUMENT,
+      PARSE_DOCUMENT,
+      PARSE_ANCHOR,
+      PARSE_ENCODE_IS_UNESCAPE,
+      PARSE_DECODE_IS_ESCAPE,
+      PARSE_PATH_FROM_URL,
+      PARSE_URL_FROM_PATH,
+      PARSE_MIME,
+      PARSE_SERVER,
+      PARSE_SCHEMA,
+      PARSE_SITE,
+      PARSE_DOMAIN,
+      PARSE_LOCATION,
+      PARSE_SECURITY_DOMAIN,
+      PARSE_ESCAPE,
+      PARSE_UNESCAPE
+   );
+   for tagPARSEACTION use (
+      PARSE_CANONICALIZE => 1,
+      PARSE_FRIENDLY => 2,
+      PARSE_SECURITY_URL => 3,
+      PARSE_ROOTDOCUMENT => 4,
+      PARSE_DOCUMENT => 5,
+      PARSE_ANCHOR => 6,
+      PARSE_ENCODE_IS_UNESCAPE => 7,
+      PARSE_DECODE_IS_ESCAPE => 8,
+      PARSE_PATH_FROM_URL => 9,
+      PARSE_URL_FROM_PATH => 10,
+      PARSE_MIME => 11,
+      PARSE_SERVER => 12,
+      PARSE_SCHEMA => 13,
+      PARSE_SITE => 14,
+      PARSE_DOMAIN => 15,
+      PARSE_LOCATION => 16,
+      PARSE_SECURITY_DOMAIN => 17,
+      PARSE_ESCAPE => 18,
+      PARSE_UNESCAPE => 19
+   );
+   for tagPARSEACTION'Size use 32;
+   
    type tagPSUACTION is (
       PSU_DEFAULT,
       PSU_SECURITY_URL_ONLY
@@ -6532,6 +6558,44 @@ package Win32 is
       PSU_SECURITY_URL_ONLY => 2
    );
    for tagPSUACTION'Size use 32;
+   
+   type tagQUERYOPTION is (
+      QUERY_EXPIRATION_DATE,
+      QUERY_TIME_OF_LAST_CHANGE,
+      QUERY_CONTENT_ENCODING,
+      QUERY_CONTENT_TYPE,
+      QUERY_REFRESH,
+      QUERY_RECOMBINE,
+      QUERY_CAN_NAVIGATE,
+      QUERY_USES_NETWORK,
+      QUERY_IS_CACHED,
+      QUERY_IS_INSTALLEDENTRY,
+      QUERY_IS_CACHED_OR_MAPPED,
+      QUERY_USES_CACHE,
+      QUERY_IS_SECURE,
+      QUERY_IS_SAFE,
+      QUERY_USES_HISTORYFOLDER,
+      QUERY_IS_CACHED_AND_USABLE_OFFLINE
+   );
+   for tagQUERYOPTION use (
+      QUERY_EXPIRATION_DATE => 1,
+      QUERY_TIME_OF_LAST_CHANGE => 2,
+      QUERY_CONTENT_ENCODING => 3,
+      QUERY_CONTENT_TYPE => 4,
+      QUERY_REFRESH => 5,
+      QUERY_RECOMBINE => 6,
+      QUERY_CAN_NAVIGATE => 7,
+      QUERY_USES_NETWORK => 8,
+      QUERY_IS_CACHED => 9,
+      QUERY_IS_INSTALLEDENTRY => 10,
+      QUERY_IS_CACHED_OR_MAPPED => 11,
+      QUERY_USES_CACHE => 12,
+      QUERY_IS_SECURE => 13,
+      QUERY_IS_SAFE => 14,
+      QUERY_USES_HISTORYFOLDER => 15,
+      QUERY_IS_CACHED_AND_USABLE_OFFLINE => 16
+   );
+   for tagQUERYOPTION'Size use 32;
    
    type tagINTERNETFEATURELIST is (
       FEATURE_OBJECT_CACHING,
@@ -6748,6 +6812,30 @@ package Win32 is
       ZAFLAGS_NO_CACHE => 262144
    );
    for MIDL_IInternetZoneManager_0002'Size use 32;
+   
+   type URLZONEREG is (
+      URLZONEREG_DEFAULT,
+      URLZONEREG_HKLM,
+      URLZONEREG_HKCU
+   );
+   for URLZONEREG use (
+      URLZONEREG_DEFAULT => 0,
+      URLZONEREG_HKLM => 1,
+      URLZONEREG_HKCU => 2
+   );
+   for URLZONEREG'Size use 32;
+   
+   type MIDL_IGetBindHandle_0001 is (
+      BINDHANDLETYPES_APPCACHE,
+      BINDHANDLETYPES_DEPENDENCY,
+      BINDHANDLETYPES_COUNT
+   );
+   for MIDL_IGetBindHandle_0001 use (
+      BINDHANDLETYPES_APPCACHE => 0,
+      BINDHANDLETYPES_DEPENDENCY => 1,
+      BINDHANDLETYPES_COUNT => 2
+   );
+   for MIDL_IGetBindHandle_0001'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\oleidl.h
    type tagDISCARDCACHE is (
