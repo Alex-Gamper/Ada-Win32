@@ -24,6 +24,7 @@ package Win32 is
    
    -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\vadefs.h
    subtype uintptr_t is UInt32;
+   type va_list is access all Character;
    -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\vcruntime.h
    subtype size_t is UInt32;
    subtype ptrdiff_t is Int32;
@@ -45,6 +46,7 @@ package Win32 is
    for EXCEPTION_DISPOSITION'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\windef.h
+   type HGDIOBJ is access all Void;
    type DPI_AWARENESS is (
       DPI_AWARENESS_INVALID,
       DPI_AWARENESS_UNAWARE,
@@ -63,23 +65,34 @@ package Win32 is
    subtype ULONG is UInt32;
    subtype USHORT is UInt16;
    subtype UCHAR is Uint8;
+   type PSZ is access all Character;
    subtype DWORD is UInt32;
    subtype BOOL is Int32;
    subtype BYTE is Uint8;
    subtype WORD is UInt16;
    subtype FLOAT is Standard.Float;
+   type PINT is access all Int32;
+   type LPINT is access all Int32;
+   type LPLONG is access all Int32;
+   type LPVOID is access all Void;
+   type LPCVOID is access all Void;
    subtype INT is Int32;
    subtype UINT is UInt32;
+   type PUINT is access all UInt32;
    subtype HFILE is Int32;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winnt.h
    subtype POINTER_64_INT is UInt32;
+   type PVOID is access all Void;
    subtype CHAR is Character;
    subtype SHORT is Int16;
    subtype LONG is Int32;
    subtype WCHAR is Wide_Character;
    subtype UCSCHAR is UInt32;
    subtype TCHAR is Character;
+   type PTCHAR is access all Character;
    subtype TBYTE is Uint8;
+   type PTBYTE is access all Uint8;
+   type HANDLE is access all Void;
    subtype HRESULT is Int32;
    subtype CCHAR is Character;
    type COMPARTMENT_ID is (
@@ -1852,20 +1865,40 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_wctype.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\ctype.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\basetsd.h
+   type PINT8 is access all Int8;
+   type PINT16 is access all Int16;
+   type PINT32 is access all Int32;
+   type PINT64 is access all Int64;
+   type PUINT8 is access all Uint8;
+   type PUINT16 is access all UInt16;
+   type PUINT32 is access all UInt32;
+   type PUINT64 is access all UInt64;
+   type PLONG32 is access all Int32;
    subtype LONG32 is Int32;
    subtype ULONG32 is UInt32;
+   type PULONG32 is access all UInt32;
    subtype DWORD32 is UInt32;
+   type PDWORD32 is access all UInt32;
    subtype INT_PTR is Int32;
+   type PINT_PTR is access all Int32;
    subtype UINT_PTR is UInt32;
+   type PUINT_PTR is access all UInt32;
    subtype LONG_PTR is Int32;
+   type PLONG_PTR is access all Int32;
    subtype ULONG_PTR is UInt32;
+   type PULONG_PTR is access all UInt32;
    subtype UHALF_PTR is UInt16;
+   type PUHALF_PTR is access all UInt16;
+   type PHALF_PTR is access all Int16;
    subtype HALF_PTR is Int16;
    subtype SHANDLE_PTR is Int32;
    subtype HANDLE_PTR is UInt32;
    subtype LONG64 is Int64;
+   type PLONG64 is access all Int64;
    subtype ULONG64 is UInt64;
+   type PULONG64 is access all UInt64;
    subtype DWORD64 is UInt64;
+   type PDWORD64 is access all UInt64;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\errno.h
    -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\vcruntime_string.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_memcpy_s.h
@@ -1874,6 +1907,8 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\string.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\ktmtypes.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winbase.h
+   type PUMS_CONTEXT is access all Void;
+   type PUMS_COMPLETION_LIST is access all Void;
    type DEP_SYSTEM_POLICY_TYPE is (
       DEPPolicyAlwaysOff,
       DEPPolicyAlwaysOn,
@@ -2262,8 +2297,10 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\realtimeapiset.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\timezoneapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wingdi.h
+   type LPFXPT16DOT16 is access all Int32;
    subtype FXPT16DOT16 is Int32;
    subtype FXPT2DOT30 is Int32;
+   type LPFXPT2DOT30 is access all Int32;
    type DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY is (
       DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INTERNAL,
       DISPLAYCONFIG_OUTPUT_TECHNOLOGY_OTHER,
@@ -2761,6 +2798,7 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmsyscom.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mciapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmiscapi.h
+   type HPSTR is access all Character;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmiscapi2.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\playsoundapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmeapi.h
@@ -2768,8 +2806,16 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\joystickapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\nb30.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpc.h
+   type RPC_NS_HANDLE is access all Void;
+   type I_RPC_HANDLE is access all Void;
    subtype RPC_STATUS is Int32;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcdce.h
+   type RPC_CSTR is access all Uint8;
+   type RPC_WSTR is access all UInt16;
+   type RPC_CWSTR is access all UInt16;
+   type RPC_IF_HANDLE is access all Void;
+   type RPC_AUTH_IDENTITY_HANDLE is access all Void;
+   type RPC_AUTHZ_HANDLE is access all Void;
    type RPC_HTTP_REDIRECTOR_STAGE is (
       RPCHTTP_RS_REDIRECT,
       RPCHTTP_RS_ACCESS_1,
@@ -2786,6 +2832,7 @@ package Win32 is
    );
    for RPC_HTTP_REDIRECTOR_STAGE'Size use 32;
    
+   type RPC_INTERFACE_GROUP is access all Void;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcdcep.h
    type RPC_ADDRESS_CHANGE_TYPE is (
       PROTOCOL_NOT_LOADED,
@@ -2799,6 +2846,7 @@ package Win32 is
    );
    for RPC_ADDRESS_CHANGE_TYPE'Size use 32;
    
+   type I_RPC_MUTEX is access all Void;
    type LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION is (
       MarshalDirectionMarshal,
       MarshalDirectionUnmarshal
@@ -3200,6 +3248,10 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\inaddr.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wincrypt.h
    subtype ALG_ID is UInt32;
+   type HCRYPTOIDFUNCSET is access all Void;
+   type HCRYPTOIDFUNCADDR is access all Void;
+   type HCRYPTMSG is access all Void;
+   type HCERTSTORE is access all Void;
    type CertKeyType is (
       KeyTypeOther,
       KeyTypeVirtualSmartCard,
@@ -3224,6 +3276,9 @@ package Win32 is
    );
    for CertKeyType'Size use 32;
    
+   type HCERTSTOREPROV is access all Void;
+   type HCRYPTDEFAULTCONTEXT is access all Void;
+   type HCERT_SERVER_OCSP_RESPONSE is access all Void;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\bcrypt.h
    type ECC_CURVE_TYPE_ENUM is (
       BCRYPT_ECC_PRIME_SHORT_WEIERSTRASS_CURVE,
@@ -3356,6 +3411,8 @@ package Win32 is
    );
    for tagSTATFLAG'Size use 32;
    
+   type HCONTEXT is access all Void;
+   type HMETAFILEPICT is access all Void;
    subtype DATE is Long_Float;
    subtype VARIANT_BOOL is Int16;
    subtype VARTYPE is UInt16;
@@ -3487,8 +3544,11 @@ package Win32 is
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcndr.h
    subtype boolean is Uint8;
+   type NDR_CCONTEXT is access all Void;
    subtype error_status_t is UInt32;
+   type RPC_BUFPTR is access all Uint8;
    subtype RPC_LENGTH is UInt32;
+   type PFORMAT_STRING is access all Uint8;
    type USER_MARSHAL_CB_TYPE is (
       USER_MARSHAL_CB_BUFFER_SIZE,
       USER_MARSHAL_CB_MARSHALL,
@@ -3515,6 +3575,9 @@ package Win32 is
    );
    for IDL_CS_CONVERT'Size use 32;
    
+   type PMIDL_XMIT_TYPE is access all Void;
+   type PPARAM_OFFSETTABLE is access all UInt16;
+   type PARAM_OFFSETTABLE is access all UInt16;
    type XLAT_SIDE is (
       XLAT_SERVER,
       XLAT_CLIENT
@@ -3589,6 +3652,7 @@ package Win32 is
    );
    for PROXY_PHASE'Size use 32;
    
+   type RPC_SS_THREAD_HANDLE is access all Void;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\rpcnsip.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\wtypesbase.h
    subtype DOUBLE is Long_Float;
@@ -7162,4 +7226,5 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mcx.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\imm.h
    -- <invalid>
+   type builtin_va_list is access all Character;
 end;
