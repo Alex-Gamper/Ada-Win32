@@ -1,4 +1,7 @@
 package Win32 is
+   -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\vadefs.h
+   -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\vcruntime.h
+   -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\excpt.h
    type EXCEPTION_DISPOSITION is (
       ExceptionContinueExecution,
       ExceptionContinueSearch,
@@ -13,6 +16,7 @@ package Win32 is
    );
    for EXCEPTION_DISPOSITION'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\windef.h
    type DPI_AWARENESS is (
       DPI_AWARENESS_INVALID,
       DPI_AWARENESS_UNAWARE,
@@ -27,6 +31,8 @@ package Win32 is
    );
    for DPI_AWARENESS'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\minwindef.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winnt.h
    type COMPARTMENT_ID is (
       UNSPECIFIED_COMPARTMENT_ID,
       DEFAULT_COMPARTMENT_ID
@@ -1785,6 +1791,18 @@ package Win32 is
    );
    for TP_CALLBACK_PRIORITY'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_wctype.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\ctype.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\basetsd.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\errno.h
+   -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\vcruntime_string.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_memcpy_s.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_memory.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_wstring.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\string.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\ktmtypes.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winbase.h
    type DEP_SYSTEM_POLICY_TYPE is (
       DEPPolicyAlwaysOff,
       DEPPolicyAlwaysOn,
@@ -1925,6 +1943,7 @@ package Win32 is
    );
    for FILE_ID_TYPE'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\minwinbase.h
    type FINDEX_INFO_LEVELS is (
       FindExInfoStandard,
       FindExInfoBasic,
@@ -2025,6 +2044,8 @@ package Win32 is
    );
    for FILE_INFO_BY_HANDLE_CLASS'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\processenv.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\fileapi.h
    type STREAM_INFO_LEVELS is (
       FindStreamInfoStandard,
       FindStreamInfoMaxInfoLevel
@@ -2035,6 +2056,18 @@ package Win32 is
    );
    for STREAM_INFO_LEVELS'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\debugapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\utilapiset.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\handleapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\errhandlingapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\fibersapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\namedpipeapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\profileapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\heapapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\ioapiset.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\synchapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\interlockedapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\processthreadsapi.h
    type THREAD_INFORMATION_CLASS is (
       ThreadMemoryPriority,
       ThreadAbsoluteCpuPriority,
@@ -2085,6 +2118,7 @@ package Win32 is
    );
    for PROCESS_MEMORY_EXHAUSTION_TYPE'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\sysinfoapi.h
    type COMPUTER_NAME_FORMAT is (
       ComputerNameNetBIOS,
       ComputerNameDnsHostname,
@@ -2109,6 +2143,7 @@ package Win32 is
    );
    for COMPUTER_NAME_FORMAT'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\memoryapi.h
    type MEMORY_RESOURCE_NOTIFICATION_TYPE is (
       LowMemoryResourceNotification,
       HighMemoryResourceNotification
@@ -2141,6 +2176,21 @@ package Win32 is
    );
    for WIN32_MEMORY_INFORMATION_CLASS'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\enclaveapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\threadpoollegacyapiset.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\threadpoolapiset.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\jobapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\jobapi2.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wow64apiset.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\libloaderapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\securitybaseapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\namespaceapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\systemtopologyapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\processtopologyapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\securityappcontainer.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\realtimeapiset.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\timezoneapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wingdi.h
    type DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY is (
       DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INTERNAL,
       DISPLAYCONFIG_OUTPUT_TECHNOLOGY_OTHER,
@@ -2329,6 +2379,7 @@ package Win32 is
    );
    for DISPLAYCONFIG_COLOR_ENCODING'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winuser.h
    type DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS is (
       DCDC_DEFAULT,
       DCDC_DISABLE_FONT_UPDATE,
@@ -2541,6 +2592,7 @@ package Win32 is
    );
    for ORIENTATION_PREFERENCE'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winnls.h
    type SYSNLS_FUNCTION is (
       COMPARE_STRING
    );
@@ -2619,6 +2671,29 @@ package Win32 is
    );
    for NORM_FORM'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\datetimeapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\stringapiset.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wincon.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\consoleapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\verrsrc.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winver.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winreg.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winnetwk.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\dde.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\ddeml.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\dlgs.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\lzexpand.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmsyscom.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mciapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmiscapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmiscapi2.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\playsoundapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmeapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\timeapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\joystickapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\nb30.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpc.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcdce.h
    type RPC_HTTP_REDIRECTOR_STAGE is (
       RPCHTTP_RS_REDIRECT,
       RPCHTTP_RS_ACCESS_1,
@@ -2635,6 +2710,7 @@ package Win32 is
    );
    for RPC_HTTP_REDIRECTOR_STAGE'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcdcep.h
    type RPC_ADDRESS_CHANGE_TYPE is (
       PROTOCOL_NOT_LOADED,
       PROTOCOL_LOADED,
@@ -2687,6 +2763,7 @@ package Win32 is
    );
    for RpcProxyPerfCounters'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcasync.h
    type RPC_NOTIFICATION_TYPES is (
       RpcNotificationTypeNone,
       RpcNotificationTypeEvent,
@@ -2793,6 +2870,7 @@ package Win32 is
    );
    for RPC_NOTIFICATIONS'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\shellapi.h
    type ASSOCCLASS is (
       ASSOCCLASS_SHELL_KEY,
       ASSOCCLASS_PROGID_KEY,
@@ -3037,6 +3115,10 @@ package Win32 is
    );
    for SHSTOCKICONID'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winperf.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winsock.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\inaddr.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wincrypt.h
    type CertKeyType is (
       KeyTypeOther,
       KeyTypeVirtualSmartCard,
@@ -3061,6 +3143,7 @@ package Win32 is
    );
    for CertKeyType'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\bcrypt.h
    type ECC_CURVE_TYPE_ENUM is (
       BCRYPT_ECC_PRIME_SHORT_WEIERSTRASS_CURVE,
       BCRYPT_ECC_PRIME_TWISTED_EDWARDS_CURVE,
@@ -3121,6 +3204,10 @@ package Win32 is
    );
    for BCRYPT_MULTI_OPERATION_TYPE'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\ncrypt.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\dpapi.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winefs.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winscard.h
    type READER_SEL_REQUEST_MATCH_TYPE is (
       RSR_MATCH_TYPE_READER_AND_CONTAINER,
       RSR_MATCH_TYPE_SERIAL_NUMBER,
@@ -3133,6 +3220,7 @@ package Win32 is
    );
    for READER_SEL_REQUEST_MATCH_TYPE'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\wtypes.h
    type tagDVASPECT is (
       DVASPECT_CONTENT,
       DVASPECT_THUMBNAIL,
@@ -3313,6 +3401,7 @@ package Win32 is
    );
    for tagTYSPEC'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcndr.h
    type IDL_CS_CONVERT is (
       IDL_CS_NO_CONVERT,
       IDL_CS_IN_PLACE_CONVERT,
@@ -3413,6 +3502,8 @@ package Win32 is
    );
    for PROXY_PHASE'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\rpcnsip.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\wtypesbase.h
    type tagMEMCTX is (
       MEMCTX_SAME,
       MEMCTX_UNKNOWN,
@@ -3525,6 +3616,7 @@ package Win32 is
    );
    for tagMSHCTX'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winioctl.h
    type STORAGE_MEDIA_TYPE is (
       DDS_4mm,
       MiniQic,
@@ -4701,6 +4793,8 @@ package Win32 is
    );
    for REFS_SMR_VOLUME_GC_METHOD'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\winsmcrd.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winspool.h
    type BIDI_TYPE is (
       BIDI_NULL,
       BIDI_INT,
@@ -4815,6 +4909,9 @@ package Win32 is
    );
    for PRINT_EXECUTION_CONTEXT'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\prsht.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\ole2.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\objbase.h
    type tagCOINIT is (
       COINIT_MULTITHREADED,
       COINIT_APARTMENTTHREADED,
@@ -4843,6 +4940,7 @@ package Win32 is
    );
    for tagCOMSD'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\combaseapi.h
    type tagREGCLS is (
       REGCLS_SINGLEUSE,
       REGCLS_MULTIPLEUSE,
@@ -4919,6 +5017,13 @@ package Win32 is
    );
    for AgileReferenceOptions'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_malloc.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\stddef.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_search.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_wstdlib.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\stdlib.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\unknwnbase.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\objidlbase.h
    type tagRPCOPT_PROPERTIES is (
       COMBND_RPCTIMEOUT,
       COMBND_SERVER_LOCALITY,
@@ -5219,6 +5324,9 @@ package Win32 is
    );
    for APTTYPEQUALIFIER'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\cguid.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\coml2api.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\objidl.h
    type tagApplicationType is (
       ServerApplication,
       LibraryApplication
@@ -5391,6 +5499,9 @@ package Win32 is
    );
    for tagPENDINGMSG'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\unknwn.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\propidlbase.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\oaidl.h
    type tagTYPEKIND is (
       TKIND_ENUM,
       TKIND_RECORD,
@@ -5681,6 +5792,7 @@ package Win32 is
    );
    for tagLIBFLAGS'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\urlmon.h
    type MIDL_IMonikerProp_0001 is (
       MIMETYPEPROP,
       USE_SRC_URL,
@@ -6637,6 +6749,7 @@ package Win32 is
    );
    for MIDL_IInternetZoneManager_0002'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\oleidl.h
    type tagDISCARDCACHE is (
       DISCARDCACHE_SAVEIFDIRTY,
       DISCARDCACHE_NOSAVE
@@ -6817,6 +6930,8 @@ package Win32 is
    );
    for tagOLEVERBATTRIB'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\servprov.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\msxml.h
    type tagDOMNodeType is (
       NODE_INVALID,
       NODE_ELEMENT,
@@ -6869,6 +6984,7 @@ package Win32 is
    );
    for tagXMLEMEM_TYPE'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\propidl.h
    type PIDMSI_STATUS_VALUE is (
       PIDMSI_STATUS_NORMAL,
       PIDMSI_STATUS_NEW,
@@ -6895,6 +7011,7 @@ package Win32 is
    );
    for PIDMSI_STATUS_VALUE'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\oleauto.h
    type tagREGKIND is (
       REGKIND_DEFAULT,
       REGKIND_REGISTER,
@@ -6907,6 +7024,9 @@ package Win32 is
    );
    for tagREGKIND'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\commdlg.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\stralign.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winsvc.h
    type SC_ACTION_TYPE is (
       SC_ACTION_NONE,
       SC_ACTION_RESTART,
@@ -6951,4 +7071,7 @@ package Win32 is
    );
    for SC_EVENT_TYPE'Size use 32;
    
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mcx.h
+   -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\imm.h
+   -- <invalid>
 end;
