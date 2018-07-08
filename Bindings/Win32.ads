@@ -46,7 +46,44 @@ package Win32 is
    for EXCEPTION_DISPOSITION'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\windef.h
+   -- type HWND is access all HWND_x;
+   -- type HHOOK is access all HHOOK_x;
    type HGDIOBJ is access all Void;
+   -- type HACCEL is access all HACCEL_x;
+   -- type HBITMAP is access all HBITMAP_x;
+   -- type HBRUSH is access all HBRUSH_x;
+   -- type HCOLORSPACE is access all HCOLORSPACE_x;
+   -- type HDC is access all HDC_x;
+   -- type HGLRC is access all HGLRC_x;
+   -- type HDESK is access all HDESK_x;
+   -- type HENHMETAFILE is access all HENHMETAFILE_x;
+   -- type HFONT is access all HFONT_x;
+   -- type HICON is access all HICON_x;
+   -- type HMENU is access all HMENU_x;
+   -- type HPALETTE is access all HPALETTE_x;
+   -- type HPEN is access all HPEN_x;
+   -- type HWINEVENTHOOK is access all HWINEVENTHOOK_x;
+   -- type HMONITOR is access all HMONITOR_x;
+   -- type HUMPD is access all HUMPD_x;
+   -- type LPCOLORREF is access all DWORD;
+   -- type PRECT is access all tagRECT;
+   -- type NPRECT is access all tagRECT;
+   -- type LPRECT is access all tagRECT;
+   -- type LPCRECT is access all RECT;
+   -- type LPRECTL is access all RECTL;
+   -- type PRECTL is access all RECTL;
+   -- type LPCRECTL is access all RECTL;
+   -- type PPOINT is access all tagPOINT;
+   -- type NPPOINT is access all tagPOINT;
+   -- type LPPOINT is access all tagPOINT;
+   -- type PPOINTL is access all POINTL;
+   -- type PSIZE is access all tagSIZE;
+   -- type LPSIZE is access all tagSIZE;
+   -- type PSIZEL is access all SIZE;
+   -- type LPSIZEL is access all SIZE;
+   -- type PPOINTS is access all tagPOINTS;
+   -- type LPPOINTS is access all tagPOINTS;
+   -- type DPI_AWARENESS_CONTEXT is access all DPI_AWARENESS_CONTEXT_x;
    type DPI_AWARENESS is (
       DPI_AWARENESS_INVALID,
       DPI_AWARENESS_UNAWARE,
@@ -63,36 +100,130 @@ package Win32 is
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\minwindef.h
    subtype ULONG is UInt32;
+   -- type PULONG is access all ULONG;
    subtype USHORT is UInt16;
+   -- type PUSHORT is access all USHORT;
    subtype UCHAR is Uint8;
+   -- type PUCHAR is access all UCHAR;
    type PSZ is access all Character;
    subtype DWORD is UInt32;
    subtype BOOL is Int32;
    subtype BYTE is Uint8;
    subtype WORD is UInt16;
    subtype FLOAT is Standard.Float;
+   -- type PFLOAT is access all FLOAT;
+   -- type PBOOL is access all BOOL;
+   -- type LPBOOL is access all BOOL;
+   -- type PBYTE is access all BYTE;
+   -- type LPBYTE is access all BYTE;
    type PINT is access all Int32;
    type LPINT is access all Int32;
+   -- type PWORD is access all WORD;
+   -- type LPWORD is access all WORD;
    type LPLONG is access all Int32;
+   -- type PDWORD is access all DWORD;
+   -- type LPDWORD is access all DWORD;
    type LPVOID is access all Void;
    type LPCVOID is access all Void;
    subtype INT is Int32;
    subtype UINT is UInt32;
    type PUINT is access all UInt32;
+   -- type SPHANDLE is access all HANDLE;
+   -- type LPHANDLE is access all HANDLE;
+   -- type HKEY is access all HKEY_x;
+   -- type PHKEY is access all HKEY;
+   -- type HMETAFILE is access all HMETAFILE_x;
+   -- type HINSTANCE is access all HINSTANCE_x;
+   -- type HRGN is access all HRGN_x;
+   -- type HRSRC is access all HRSRC_x;
+   -- type HSPRITE is access all HSPRITE_x;
+   -- type HLSURF is access all HLSURF_x;
+   -- type HSTR is access all HSTR_x;
+   -- type HTASK is access all HTASK_x;
+   -- type HWINSTA is access all HWINSTA_x;
+   -- type HKL is access all HKL_x;
    subtype HFILE is Int32;
+   -- type PFILETIME is access all FILETIME;
+   -- type LPFILETIME is access all FILETIME;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winnt.h
    subtype POINTER_64_INT is UInt32;
+   -- type LPGUID is access all GUID;
+   -- type LPCGUID is access all GUID;
+   -- type LPIID is access all IID;
+   -- type LPCLSID is access all CLSID;
+   -- type LPFMTID is access all FMTID;
    type PVOID is access all Void;
    subtype CHAR is Character;
    subtype SHORT is Int16;
    subtype LONG is Int32;
    subtype WCHAR is Wide_Character;
+   -- type PWCH is access all WCHAR;
+   -- type PWCHAR is access all WCHAR;
+   -- type LPWCH is access all WCHAR;
+   -- type PCWCH is access all WCHAR;
+   -- type LPCWCH is access all WCHAR;
+   -- type PWSTR is access all WCHAR;
+   -- type LPWSTR is access all WCHAR;
+   -- type NWPSTR is access all WCHAR;
+   -- type PZPWSTR is access all PWSTR;
+   -- type PCZPWSTR is access all PWSTR;
+   -- type PUWSTR is access all WCHAR;
+   -- type LPUWSTR is access all WCHAR;
+   -- type LPCWSTR is access all WCHAR;
+   -- type PCWSTR is access all WCHAR;
+   -- type PZPCWSTR is access all PCWSTR;
+   -- type PCZPCWSTR is access all PCWSTR;
+   -- type LPCUWSTR is access all WCHAR;
+   -- type PCUWSTR is access all WCHAR;
+   -- type PZZWSTR is access all WCHAR;
+   -- type PCZZWSTR is access all WCHAR;
+   -- type PUZZWSTR is access all WCHAR;
+   -- type PCUZZWSTR is access all WCHAR;
+   -- type PNZWCH is access all WCHAR;
+   -- type PCNZWCH is access all WCHAR;
+   -- type PUNZWCH is access all WCHAR;
+   -- type PCUNZWCH is access all WCHAR;
+   -- type PCWCHAR is access all WCHAR;
+   -- type LPCWCHAR is access all WCHAR;
+   -- type LPCUWCHAR is access all WCHAR;
+   -- type PCUWCHAR is access all WCHAR;
    subtype UCSCHAR is UInt32;
+   -- type PUCSCHAR is access all UCSCHAR;
+   -- type PCUCSCHAR is access all UCSCHAR;
+   -- type PUCSSTR is access all UCSCHAR;
+   -- type PUUCSSTR is access all UCSCHAR;
+   -- type PCUCSSTR is access all UCSCHAR;
+   -- type PCUUCSSTR is access all UCSCHAR;
+   -- type PUUCSCHAR is access all UCSCHAR;
+   -- type PCUUCSCHAR is access all UCSCHAR;
+   -- type PCH is access all CHAR;
+   -- type LPCH is access all CHAR;
+   -- type PCHAR is access all CHAR;
+   -- type PCCH is access all CHAR;
+   -- type LPCCH is access all CHAR;
+   -- type PSTR is access all CHAR;
+   -- type LPSTR is access all CHAR;
+   -- type NPSTR is access all CHAR;
+   -- type PZPSTR is access all PSTR;
+   -- type PCZPSTR is access all PSTR;
+   -- type PCSTR is access all CHAR;
+   -- type LPCSTR is access all CHAR;
+   -- type PZPCSTR is access all PCSTR;
+   -- type PCZPCSTR is access all PCSTR;
+   -- type PZZSTR is access all CHAR;
+   -- type PCZZSTR is access all CHAR;
+   -- type PNZCH is access all CHAR;
+   -- type PCNZCH is access all CHAR;
    subtype TCHAR is Character;
    type PTCHAR is access all Character;
    subtype TBYTE is Uint8;
    type PTBYTE is access all Uint8;
+   -- type PSHORT is access all SHORT;
+   -- type PLONG is access all LONG;
+   -- type PPROCESSOR_NUMBER is access all PROCESSOR_NUMBER;
+   -- type PGROUP_AFFINITY is access all GROUP_AFFINITY;
    type HANDLE is access all Void;
+   -- type PHANDLE is access all HANDLE;
    subtype HRESULT is Int32;
    subtype CCHAR is Character;
    type COMPARTMENT_ID is (
@@ -105,8 +236,54 @@ package Win32 is
    );
    for COMPARTMENT_ID'Size use 32;
    
+   -- type PCOMPARTMENT_ID is access all COMPARTMENT_ID;
+   -- type PFLOAT128 is access all FLOAT128;
    subtype LONGLONG is Int64;
    subtype ULONGLONG is UInt64;
+   -- type PLONGLONG is access all LONGLONG;
+   -- type PULONGLONG is access all ULONGLONG;
+   -- type PLARGE_INTEGER is access all LARGE_INTEGER;
+   -- type PULARGE_INTEGER is access all ULARGE_INTEGER;
+   -- type PRTL_REFERENCE_COUNT is access all LONG_PTR;
+   -- type PRTL_REFERENCE_COUNT32 is access all LONG;
+   -- type PLUID is access all LUID;
+   -- type PDWORDLONG is access all DWORDLONG;
+   -- type PBOOLEAN is access all BOOLEAN;
+   -- type PRLIST_ENTRY is access all LIST_ENTRY;
+   -- type PLIST_ENTRY is access all LIST_ENTRY;
+   -- type PSINGLE_LIST_ENTRY is access all SINGLE_LIST_ENTRY;
+   -- type PLIST_ENTRY32 is access all LIST_ENTRY32;
+   -- type PLIST_ENTRY64 is access all LIST_ENTRY64;
+   -- type PEXCEPTION_ROUTINE is access all EXCEPTION_ROUTINE;
+   -- type PKSPIN_LOCK is access all KSPIN_LOCK;
+   -- type PM128A is access all M128A;
+   -- type PXSAVE_FORMAT is access all XSAVE_FORMAT;
+   -- type PXSAVE_AREA_HEADER is access all XSAVE_AREA_HEADER;
+   -- type PXSAVE_AREA is access all XSAVE_AREA;
+   -- type PXSTATE_CONTEXT is access all XSTATE_CONTEXT;
+   -- type PSCOPE_TABLE_AMD64 is access all SCOPE_TABLE_AMD64;
+   -- type PSCOPE_TABLE_ARM is access all SCOPE_TABLE_ARM;
+   -- type PSCOPE_TABLE_ARM64 is access all SCOPE_TABLE_ARM64;
+   -- type PKNONVOLATILE_CONTEXT_POINTERS_ARM64 is access all KNONVOLATILE_CONTEXT_POINTERS_ARM64;
+   -- type PFLOATING_SAVE_AREA is access all FLOATING_SAVE_AREA;
+   -- type PCONTEXT is access all CONTEXT;
+   -- type PLDT_ENTRY is access all LDT_ENTRY;
+   -- type PWOW64_FLOATING_SAVE_AREA is access all WOW64_FLOATING_SAVE_AREA;
+   -- type PWOW64_CONTEXT is access all WOW64_CONTEXT;
+   -- type PWOW64_LDT_ENTRY is access all WOW64_LDT_ENTRY;
+   -- type PWOW64_DESCRIPTOR_TABLE_ENTRY is access all WOW64_DESCRIPTOR_TABLE_ENTRY;
+   -- type PEXCEPTION_RECORD is access all EXCEPTION_RECORD;
+   -- type PEXCEPTION_RECORD32 is access all EXCEPTION_RECORD32;
+   -- type PEXCEPTION_RECORD64 is access all EXCEPTION_RECORD64;
+   -- type PEXCEPTION_POINTERS is access all EXCEPTION_POINTERS;
+   -- type PACCESS_MASK is access all ACCESS_MASK;
+   -- type PGENERIC_MAPPING is access all GENERIC_MAPPING;
+   -- type PLUID_AND_ATTRIBUTES is access all LUID_AND_ATTRIBUTES;
+   -- type PLUID_AND_ATTRIBUTES_ARRAY is access all LUID_AND_ATTRIBUTES_ARRAY;
+   -- type PSID_IDENTIFIER_AUTHORITY is access all SID_IDENTIFIER_AUTHORITY;
+   -- type PISID is access all SID;
+   -- type PSE_SID is access all SE_SID;
+   -- type PSID_NAME_USE is access all SID_NAME_USE;
    type SID_NAME_USE is (
       SidTypeUser,
       SidTypeGroup,
@@ -135,6 +312,10 @@ package Win32 is
    );
    for SID_NAME_USE'Size use 32;
    
+   -- type PSID_AND_ATTRIBUTES is access all SID_AND_ATTRIBUTES;
+   -- type PSID_AND_ATTRIBUTES_ARRAY is access all SID_AND_ATTRIBUTES_ARRAY;
+   -- type PSID_HASH_ENTRY is access all ULONG_PTR;
+   -- type PSID_AND_ATTRIBUTES_HASH is access all SID_AND_ATTRIBUTES_HASH;
    type WELL_KNOWN_SID_TYPE is (
       WinNullSid,
       WinWorldSid,
@@ -379,6 +560,29 @@ package Win32 is
    );
    for WELL_KNOWN_SID_TYPE'Size use 32;
    
+   -- type PACL is access all ACL;
+   -- type PACE_HEADER is access all ACE_HEADER;
+   -- type PACCESS_ALLOWED_ACE is access all ACCESS_ALLOWED_ACE;
+   -- type PACCESS_DENIED_ACE is access all ACCESS_DENIED_ACE;
+   -- type PSYSTEM_AUDIT_ACE is access all SYSTEM_AUDIT_ACE;
+   -- type PSYSTEM_ALARM_ACE is access all SYSTEM_ALARM_ACE;
+   -- type PSYSTEM_RESOURCE_ATTRIBUTE_ACE is access all SYSTEM_RESOURCE_ATTRIBUTE_ACE;
+   -- type PSYSTEM_SCOPED_POLICY_ID_ACE is access all SYSTEM_SCOPED_POLICY_ID_ACE;
+   -- type PSYSTEM_MANDATORY_LABEL_ACE is access all SYSTEM_MANDATORY_LABEL_ACE;
+   -- type PSYSTEM_PROCESS_TRUST_LABEL_ACE is access all SYSTEM_PROCESS_TRUST_LABEL_ACE;
+   -- type PSYSTEM_ACCESS_FILTER_ACE is access all SYSTEM_ACCESS_FILTER_ACE;
+   -- type PACCESS_ALLOWED_OBJECT_ACE is access all ACCESS_ALLOWED_OBJECT_ACE;
+   -- type PACCESS_DENIED_OBJECT_ACE is access all ACCESS_DENIED_OBJECT_ACE;
+   -- type PSYSTEM_AUDIT_OBJECT_ACE is access all SYSTEM_AUDIT_OBJECT_ACE;
+   -- type PSYSTEM_ALARM_OBJECT_ACE is access all SYSTEM_ALARM_OBJECT_ACE;
+   -- type PACCESS_ALLOWED_CALLBACK_ACE is access all ACCESS_ALLOWED_CALLBACK_ACE;
+   -- type PACCESS_DENIED_CALLBACK_ACE is access all ACCESS_DENIED_CALLBACK_ACE;
+   -- type PSYSTEM_AUDIT_CALLBACK_ACE is access all SYSTEM_AUDIT_CALLBACK_ACE;
+   -- type PSYSTEM_ALARM_CALLBACK_ACE is access all SYSTEM_ALARM_CALLBACK_ACE;
+   -- type PACCESS_ALLOWED_CALLBACK_OBJECT_ACE is access all ACCESS_ALLOWED_CALLBACK_OBJECT_ACE;
+   -- type PACCESS_DENIED_CALLBACK_OBJECT_ACE is access all ACCESS_DENIED_CALLBACK_OBJECT_ACE;
+   -- type PSYSTEM_AUDIT_CALLBACK_OBJECT_ACE is access all SYSTEM_AUDIT_CALLBACK_OBJECT_ACE;
+   -- type PSYSTEM_ALARM_CALLBACK_OBJECT_ACE is access all SYSTEM_ALARM_CALLBACK_OBJECT_ACE;
    type ACL_INFORMATION_CLASS is (
       AclRevisionInformation,
       AclSizeInformation
@@ -389,6 +593,14 @@ package Win32 is
    );
    for ACL_INFORMATION_CLASS'Size use 32;
    
+   -- type PACL_REVISION_INFORMATION is access all ACL_REVISION_INFORMATION;
+   -- type PACL_SIZE_INFORMATION is access all ACL_SIZE_INFORMATION;
+   -- type PSECURITY_DESCRIPTOR_CONTROL is access all WORD;
+   -- type PISECURITY_DESCRIPTOR_RELATIVE is access all SECURITY_DESCRIPTOR_RELATIVE;
+   -- type PISECURITY_DESCRIPTOR is access all SECURITY_DESCRIPTOR;
+   -- type PSECURITY_OBJECT_AI_PARAMS is access all SECURITY_OBJECT_AI_PARAMS;
+   -- type POBJECT_TYPE_LIST is access all OBJECT_TYPE_LIST;
+   -- type PAUDIT_EVENT_TYPE is access all AUDIT_EVENT_TYPE;
    type AUDIT_EVENT_TYPE is (
       AuditEventObjectAccess,
       AuditEventDirectoryServiceAccess
@@ -399,6 +611,7 @@ package Win32 is
    );
    for AUDIT_EVENT_TYPE'Size use 32;
    
+   -- type PPRIVILEGE_SET is access all PRIVILEGE_SET;
    type ACCESS_REASON_TYPE is (
       AccessReasonNone,
       AccessReasonAllowedAce,
@@ -441,6 +654,10 @@ package Win32 is
    );
    for ACCESS_REASON_TYPE'Size use 32;
    
+   -- type PACCESS_REASONS is access all ACCESS_REASONS;
+   -- type PSE_SECURITY_DESCRIPTOR is access all SE_SECURITY_DESCRIPTOR;
+   -- type PSE_ACCESS_REQUEST is access all SE_ACCESS_REQUEST;
+   -- type PSE_ACCESS_REPLY is access all SE_ACCESS_REPLY;
    type SECURITY_IMPERSONATION_LEVEL is (
       SecurityAnonymous,
       SecurityIdentification,
@@ -455,6 +672,7 @@ package Win32 is
    );
    for SECURITY_IMPERSONATION_LEVEL'Size use 32;
    
+   -- type PSECURITY_IMPERSONATION_LEVEL is access all SECURITY_IMPERSONATION_LEVEL;
    type TOKEN_TYPE is (
       TokenPrimary,
       TokenImpersonation
@@ -465,6 +683,8 @@ package Win32 is
    );
    for TOKEN_TYPE'Size use 32;
    
+   -- type PTOKEN_TYPE is access all TOKEN_TYPE;
+   -- type PTOKEN_ELEVATION_TYPE is access all TOKEN_ELEVATION_TYPE;
    type TOKEN_ELEVATION_TYPE is (
       TokenElevationTypeDefault,
       TokenElevationTypeFull,
@@ -477,6 +697,7 @@ package Win32 is
    );
    for TOKEN_ELEVATION_TYPE'Size use 32;
    
+   -- type PTOKEN_INFORMATION_CLASS is access all TOKEN_INFORMATION_CLASS;
    type TOKEN_INFORMATION_CLASS is (
       TokenUser,
       TokenGroups,
@@ -575,6 +796,26 @@ package Win32 is
    );
    for TOKEN_INFORMATION_CLASS'Size use 32;
    
+   -- type PTOKEN_USER is access all TOKEN_USER;
+   -- type PTOKEN_GROUPS is access all TOKEN_GROUPS;
+   -- type PTOKEN_PRIVILEGES is access all TOKEN_PRIVILEGES;
+   -- type PTOKEN_OWNER is access all TOKEN_OWNER;
+   -- type PTOKEN_PRIMARY_GROUP is access all TOKEN_PRIMARY_GROUP;
+   -- type PTOKEN_DEFAULT_DACL is access all TOKEN_DEFAULT_DACL;
+   -- type PTOKEN_USER_CLAIMS is access all TOKEN_USER_CLAIMS;
+   -- type PTOKEN_DEVICE_CLAIMS is access all TOKEN_DEVICE_CLAIMS;
+   -- type PTOKEN_GROUPS_AND_PRIVILEGES is access all TOKEN_GROUPS_AND_PRIVILEGES;
+   -- type PTOKEN_LINKED_TOKEN is access all TOKEN_LINKED_TOKEN;
+   -- type PTOKEN_ELEVATION is access all TOKEN_ELEVATION;
+   -- type PTOKEN_MANDATORY_LABEL is access all TOKEN_MANDATORY_LABEL;
+   -- type PTOKEN_MANDATORY_POLICY is access all TOKEN_MANDATORY_POLICY;
+   -- type PTOKEN_ACCESS_INFORMATION is access all TOKEN_ACCESS_INFORMATION;
+   -- type PTOKEN_AUDIT_POLICY is access all TOKEN_AUDIT_POLICY;
+   -- type PTOKEN_SOURCE is access all TOKEN_SOURCE;
+   -- type PTOKEN_STATISTICS is access all TOKEN_STATISTICS;
+   -- type PTOKEN_CONTROL is access all TOKEN_CONTROL;
+   -- type PTOKEN_ORIGIN is access all TOKEN_ORIGIN;
+   -- type PMANDATORY_LEVEL is access all MANDATORY_LEVEL;
    type MANDATORY_LEVEL is (
       MandatoryLevelUntrusted,
       MandatoryLevelLow,
@@ -595,6 +836,20 @@ package Win32 is
    );
    for MANDATORY_LEVEL'Size use 32;
    
+   -- type PTOKEN_APPCONTAINER_INFORMATION is access all TOKEN_APPCONTAINER_INFORMATION;
+   -- type PTOKEN_SID_INFORMATION is access all TOKEN_SID_INFORMATION;
+   -- type PTOKEN_BNO_ISOLATION_INFORMATION is access all TOKEN_BNO_ISOLATION_INFORMATION;
+   -- type PCLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE is access all CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE;
+   -- type PCLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE is access all CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE;
+   -- type PCLAIM_SECURITY_ATTRIBUTE_V1 is access all CLAIM_SECURITY_ATTRIBUTE_V1;
+   -- type PCLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 is access all CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1;
+   -- type PCLAIM_SECURITY_ATTRIBUTES_INFORMATION is access all CLAIM_SECURITY_ATTRIBUTES_INFORMATION;
+   -- type PSECURITY_CONTEXT_TRACKING_MODE is access all BOOLEAN;
+   -- type PSECURITY_QUALITY_OF_SERVICE is access all SECURITY_QUALITY_OF_SERVICE;
+   -- type PSE_IMPERSONATION_STATE is access all SE_IMPERSONATION_STATE;
+   -- type PSECURITY_INFORMATION is access all DWORD;
+   -- type PSE_SIGNING_LEVEL is access all BYTE;
+   -- type PSE_IMAGE_SIGNATURE_TYPE is access all SE_IMAGE_SIGNATURE_TYPE;
    type SE_IMAGE_SIGNATURE_TYPE is (
       SeImageSignatureNone,
       SeImageSignatureEmbedded,
@@ -627,6 +882,19 @@ package Win32 is
    );
    for SE_LEARNING_MODE_DATA_TYPE'Size use 32;
    
+   -- type PSECURITY_CAPABILITIES is access all SECURITY_CAPABILITIES;
+   -- type LPSECURITY_CAPABILITIES is access all SECURITY_CAPABILITIES;
+   -- type PJOB_SET_ARRAY is access all JOB_SET_ARRAY;
+   -- type PEXCEPTION_REGISTRATION_RECORD is access all EXCEPTION_REGISTRATION_RECORD;
+   -- type PNT_TIB is access all NT_TIB;
+   -- type PNT_TIB32 is access all NT_TIB32;
+   -- type PNT_TIB64 is access all NT_TIB64;
+   -- type PUMS_CREATE_THREAD_ATTRIBUTES is access all UMS_CREATE_THREAD_ATTRIBUTES;
+   -- type PQUOTA_LIMITS is access all QUOTA_LIMITS;
+   -- type PRATE_QUOTA_LIMIT is access all RATE_QUOTA_LIMIT;
+   -- type PQUOTA_LIMITS_EX is access all QUOTA_LIMITS_EX;
+   -- type PIO_COUNTERS is access all IO_COUNTERS;
+   -- type PHARDWARE_COUNTER_TYPE is access all HARDWARE_COUNTER_TYPE;
    type HARDWARE_COUNTER_TYPE is (
       PMCCounter,
       MaxHardwareCounterType
@@ -637,6 +905,7 @@ package Win32 is
    );
    for HARDWARE_COUNTER_TYPE'Size use 32;
    
+   -- type PPROCESS_MITIGATION_POLICY is access all PROCESS_MITIGATION_POLICY;
    type PROCESS_MITIGATION_POLICY is (
       ProcessDEPPolicy,
       ProcessASLRPolicy,
@@ -673,6 +942,29 @@ package Win32 is
    );
    for PROCESS_MITIGATION_POLICY'Size use 32;
    
+   -- type PPROCESS_MITIGATION_ASLR_POLICY is access all PROCESS_MITIGATION_ASLR_POLICY;
+   -- type PPROCESS_MITIGATION_DEP_POLICY is access all PROCESS_MITIGATION_DEP_POLICY;
+   -- type PPROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY is access all PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY;
+   -- type PPROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY is access all PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY;
+   -- type PPROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY is access all PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY;
+   -- type PPROCESS_MITIGATION_DYNAMIC_CODE_POLICY is access all PROCESS_MITIGATION_DYNAMIC_CODE_POLICY;
+   -- type PPROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY is access all PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY;
+   -- type PPROCESS_MITIGATION_BINARY_SIGNATURE_POLICY is access all PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY;
+   -- type PPROCESS_MITIGATION_FONT_DISABLE_POLICY is access all PROCESS_MITIGATION_FONT_DISABLE_POLICY;
+   -- type PPROCESS_MITIGATION_IMAGE_LOAD_POLICY is access all PROCESS_MITIGATION_IMAGE_LOAD_POLICY;
+   -- type PPROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY is access all PROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY;
+   -- type PPROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY is access all PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY;
+   -- type PPROCESS_MITIGATION_CHILD_PROCESS_POLICY is access all PROCESS_MITIGATION_CHILD_PROCESS_POLICY;
+   -- type PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION is access all JOBOBJECT_BASIC_ACCOUNTING_INFORMATION;
+   -- type PJOBOBJECT_BASIC_LIMIT_INFORMATION is access all JOBOBJECT_BASIC_LIMIT_INFORMATION;
+   -- type PJOBOBJECT_EXTENDED_LIMIT_INFORMATION is access all JOBOBJECT_EXTENDED_LIMIT_INFORMATION;
+   -- type PJOBOBJECT_BASIC_PROCESS_ID_LIST is access all JOBOBJECT_BASIC_PROCESS_ID_LIST;
+   -- type PJOBOBJECT_BASIC_UI_RESTRICTIONS is access all JOBOBJECT_BASIC_UI_RESTRICTIONS;
+   -- type PJOBOBJECT_SECURITY_LIMIT_INFORMATION is access all JOBOBJECT_SECURITY_LIMIT_INFORMATION;
+   -- type PJOBOBJECT_END_OF_JOB_TIME_INFORMATION is access all JOBOBJECT_END_OF_JOB_TIME_INFORMATION;
+   -- type PJOBOBJECT_ASSOCIATE_COMPLETION_PORT is access all JOBOBJECT_ASSOCIATE_COMPLETION_PORT;
+   -- type PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION is access all JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION;
+   -- type PJOBOBJECT_JOBSET_INFORMATION is access all JOBOBJECT_JOBSET_INFORMATION;
    type JOBOBJECT_RATE_CONTROL_TOLERANCE is (
       ToleranceLow,
       ToleranceMedium,
@@ -685,6 +977,7 @@ package Win32 is
    );
    for JOBOBJECT_RATE_CONTROL_TOLERANCE'Size use 32;
    
+   -- type PJOBOBJECT_RATE_CONTROL_TOLERANCE is access all JOBOBJECT_RATE_CONTROL_TOLERANCE;
    type JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL is (
       ToleranceIntervalShort,
       ToleranceIntervalMedium,
@@ -697,6 +990,10 @@ package Win32 is
    );
    for JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL'Size use 32;
    
+   -- type PJOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL is access all JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL;
+   -- type PJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION is access all JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION;
+   -- type PJOBOBJECT_LIMIT_VIOLATION_INFORMATION is access all JOBOBJECT_LIMIT_VIOLATION_INFORMATION;
+   -- type PJOBOBJECT_CPU_RATE_CONTROL_INFORMATION is access all JOBOBJECT_CPU_RATE_CONTROL_INFORMATION;
    type JOB_OBJECT_NET_RATE_CONTROL_FLAGS is (
       JOB_OBJECT_NET_RATE_CONTROL_ENABLE,
       JOB_OBJECT_NET_RATE_CONTROL_MAX_BANDWIDTH,
@@ -735,6 +1032,8 @@ package Win32 is
    );
    for JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS'Size use 32;
    
+   -- type PJOBOBJECT_IO_ATTRIBUTION_STATS is access all JOBOBJECT_IO_ATTRIBUTION_STATS;
+   -- type PJOBOBJECT_IO_ATTRIBUTION_INFORMATION is access all JOBOBJECT_IO_ATTRIBUTION_INFORMATION;
    type JOBOBJECTINFOCLASS is (
       JobObjectBasicAccountingInformation,
       JobObjectBasicLimitInformation,
@@ -837,6 +1136,7 @@ package Win32 is
    );
    for JOBOBJECTINFOCLASS'Size use 32;
    
+   -- type PSILOOBJECT_BASIC_INFORMATION is access all SILOOBJECT_BASIC_INFORMATION;
    type SERVERSILO_STATE is (
       SERVERSILO_INITING,
       SERVERSILO_STARTED,
@@ -853,6 +1153,9 @@ package Win32 is
    );
    for SERVERSILO_STATE'Size use 32;
    
+   -- type PSERVERSILO_STATE is access all SERVERSILO_STATE;
+   -- type PSERVERSILO_BASIC_INFORMATION is access all SERVERSILO_BASIC_INFORMATION;
+   -- type PFIRMWARE_TYPE is access all FIRMWARE_TYPE;
    type FIRMWARE_TYPE is (
       FirmwareTypeUnknown,
       FirmwareTypeBios,
@@ -899,6 +1202,15 @@ package Win32 is
    );
    for PROCESSOR_CACHE_TYPE'Size use 32;
    
+   -- type PCACHE_DESCRIPTOR is access all CACHE_DESCRIPTOR;
+   -- type PSYSTEM_LOGICAL_PROCESSOR_INFORMATION is access all SYSTEM_LOGICAL_PROCESSOR_INFORMATION;
+   -- type PPROCESSOR_RELATIONSHIP is access all PROCESSOR_RELATIONSHIP;
+   -- type PNUMA_NODE_RELATIONSHIP is access all NUMA_NODE_RELATIONSHIP;
+   -- type PCACHE_RELATIONSHIP is access all CACHE_RELATIONSHIP;
+   -- type PPROCESSOR_GROUP_INFO is access all PROCESSOR_GROUP_INFO;
+   -- type PGROUP_RELATIONSHIP is access all GROUP_RELATIONSHIP;
+   -- type PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX is access all SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX;
+   -- type PCPU_SET_INFORMATION_TYPE is access all CPU_SET_INFORMATION_TYPE;
    type CPU_SET_INFORMATION_TYPE is (
       CpuSetInformation
    );
@@ -907,6 +1219,28 @@ package Win32 is
    );
    for CPU_SET_INFORMATION_TYPE'Size use 32;
    
+   -- type PSYSTEM_CPU_SET_INFORMATION is access all SYSTEM_CPU_SET_INFORMATION;
+   -- type PSYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION is access all SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION;
+   -- type PXSTATE_FEATURE is access all XSTATE_FEATURE;
+   -- type PXSTATE_CONFIGURATION is access all XSTATE_CONFIGURATION;
+   -- type PMEMORY_BASIC_INFORMATION is access all MEMORY_BASIC_INFORMATION;
+   -- type PMEMORY_BASIC_INFORMATION32 is access all MEMORY_BASIC_INFORMATION32;
+   -- type PMEMORY_BASIC_INFORMATION64 is access all MEMORY_BASIC_INFORMATION64;
+   -- type PCFG_CALL_TARGET_INFO is access all CFG_CALL_TARGET_INFO;
+   -- type PENCLAVE_CREATE_INFO_SGX is access all ENCLAVE_CREATE_INFO_SGX;
+   -- type PENCLAVE_INIT_INFO_SGX is access all ENCLAVE_INIT_INFO_SGX;
+   -- type PENCLAVE_CREATE_INFO_VBS is access all ENCLAVE_CREATE_INFO_VBS;
+   -- type PENCLAVE_INIT_INFO_VBS is access all ENCLAVE_INIT_INFO_VBS;
+   -- type PENCLAVE_TARGET_FUNCTION is access all ENCLAVE_TARGET_FUNCTION;
+   -- type PFILE_ID_128 is access all FILE_ID_128;
+   -- type PFILE_NOTIFY_INFORMATION is access all FILE_NOTIFY_INFORMATION;
+   -- type PFILE_NOTIFY_EXTENDED_INFORMATION is access all FILE_NOTIFY_EXTENDED_INFORMATION;
+   -- type PFILE_SEGMENT_ELEMENT is access all FILE_SEGMENT_ELEMENT;
+   -- type PREPARSE_GUID_DATA_BUFFER is access all REPARSE_GUID_DATA_BUFFER;
+   -- type PSCRUB_DATA_INPUT is access all SCRUB_DATA_INPUT;
+   -- type PSCRUB_PARITY_EXTENT is access all SCRUB_PARITY_EXTENT;
+   -- type PSCRUB_PARITY_EXTENT_DATA is access all SCRUB_PARITY_EXTENT_DATA;
+   -- type PSCRUB_DATA_OUTPUT is access all SCRUB_DATA_OUTPUT;
    type SharedVirtualDiskSupportType is (
       SharedVirtualDisksUnsupported,
       SharedVirtualDisksSupported,
@@ -933,6 +1267,8 @@ package Win32 is
    );
    for SharedVirtualDiskHandleState'Size use 32;
    
+   -- type PSHARED_VIRTUAL_DISK_SUPPORT is access all SHARED_VIRTUAL_DISK_SUPPORT;
+   -- type PNETWORK_APP_INSTANCE_EA is access all NETWORK_APP_INSTANCE_EA;
    type SYSTEM_POWER_STATE is (
       PowerSystemUnspecified,
       PowerSystemWorking,
@@ -955,6 +1291,8 @@ package Win32 is
    );
    for SYSTEM_POWER_STATE'Size use 32;
    
+   -- type PSYSTEM_POWER_STATE is access all SYSTEM_POWER_STATE;
+   -- type PPOWER_ACTION is access all POWER_ACTION;
    type POWER_ACTION is (
       PowerActionNone,
       PowerActionReserved,
@@ -979,6 +1317,7 @@ package Win32 is
    );
    for POWER_ACTION'Size use 32;
    
+   -- type PDEVICE_POWER_STATE is access all DEVICE_POWER_STATE;
    type DEVICE_POWER_STATE is (
       PowerDeviceUnspecified,
       PowerDeviceD0,
@@ -997,6 +1336,7 @@ package Win32 is
    );
    for DEVICE_POWER_STATE'Size use 32;
    
+   -- type PMONITOR_DISPLAY_STATE is access all MONITOR_DISPLAY_STATE;
    type MONITOR_DISPLAY_STATE is (
       PowerMonitorOff,
       PowerMonitorOn,
@@ -1023,6 +1363,8 @@ package Win32 is
    );
    for USER_ACTIVITY_PRESENCE'Size use 32;
    
+   -- type PUSER_ACTIVITY_PRESENCE is access all USER_ACTIVITY_PRESENCE;
+   -- type PEXECUTION_STATE is access all DWORD;
    type LATENCY_TIME is (
       LT_DONT_CARE,
       LT_LOWEST_LATENCY
@@ -1047,6 +1389,8 @@ package Win32 is
    );
    for POWER_REQUEST_TYPE'Size use 32;
    
+   -- type PPOWER_REQUEST_TYPE is access all POWER_REQUEST_TYPE;
+   -- type PCM_POWER_DATA is access all CM_Power_Data_s;
    type POWER_INFORMATION_LEVEL is (
       SystemPowerPolicyAc,
       SystemPowerPolicyDc,
@@ -1245,6 +1589,7 @@ package Win32 is
    );
    for POWER_INFORMATION_LEVEL'Size use 32;
    
+   -- type PPOWER_USER_PRESENCE_TYPE is access all POWER_USER_PRESENCE_TYPE;
    type POWER_USER_PRESENCE_TYPE is (
       UserNotPresent,
       UserPresent,
@@ -1257,6 +1602,12 @@ package Win32 is
    );
    for POWER_USER_PRESENCE_TYPE'Size use 32;
    
+   -- type PPOWER_USER_PRESENCE is access all POWER_USER_PRESENCE;
+   -- type PPOWER_SESSION_CONNECT is access all POWER_SESSION_CONNECT;
+   -- type PPOWER_SESSION_TIMEOUTS is access all POWER_SESSION_TIMEOUTS;
+   -- type PPOWER_SESSION_RIT_STATE is access all POWER_SESSION_RIT_STATE;
+   -- type PPOWER_SESSION_WINLOGON is access all POWER_SESSION_WINLOGON;
+   -- type PPOWER_IDLE_RESILIENCY is access all POWER_IDLE_RESILIENCY;
    type POWER_MONITOR_REQUEST_REASON is (
       MonitorRequestReasonUnknown,
       MonitorRequestReasonPowerButton,
@@ -1365,6 +1716,8 @@ package Win32 is
    );
    for POWER_MONITOR_REQUEST_TYPE'Size use 32;
    
+   -- type PPOWER_MONITOR_INVOCATION is access all POWER_MONITOR_INVOCATION;
+   -- type PRESUME_PERFORMANCE is access all RESUME_PERFORMANCE;
    type SYSTEM_POWER_CONDITION is (
       PoAc,
       PoDc,
@@ -1379,6 +1732,9 @@ package Win32 is
    );
    for SYSTEM_POWER_CONDITION'Size use 32;
    
+   -- type PSET_POWER_SETTING_VALUE is access all SET_POWER_SETTING_VALUE;
+   -- type PNOTIFY_USER_POWER_SETTING is access all NOTIFY_USER_POWER_SETTING;
+   -- type PAPPLICATIONLAUNCH_SETTING_VALUE is access all APPLICATIONLAUNCH_SETTING_VALUE;
    type POWER_PLATFORM_ROLE is (
       PlatformRoleUnspecified,
       PlatformRoleDesktop,
@@ -1405,6 +1761,35 @@ package Win32 is
    );
    for POWER_PLATFORM_ROLE'Size use 32;
    
+   -- type PPOWER_PLATFORM_ROLE is access all POWER_PLATFORM_ROLE;
+   -- type PPOWER_PLATFORM_INFORMATION is access all POWER_PLATFORM_INFORMATION;
+   -- type PBATTERY_REPORTING_SCALE is access all BATTERY_REPORTING_SCALE;
+   -- type PPPM_WMI_LEGACY_PERFSTATE is access all PPM_WMI_LEGACY_PERFSTATE;
+   -- type PPPM_WMI_IDLE_STATE is access all PPM_WMI_IDLE_STATE;
+   -- type PPPM_WMI_IDLE_STATES is access all PPM_WMI_IDLE_STATES;
+   -- type PPPM_WMI_IDLE_STATES_EX is access all PPM_WMI_IDLE_STATES_EX;
+   -- type PPPM_WMI_PERF_STATE is access all PPM_WMI_PERF_STATE;
+   -- type PPPM_WMI_PERF_STATES is access all PPM_WMI_PERF_STATES;
+   -- type PPPM_WMI_PERF_STATES_EX is access all PPM_WMI_PERF_STATES_EX;
+   -- type PPPM_IDLE_STATE_ACCOUNTING is access all PPM_IDLE_STATE_ACCOUNTING;
+   -- type PPPM_IDLE_ACCOUNTING is access all PPM_IDLE_ACCOUNTING;
+   -- type PPPM_IDLE_STATE_BUCKET_EX is access all PPM_IDLE_STATE_BUCKET_EX;
+   -- type PPPM_IDLE_STATE_ACCOUNTING_EX is access all PPM_IDLE_STATE_ACCOUNTING_EX;
+   -- type PPPM_IDLE_ACCOUNTING_EX is access all PPM_IDLE_ACCOUNTING_EX;
+   -- type PPPM_PERFSTATE_EVENT is access all PPM_PERFSTATE_EVENT;
+   -- type PPPM_PERFSTATE_DOMAIN_EVENT is access all PPM_PERFSTATE_DOMAIN_EVENT;
+   -- type PPPM_IDLESTATE_EVENT is access all PPM_IDLESTATE_EVENT;
+   -- type PPPM_THERMALCHANGE_EVENT is access all PPM_THERMALCHANGE_EVENT;
+   -- type PPPM_THERMAL_POLICY_EVENT is access all PPM_THERMAL_POLICY_EVENT;
+   -- type PPOWER_ACTION_POLICY is access all POWER_ACTION_POLICY;
+   -- type PSYSTEM_POWER_LEVEL is access all SYSTEM_POWER_LEVEL;
+   -- type PSYSTEM_POWER_POLICY is access all SYSTEM_POWER_POLICY;
+   -- type PPROCESSOR_IDLESTATE_INFO is access all PROCESSOR_IDLESTATE_INFO;
+   -- type PPROCESSOR_IDLESTATE_POLICY is access all PROCESSOR_IDLESTATE_POLICY;
+   -- type PPROCESSOR_POWER_POLICY_INFO is access all PROCESSOR_POWER_POLICY_INFO;
+   -- type PPROCESSOR_POWER_POLICY is access all PROCESSOR_POWER_POLICY;
+   -- type PPROCESSOR_PERFSTATE_POLICY is access all PROCESSOR_PERFSTATE_POLICY;
+   -- type PADMINISTRATOR_POWER_POLICY is access all ADMINISTRATOR_POWER_POLICY;
    type HIBERFILE_BUCKET_SIZE is (
       HiberFileBucket1GB,
       HiberFileBucket2GB,
@@ -1427,6 +1812,27 @@ package Win32 is
    );
    for HIBERFILE_BUCKET_SIZE'Size use 32;
    
+   -- type PHIBERFILE_BUCKET_SIZE is access all HIBERFILE_BUCKET_SIZE;
+   -- type PHIBERFILE_BUCKET is access all HIBERFILE_BUCKET;
+   -- type PSYSTEM_POWER_CAPABILITIES is access all SYSTEM_POWER_CAPABILITIES;
+   -- type PSYSTEM_BATTERY_STATE is access all SYSTEM_BATTERY_STATE;
+   -- type PIMAGE_DOS_HEADER is access all IMAGE_DOS_HEADER;
+   -- type PIMAGE_OS2_HEADER is access all IMAGE_OS2_HEADER;
+   -- type PIMAGE_VXD_HEADER is access all IMAGE_VXD_HEADER;
+   -- type PIMAGE_FILE_HEADER is access all IMAGE_FILE_HEADER;
+   -- type PIMAGE_DATA_DIRECTORY is access all IMAGE_DATA_DIRECTORY;
+   -- type PIMAGE_OPTIONAL_HEADER32 is access all IMAGE_OPTIONAL_HEADER;
+   -- type PIMAGE_ROM_OPTIONAL_HEADER is access all IMAGE_ROM_OPTIONAL_HEADER;
+   -- type PIMAGE_OPTIONAL_HEADER64 is access all IMAGE_OPTIONAL_HEADER64;
+   -- type PIMAGE_NT_HEADERS64 is access all IMAGE_NT_HEADERS64;
+   -- type PIMAGE_NT_HEADERS32 is access all IMAGE_NT_HEADERS;
+   -- type PIMAGE_ROM_HEADERS is access all IMAGE_ROM_HEADERS;
+   -- type PIMAGE_SECTION_HEADER is access all IMAGE_SECTION_HEADER;
+   -- type PIMAGE_SYMBOL is access all IMAGE_SYMBOL;
+   -- type PIMAGE_SYMBOL_EX is access all IMAGE_SYMBOL_EX;
+   -- type PIMAGE_AUX_SYMBOL_TOKEN_DEF is access all IMAGE_AUX_SYMBOL_TOKEN_DEF;
+   -- type PIMAGE_AUX_SYMBOL is access all IMAGE_AUX_SYMBOL;
+   -- type PIMAGE_AUX_SYMBOL_EX is access all IMAGE_AUX_SYMBOL_EX;
    type IMAGE_AUX_SYMBOL_TYPE is (
       IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF
    );
@@ -1435,6 +1841,58 @@ package Win32 is
    );
    for IMAGE_AUX_SYMBOL_TYPE'Size use 32;
    
+   -- type PIMAGE_RELOCATION is access all IMAGE_RELOCATION;
+   -- type PIMAGE_LINENUMBER is access all IMAGE_LINENUMBER;
+   -- type PIMAGE_BASE_RELOCATION is access all IMAGE_BASE_RELOCATION;
+   -- type PIMAGE_ARCHIVE_MEMBER_HEADER is access all IMAGE_ARCHIVE_MEMBER_HEADER;
+   -- type PIMAGE_EXPORT_DIRECTORY is access all IMAGE_EXPORT_DIRECTORY;
+   -- type PIMAGE_IMPORT_BY_NAME is access all IMAGE_IMPORT_BY_NAME;
+   -- type PIMAGE_THUNK_DATA64 is access all IMAGE_THUNK_DATA64;
+   -- type PIMAGE_THUNK_DATA32 is access all IMAGE_THUNK_DATA32;
+   -- type PIMAGE_TLS_DIRECTORY64 is access all IMAGE_TLS_DIRECTORY64;
+   -- type PIMAGE_TLS_DIRECTORY32 is access all IMAGE_TLS_DIRECTORY32;
+   -- type PIMAGE_IMPORT_DESCRIPTOR is access all IMAGE_IMPORT_DESCRIPTOR;
+   -- type PIMAGE_BOUND_IMPORT_DESCRIPTOR is access all IMAGE_BOUND_IMPORT_DESCRIPTOR;
+   -- type PIMAGE_BOUND_FORWARDER_REF is access all IMAGE_BOUND_FORWARDER_REF;
+   -- type PIMAGE_DELAYLOAD_DESCRIPTOR is access all IMAGE_DELAYLOAD_DESCRIPTOR;
+   -- type PCIMAGE_DELAYLOAD_DESCRIPTOR is access all IMAGE_DELAYLOAD_DESCRIPTOR;
+   -- type PIMAGE_RESOURCE_DIRECTORY is access all IMAGE_RESOURCE_DIRECTORY;
+   -- type PIMAGE_RESOURCE_DIRECTORY_ENTRY is access all IMAGE_RESOURCE_DIRECTORY_ENTRY;
+   -- type PIMAGE_RESOURCE_DIRECTORY_STRING is access all IMAGE_RESOURCE_DIRECTORY_STRING;
+   -- type PIMAGE_RESOURCE_DIR_STRING_U is access all IMAGE_RESOURCE_DIR_STRING_U;
+   -- type PIMAGE_RESOURCE_DATA_ENTRY is access all IMAGE_RESOURCE_DATA_ENTRY;
+   -- type PIMAGE_LOAD_CONFIG_CODE_INTEGRITY is access all IMAGE_LOAD_CONFIG_CODE_INTEGRITY;
+   -- type PIMAGE_DYNAMIC_RELOCATION_TABLE is access all IMAGE_DYNAMIC_RELOCATION_TABLE;
+   -- type PIMAGE_DYNAMIC_RELOCATION32 is access all IMAGE_DYNAMIC_RELOCATION32;
+   -- type PIMAGE_DYNAMIC_RELOCATION64 is access all IMAGE_DYNAMIC_RELOCATION64;
+   -- type PIMAGE_DYNAMIC_RELOCATION32_V2 is access all IMAGE_DYNAMIC_RELOCATION32_V2;
+   -- type PIMAGE_DYNAMIC_RELOCATION64_V2 is access all IMAGE_DYNAMIC_RELOCATION64_V2;
+   -- type PIMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER is access all IMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER;
+   -- type PIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER is access all IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER;
+   -- type PIMAGE_LOAD_CONFIG_DIRECTORY32 is access all IMAGE_LOAD_CONFIG_DIRECTORY32;
+   -- type PIMAGE_LOAD_CONFIG_DIRECTORY64 is access all IMAGE_LOAD_CONFIG_DIRECTORY64;
+   -- type PIMAGE_HOT_PATCH_INFO is access all IMAGE_HOT_PATCH_INFO;
+   -- type PIMAGE_HOT_PATCH_BASE is access all IMAGE_HOT_PATCH_BASE;
+   -- type PIMAGE_HOT_PATCH_HASHES is access all IMAGE_HOT_PATCH_HASHES;
+   -- type PIMAGE_CE_RUNTIME_FUNCTION_ENTRY is access all IMAGE_CE_RUNTIME_FUNCTION_ENTRY;
+   -- type PIMAGE_ARM_RUNTIME_FUNCTION_ENTRY is access all IMAGE_ARM_RUNTIME_FUNCTION_ENTRY;
+   -- type PIMAGE_ARM64_RUNTIME_FUNCTION_ENTRY is access all IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY;
+   -- type PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY is access all IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY;
+   -- type PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY is access all IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY;
+   -- type PIMAGE_RUNTIME_FUNCTION_ENTRY is access all IMAGE_RUNTIME_FUNCTION_ENTRY;
+   -- type PIMAGE_ENCLAVE_CONFIG32 is access all IMAGE_ENCLAVE_CONFIG32;
+   -- type PIMAGE_ENCLAVE_CONFIG64 is access all IMAGE_ENCLAVE_CONFIG64;
+   -- type PIMAGE_ENCLAVE_IMPORT is access all IMAGE_ENCLAVE_IMPORT;
+   -- type PIMAGE_DEBUG_DIRECTORY is access all IMAGE_DEBUG_DIRECTORY;
+   -- type PIMAGE_COFF_SYMBOLS_HEADER is access all IMAGE_COFF_SYMBOLS_HEADER;
+   -- type PFPO_DATA is access all FPO_DATA;
+   -- type PIMAGE_DEBUG_MISC is access all IMAGE_DEBUG_MISC;
+   -- type PIMAGE_FUNCTION_ENTRY is access all IMAGE_FUNCTION_ENTRY;
+   -- type PIMAGE_FUNCTION_ENTRY64 is access all IMAGE_FUNCTION_ENTRY64;
+   -- type PIMAGE_SEPARATE_DEBUG_HEADER is access all IMAGE_SEPARATE_DEBUG_HEADER;
+   -- type PNON_PAGED_DEBUG_INFO is access all NON_PAGED_DEBUG_INFO;
+   -- type PIMAGE_ARCHITECTURE_HEADER is access all ImageArchitectureHeader;
+   -- type PIMAGE_ARCHITECTURE_ENTRY is access all ImageArchitectureEntry;
    type IMPORT_OBJECT_TYPE is (
       IMPORT_OBJECT_CODE,
       IMPORT_OBJECT_DATA,
@@ -1491,6 +1949,25 @@ package Win32 is
    );
    for ReplacesCorHdrNumericDefines'Size use 32;
    
+   -- type PIMAGE_COR20_HEADER is access all IMAGE_COR20_HEADER;
+   -- type PSLIST_ENTRY is access all SINGLE_LIST_ENTRY;
+   -- type PSLIST_HEADER is access all SLIST_HEADER;
+   -- type PRTL_RUN_ONCE is access all RTL_RUN_ONCE;
+   -- type PRTL_BARRIER is access all RTL_BARRIER;
+   -- type PMESSAGE_RESOURCE_ENTRY is access all MESSAGE_RESOURCE_ENTRY;
+   -- type PMESSAGE_RESOURCE_BLOCK is access all MESSAGE_RESOURCE_BLOCK;
+   -- type PMESSAGE_RESOURCE_DATA is access all MESSAGE_RESOURCE_DATA;
+   -- type POSVERSIONINFOA is access all OSVERSIONINFOA;
+   -- type LPOSVERSIONINFOA is access all OSVERSIONINFOA;
+   -- type POSVERSIONINFOW is access all OSVERSIONINFOW;
+   -- type LPOSVERSIONINFOW is access all OSVERSIONINFOW;
+   -- type PRTL_OSVERSIONINFOW is access all OSVERSIONINFOW;
+   -- type POSVERSIONINFOEXA is access all OSVERSIONINFOEXA;
+   -- type LPOSVERSIONINFOEXA is access all OSVERSIONINFOEXA;
+   -- type LPOSVERSIONINFOEXW is access all OSVERSIONINFOEXW;
+   -- type POSVERSIONINFOEXW is access all OSVERSIONINFOEXW;
+   -- type PRTL_OSVERSIONINFOEXW is access all OSVERSIONINFOEXW;
+   -- type PRTL_UMS_THREAD_INFO_CLASS is access all RTL_UMS_THREAD_INFO_CLASS;
    type RTL_UMS_THREAD_INFO_CLASS is (
       UmsThreadInvalidInfoClass,
       UmsThreadUserContext,
@@ -1513,6 +1990,7 @@ package Win32 is
    );
    for RTL_UMS_THREAD_INFO_CLASS'Size use 32;
    
+   -- type PRTL_UMS_SCHEDULER_REASON is access all RTL_UMS_SCHEDULER_REASON;
    type RTL_UMS_SCHEDULER_REASON is (
       UmsSchedulerStartup,
       UmsSchedulerThreadBlocked,
@@ -1525,6 +2003,7 @@ package Win32 is
    );
    for RTL_UMS_SCHEDULER_REASON'Size use 32;
    
+   -- type PRTL_UMS_SCHEDULER_ENTRY_POINT is access all RTL_UMS_SCHEDULER_ENTRY_POINT;
    type OS_DEPLOYEMENT_STATE_VALUES is (
       OS_DEPLOYMENT_STANDARD,
       OS_DEPLOYMENT_COMPACT
@@ -1535,6 +2014,7 @@ package Win32 is
    );
    for OS_DEPLOYEMENT_STATE_VALUES'Size use 32;
    
+   -- type PCORRELATION_VECTOR is access all CORRELATION_VECTOR;
    type IMAGE_POLICY_ENTRY_TYPE is (
       ImagePolicyEntryTypeNone,
       ImagePolicyEntryTypeBool,
@@ -1599,6 +2079,13 @@ package Win32 is
    );
    for IMAGE_POLICY_ID'Size use 32;
    
+   -- type PCIMAGE_POLICY_ENTRY is access all IMAGE_POLICY_ENTRY;
+   -- type PCIMAGE_POLICY_METADATA is access all IMAGE_POLICY_METADATA;
+   -- type PRTL_RESOURCE_DEBUG is access all RTL_CRITICAL_SECTION_DEBUG;
+   -- type PRTL_CRITICAL_SECTION_DEBUG is access all RTL_CRITICAL_SECTION_DEBUG;
+   -- type PRTL_CRITICAL_SECTION is access all RTL_CRITICAL_SECTION;
+   -- type PRTL_SRWLOCK is access all RTL_SRWLOCK;
+   -- type PRTL_CONDITION_VARIABLE is access all RTL_CONDITION_VARIABLE;
    type HEAP_INFORMATION_CLASS is (
       HeapCompatibilityInformation,
       HeapEnableTerminationOnCorruption,
@@ -1611,6 +2098,7 @@ package Win32 is
    );
    for HEAP_INFORMATION_CLASS'Size use 32;
    
+   -- type PHEAP_OPTIMIZE_RESOURCES_INFORMATION is access all HEAP_OPTIMIZE_RESOURCES_INFORMATION;
    type ACTIVATION_CONTEXT_INFO_CLASS is (
       ActivationContextBasicInformation,
       ActivationContextDetailedInformation,
@@ -1633,6 +2121,12 @@ package Win32 is
    );
    for ACTIVATION_CONTEXT_INFO_CLASS'Size use 32;
    
+   -- type PACTIVATION_CONTEXT_QUERY_INDEX is access all ACTIVATION_CONTEXT_QUERY_INDEX;
+   -- type PCACTIVATION_CONTEXT_QUERY_INDEX is access all ACTIVATION_CONTEXT_QUERY_INDEX;
+   -- type PASSEMBLY_FILE_DETAILED_INFORMATION is access all ASSEMBLY_FILE_DETAILED_INFORMATION;
+   -- type PCASSEMBLY_FILE_DETAILED_INFORMATION is access all ASSEMBLY_FILE_DETAILED_INFORMATION;
+   -- type PACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION is access all ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION;
+   -- type PCACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION is access all ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION;
    type ACTCTX_REQUESTED_RUN_LEVEL is (
       ACTCTX_RUN_LEVEL_UNSPECIFIED,
       ACTCTX_RUN_LEVEL_AS_INVOKER,
@@ -1649,6 +2143,8 @@ package Win32 is
    );
    for ACTCTX_REQUESTED_RUN_LEVEL'Size use 32;
    
+   -- type PACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION is access all ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION;
+   -- type PCACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION is access all ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION;
    type ACTCTX_COMPATIBILITY_ELEMENT_TYPE is (
       ACTCTX_COMPATIBILITY_ELEMENT_TYPE_UNKNOWN,
       ACTCTX_COMPATIBILITY_ELEMENT_TYPE_OS,
@@ -1661,6 +2157,18 @@ package Win32 is
    );
    for ACTCTX_COMPATIBILITY_ELEMENT_TYPE'Size use 32;
    
+   -- type PCOMPATIBILITY_CONTEXT_ELEMENT is access all COMPATIBILITY_CONTEXT_ELEMENT;
+   -- type PCCOMPATIBILITY_CONTEXT_ELEMENT is access all COMPATIBILITY_CONTEXT_ELEMENT;
+   -- type PACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION is access all ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION;
+   -- type PCACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION is access all ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION;
+   -- type PSUPPORTED_OS_INFO is access all SUPPORTED_OS_INFO;
+   -- type PACTIVATION_CONTEXT_DETAILED_INFORMATION is access all ACTIVATION_CONTEXT_DETAILED_INFORMATION;
+   -- type PCACTIVATION_CONTEXT_DETAILED_INFORMATION is access all ACTIVATION_CONTEXT_DETAILED_INFORMATION;
+   -- type PHARDWARE_COUNTER_DATA is access all HARDWARE_COUNTER_DATA;
+   -- type PPERFORMANCE_DATA is access all PERFORMANCE_DATA;
+   -- type PEVENTLOGRECORD is access all EVENTLOGRECORD;
+   -- type PEVENTSFORLOGFILE is access all EVENTSFORLOGFILE;
+   -- type PPACKEDEVENTINFO is access all PACKEDEVENTINFO;
    type CM_SERVICE_NODE_TYPE is (
       DriverType,
       FileSystemType,
@@ -1709,6 +2217,17 @@ package Win32 is
    );
    for CM_ERROR_CONTROL_TYPE'Size use 32;
    
+   -- type PTAPE_ERASE is access all TAPE_ERASE;
+   -- type PTAPE_PREPARE is access all TAPE_PREPARE;
+   -- type PTAPE_WRITE_MARKS is access all TAPE_WRITE_MARKS;
+   -- type PTAPE_GET_POSITION is access all TAPE_GET_POSITION;
+   -- type PTAPE_SET_POSITION is access all TAPE_SET_POSITION;
+   -- type PTAPE_GET_DRIVE_PARAMETERS is access all TAPE_GET_DRIVE_PARAMETERS;
+   -- type PTAPE_SET_DRIVE_PARAMETERS is access all TAPE_SET_DRIVE_PARAMETERS;
+   -- type PTAPE_GET_MEDIA_PARAMETERS is access all TAPE_GET_MEDIA_PARAMETERS;
+   -- type PTAPE_SET_MEDIA_PARAMETERS is access all TAPE_SET_MEDIA_PARAMETERS;
+   -- type PTAPE_CREATE_PARTITION is access all TAPE_CREATE_PARTITION;
+   -- type PTAPE_WMI_OPERATIONS is access all TAPE_WMI_OPERATIONS;
    type TAPE_DRIVE_PROBLEM_TYPE is (
       TapeDriveProblemNone,
       TapeDriveReadWriteWarning,
@@ -1767,6 +2286,19 @@ package Win32 is
    );
    for TRANSACTION_STATE'Size use 32;
    
+   -- type PTRANSACTION_BASIC_INFORMATION is access all TRANSACTION_BASIC_INFORMATION;
+   -- type PTRANSACTIONMANAGER_BASIC_INFORMATION is access all TRANSACTIONMANAGER_BASIC_INFORMATION;
+   -- type PTRANSACTIONMANAGER_LOG_INFORMATION is access all TRANSACTIONMANAGER_LOG_INFORMATION;
+   -- type PTRANSACTIONMANAGER_LOGPATH_INFORMATION is access all TRANSACTIONMANAGER_LOGPATH_INFORMATION;
+   -- type PTRANSACTIONMANAGER_RECOVERY_INFORMATION is access all TRANSACTIONMANAGER_RECOVERY_INFORMATION;
+   -- type PTRANSACTIONMANAGER_OLDEST_INFORMATION is access all TRANSACTIONMANAGER_OLDEST_INFORMATION;
+   -- type PTRANSACTION_PROPERTIES_INFORMATION is access all TRANSACTION_PROPERTIES_INFORMATION;
+   -- type PTRANSACTION_BIND_INFORMATION is access all TRANSACTION_BIND_INFORMATION;
+   -- type PTRANSACTION_ENLISTMENT_PAIR is access all TRANSACTION_ENLISTMENT_PAIR;
+   -- type PTRANSACTION_ENLISTMENTS_INFORMATION is access all TRANSACTION_ENLISTMENTS_INFORMATION;
+   -- type PTRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION is access all TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION;
+   -- type PRESOURCEMANAGER_BASIC_INFORMATION is access all RESOURCEMANAGER_BASIC_INFORMATION;
+   -- type PRESOURCEMANAGER_COMPLETION_INFORMATION is access all RESOURCEMANAGER_COMPLETION_INFORMATION;
    type TRANSACTION_INFORMATION_CLASS is (
       TransactionBasicInformation,
       TransactionPropertiesInformation,
@@ -1813,6 +2345,8 @@ package Win32 is
    );
    for RESOURCEMANAGER_INFORMATION_CLASS'Size use 32;
    
+   -- type PENLISTMENT_BASIC_INFORMATION is access all ENLISTMENT_BASIC_INFORMATION;
+   -- type PENLISTMENT_CRM_INFORMATION is access all ENLISTMENT_CRM_INFORMATION;
    type ENLISTMENT_INFORMATION_CLASS is (
       EnlistmentBasicInformation,
       EnlistmentRecoveryInformation,
@@ -1825,6 +2359,8 @@ package Win32 is
    );
    for ENLISTMENT_INFORMATION_CLASS'Size use 32;
    
+   -- type PTRANSACTION_LIST_ENTRY is access all TRANSACTION_LIST_ENTRY;
+   -- type PTRANSACTION_LIST_INFORMATION is access all TRANSACTION_LIST_INFORMATION;
    type KTMOBJECT_TYPE is (
       KTMOBJECT_TRANSACTION,
       KTMOBJECT_TRANSACTION_MANAGER,
@@ -1841,6 +2377,11 @@ package Win32 is
    );
    for KTMOBJECT_TYPE'Size use 32;
    
+   -- type PKTMOBJECT_TYPE is access all KTMOBJECT_TYPE;
+   -- type PKTMOBJECT_CURSOR is access all KTMOBJECT_CURSOR;
+   -- type PTP_VERSION is access all DWORD;
+   -- type PTP_CALLBACK_INSTANCE is access all TP_CALLBACK_INSTANCE;
+   -- type PTP_POOL is access all TP_POOL;
    type TP_CALLBACK_PRIORITY is (
       TP_CALLBACK_PRIORITY_HIGH,
       TP_CALLBACK_PRIORITY_NORMAL,
@@ -1855,6 +2396,13 @@ package Win32 is
    );
    for TP_CALLBACK_PRIORITY'Size use 32;
    
+   -- type PTP_POOL_STACK_INFORMATION is access all TP_POOL_STACK_INFORMATION;
+   -- type PTP_CLEANUP_GROUP is access all TP_CLEANUP_GROUP;
+   -- type PTP_CALLBACK_ENVIRON is access all TP_CALLBACK_ENVIRON_V3;
+   -- type PTP_WORK is access all TP_WORK;
+   -- type PTP_TIMER is access all TP_TIMER;
+   -- type PTP_WAIT is access all TP_WAIT;
+   -- type PTP_IO is access all TP_IO;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt.h
    subtype crt_bool is Boolean;
    subtype errno_t is Int32;
@@ -1862,6 +2410,7 @@ package Win32 is
    subtype wctype_t is UInt16;
    subtype time32_t is Int32;
    subtype time64_t is Int64;
+   -- type locale_t is access all crt_locale_pointers;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_wctype.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\ctype.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\basetsd.h
@@ -1893,12 +2442,16 @@ package Win32 is
    subtype HALF_PTR is Int16;
    subtype SHANDLE_PTR is Int32;
    subtype HANDLE_PTR is UInt32;
+   -- type PSIZE_T is access all ULONG_PTR;
+   -- type PSSIZE_T is access all LONG_PTR;
+   -- type PDWORD_PTR is access all ULONG_PTR;
    subtype LONG64 is Int64;
    type PLONG64 is access all Int64;
    subtype ULONG64 is UInt64;
    type PULONG64 is access all UInt64;
    subtype DWORD64 is UInt64;
    type PDWORD64 is access all UInt64;
+   -- type PKAFFINITY is access all KAFFINITY;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\errno.h
    -- C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include\vcruntime_string.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_memcpy_s.h
@@ -1906,9 +2459,41 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_wstring.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\string.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\ktmtypes.h
+   -- type PUOW is access all GUID;
+   -- type PCRM_PROTOCOL_ID is access all GUID;
+   -- type PTRANSACTION_NOTIFICATION is access all TRANSACTION_NOTIFICATION;
+   -- type PTRANSACTION_NOTIFICATION_RECOVERY_ARGUMENT is access all TRANSACTION_NOTIFICATION_RECOVERY_ARGUMENT;
+   -- type PTRANSACTION_NOTIFICATION_TM_ONLINE_ARGUMENT is access all TRANSACTION_NOTIFICATION_TM_ONLINE_ARGUMENT;
+   -- type PSAVEPOINT_ID is access all ULONG;
+   -- type PTRANSACTION_NOTIFICATION_SAVEPOINT_ARGUMENT is access all TRANSACTION_NOTIFICATION_SAVEPOINT_ARGUMENT;
+   -- type PTRANSACTION_NOTIFICATION_PROPAGATE_ARGUMENT is access all TRANSACTION_NOTIFICATION_PROPAGATE_ARGUMENT;
+   -- type PTRANSACTION_NOTIFICATION_MARSHAL_ARGUMENT is access all TRANSACTION_NOTIFICATION_MARSHAL_ARGUMENT;
+   -- type PTRANSACTION_NOTIFICATION_PROMOTE_ARGUMENT is access all TRANSACTION_NOTIFICATION_PROPAGATE_ARGUMENT;
+   -- type PKCRM_MARSHAL_HEADER is access all KCRM_MARSHAL_HEADER;
+   -- type PRKCRM_MARSHAL_HEADER is access all KCRM_MARSHAL_HEADER;
+   -- type PKCRM_TRANSACTION_BLOB is access all KCRM_TRANSACTION_BLOB;
+   -- type PRKCRM_TRANSACTION_BLOB is access all KCRM_TRANSACTION_BLOB;
+   -- type PKCRM_PROTOCOL_BLOB is access all KCRM_PROTOCOL_BLOB;
+   -- type PRKCRM_PROTOCOL_BLOB is access all KCRM_PROTOCOL_BLOB;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winbase.h
+   -- type LPCOMMPROP is access all COMMPROP;
+   -- type LPCOMSTAT is access all COMSTAT;
+   -- type LPDCB is access all DCB;
+   -- type LPCOMMTIMEOUTS is access all COMMTIMEOUTS;
+   -- type LPCOMMCONFIG is access all COMMCONFIG;
+   -- type LPMEMORYSTATUS is access all MEMORYSTATUS;
+   -- type LPJIT_DEBUG_INFO is access all JIT_DEBUG_INFO;
+   -- type LPJIT_DEBUG_INFO32 is access all JIT_DEBUG_INFO;
+   -- type LPJIT_DEBUG_INFO64 is access all JIT_DEBUG_INFO;
+   -- type POFSTRUCT is access all OFSTRUCT;
+   -- type LPOFSTRUCT is access all OFSTRUCT;
    type PUMS_CONTEXT is access all Void;
    type PUMS_COMPLETION_LIST is access all Void;
+   -- type PUMS_THREAD_INFO_CLASS is access all RTL_UMS_THREAD_INFO_CLASS;
+   -- type PUMS_SCHEDULER_STARTUP_INFO is access all UMS_SCHEDULER_STARTUP_INFO;
+   -- type PUMS_SYSTEM_THREAD_INFORMATION is access all UMS_SYSTEM_THREAD_INFORMATION;
+   -- type LPPOWER_REQUEST_CONTEXT is access all REASON_CONTEXT;
+   -- type PPOWER_REQUEST_CONTEXT is access all REASON_CONTEXT;
    type DEP_SYSTEM_POLICY_TYPE is (
       DEPPolicyAlwaysOff,
       DEPPolicyAlwaysOn,
@@ -1925,6 +2510,9 @@ package Win32 is
    );
    for DEP_SYSTEM_POLICY_TYPE'Size use 32;
    
+   -- type LPWIN32_STREAM_ID is access all WIN32_STREAM_ID;
+   -- type LPSTARTUPINFOEXA is access all STARTUPINFOEXA;
+   -- type LPSTARTUPINFOEXW is access all STARTUPINFOEXW;
    type PROC_THREAD_ATTRIBUTE_NUM is (
       ProcThreadAttributeParentProcess,
       ProcThreadAttributeHandleList,
@@ -2021,6 +2609,37 @@ package Win32 is
    );
    for COPYFILE2_COPY_PHASE'Size use 32;
    
+   -- type LPEVENTLOG_FULL_INFORMATION is access all EVENTLOG_FULL_INFORMATION;
+   -- type POPERATION_START_PARAMETERS is access all OPERATION_START_PARAMETERS;
+   -- type POPERATION_END_PARAMETERS is access all OPERATION_END_PARAMETERS;
+   -- type LPHW_PROFILE_INFOA is access all tagHW_PROFILE_INFOA;
+   -- type LPHW_PROFILE_INFOW is access all tagHW_PROFILE_INFOW;
+   -- type LPSYSTEM_POWER_STATUS is access all SYSTEM_POWER_STATUS;
+   -- type PACTCTXA is access all tagACTCTXA;
+   -- type PACTCTXW is access all tagACTCTXW;
+   -- type PCACTCTXA is access all ACTCTXA;
+   -- type PCACTCTXW is access all ACTCTXW;
+   -- type PACTCTX_SECTION_KEYED_DATA_2600 is access all tagACTCTX_SECTION_KEYED_DATA_2600;
+   -- type PCACTCTX_SECTION_KEYED_DATA_2600 is access all ACTCTX_SECTION_KEYED_DATA_2600;
+   -- type PACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA is access all tagACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA;
+   -- type PCACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA is access all ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA;
+   -- type PACTCTX_SECTION_KEYED_DATA is access all tagACTCTX_SECTION_KEYED_DATA;
+   -- type PCACTCTX_SECTION_KEYED_DATA is access all ACTCTX_SECTION_KEYED_DATA;
+   -- type PACTIVATION_CONTEXT_BASIC_INFORMATION is access all ACTIVATION_CONTEXT_BASIC_INFORMATION;
+   -- type PCACTIVATION_CONTEXT_BASIC_INFORMATION is access all ACTIVATION_CONTEXT_BASIC_INFORMATION;
+   -- type PFILE_BASIC_INFO is access all FILE_BASIC_INFO;
+   -- type PFILE_STANDARD_INFO is access all FILE_STANDARD_INFO;
+   -- type PFILE_NAME_INFO is access all FILE_NAME_INFO;
+   -- type PFILE_RENAME_INFO is access all FILE_RENAME_INFO;
+   -- type PFILE_ALLOCATION_INFO is access all FILE_ALLOCATION_INFO;
+   -- type PFILE_END_OF_FILE_INFO is access all FILE_END_OF_FILE_INFO;
+   -- type PFILE_STREAM_INFO is access all FILE_STREAM_INFO;
+   -- type PFILE_COMPRESSION_INFO is access all FILE_COMPRESSION_INFO;
+   -- type PFILE_ATTRIBUTE_TAG_INFO is access all FILE_ATTRIBUTE_TAG_INFO;
+   -- type PFILE_DISPOSITION_INFO is access all FILE_DISPOSITION_INFO;
+   -- type PFILE_DISPOSITION_INFO_EX is access all FILE_DISPOSITION_INFO_EX;
+   -- type PFILE_ID_BOTH_DIR_INFO is access all FILE_ID_BOTH_DIR_INFO;
+   -- type PFILE_FULL_DIR_INFO is access all FILE_FULL_DIR_INFO;
    type PRIORITY_HINT is (
       IoPriorityHintVeryLow,
       IoPriorityHintLow,
@@ -2035,6 +2654,13 @@ package Win32 is
    );
    for PRIORITY_HINT'Size use 32;
    
+   -- type PFILE_IO_PRIORITY_HINT_INFO is access all FILE_IO_PRIORITY_HINT_INFO;
+   -- type PFILE_ALIGNMENT_INFO is access all FILE_ALIGNMENT_INFO;
+   -- type PFILE_STORAGE_INFO is access all FILE_STORAGE_INFO;
+   -- type PFILE_ID_INFO is access all FILE_ID_INFO;
+   -- type PFILE_ID_EXTD_DIR_INFO is access all FILE_ID_EXTD_DIR_INFO;
+   -- type PFILE_REMOTE_PROTOCOL_INFO is access all FILE_REMOTE_PROTOCOL_INFO;
+   -- type PFILE_ID_TYPE is access all FILE_ID_TYPE;
    type FILE_ID_TYPE is (
       FileIdType,
       ObjectIdType,
@@ -2049,7 +2675,18 @@ package Win32 is
    );
    for FILE_ID_TYPE'Size use 32;
    
+   -- type LPFILE_ID_DESCRIPTOR is access all FILE_ID_DESCRIPTOR;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\minwinbase.h
+   -- type LPSECURITY_ATTRIBUTES is access all SECURITY_ATTRIBUTES;
+   -- type PSECURITY_ATTRIBUTES is access all SECURITY_ATTRIBUTES;
+   -- type LPOVERLAPPED is access all OVERLAPPED;
+   -- type LPOVERLAPPED_ENTRY is access all OVERLAPPED_ENTRY;
+   -- type PSYSTEMTIME is access all SYSTEMTIME;
+   -- type LPSYSTEMTIME is access all SYSTEMTIME;
+   -- type PWIN32_FIND_DATAA is access all WIN32_FIND_DATAA;
+   -- type LPWIN32_FIND_DATAA is access all WIN32_FIND_DATAA;
+   -- type PWIN32_FIND_DATAW is access all WIN32_FIND_DATAW;
+   -- type LPWIN32_FIND_DATAW is access all WIN32_FIND_DATAW;
    type FINDEX_INFO_LEVELS is (
       FindExInfoStandard,
       FindExInfoBasic,
@@ -2086,6 +2723,7 @@ package Win32 is
    );
    for READ_DIRECTORY_NOTIFY_INFORMATION_CLASS'Size use 32;
    
+   -- type PREAD_DIRECTORY_NOTIFY_INFORMATION_CLASS is access all READ_DIRECTORY_NOTIFY_INFORMATION_CLASS;
    type GET_FILEEX_INFO_LEVELS is (
       GetFileExInfoStandard,
       GetFileExMaxInfoLevel
@@ -2096,6 +2734,7 @@ package Win32 is
    );
    for GET_FILEEX_INFO_LEVELS'Size use 32;
    
+   -- type PFILE_INFO_BY_HANDLE_CLASS is access all FILE_INFO_BY_HANDLE_CLASS;
    type FILE_INFO_BY_HANDLE_CLASS is (
       FileBasicInfo,
       FileStandardInfo,
@@ -2150,8 +2789,26 @@ package Win32 is
    );
    for FILE_INFO_BY_HANDLE_CLASS'Size use 32;
    
+   -- type PPROCESS_HEAP_ENTRY is access all PROCESS_HEAP_ENTRY;
+   -- type LPPROCESS_HEAP_ENTRY is access all PROCESS_HEAP_ENTRY;
+   -- type PREASON_CONTEXT is access all REASON_CONTEXT;
+   -- type LPEXCEPTION_DEBUG_INFO is access all EXCEPTION_DEBUG_INFO;
+   -- type LPCREATE_THREAD_DEBUG_INFO is access all CREATE_THREAD_DEBUG_INFO;
+   -- type LPCREATE_PROCESS_DEBUG_INFO is access all CREATE_PROCESS_DEBUG_INFO;
+   -- type LPEXIT_THREAD_DEBUG_INFO is access all EXIT_THREAD_DEBUG_INFO;
+   -- type LPEXIT_PROCESS_DEBUG_INFO is access all EXIT_PROCESS_DEBUG_INFO;
+   -- type LPLOAD_DLL_DEBUG_INFO is access all LOAD_DLL_DEBUG_INFO;
+   -- type LPUNLOAD_DLL_DEBUG_INFO is access all UNLOAD_DLL_DEBUG_INFO;
+   -- type LPOUTPUT_DEBUG_STRING_INFO is access all OUTPUT_DEBUG_STRING_INFO;
+   -- type LPRIP_INFO is access all RIP_INFO;
+   -- type LPDEBUG_EVENT is access all DEBUG_EVENT;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\processenv.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\fileapi.h
+   -- type LPWIN32_FILE_ATTRIBUTE_DATA is access all WIN32_FILE_ATTRIBUTE_DATA;
+   -- type LPBY_HANDLE_FILE_INFORMATION is access all BY_HANDLE_FILE_INFORMATION;
+   -- type PBY_HANDLE_FILE_INFORMATION is access all BY_HANDLE_FILE_INFORMATION;
+   -- type LPCREATEFILE2_EXTENDED_PARAMETERS is access all CREATEFILE2_EXTENDED_PARAMETERS;
+   -- type PCREATEFILE2_EXTENDED_PARAMETERS is access all CREATEFILE2_EXTENDED_PARAMETERS;
    type STREAM_INFO_LEVELS is (
       FindStreamInfoStandard,
       FindStreamInfoMaxInfoLevel
@@ -2162,6 +2819,7 @@ package Win32 is
    );
    for STREAM_INFO_LEVELS'Size use 32;
    
+   -- type PWIN32_FIND_STREAM_DATA is access all WIN32_FIND_STREAM_DATA;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\debugapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\utilapiset.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\handleapi.h
@@ -2170,10 +2828,19 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\namedpipeapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\profileapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\heapapi.h
+   -- type PHEAP_SUMMARY is access all HEAP_SUMMARY;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\ioapiset.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\synchapi.h
+   -- type PSRWLOCK is access all RTL_SRWLOCK;
+   -- type PCONDITION_VARIABLE is access all RTL_CONDITION_VARIABLE;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\interlockedapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\processthreadsapi.h
+   -- type PPROCESS_INFORMATION is access all PROCESS_INFORMATION;
+   -- type LPPROCESS_INFORMATION is access all PROCESS_INFORMATION;
+   -- type LPSTARTUPINFOA is access all STARTUPINFOA;
+   -- type LPSTARTUPINFOW is access all STARTUPINFOW;
+   -- type PPROC_THREAD_ATTRIBUTE_LIST is access all PROC_THREAD_ATTRIBUTE_LIST;
+   -- type LPPROC_THREAD_ATTRIBUTE_LIST is access all PROC_THREAD_ATTRIBUTE_LIST;
    type THREAD_INFORMATION_CLASS is (
       ThreadMemoryPriority,
       ThreadAbsoluteCpuPriority,
@@ -2190,6 +2857,7 @@ package Win32 is
    );
    for THREAD_INFORMATION_CLASS'Size use 32;
    
+   -- type PMEMORY_PRIORITY_INFORMATION is access all MEMORY_PRIORITY_INFORMATION;
    type PROCESS_INFORMATION_CLASS is (
       ProcessMemoryPriority,
       ProcessMemoryExhaustionInfo,
@@ -2214,6 +2882,8 @@ package Win32 is
    );
    for PROCESS_INFORMATION_CLASS'Size use 32;
    
+   -- type PAPP_MEMORY_INFORMATION is access all APP_MEMORY_INFORMATION;
+   -- type PPROCESS_MEMORY_EXHAUSTION_TYPE is access all PROCESS_MEMORY_EXHAUSTION_TYPE;
    type PROCESS_MEMORY_EXHAUSTION_TYPE is (
       PMETypeFailFastOnCommitFailure,
       PMETypeMax
@@ -2224,7 +2894,11 @@ package Win32 is
    );
    for PROCESS_MEMORY_EXHAUSTION_TYPE'Size use 32;
    
+   -- type PPROCESS_MEMORY_EXHAUSTION_INFO is access all PROCESS_MEMORY_EXHAUSTION_INFO;
+   -- type PPROCESS_POWER_THROTTLING_STATE is access all PROCESS_POWER_THROTTLING_STATE;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\sysinfoapi.h
+   -- type LPSYSTEM_INFO is access all SYSTEM_INFO;
+   -- type LPMEMORYSTATUSEX is access all MEMORYSTATUSEX;
    type COMPUTER_NAME_FORMAT is (
       ComputerNameNetBIOS,
       ComputerNameDnsHostname,
@@ -2260,6 +2934,8 @@ package Win32 is
    );
    for MEMORY_RESOURCE_NOTIFICATION_TYPE'Size use 32;
    
+   -- type PWIN32_MEMORY_RANGE_ENTRY is access all WIN32_MEMORY_RANGE_ENTRY;
+   -- type PBAD_MEMORY_CALLBACK_ROUTINE is access all BAD_MEMORY_CALLBACK_ROUTINE;
    type OFFER_PRIORITY is (
       VmOfferPriorityVeryLow,
       VmOfferPriorityLow,
@@ -2289,6 +2965,8 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\jobapi2.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wow64apiset.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\libloaderapi.h
+   -- type PENUMUILANG is access all tagENUMUILANG;
+   -- type PDLL_DIRECTORY_COOKIE is access all PVOID;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\securitybaseapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\namespaceapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\systemtopologyapi.h
@@ -2296,11 +2974,128 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\securityappcontainer.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\realtimeapiset.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\timezoneapi.h
+   -- type LPTIME_ZONE_INFORMATION is access all TIME_ZONE_INFORMATION;
+   -- type PTIME_ZONE_INFORMATION is access all TIME_ZONE_INFORMATION;
+   -- type PDYNAMIC_TIME_ZONE_INFORMATION is access all TIME_DYNAMIC_ZONE_INFORMATION;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wingdi.h
+   -- type PDRAWPATRECT is access all DRAWPATRECT;
+   -- type PPSINJECTDATA is access all PSINJECTDATA;
+   -- type PPSFEATURE_OUTPUT is access all PSFEATURE_OUTPUT;
+   -- type PPSFEATURE_CUSTPAPER is access all PSFEATURE_CUSTPAPER;
+   -- type LPXFORM is access all tagXFORM;
+   -- type PXFORM is access all tagXFORM;
+   -- type PBITMAP is access all tagBITMAP;
+   -- type NPBITMAP is access all tagBITMAP;
+   -- type LPBITMAP is access all tagBITMAP;
+   -- type NPRGBTRIPLE is access all tagRGBTRIPLE;
+   -- type LPRGBTRIPLE is access all tagRGBTRIPLE;
+   -- type PRGBTRIPLE is access all tagRGBTRIPLE;
+   -- type LPRGBQUAD is access all RGBQUAD;
    type LPFXPT16DOT16 is access all Int32;
    subtype FXPT16DOT16 is Int32;
    subtype FXPT2DOT30 is Int32;
    type LPFXPT2DOT30 is access all Int32;
+   -- type LPCIEXYZ is access all CIEXYZ;
+   -- type LPCIEXYZTRIPLE is access all CIEXYZTRIPLE;
+   -- type LPLOGCOLORSPACEA is access all tagLOGCOLORSPACEA;
+   -- type LPLOGCOLORSPACEW is access all tagLOGCOLORSPACEW;
+   -- type PBITMAPCOREHEADER is access all tagBITMAPCOREHEADER;
+   -- type LPBITMAPCOREHEADER is access all tagBITMAPCOREHEADER;
+   -- type PBITMAPINFOHEADER is access all tagBITMAPINFOHEADER;
+   -- type LPBITMAPINFOHEADER is access all tagBITMAPINFOHEADER;
+   -- type LPBITMAPV4HEADER is access all BITMAPV4HEADER;
+   -- type PBITMAPV4HEADER is access all BITMAPV4HEADER;
+   -- type LPBITMAPV5HEADER is access all BITMAPV5HEADER;
+   -- type PBITMAPV5HEADER is access all BITMAPV5HEADER;
+   -- type PBITMAPINFO is access all tagBITMAPINFO;
+   -- type LPBITMAPINFO is access all tagBITMAPINFO;
+   -- type LPBITMAPCOREINFO is access all tagBITMAPCOREINFO;
+   -- type PBITMAPCOREINFO is access all tagBITMAPCOREINFO;
+   -- type LPBITMAPFILEHEADER is access all tagBITMAPFILEHEADER;
+   -- type PBITMAPFILEHEADER is access all tagBITMAPFILEHEADER;
+   -- type LPFONTSIGNATURE is access all tagFONTSIGNATURE;
+   -- type PFONTSIGNATURE is access all tagFONTSIGNATURE;
+   -- type LPCHARSETINFO is access all tagCHARSETINFO;
+   -- type NPCHARSETINFO is access all tagCHARSETINFO;
+   -- type PCHARSETINFO is access all tagCHARSETINFO;
+   -- type LPLOCALESIGNATURE is access all tagLOCALESIGNATURE;
+   -- type PLOCALESIGNATURE is access all tagLOCALESIGNATURE;
+   -- type PHANDLETABLE is access all tagHANDLETABLE;
+   -- type LPHANDLETABLE is access all tagHANDLETABLE;
+   -- type PMETARECORD is access all tagMETARECORD;
+   -- type LPMETARECORD is access all tagMETARECORD;
+   -- type LPMETAFILEPICT is access all tagMETAFILEPICT;
+   -- type PMETAHEADER is access all tagMETAHEADER;
+   -- type LPMETAHEADER is access all tagMETAHEADER;
+   -- type PENHMETARECORD is access all tagENHMETARECORD;
+   -- type LPENHMETARECORD is access all tagENHMETARECORD;
+   -- type PENHMETAHEADER is access all tagENHMETAHEADER;
+   -- type LPENHMETAHEADER is access all tagENHMETAHEADER;
+   -- type LPTEXTMETRICA is access all tagTEXTMETRICA;
+   -- type NPTEXTMETRICA is access all tagTEXTMETRICA;
+   -- type PTEXTMETRICA is access all tagTEXTMETRICA;
+   -- type LPTEXTMETRICW is access all tagTEXTMETRICW;
+   -- type NPTEXTMETRICW is access all tagTEXTMETRICW;
+   -- type PTEXTMETRICW is access all tagTEXTMETRICW;
+   -- type LPNEWTEXTMETRICA is access all tagNEWTEXTMETRICA;
+   -- type NPNEWTEXTMETRICA is access all tagNEWTEXTMETRICA;
+   -- type PNEWTEXTMETRICA is access all tagNEWTEXTMETRICA;
+   -- type PNEWTEXTMETRICW is access all tagNEWTEXTMETRICW;
+   -- type LPNEWTEXTMETRICW is access all tagNEWTEXTMETRICW;
+   -- type NPNEWTEXTMETRICW is access all tagNEWTEXTMETRICW;
+   -- type PPELARRAY is access all tagPELARRAY;
+   -- type NPPELARRAY is access all tagPELARRAY;
+   -- type LPPELARRAY is access all tagPELARRAY;
+   -- type NPLOGBRUSH is access all tagLOGBRUSH;
+   -- type PLOGBRUSH is access all tagLOGBRUSH;
+   -- type LPLOGBRUSH is access all tagLOGBRUSH;
+   -- type NPLOGBRUSH32 is access all tagLOGBRUSH32;
+   -- type LPLOGBRUSH32 is access all tagLOGBRUSH32;
+   -- type PLOGBRUSH32 is access all tagLOGBRUSH32;
+   -- type PPATTERN is access all PATTERN;
+   -- type NPPATTERN is access all PATTERN;
+   -- type LPPATTERN is access all PATTERN;
+   -- type LPLOGPEN is access all tagLOGPEN;
+   -- type PLOGPEN is access all tagLOGPEN;
+   -- type NPLOGPEN is access all tagLOGPEN;
+   -- type PEXTLOGPEN is access all tagEXTLOGPEN;
+   -- type LPEXTLOGPEN is access all tagEXTLOGPEN;
+   -- type NPEXTLOGPEN is access all tagEXTLOGPEN;
+   -- type PEXTLOGPEN32 is access all tagEXTLOGPEN32;
+   -- type NPEXTLOGPEN32 is access all tagEXTLOGPEN32;
+   -- type LPEXTLOGPEN32 is access all tagEXTLOGPEN32;
+   -- type PPALETTEENTRY is access all tagPALETTEENTRY;
+   -- type LPPALETTEENTRY is access all tagPALETTEENTRY;
+   -- type LPLOGPALETTE is access all tagLOGPALETTE;
+   -- type NPLOGPALETTE is access all tagLOGPALETTE;
+   -- type PLOGPALETTE is access all tagLOGPALETTE;
+   -- type LPLOGFONTA is access all tagLOGFONTA;
+   -- type NPLOGFONTA is access all tagLOGFONTA;
+   -- type PLOGFONTA is access all tagLOGFONTA;
+   -- type LPLOGFONTW is access all tagLOGFONTW;
+   -- type NPLOGFONTW is access all tagLOGFONTW;
+   -- type PLOGFONTW is access all tagLOGFONTW;
+   -- type LPENUMLOGFONTA is access all tagENUMLOGFONTA;
+   -- type LPENUMLOGFONTW is access all tagENUMLOGFONTW;
+   -- type LPENUMLOGFONTEXA is access all tagENUMLOGFONTEXA;
+   -- type LPENUMLOGFONTEXW is access all tagENUMLOGFONTEXW;
+   -- type LPPANOSE is access all tagPANOSE;
+   -- type PEXTLOGFONTA is access all tagEXTLOGFONTA;
+   -- type NPEXTLOGFONTA is access all tagEXTLOGFONTA;
+   -- type LPEXTLOGFONTA is access all tagEXTLOGFONTA;
+   -- type NPEXTLOGFONTW is access all tagEXTLOGFONTW;
+   -- type PEXTLOGFONTW is access all tagEXTLOGFONTW;
+   -- type LPEXTLOGFONTW is access all tagEXTLOGFONTW;
+   -- type PDEVMODEA is access all devicemodeA;
+   -- type NPDEVMODEA is access all devicemodeA;
+   -- type LPDEVMODEA is access all devicemodeA;
+   -- type PDEVMODEW is access all devicemodeW;
+   -- type NPDEVMODEW is access all devicemodeW;
+   -- type LPDEVMODEW is access all devicemodeW;
+   -- type PDISPLAY_DEVICEA is access all DISPLAY_DEVICEA;
+   -- type LPDISPLAY_DEVICEA is access all DISPLAY_DEVICEA;
+   -- type LPDISPLAY_DEVICEW is access all DISPLAY_DEVICEW;
+   -- type PDISPLAY_DEVICEW is access all DISPLAY_DEVICEW;
    type DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY is (
       DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INTERNAL,
       DISPLAYCONFIG_OUTPUT_TECHNOLOGY_OTHER,
@@ -2489,9 +3284,294 @@ package Win32 is
    );
    for DISPLAYCONFIG_COLOR_ENCODING'Size use 32;
    
+   -- type PRGNDATAHEADER is access all RGNDATAHEADER;
+   -- type PRGNDATA is access all RGNDATA;
+   -- type NPRGNDATA is access all RGNDATA;
+   -- type LPRGNDATA is access all RGNDATA;
+   -- type NPABC is access all ABC;
+   -- type LPABC is access all ABC;
+   -- type PABC is access all ABC;
+   -- type LPABCFLOAT is access all ABCFLOAT;
+   -- type PABCFLOAT is access all ABCFLOAT;
+   -- type NPABCFLOAT is access all ABCFLOAT;
+   -- type LPOUTLINETEXTMETRICA is access all OUTLINETEXTMETRICA;
+   -- type NPOUTLINETEXTMETRICA is access all OUTLINETEXTMETRICA;
+   -- type POUTLINETEXTMETRICA is access all OUTLINETEXTMETRICA;
+   -- type NPOUTLINETEXTMETRICW is access all OUTLINETEXTMETRICW;
+   -- type POUTLINETEXTMETRICW is access all OUTLINETEXTMETRICW;
+   -- type LPOUTLINETEXTMETRICW is access all OUTLINETEXTMETRICW;
+   -- type NPPOLYTEXTA is access all tagPOLYTEXTA;
+   -- type PPOLYTEXTA is access all tagPOLYTEXTA;
+   -- type LPPOLYTEXTA is access all tagPOLYTEXTA;
+   -- type PPOLYTEXTW is access all tagPOLYTEXTW;
+   -- type NPPOLYTEXTW is access all tagPOLYTEXTW;
+   -- type LPPOLYTEXTW is access all tagPOLYTEXTW;
+   -- type LPMAT2 is access all MAT2;
+   -- type LPGLYPHMETRICS is access all GLYPHMETRICS;
+   -- type LPPOINTFX is access all tagPOINTFX;
+   -- type LPTTPOLYCURVE is access all tagTTPOLYCURVE;
+   -- type LPTTPOLYGONHEADER is access all tagTTPOLYGONHEADER;
+   -- type LPGCP_RESULTSA is access all tagGCP_RESULTSA;
+   -- type LPGCP_RESULTSW is access all tagGCP_RESULTSW;
+   -- type LPRASTERIZER_STATUS is access all RASTERIZER_STATUS;
+   -- type LPPIXELFORMATDESCRIPTOR is access all tagPIXELFORMATDESCRIPTOR;
+   -- type PPIXELFORMATDESCRIPTOR is access all tagPIXELFORMATDESCRIPTOR;
+   -- type PWCRANGE is access all tagWCRANGE;
+   -- type LPWCRANGE is access all tagWCRANGE;
+   -- type LPGLYPHSET is access all tagGLYPHSET;
+   -- type PGLYPHSET is access all tagGLYPHSET;
+   -- type PDESIGNVECTOR is access all tagDESIGNVECTOR;
+   -- type LPDESIGNVECTOR is access all tagDESIGNVECTOR;
+   -- type LPAXISINFOA is access all tagAXISINFOA;
+   -- type PAXISINFOA is access all tagAXISINFOA;
+   -- type PAXISINFOW is access all tagAXISINFOW;
+   -- type LPAXISINFOW is access all tagAXISINFOW;
+   -- type LPAXESLISTA is access all tagAXESLISTA;
+   -- type PAXESLISTA is access all tagAXESLISTA;
+   -- type LPAXESLISTW is access all tagAXESLISTW;
+   -- type PAXESLISTW is access all tagAXESLISTW;
+   -- type LPENUMLOGFONTEXDVA is access all tagENUMLOGFONTEXDVA;
+   -- type PENUMLOGFONTEXDVA is access all tagENUMLOGFONTEXDVA;
+   -- type PENUMLOGFONTEXDVW is access all tagENUMLOGFONTEXDVW;
+   -- type LPENUMLOGFONTEXDVW is access all tagENUMLOGFONTEXDVW;
+   -- type PENUMTEXTMETRICA is access all tagENUMTEXTMETRICA;
+   -- type LPENUMTEXTMETRICA is access all tagENUMTEXTMETRICA;
+   -- type PENUMTEXTMETRICW is access all tagENUMTEXTMETRICW;
+   -- type LPENUMTEXTMETRICW is access all tagENUMTEXTMETRICW;
+   -- type LPTRIVERTEX is access all TRIVERTEX;
+   -- type PTRIVERTEX is access all TRIVERTEX;
+   -- type PGRADIENT_TRIANGLE is access all GRADIENT_TRIANGLE;
+   -- type LPGRADIENT_TRIANGLE is access all GRADIENT_TRIANGLE;
+   -- type LPGRADIENT_RECT is access all GRADIENT_RECT;
+   -- type PGRADIENT_RECT is access all GRADIENT_RECT;
+   -- type PBLENDFUNCTION is access all BLENDFUNCTION;
+   -- type PDIBSECTION is access all tagDIBSECTION;
+   -- type LPDIBSECTION is access all tagDIBSECTION;
+   -- type PCOLORADJUSTMENT is access all tagCOLORADJUSTMENT;
+   -- type LPCOLORADJUSTMENT is access all tagCOLORADJUSTMENT;
+   -- type LPDOCINFOA is access all DOCINFOA;
+   -- type LPDOCINFOW is access all DOCINFOW;
+   -- type LPKERNINGPAIR is access all tagKERNINGPAIR;
+   -- type PEMR is access all tagEMR;
+   -- type PEMRTEXT is access all tagEMRTEXT;
+   -- type PEMRSAVEDC is access all tagABORTPATH;
+   -- type PEMRABORTPATH is access all tagABORTPATH;
+   -- type PEMRREALIZEPALETTE is access all tagABORTPATH;
+   -- type PEMRFLATTENPATH is access all tagABORTPATH;
+   -- type PEMRWIDENPATH is access all tagABORTPATH;
+   -- type PEMRSETMETARGN is access all tagABORTPATH;
+   -- type PEMRENDPATH is access all tagABORTPATH;
+   -- type PEMRCLOSEFIGURE is access all tagABORTPATH;
+   -- type PEMRBEGINPATH is access all tagABORTPATH;
+   -- type PEMRSETROP2 is access all tagEMRSELECTCLIPPATH;
+   -- type PEMRSETTEXTALIGN is access all tagEMRSELECTCLIPPATH;
+   -- type PEMRSETICMMODE is access all tagEMRSELECTCLIPPATH;
+   -- type PEMRSETSTRETCHBLTMODE is access all tagEMRSELECTCLIPPATH;
+   -- type PEMRSETPOLYFILLMODE is access all tagEMRSELECTCLIPPATH;
+   -- type PEMRSETLAYOUT is access all tagEMRSELECTCLIPPATH;
+   -- type PEMRSETMAPMODE is access all tagEMRSELECTCLIPPATH;
+   -- type PEMRSETBKMODE is access all tagEMRSELECTCLIPPATH;
+   -- type PEMRSELECTCLIPPATH is access all tagEMRSELECTCLIPPATH;
+   -- type PEMRSETMITERLIMIT is access all tagEMRSETMITERLIMIT;
+   -- type PEMRRESTOREDC is access all tagEMRRESTOREDC;
+   -- type PEMRSETARCDIRECTION is access all tagEMRSETARCDIRECTION;
+   -- type PEMRSETMAPPERFLAGS is access all tagEMRSETMAPPERFLAGS;
+   -- type PEMRSETTEXTCOLOR is access all tagEMRSETTEXTCOLOR;
+   -- type PEMRSETBKCOLOR is access all tagEMRSETTEXTCOLOR;
+   -- type PEMRDELETEOBJECT is access all tagEMRSELECTOBJECT;
+   -- type PEMRSELECTOBJECT is access all tagEMRSELECTOBJECT;
+   -- type PEMRSELECTPALETTE is access all tagEMRSELECTPALETTE;
+   -- type PEMRRESIZEPALETTE is access all tagEMRRESIZEPALETTE;
+   -- type PEMRSETPALETTEENTRIES is access all tagEMRSETPALETTEENTRIES;
+   -- type PEMRSETCOLORADJUSTMENT is access all tagEMRSETCOLORADJUSTMENT;
+   -- type PEMRGDICOMMENT is access all tagEMRGDICOMMENT;
+   -- type PEMREOF is access all tagEMREOF;
+   -- type PEMRMOVETOEX is access all tagEMRLINETO;
+   -- type PEMRLINETO is access all tagEMRLINETO;
+   -- type PEMROFFSETCLIPRGN is access all tagEMROFFSETCLIPRGN;
+   -- type PEMRFILLPATH is access all tagEMRFILLPATH;
+   -- type PEMRSTROKEANDFILLPATH is access all tagEMRFILLPATH;
+   -- type PEMRSTROKEPATH is access all tagEMRFILLPATH;
+   -- type PEMRINTERSECTCLIPRECT is access all tagEMREXCLUDECLIPRECT;
+   -- type PEMREXCLUDECLIPRECT is access all tagEMREXCLUDECLIPRECT;
+   -- type PEMRSETBRUSHORGEX is access all tagEMRSETVIEWPORTORGEX;
+   -- type PEMRSETVIEWPORTORGEX is access all tagEMRSETVIEWPORTORGEX;
+   -- type PEMRSETWINDOWORGEX is access all tagEMRSETVIEWPORTORGEX;
+   -- type PEMRSETWINDOWEXTEX is access all tagEMRSETVIEWPORTEXTEX;
+   -- type PEMRSETVIEWPORTEXTEX is access all tagEMRSETVIEWPORTEXTEX;
+   -- type PEMRSCALEVIEWPORTEXTEX is access all tagEMRSCALEVIEWPORTEXTEX;
+   -- type PEMRSCALEWINDOWEXTEX is access all tagEMRSCALEVIEWPORTEXTEX;
+   -- type PEMRSETWORLDTRANSFORM is access all tagEMRSETWORLDTRANSFORM;
+   -- type PEMRMODIFYWORLDTRANSFORM is access all tagEMRMODIFYWORLDTRANSFORM;
+   -- type PEMRSETPIXELV is access all tagEMRSETPIXELV;
+   -- type PEMREXTFLOODFILL is access all tagEMREXTFLOODFILL;
+   -- type PEMRELLIPSE is access all tagEMRELLIPSE;
+   -- type PEMRRECTANGLE is access all tagEMRELLIPSE;
+   -- type PEMRROUNDRECT is access all tagEMRROUNDRECT;
+   -- type PEMRARC is access all tagEMRARC;
+   -- type PEMRARCTO is access all tagEMRARC;
+   -- type PEMRCHORD is access all tagEMRARC;
+   -- type PEMRPIE is access all tagEMRARC;
+   -- type PEMRANGLEARC is access all tagEMRANGLEARC;
+   -- type PEMRPOLYLINE is access all tagEMRPOLYLINE;
+   -- type PEMRPOLYBEZIERTO is access all tagEMRPOLYLINE;
+   -- type PEMRPOLYGON is access all tagEMRPOLYLINE;
+   -- type PEMRPOLYBEZIER is access all tagEMRPOLYLINE;
+   -- type PEMRPOLYLINETO is access all tagEMRPOLYLINE;
+   -- type PEMRPOLYLINE16 is access all tagEMRPOLYLINE16;
+   -- type PEMRPOLYBEZIER16 is access all tagEMRPOLYLINE16;
+   -- type PEMRPOLYGON16 is access all tagEMRPOLYLINE16;
+   -- type PEMRPOLYBEZIERTO16 is access all tagEMRPOLYLINE16;
+   -- type PEMRPOLYLINETO16 is access all tagEMRPOLYLINE16;
+   -- type PEMRPOLYDRAW is access all tagEMRPOLYDRAW;
+   -- type PEMRPOLYDRAW16 is access all tagEMRPOLYDRAW16;
+   -- type PEMRPOLYPOLYLINE is access all tagEMRPOLYPOLYLINE;
+   -- type PEMRPOLYPOLYGON is access all tagEMRPOLYPOLYLINE;
+   -- type PEMRPOLYPOLYGON16 is access all tagEMRPOLYPOLYLINE16;
+   -- type PEMRPOLYPOLYLINE16 is access all tagEMRPOLYPOLYLINE16;
+   -- type PEMRINVERTRGN is access all tagEMRINVERTRGN;
+   -- type PEMRPAINTRGN is access all tagEMRINVERTRGN;
+   -- type PEMRFILLRGN is access all tagEMRFILLRGN;
+   -- type PEMRFRAMERGN is access all tagEMRFRAMERGN;
+   -- type PEMREXTSELECTCLIPRGN is access all tagEMREXTSELECTCLIPRGN;
+   -- type PEMREXTTEXTOUTW is access all tagEMREXTTEXTOUTA;
+   -- type PEMREXTTEXTOUTA is access all tagEMREXTTEXTOUTA;
+   -- type PEMRPOLYTEXTOUTA is access all tagEMRPOLYTEXTOUTA;
+   -- type PEMRPOLYTEXTOUTW is access all tagEMRPOLYTEXTOUTA;
+   -- type PEMRBITBLT is access all tagEMRBITBLT;
+   -- type PEMRSTRETCHBLT is access all tagEMRSTRETCHBLT;
+   -- type PEMRMASKBLT is access all tagEMRMASKBLT;
+   -- type PEMRPLGBLT is access all tagEMRPLGBLT;
+   -- type PEMRSETDIBITSTODEVICE is access all tagEMRSETDIBITSTODEVICE;
+   -- type PEMRSTRETCHDIBITS is access all tagEMRSTRETCHDIBITS;
+   -- type PEMREXTCREATEFONTINDIRECTW is access all tagEMREXTCREATEFONTINDIRECTW;
+   -- type PEMRCREATEPALETTE is access all tagEMRCREATEPALETTE;
+   -- type PEMRCREATEPEN is access all tagEMRCREATEPEN;
+   -- type PEMREXTCREATEPEN is access all tagEMREXTCREATEPEN;
+   -- type PEMRCREATEBRUSHINDIRECT is access all tagEMRCREATEBRUSHINDIRECT;
+   -- type PEMRCREATEMONOBRUSH is access all tagEMRCREATEMONOBRUSH;
+   -- type PEMRCREATEDIBPATTERNBRUSHPT is access all tagEMRCREATEDIBPATTERNBRUSHPT;
+   -- type PEMRFORMAT is access all tagEMRFORMAT;
+   -- type PEMRGLSRECORD is access all tagEMRGLSRECORD;
+   -- type PEMRGLSBOUNDEDRECORD is access all tagEMRGLSBOUNDEDRECORD;
+   -- type PEMRPIXELFORMAT is access all tagEMRPIXELFORMAT;
+   -- type PEMRCREATECOLORSPACE is access all tagEMRCREATECOLORSPACE;
+   -- type PEMRSELECTCOLORSPACE is access all tagEMRSETCOLORSPACE;
+   -- type PEMRSETCOLORSPACE is access all tagEMRSETCOLORSPACE;
+   -- type PEMRDELETECOLORSPACE is access all tagEMRSETCOLORSPACE;
+   -- type PEMREXTESCAPE is access all tagEMREXTESCAPE;
+   -- type PEMRDRAWESCAPE is access all tagEMREXTESCAPE;
+   -- type PEMRNAMEDESCAPE is access all tagEMRNAMEDESCAPE;
+   -- type PEMRSETICMPROFILE is access all tagEMRSETICMPROFILE;
+   -- type PEMRSETICMPROFILEW is access all tagEMRSETICMPROFILE;
+   -- type PEMRSETICMPROFILEA is access all tagEMRSETICMPROFILE;
+   -- type PEMRCREATECOLORSPACEW is access all tagEMRCREATECOLORSPACEW;
+   -- type PEMRCOLORMATCHTOTARGET is access all tagCOLORMATCHTOTARGET;
+   -- type PEMRCOLORCORRECTPALETTE is access all tagCOLORCORRECTPALETTE;
+   -- type PEMRALPHABLEND is access all tagEMRALPHABLEND;
+   -- type PEMRGRADIENTFILL is access all tagEMRGRADIENTFILL;
+   -- type PEMRTRANSPARENTBLT is access all tagEMRTRANSPARENTBLT;
+   -- type PPOINTFLOAT is access all POINTFLOAT;
+   -- type LPGLYPHMETRICSFLOAT is access all GLYPHMETRICSFLOAT;
+   -- type PGLYPHMETRICSFLOAT is access all GLYPHMETRICSFLOAT;
+   -- type LPLAYERPLANEDESCRIPTOR is access all tagLAYERPLANEDESCRIPTOR;
+   -- type PLAYERPLANEDESCRIPTOR is access all tagLAYERPLANEDESCRIPTOR;
+   -- type PWGLSWAP is access all WGLSWAP;
+   -- type LPWGLSWAP is access all WGLSWAP;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winuser.h
+   -- type LPVIDEOPARAMETERS is access all VIDEOPARAMETERS;
+   -- type PVIDEOPARAMETERS is access all VIDEOPARAMETERS;
    subtype MENUTEMPLATEA is Void;
    subtype MENUTEMPLATEW is Void;
+   -- type LPCBT_CREATEWNDA is access all tagCBT_CREATEWNDA;
+   -- type LPCBT_CREATEWNDW is access all tagCBT_CREATEWNDW;
+   -- type LPCBTACTIVATESTRUCT is access all tagCBTACTIVATESTRUCT;
+   -- type PWTSSESSION_NOTIFICATION is access all tagWTSSESSION_NOTIFICATION;
+   -- type LPSHELLHOOKINFO is access all SHELLHOOKINFO;
+   -- type LPEVENTMSGMSG is access all tagEVENTMSG;
+   -- type PEVENTMSGMSG is access all tagEVENTMSG;
+   -- type NPEVENTMSGMSG is access all tagEVENTMSG;
+   -- type NPEVENTMSG is access all tagEVENTMSG;
+   -- type PEVENTMSG is access all tagEVENTMSG;
+   -- type LPEVENTMSG is access all tagEVENTMSG;
+   -- type PCWPSTRUCT is access all tagCWPSTRUCT;
+   -- type LPCWPSTRUCT is access all tagCWPSTRUCT;
+   -- type NPCWPSTRUCT is access all tagCWPSTRUCT;
+   -- type LPCWPRETSTRUCT is access all tagCWPRETSTRUCT;
+   -- type NPCWPRETSTRUCT is access all tagCWPRETSTRUCT;
+   -- type PCWPRETSTRUCT is access all tagCWPRETSTRUCT;
+   -- type PKBDLLHOOKSTRUCT is access all tagKBDLLHOOKSTRUCT;
+   -- type LPKBDLLHOOKSTRUCT is access all tagKBDLLHOOKSTRUCT;
+   -- type PMSLLHOOKSTRUCT is access all tagMSLLHOOKSTRUCT;
+   -- type LPMSLLHOOKSTRUCT is access all tagMSLLHOOKSTRUCT;
+   -- type NPDEBUGHOOKINFO is access all tagDEBUGHOOKINFO;
+   -- type PDEBUGHOOKINFO is access all tagDEBUGHOOKINFO;
+   -- type LPDEBUGHOOKINFO is access all tagDEBUGHOOKINFO;
+   -- type LPMOUSEHOOKSTRUCT is access all tagMOUSEHOOKSTRUCT;
+   -- type PMOUSEHOOKSTRUCT is access all tagMOUSEHOOKSTRUCT;
+   -- type LPMOUSEHOOKSTRUCTEX is access all tagMOUSEHOOKSTRUCTEX;
+   -- type PMOUSEHOOKSTRUCTEX is access all tagMOUSEHOOKSTRUCTEX;
+   -- type LPHARDWAREHOOKSTRUCT is access all tagHARDWAREHOOKSTRUCT;
+   -- type PHARDWAREHOOKSTRUCT is access all tagHARDWAREHOOKSTRUCT;
+   -- type LPMOUSEMOVEPOINT is access all tagMOUSEMOVEPOINT;
+   -- type PMOUSEMOVEPOINT is access all tagMOUSEMOVEPOINT;
+   -- type PUSEROBJECTFLAGS is access all tagUSEROBJECTFLAGS;
+   -- type PWNDCLASSEXA is access all tagWNDCLASSEXA;
+   -- type NPWNDCLASSEXA is access all tagWNDCLASSEXA;
+   -- type LPWNDCLASSEXA is access all tagWNDCLASSEXA;
+   -- type LPWNDCLASSEXW is access all tagWNDCLASSEXW;
+   -- type NPWNDCLASSEXW is access all tagWNDCLASSEXW;
+   -- type PWNDCLASSEXW is access all tagWNDCLASSEXW;
+   -- type PWNDCLASSA is access all tagWNDCLASSA;
+   -- type NPWNDCLASSA is access all tagWNDCLASSA;
+   -- type LPWNDCLASSA is access all tagWNDCLASSA;
+   -- type PWNDCLASSW is access all tagWNDCLASSW;
+   -- type NPWNDCLASSW is access all tagWNDCLASSW;
+   -- type LPWNDCLASSW is access all tagWNDCLASSW;
+   -- type LPMSG is access all tagMSG;
+   -- type NPMSG is access all tagMSG;
+   -- type PMSG is access all tagMSG;
+   -- type LPMINMAXINFO is access all tagMINMAXINFO;
+   -- type PMINMAXINFO is access all tagMINMAXINFO;
+   -- type PCOPYDATASTRUCT is access all tagCOPYDATASTRUCT;
+   -- type PMDINEXTMENU is access all tagMDINEXTMENU;
+   -- type LPMDINEXTMENU is access all tagMDINEXTMENU;
+   -- type PPOWERBROADCAST_SETTING is access all POWERBROADCAST_SETTING;
+   -- type LPWINDOWPOS is access all tagWINDOWPOS;
+   -- type PWINDOWPOS is access all tagWINDOWPOS;
+   -- type LPNCCALCSIZE_PARAMS is access all tagNCCALCSIZE_PARAMS;
+   -- type LPTRACKMOUSEEVENT is access all tagTRACKMOUSEEVENT;
+   -- type LPACCEL is access all tagACCEL;
+   -- type NPPAINTSTRUCT is access all tagPAINTSTRUCT;
+   -- type PPAINTSTRUCT is access all tagPAINTSTRUCT;
+   -- type LPPAINTSTRUCT is access all tagPAINTSTRUCT;
+   -- type LPCREATESTRUCTA is access all tagCREATESTRUCTA;
+   -- type LPCREATESTRUCTW is access all tagCREATESTRUCTW;
+   -- type LPWINDOWPLACEMENT is access all WINDOWPLACEMENT;
+   -- type PWINDOWPLACEMENT is access all WINDOWPLACEMENT;
+   -- type LPNMHDR is access all NMHDR;
+   -- type LPSTYLESTRUCT is access all tagSTYLESTRUCT;
+   -- type PMEASUREITEMSTRUCT is access all tagMEASUREITEMSTRUCT;
+   -- type LPMEASUREITEMSTRUCT is access all tagMEASUREITEMSTRUCT;
+   -- type PDRAWITEMSTRUCT is access all tagDRAWITEMSTRUCT;
+   -- type LPDRAWITEMSTRUCT is access all tagDRAWITEMSTRUCT;
+   -- type PDELETEITEMSTRUCT is access all tagDELETEITEMSTRUCT;
+   -- type LPDELETEITEMSTRUCT is access all tagDELETEITEMSTRUCT;
+   -- type PCOMPAREITEMSTRUCT is access all tagCOMPAREITEMSTRUCT;
+   -- type LPCOMPAREITEMSTRUCT is access all tagCOMPAREITEMSTRUCT;
+   -- type PBSMINFO is access all BSMINFO;
+   -- type PHDEVNOTIFY is access all HDEVNOTIFY;
+   -- type PHPOWERNOTIFY is access all HPOWERNOTIFY;
+   -- type PUPDATELAYEREDWINDOWINFO is access all tagUPDATELAYEREDWINDOWINFO;
+   -- type PFLASHWINFO is access all FLASHWINFO;
+   -- type LPDLGTEMPLATEA is access all DLGTEMPLATE;
+   -- type LPDLGTEMPLATEW is access all DLGTEMPLATE;
+   -- type LPCDLGTEMPLATEA is access all DLGTEMPLATE;
+   -- type LPCDLGTEMPLATEW is access all DLGTEMPLATE;
+   -- type PDLGITEMTEMPLATEA is access all DLGITEMTEMPLATE;
+   -- type PDLGITEMTEMPLATEW is access all DLGITEMTEMPLATE;
+   -- type LPDLGITEMTEMPLATEA is access all DLGITEMTEMPLATE;
+   -- type LPDLGITEMTEMPLATEW is access all DLGITEMTEMPLATE;
    type DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS is (
       DCDC_DEFAULT,
       DCDC_DISABLE_FONT_UPDATE,
@@ -2518,6 +3598,17 @@ package Win32 is
    );
    for DIALOG_DPI_CHANGE_BEHAVIORS'Size use 32;
    
+   -- type LPMOUSEINPUT is access all tagMOUSEINPUT;
+   -- type PMOUSEINPUT is access all tagMOUSEINPUT;
+   -- type PKEYBDINPUT is access all tagKEYBDINPUT;
+   -- type LPKEYBDINPUT is access all tagKEYBDINPUT;
+   -- type PHARDWAREINPUT is access all tagHARDWAREINPUT;
+   -- type LPHARDWAREINPUT is access all tagHARDWAREINPUT;
+   -- type PINPUT is access all tagINPUT;
+   -- type LPINPUT is access all tagINPUT;
+   -- type HTOUCHINPUT is access all HTOUCHINPUT_x;
+   -- type PTOUCHINPUT is access all tagTOUCHINPUT;
+   -- type PCTOUCHINPUT is access all TOUCHINPUT;
    type tagPOINTER_INPUT_TYPE is (
       PT_POINTER,
       PT_TOUCH,
@@ -2562,6 +3653,11 @@ package Win32 is
    );
    for tagPOINTER_BUTTON_CHANGE_TYPE'Size use 32;
    
+   -- type PUSAGE_PROPERTIES is access all tagUSAGE_PROPERTIES;
+   -- type PPOINTER_TYPE_INFO is access all tagPOINTER_TYPE_INFO;
+   -- type PINPUT_INJECTION_VALUE is access all tagINPUT_INJECTION_VALUE;
+   -- type PTOUCH_HIT_TESTING_PROXIMITY_EVALUATION is access all tagTOUCH_HIT_TESTING_PROXIMITY_EVALUATION;
+   -- type PTOUCH_HIT_TESTING_INPUT is access all tagTOUCH_HIT_TESTING_INPUT;
    type tagFEEDBACK_TYPE is (
       FEEDBACK_MAX,
       FEEDBACK_TOUCH_CONTACTVISUALIZATION,
@@ -2592,6 +3688,29 @@ package Win32 is
    );
    for tagFEEDBACK_TYPE'Size use 32;
    
+   -- type PLASTINPUTINFO is access all tagLASTINPUTINFO;
+   -- type LPTPMPARAMS is access all TPMPARAMS;
+   -- type LPMENUINFO is access all tagMENUINFO;
+   -- type LPCMENUINFO is access all MENUINFO;
+   -- type PMENUGETOBJECTINFO is access all tagMENUGETOBJECTINFO;
+   -- type LPMENUITEMINFOA is access all tagMENUITEMINFOA;
+   -- type LPMENUITEMINFOW is access all tagMENUITEMINFOW;
+   -- type LPCMENUITEMINFOA is access all MENUITEMINFOA;
+   -- type LPCMENUITEMINFOW is access all MENUITEMINFOW;
+   -- type LPDROPSTRUCT is access all tagDROPSTRUCT;
+   -- type PDROPSTRUCT is access all tagDROPSTRUCT;
+   -- type LPDRAWTEXTPARAMS is access all tagDRAWTEXTPARAMS;
+   -- type LPHELPINFO is access all tagHELPINFO;
+   -- type LPMSGBOXPARAMSA is access all tagMSGBOXPARAMSA;
+   -- type PMSGBOXPARAMSA is access all tagMSGBOXPARAMSA;
+   -- type PMSGBOXPARAMSW is access all tagMSGBOXPARAMSW;
+   -- type LPMSGBOXPARAMSW is access all tagMSGBOXPARAMSW;
+   -- type PMENUITEMTEMPLATEHEADER is access all MENUITEMTEMPLATEHEADER;
+   -- type PMENUITEMTEMPLATE is access all MENUITEMTEMPLATE;
+   -- type PICONINFO is access all ICONINFO;
+   -- type LPCURSORSHAPE is access all tagCURSORSHAPE;
+   -- type PICONINFOEXA is access all ICONINFOEXA;
+   -- type PICONINFOEXW is access all ICONINFOEXW;
    type EDIT_CONTROL_FEATURE is (
       EDIT_CONTROL_FEATURE_ENTERPRISE_DATA_PROTECTION_PASTE_SUPPORT,
       EDIT_CONTROL_FEATURE_PASTE_NOTIFICATIONS
@@ -2602,6 +3721,84 @@ package Win32 is
    );
    for EDIT_CONTROL_FEATURE'Size use 32;
    
+   -- type LPSCROLLINFO is access all tagSCROLLINFO;
+   -- type LPCSCROLLINFO is access all SCROLLINFO;
+   -- type LPMDICREATESTRUCTA is access all tagMDICREATESTRUCTA;
+   -- type LPMDICREATESTRUCTW is access all tagMDICREATESTRUCTW;
+   -- type LPCLIENTCREATESTRUCT is access all tagCLIENTCREATESTRUCT;
+   -- type LPMULTIKEYHELPA is access all tagMULTIKEYHELPA;
+   -- type PMULTIKEYHELPA is access all tagMULTIKEYHELPA;
+   -- type PMULTIKEYHELPW is access all tagMULTIKEYHELPW;
+   -- type LPMULTIKEYHELPW is access all tagMULTIKEYHELPW;
+   -- type PHELPWININFOA is access all tagHELPWININFOA;
+   -- type LPHELPWININFOA is access all tagHELPWININFOA;
+   -- type LPHELPWININFOW is access all tagHELPWININFOW;
+   -- type PHELPWININFOW is access all tagHELPWININFOW;
+   -- type PTOUCHPREDICTIONPARAMETERS is access all tagTouchPredictionParameters;
+   -- type LPNONCLIENTMETRICSA is access all tagNONCLIENTMETRICSA;
+   -- type PNONCLIENTMETRICSA is access all tagNONCLIENTMETRICSA;
+   -- type PNONCLIENTMETRICSW is access all tagNONCLIENTMETRICSW;
+   -- type LPNONCLIENTMETRICSW is access all tagNONCLIENTMETRICSW;
+   -- type LPMINIMIZEDMETRICS is access all tagMINIMIZEDMETRICS;
+   -- type PMINIMIZEDMETRICS is access all tagMINIMIZEDMETRICS;
+   -- type LPICONMETRICSA is access all tagICONMETRICSA;
+   -- type PICONMETRICSA is access all tagICONMETRICSA;
+   -- type PICONMETRICSW is access all tagICONMETRICSW;
+   -- type LPICONMETRICSW is access all tagICONMETRICSW;
+   -- type LPANIMATIONINFO is access all tagANIMATIONINFO;
+   -- type LPSERIALKEYSA is access all tagSERIALKEYSA;
+   -- type LPSERIALKEYSW is access all tagSERIALKEYSW;
+   -- type LPHIGHCONTRASTA is access all tagHIGHCONTRASTA;
+   -- type LPHIGHCONTRASTW is access all tagHIGHCONTRASTW;
+   -- type LPFILTERKEYS is access all tagFILTERKEYS;
+   -- type LPSTICKYKEYS is access all tagSTICKYKEYS;
+   -- type LPMOUSEKEYS is access all tagMOUSEKEYS;
+   -- type LPACCESSTIMEOUT is access all tagACCESSTIMEOUT;
+   -- type LPSOUNDSENTRYA is access all tagSOUNDSENTRYA;
+   -- type LPSOUNDSENTRYW is access all tagSOUNDSENTRYW;
+   -- type LPTOGGLEKEYS is access all tagTOGGLEKEYS;
+   -- type LPAUDIODESCRIPTION is access all tagAUDIODESCRIPTION;
+   -- type LPMONITORINFO is access all tagMONITORINFO;
+   -- type LPMONITORINFOEXA is access all tagMONITORINFOEXA;
+   -- type LPMONITORINFOEXW is access all tagMONITORINFOEXW;
+   -- type LPGUITHREADINFO is access all tagGUITHREADINFO;
+   -- type PGUITHREADINFO is access all tagGUITHREADINFO;
+   -- type LPCURSORINFO is access all tagCURSORINFO;
+   -- type PCURSORINFO is access all tagCURSORINFO;
+   -- type LPWINDOWINFO is access all tagWINDOWINFO;
+   -- type PWINDOWINFO is access all tagWINDOWINFO;
+   -- type LPTITLEBARINFO is access all tagTITLEBARINFO;
+   -- type PTITLEBARINFO is access all tagTITLEBARINFO;
+   -- type LPTITLEBARINFOEX is access all tagTITLEBARINFOEX;
+   -- type PTITLEBARINFOEX is access all tagTITLEBARINFOEX;
+   -- type LPMENUBARINFO is access all tagMENUBARINFO;
+   -- type PMENUBARINFO is access all tagMENUBARINFO;
+   -- type LPSCROLLBARINFO is access all tagSCROLLBARINFO;
+   -- type PSCROLLBARINFO is access all tagSCROLLBARINFO;
+   -- type LPCOMBOBOXINFO is access all tagCOMBOBOXINFO;
+   -- type PCOMBOBOXINFO is access all tagCOMBOBOXINFO;
+   -- type LPALTTABINFO is access all tagALTTABINFO;
+   -- type PALTTABINFO is access all tagALTTABINFO;
+   -- type HRAWINPUT is access all HRAWINPUT_x;
+   -- type PRAWINPUTHEADER is access all tagRAWINPUTHEADER;
+   -- type LPRAWINPUTHEADER is access all tagRAWINPUTHEADER;
+   -- type PRAWMOUSE is access all tagRAWMOUSE;
+   -- type LPRAWMOUSE is access all tagRAWMOUSE;
+   -- type LPRAWKEYBOARD is access all tagRAWKEYBOARD;
+   -- type PRAWKEYBOARD is access all tagRAWKEYBOARD;
+   -- type LPRAWHID is access all tagRAWHID;
+   -- type PRAWHID is access all tagRAWHID;
+   -- type PRAWINPUT is access all tagRAWINPUT;
+   -- type LPRAWINPUT is access all tagRAWINPUT;
+   -- type PRID_DEVICE_INFO_MOUSE is access all tagRID_DEVICE_INFO_MOUSE;
+   -- type PRID_DEVICE_INFO_KEYBOARD is access all tagRID_DEVICE_INFO_KEYBOARD;
+   -- type PRID_DEVICE_INFO_HID is access all tagRID_DEVICE_INFO_HID;
+   -- type LPRID_DEVICE_INFO is access all tagRID_DEVICE_INFO;
+   -- type PRID_DEVICE_INFO is access all tagRID_DEVICE_INFO;
+   -- type PRAWINPUTDEVICE is access all tagRAWINPUTDEVICE;
+   -- type LPRAWINPUTDEVICE is access all tagRAWINPUTDEVICE;
+   -- type PCRAWINPUTDEVICE is access all RAWINPUTDEVICE;
+   -- type PRAWINPUTDEVICELIST is access all tagRAWINPUTDEVICELIST;
    type tagPOINTER_DEVICE_TYPE is (
       POINTER_DEVICE_TYPE_MAX,
       POINTER_DEVICE_TYPE_INTEGRATED_PEN,
@@ -2632,6 +3829,12 @@ package Win32 is
    );
    for tagPOINTER_DEVICE_CURSOR_TYPE'Size use 32;
    
+   -- type PCHANGEFILTERSTRUCT is access all tagCHANGEFILTERSTRUCT;
+   -- type HGESTUREINFO is access all HGESTUREINFO_x;
+   -- type PGESTUREINFO is access all tagGESTUREINFO;
+   -- type PCGESTUREINFO is access all GESTUREINFO;
+   -- type PGESTURENOTIFYSTRUCT is access all tagGESTURENOTIFYSTRUCT;
+   -- type PGESTURECONFIG is access all tagGESTURECONFIG;
    type tagINPUT_MESSAGE_DEVICE_TYPE is (
       IMDT_UNAVAILABLE,
       IMDT_KEYBOARD,
@@ -2664,6 +3867,7 @@ package Win32 is
    );
    for tagINPUT_MESSAGE_ORIGIN_ID'Size use 32;
    
+   -- type PAR_STATE is access all tagAR_STATE;
    type tagAR_STATE is (
       AR_ENABLED,
       AR_DISABLED,
@@ -2705,6 +3909,13 @@ package Win32 is
    for ORIENTATION_PREFERENCE'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winnls.h
+   -- type LPCPINFO is access all cpinfo;
+   -- type LPCPINFOEXA is access all cpinfoexA;
+   -- type LPCPINFOEXW is access all cpinfoexW;
+   -- type LPNUMBERFMTA is access all numberfmtA;
+   -- type LPNUMBERFMTW is access all numberfmtW;
+   -- type LPCURRENCYFMTA is access all currencyfmtA;
+   -- type LPCURRENCYFMTW is access all currencyfmtW;
    type SYSNLS_FUNCTION is (
       COMPARE_STRING
    );
@@ -2713,6 +3924,8 @@ package Win32 is
    );
    for SYSNLS_FUNCTION'Size use 32;
    
+   -- type LPNLSVERSIONINFO is access all nlsversioninfo;
+   -- type LPNLSVERSIONINFOEX is access all nlsversioninfoex;
    type SYSGEOTYPE is (
       GEO_NATION,
       GEO_LATITUDE,
@@ -2783,28 +3996,350 @@ package Win32 is
    );
    for NORM_FORM'Size use 32;
    
+   -- type PFILEMUIINFO is access all FILEMUIINFO;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\datetimeapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\stringapiset.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wincon.h
+   -- type PCOORD is access all COORD;
+   -- type PSMALL_RECT is access all SMALL_RECT;
+   -- type PKEY_EVENT_RECORD is access all KEY_EVENT_RECORD;
+   -- type PMOUSE_EVENT_RECORD is access all MOUSE_EVENT_RECORD;
+   -- type PWINDOW_BUFFER_SIZE_RECORD is access all WINDOW_BUFFER_SIZE_RECORD;
+   -- type PMENU_EVENT_RECORD is access all MENU_EVENT_RECORD;
+   -- type PFOCUS_EVENT_RECORD is access all FOCUS_EVENT_RECORD;
+   -- type PINPUT_RECORD is access all INPUT_RECORD;
+   -- type PCHAR_INFO is access all CHAR_INFO;
+   -- type PCONSOLE_SCREEN_BUFFER_INFO is access all CONSOLE_SCREEN_BUFFER_INFO;
+   -- type PCONSOLE_SCREEN_BUFFER_INFOEX is access all CONSOLE_SCREEN_BUFFER_INFOEX;
+   -- type PCONSOLE_CURSOR_INFO is access all CONSOLE_CURSOR_INFO;
+   -- type PCONSOLE_FONT_INFO is access all CONSOLE_FONT_INFO;
+   -- type PCONSOLE_FONT_INFOEX is access all CONSOLE_FONT_INFOEX;
+   -- type PCONSOLE_HISTORY_INFO is access all CONSOLE_HISTORY_INFO;
+   -- type PCONSOLE_SELECTION_INFO is access all CONSOLE_SELECTION_INFO;
+   -- type PCONSOLE_READCONSOLE_CONTROL is access all CONSOLE_READCONSOLE_CONTROL;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\consoleapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\verrsrc.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winver.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winreg.h
+   -- type PVALCONTEXT is access all val_context;
+   -- type PPVALUEA is access all pvalueA;
+   -- type PPVALUEW is access all pvalueW;
+   -- type PQUERYHANDLER is access all QUERYHANDLER;
+   -- type PPROVIDER is access all provider_info;
+   -- type PVALENTA is access all value_entA;
+   -- type PVALENTW is access all value_entW;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winnetwk.h
+   -- type LPNETRESOURCEA is access all NETRESOURCEA;
+   -- type LPNETRESOURCEW is access all NETRESOURCEW;
+   -- type LPCONNECTDLGSTRUCTA is access all CONNECTDLGSTRUCTA;
+   -- type LPCONNECTDLGSTRUCTW is access all CONNECTDLGSTRUCTW;
+   -- type LPDISCDLGSTRUCTA is access all DISCDLGSTRUCTA;
+   -- type LPDISCDLGSTRUCTW is access all DISCDLGSTRUCTW;
+   -- type LPUNIVERSAL_NAME_INFOA is access all UNIVERSAL_NAME_INFOA;
+   -- type LPUNIVERSAL_NAME_INFOW is access all UNIVERSAL_NAME_INFOW;
+   -- type LPREMOTE_NAME_INFOA is access all REMOTE_NAME_INFOA;
+   -- type LPREMOTE_NAME_INFOW is access all REMOTE_NAME_INFOW;
+   -- type LPNETINFOSTRUCT is access all NETINFOSTRUCT;
+   -- type LPNETCONNECTINFOSTRUCT is access all NETCONNECTINFOSTRUCT;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\dde.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\ddeml.h
+   -- type HCONVLIST is access all HCONVLIST_x;
+   -- type HCONV is access all HCONV_x;
+   -- type HSZ is access all HSZ_x;
+   -- type HDDEDATA is access all HDDEDATA_x;
+   -- type PHSZPAIR is access all tagHSZPAIR;
+   -- type PCONVCONTEXT is access all tagCONVCONTEXT;
+   -- type PCONVINFO is access all tagCONVINFO;
+   -- type PDDEML_MSG_HOOK_DATA is access all tagDDEML_MSG_HOOK_DATA;
+   -- type PMONMSGSTRUCT is access all tagMONMSGSTRUCT;
+   -- type PMONCBSTRUCT is access all tagMONCBSTRUCT;
+   -- type PMONHSZSTRUCTA is access all tagMONHSZSTRUCTA;
+   -- type PMONHSZSTRUCTW is access all tagMONHSZSTRUCTW;
+   -- type PMONERRSTRUCT is access all tagMONERRSTRUCT;
+   -- type PMONLINKSTRUCT is access all tagMONLINKSTRUCT;
+   -- type PMONCONVSTRUCT is access all tagMONCONVSTRUCT;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\dlgs.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\lzexpand.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmsyscom.h
+   -- type LPUINT is access all UINT;
+   -- type PMMTIME is access all mmtime_tag;
+   -- type NPMMTIME is access all mmtime_tag;
+   -- type LPMMTIME is access all mmtime_tag;
+   -- type HDRVR is access all HDRVR_x;
+   -- type LPDRVCALLBACK is access all DRVCALLBACK;
+   -- type PDRVCALLBACK is access all DRVCALLBACK;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mciapi.h
+   -- type PMCI_GENERIC_PARMS is access all tagMCI_GENERIC_PARMS;
+   -- type LPMCI_GENERIC_PARMS is access all tagMCI_GENERIC_PARMS;
+   -- type PMCI_OPEN_PARMSA is access all tagMCI_OPEN_PARMSA;
+   -- type LPMCI_OPEN_PARMSA is access all tagMCI_OPEN_PARMSA;
+   -- type PMCI_OPEN_PARMSW is access all tagMCI_OPEN_PARMSW;
+   -- type LPMCI_OPEN_PARMSW is access all tagMCI_OPEN_PARMSW;
+   -- type LPMCI_PLAY_PARMS is access all tagMCI_PLAY_PARMS;
+   -- type PMCI_PLAY_PARMS is access all tagMCI_PLAY_PARMS;
+   -- type LPMCI_SEEK_PARMS is access all tagMCI_SEEK_PARMS;
+   -- type PMCI_SEEK_PARMS is access all tagMCI_SEEK_PARMS;
+   -- type PMCI_STATUS_PARMS is access all tagMCI_STATUS_PARMS;
+   -- type LPMCI_STATUS_PARMS is access all tagMCI_STATUS_PARMS;
+   -- type LPMCI_INFO_PARMSA is access all tagMCI_INFO_PARMSA;
+   -- type LPMCI_INFO_PARMSW is access all tagMCI_INFO_PARMSW;
+   -- type LPMCI_GETDEVCAPS_PARMS is access all tagMCI_GETDEVCAPS_PARMS;
+   -- type PMCI_GETDEVCAPS_PARMS is access all tagMCI_GETDEVCAPS_PARMS;
+   -- type PMCI_SYSINFO_PARMSA is access all tagMCI_SYSINFO_PARMSA;
+   -- type LPMCI_SYSINFO_PARMSA is access all tagMCI_SYSINFO_PARMSA;
+   -- type LPMCI_SYSINFO_PARMSW is access all tagMCI_SYSINFO_PARMSW;
+   -- type PMCI_SYSINFO_PARMSW is access all tagMCI_SYSINFO_PARMSW;
+   -- type LPMCI_SET_PARMS is access all tagMCI_SET_PARMS;
+   -- type PMCI_SET_PARMS is access all tagMCI_SET_PARMS;
+   -- type LPMCI_BREAK_PARMS is access all tagMCI_BREAK_PARMS;
+   -- type PMCI_BREAK_PARMS is access all tagMCI_BREAK_PARMS;
+   -- type LPMCI_SAVE_PARMSA is access all tagMCI_SAVE_PARMSA;
+   -- type PMCI_SAVE_PARMSA is access all tagMCI_SAVE_PARMSA;
+   -- type PMCI_SAVE_PARMSW is access all tagMCI_SAVE_PARMSW;
+   -- type LPMCI_SAVE_PARMSW is access all tagMCI_SAVE_PARMSW;
+   -- type LPMCI_LOAD_PARMSA is access all tagMCI_LOAD_PARMSA;
+   -- type PMCI_LOAD_PARMSA is access all tagMCI_LOAD_PARMSA;
+   -- type LPMCI_LOAD_PARMSW is access all tagMCI_LOAD_PARMSW;
+   -- type PMCI_LOAD_PARMSW is access all tagMCI_LOAD_PARMSW;
+   -- type LPMCI_RECORD_PARMS is access all tagMCI_RECORD_PARMS;
+   -- type LPMCI_VD_PLAY_PARMS is access all tagMCI_VD_PLAY_PARMS;
+   -- type PMCI_VD_PLAY_PARMS is access all tagMCI_VD_PLAY_PARMS;
+   -- type LPMCI_VD_STEP_PARMS is access all tagMCI_VD_STEP_PARMS;
+   -- type PMCI_VD_STEP_PARMS is access all tagMCI_VD_STEP_PARMS;
+   -- type PMCI_VD_ESCAPE_PARMSA is access all tagMCI_VD_ESCAPE_PARMSA;
+   -- type LPMCI_VD_ESCAPE_PARMSA is access all tagMCI_VD_ESCAPE_PARMSA;
+   -- type LPMCI_VD_ESCAPE_PARMSW is access all tagMCI_VD_ESCAPE_PARMSW;
+   -- type PMCI_VD_ESCAPE_PARMSW is access all tagMCI_VD_ESCAPE_PARMSW;
+   -- type PMCI_WAVE_OPEN_PARMSA is access all tagMCI_WAVE_OPEN_PARMSA;
+   -- type LPMCI_WAVE_OPEN_PARMSA is access all tagMCI_WAVE_OPEN_PARMSA;
+   -- type PMCI_WAVE_OPEN_PARMSW is access all tagMCI_WAVE_OPEN_PARMSW;
+   -- type LPMCI_WAVE_OPEN_PARMSW is access all tagMCI_WAVE_OPEN_PARMSW;
+   -- type LPMCI_WAVE_DELETE_PARMS is access all tagMCI_WAVE_DELETE_PARMS;
+   -- type PMCI_WAVE_DELETE_PARMS is access all tagMCI_WAVE_DELETE_PARMS;
+   -- type LPMCI_WAVE_SET_PARMS is access all tagMCI_WAVE_SET_PARMS;
+   -- type PMCI_WAVE_SET_PARMS is access all tagMCI_WAVE_SET_PARMS;
+   -- type PMCI_SEQ_SET_PARMS is access all tagMCI_SEQ_SET_PARMS;
+   -- type LPMCI_SEQ_SET_PARMS is access all tagMCI_SEQ_SET_PARMS;
+   -- type PMCI_ANIM_OPEN_PARMSA is access all tagMCI_ANIM_OPEN_PARMSA;
+   -- type LPMCI_ANIM_OPEN_PARMSA is access all tagMCI_ANIM_OPEN_PARMSA;
+   -- type LPMCI_ANIM_OPEN_PARMSW is access all tagMCI_ANIM_OPEN_PARMSW;
+   -- type PMCI_ANIM_OPEN_PARMSW is access all tagMCI_ANIM_OPEN_PARMSW;
+   -- type PMCI_ANIM_PLAY_PARMS is access all tagMCI_ANIM_PLAY_PARMS;
+   -- type LPMCI_ANIM_PLAY_PARMS is access all tagMCI_ANIM_PLAY_PARMS;
+   -- type PMCI_ANIM_STEP_PARMS is access all tagMCI_ANIM_STEP_PARMS;
+   -- type LPMCI_ANIM_STEP_PARMS is access all tagMCI_ANIM_STEP_PARMS;
+   -- type PMCI_ANIM_WINDOW_PARMSA is access all tagMCI_ANIM_WINDOW_PARMSA;
+   -- type LPMCI_ANIM_WINDOW_PARMSA is access all tagMCI_ANIM_WINDOW_PARMSA;
+   -- type PMCI_ANIM_WINDOW_PARMSW is access all tagMCI_ANIM_WINDOW_PARMSW;
+   -- type LPMCI_ANIM_WINDOW_PARMSW is access all tagMCI_ANIM_WINDOW_PARMSW;
+   -- type PMCI_ANIM_RECT_PARMS is access all MCI_ANIM_RECT_PARMS;
+   -- type LPMCI_ANIM_RECT_PARMS is access all MCI_ANIM_RECT_PARMS;
+   -- type LPMCI_ANIM_UPDATE_PARMS is access all tagMCI_ANIM_UPDATE_PARMS;
+   -- type PMCI_ANIM_UPDATE_PARMS is access all tagMCI_ANIM_UPDATE_PARMS;
+   -- type LPMCI_OVLY_OPEN_PARMSA is access all tagMCI_OVLY_OPEN_PARMSA;
+   -- type PMCI_OVLY_OPEN_PARMSA is access all tagMCI_OVLY_OPEN_PARMSA;
+   -- type LPMCI_OVLY_OPEN_PARMSW is access all tagMCI_OVLY_OPEN_PARMSW;
+   -- type PMCI_OVLY_OPEN_PARMSW is access all tagMCI_OVLY_OPEN_PARMSW;
+   -- type LPMCI_OVLY_WINDOW_PARMSA is access all tagMCI_OVLY_WINDOW_PARMSA;
+   -- type PMCI_OVLY_WINDOW_PARMSA is access all tagMCI_OVLY_WINDOW_PARMSA;
+   -- type LPMCI_OVLY_WINDOW_PARMSW is access all tagMCI_OVLY_WINDOW_PARMSW;
+   -- type PMCI_OVLY_WINDOW_PARMSW is access all tagMCI_OVLY_WINDOW_PARMSW;
+   -- type LPMCI_OVLY_RECT_PARMS is access all tagMCI_OVLY_RECT_PARMS;
+   -- type PMCI_OVLY_RECT_PARMS is access all tagMCI_OVLY_RECT_PARMS;
+   -- type LPMCI_OVLY_SAVE_PARMSA is access all tagMCI_OVLY_SAVE_PARMSA;
+   -- type PMCI_OVLY_SAVE_PARMSA is access all tagMCI_OVLY_SAVE_PARMSA;
+   -- type LPMCI_OVLY_SAVE_PARMSW is access all tagMCI_OVLY_SAVE_PARMSW;
+   -- type PMCI_OVLY_SAVE_PARMSW is access all tagMCI_OVLY_SAVE_PARMSW;
+   -- type LPMCI_OVLY_LOAD_PARMSA is access all tagMCI_OVLY_LOAD_PARMSA;
+   -- type PMCI_OVLY_LOAD_PARMSA is access all tagMCI_OVLY_LOAD_PARMSA;
+   -- type PMCI_OVLY_LOAD_PARMSW is access all tagMCI_OVLY_LOAD_PARMSW;
+   -- type LPMCI_OVLY_LOAD_PARMSW is access all tagMCI_OVLY_LOAD_PARMSW;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmiscapi.h
+   -- type LPDRVCONFIGINFOEX is access all DRVCONFIGINFOEX;
+   -- type PDRVCONFIGINFOEX is access all DRVCONFIGINFOEX;
+   -- type NPDRVCONFIGINFOEX is access all DRVCONFIGINFOEX;
+   -- type PDRVCONFIGINFO is access all tagDRVCONFIGINFO;
+   -- type NPDRVCONFIGINFO is access all tagDRVCONFIGINFO;
+   -- type LPDRVCONFIGINFO is access all tagDRVCONFIGINFO;
    type HPSTR is access all Character;
+   -- type HMMIO is access all HMMIO_x;
+   -- type LPMMIOPROC is access all MMIOPROC;
+   -- type PMMIOINFO is access all MMIOINFO;
+   -- type NPMMIOINFO is access all MMIOINFO;
+   -- type LPMMIOINFO is access all MMIOINFO;
+   -- type LPCMMIOINFO is access all MMIOINFO;
+   -- type LPMMCKINFO is access all MMCKINFO;
+   -- type PMMCKINFO is access all MMCKINFO;
+   -- type NPMMCKINFO is access all MMCKINFO;
+   -- type LPCMMCKINFO is access all MMCKINFO;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmiscapi2.h
+   -- type LPTIMECALLBACK is access all TIMECALLBACK;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\playsoundapi.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mmeapi.h
+   -- type HWAVE is access all HWAVE_x;
+   -- type HWAVEIN is access all HWAVEIN_x;
+   -- type HWAVEOUT is access all HWAVEOUT_x;
+   -- type LPHWAVEIN is access all HWAVEIN;
+   -- type LPHWAVEOUT is access all HWAVEOUT;
+   -- type LPWAVECALLBACK is access all WAVECALLBACK;
+   -- type PWAVEHDR is access all wavehdr_tag;
+   -- type NPWAVEHDR is access all wavehdr_tag;
+   -- type LPWAVEHDR is access all wavehdr_tag;
+   -- type LPWAVEOUTCAPSA is access all tagWAVEOUTCAPSA;
+   -- type NPWAVEOUTCAPSA is access all tagWAVEOUTCAPSA;
+   -- type PWAVEOUTCAPSA is access all tagWAVEOUTCAPSA;
+   -- type PWAVEOUTCAPSW is access all tagWAVEOUTCAPSW;
+   -- type NPWAVEOUTCAPSW is access all tagWAVEOUTCAPSW;
+   -- type LPWAVEOUTCAPSW is access all tagWAVEOUTCAPSW;
+   -- type PWAVEOUTCAPS2A is access all tagWAVEOUTCAPS2A;
+   -- type LPWAVEOUTCAPS2A is access all tagWAVEOUTCAPS2A;
+   -- type NPWAVEOUTCAPS2A is access all tagWAVEOUTCAPS2A;
+   -- type LPWAVEOUTCAPS2W is access all tagWAVEOUTCAPS2W;
+   -- type PWAVEOUTCAPS2W is access all tagWAVEOUTCAPS2W;
+   -- type NPWAVEOUTCAPS2W is access all tagWAVEOUTCAPS2W;
+   -- type LPWAVEINCAPSA is access all tagWAVEINCAPSA;
+   -- type NPWAVEINCAPSA is access all tagWAVEINCAPSA;
+   -- type PWAVEINCAPSA is access all tagWAVEINCAPSA;
+   -- type LPWAVEINCAPSW is access all tagWAVEINCAPSW;
+   -- type NPWAVEINCAPSW is access all tagWAVEINCAPSW;
+   -- type PWAVEINCAPSW is access all tagWAVEINCAPSW;
+   -- type NPWAVEINCAPS2A is access all tagWAVEINCAPS2A;
+   -- type LPWAVEINCAPS2A is access all tagWAVEINCAPS2A;
+   -- type PWAVEINCAPS2A is access all tagWAVEINCAPS2A;
+   -- type NPWAVEINCAPS2W is access all tagWAVEINCAPS2W;
+   -- type PWAVEINCAPS2W is access all tagWAVEINCAPS2W;
+   -- type LPWAVEINCAPS2W is access all tagWAVEINCAPS2W;
+   -- type LPWAVEFORMAT is access all waveformat_tag;
+   -- type PWAVEFORMAT is access all waveformat_tag;
+   -- type NPWAVEFORMAT is access all waveformat_tag;
+   -- type PPCMWAVEFORMAT is access all pcmwaveformat_tag;
+   -- type NPPCMWAVEFORMAT is access all pcmwaveformat_tag;
+   -- type LPPCMWAVEFORMAT is access all pcmwaveformat_tag;
+   -- type PWAVEFORMATEX is access all tWAVEFORMATEX;
+   -- type NPWAVEFORMATEX is access all tWAVEFORMATEX;
+   -- type LPWAVEFORMATEX is access all tWAVEFORMATEX;
+   -- type LPCWAVEFORMATEX is access all WAVEFORMATEX;
+   -- type HMIDI is access all HMIDI_x;
+   -- type HMIDIIN is access all HMIDIIN_x;
+   -- type HMIDIOUT is access all HMIDIOUT_x;
+   -- type HMIDISTRM is access all HMIDISTRM_x;
+   -- type LPHMIDI is access all HMIDI;
+   -- type LPHMIDIIN is access all HMIDIIN;
+   -- type LPHMIDIOUT is access all HMIDIOUT;
+   -- type LPHMIDISTRM is access all HMIDISTRM;
+   -- type LPMIDICALLBACK is access all MIDICALLBACK;
+   -- type LPPATCHARRAY is access all WORD;
+   -- type LPKEYARRAY is access all WORD;
+   -- type LPMIDIOUTCAPSA is access all tagMIDIOUTCAPSA;
+   -- type NPMIDIOUTCAPSA is access all tagMIDIOUTCAPSA;
+   -- type PMIDIOUTCAPSA is access all tagMIDIOUTCAPSA;
+   -- type PMIDIOUTCAPSW is access all tagMIDIOUTCAPSW;
+   -- type NPMIDIOUTCAPSW is access all tagMIDIOUTCAPSW;
+   -- type LPMIDIOUTCAPSW is access all tagMIDIOUTCAPSW;
+   -- type PMIDIOUTCAPS2A is access all tagMIDIOUTCAPS2A;
+   -- type LPMIDIOUTCAPS2A is access all tagMIDIOUTCAPS2A;
+   -- type NPMIDIOUTCAPS2A is access all tagMIDIOUTCAPS2A;
+   -- type NPMIDIOUTCAPS2W is access all tagMIDIOUTCAPS2W;
+   -- type PMIDIOUTCAPS2W is access all tagMIDIOUTCAPS2W;
+   -- type LPMIDIOUTCAPS2W is access all tagMIDIOUTCAPS2W;
+   -- type LPMIDIINCAPSA is access all tagMIDIINCAPSA;
+   -- type NPMIDIINCAPSA is access all tagMIDIINCAPSA;
+   -- type PMIDIINCAPSA is access all tagMIDIINCAPSA;
+   -- type PMIDIINCAPSW is access all tagMIDIINCAPSW;
+   -- type NPMIDIINCAPSW is access all tagMIDIINCAPSW;
+   -- type LPMIDIINCAPSW is access all tagMIDIINCAPSW;
+   -- type PMIDIINCAPS2A is access all tagMIDIINCAPS2A;
+   -- type NPMIDIINCAPS2A is access all tagMIDIINCAPS2A;
+   -- type LPMIDIINCAPS2A is access all tagMIDIINCAPS2A;
+   -- type PMIDIINCAPS2W is access all tagMIDIINCAPS2W;
+   -- type NPMIDIINCAPS2W is access all tagMIDIINCAPS2W;
+   -- type LPMIDIINCAPS2W is access all tagMIDIINCAPS2W;
+   -- type PMIDIHDR is access all midihdr_tag;
+   -- type NPMIDIHDR is access all midihdr_tag;
+   -- type LPMIDIHDR is access all midihdr_tag;
+   -- type LPMIDIPROPTIMEDIV is access all midiproptimediv_tag;
+   -- type LPMIDIPROPTEMPO is access all midiproptempo_tag;
+   -- type PAUXCAPSA is access all tagAUXCAPSA;
+   -- type NPAUXCAPSA is access all tagAUXCAPSA;
+   -- type LPAUXCAPSA is access all tagAUXCAPSA;
+   -- type PAUXCAPSW is access all tagAUXCAPSW;
+   -- type NPAUXCAPSW is access all tagAUXCAPSW;
+   -- type LPAUXCAPSW is access all tagAUXCAPSW;
+   -- type PAUXCAPS2A is access all tagAUXCAPS2A;
+   -- type NPAUXCAPS2A is access all tagAUXCAPS2A;
+   -- type LPAUXCAPS2A is access all tagAUXCAPS2A;
+   -- type PAUXCAPS2W is access all tagAUXCAPS2W;
+   -- type NPAUXCAPS2W is access all tagAUXCAPS2W;
+   -- type LPAUXCAPS2W is access all tagAUXCAPS2W;
+   -- type HMIXEROBJ is access all HMIXEROBJ_x;
+   -- type LPHMIXEROBJ is access all HMIXEROBJ;
+   -- type HMIXER is access all HMIXER_x;
+   -- type LPHMIXER is access all HMIXER;
+   -- type PMIXERCAPSA is access all tagMIXERCAPSA;
+   -- type LPMIXERCAPSA is access all tagMIXERCAPSA;
+   -- type LPMIXERCAPSW is access all tagMIXERCAPSW;
+   -- type PMIXERCAPSW is access all tagMIXERCAPSW;
+   -- type PMIXERCAPS2A is access all tagMIXERCAPS2A;
+   -- type LPMIXERCAPS2A is access all tagMIXERCAPS2A;
+   -- type PMIXERCAPS2W is access all tagMIXERCAPS2W;
+   -- type LPMIXERCAPS2W is access all tagMIXERCAPS2W;
+   -- type LPMIXERLINEA is access all tagMIXERLINEA;
+   -- type PMIXERLINEA is access all tagMIXERLINEA;
+   -- type PMIXERLINEW is access all tagMIXERLINEW;
+   -- type LPMIXERLINEW is access all tagMIXERLINEW;
+   -- type LPMIXERCONTROLA is access all tagMIXERCONTROLA;
+   -- type PMIXERCONTROLA is access all tagMIXERCONTROLA;
+   -- type PMIXERCONTROLW is access all tagMIXERCONTROLW;
+   -- type LPMIXERCONTROLW is access all tagMIXERCONTROLW;
+   -- type LPMIXERLINECONTROLSA is access all tagMIXERLINECONTROLSA;
+   -- type PMIXERLINECONTROLSA is access all tagMIXERLINECONTROLSA;
+   -- type LPMIXERLINECONTROLSW is access all tagMIXERLINECONTROLSW;
+   -- type PMIXERLINECONTROLSW is access all tagMIXERLINECONTROLSW;
+   -- type PMIXERCONTROLDETAILS is access all tMIXERCONTROLDETAILS;
+   -- type LPMIXERCONTROLDETAILS is access all tMIXERCONTROLDETAILS;
+   -- type LPMIXERCONTROLDETAILS_LISTTEXTA is access all tagMIXERCONTROLDETAILS_LISTTEXTA;
+   -- type PMIXERCONTROLDETAILS_LISTTEXTA is access all tagMIXERCONTROLDETAILS_LISTTEXTA;
+   -- type PMIXERCONTROLDETAILS_LISTTEXTW is access all tagMIXERCONTROLDETAILS_LISTTEXTW;
+   -- type LPMIXERCONTROLDETAILS_LISTTEXTW is access all tagMIXERCONTROLDETAILS_LISTTEXTW;
+   -- type LPMIXERCONTROLDETAILS_BOOLEAN is access all tMIXERCONTROLDETAILS_BOOLEAN;
+   -- type PMIXERCONTROLDETAILS_BOOLEAN is access all tMIXERCONTROLDETAILS_BOOLEAN;
+   -- type PMIXERCONTROLDETAILS_SIGNED is access all tMIXERCONTROLDETAILS_SIGNED;
+   -- type LPMIXERCONTROLDETAILS_SIGNED is access all tMIXERCONTROLDETAILS_SIGNED;
+   -- type PMIXERCONTROLDETAILS_UNSIGNED is access all tMIXERCONTROLDETAILS_UNSIGNED;
+   -- type LPMIXERCONTROLDETAILS_UNSIGNED is access all tMIXERCONTROLDETAILS_UNSIGNED;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\timeapi.h
+   -- type PTIMECAPS is access all timecaps_tag;
+   -- type NPTIMECAPS is access all timecaps_tag;
+   -- type LPTIMECAPS is access all timecaps_tag;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\joystickapi.h
+   -- type LPJOYCAPSA is access all tagJOYCAPSA;
+   -- type NPJOYCAPSA is access all tagJOYCAPSA;
+   -- type PJOYCAPSA is access all tagJOYCAPSA;
+   -- type NPJOYCAPSW is access all tagJOYCAPSW;
+   -- type PJOYCAPSW is access all tagJOYCAPSW;
+   -- type LPJOYCAPSW is access all tagJOYCAPSW;
+   -- type LPJOYCAPS2A is access all tagJOYCAPS2A;
+   -- type NPJOYCAPS2A is access all tagJOYCAPS2A;
+   -- type PJOYCAPS2A is access all tagJOYCAPS2A;
+   -- type PJOYCAPS2W is access all tagJOYCAPS2W;
+   -- type LPJOYCAPS2W is access all tagJOYCAPS2W;
+   -- type NPJOYCAPS2W is access all tagJOYCAPS2W;
+   -- type PJOYINFO is access all joyinfo_tag;
+   -- type NPJOYINFO is access all joyinfo_tag;
+   -- type LPJOYINFO is access all joyinfo_tag;
+   -- type PJOYINFOEX is access all joyinfoex_tag;
+   -- type LPJOYINFOEX is access all joyinfoex_tag;
+   -- type NPJOYINFOEX is access all joyinfoex_tag;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\nb30.h
+   -- type PNCB is access all NCB;
+   -- type PADAPTER_STATUS is access all ADAPTER_STATUS;
+   -- type PNAME_BUFFER is access all NAME_BUFFER;
+   -- type PSESSION_HEADER is access all SESSION_HEADER;
+   -- type PSESSION_BUFFER is access all SESSION_BUFFER;
+   -- type PLANA_ENUM is access all LANA_ENUM;
+   -- type PFIND_NAME_HEADER is access all FIND_NAME_HEADER;
+   -- type PFIND_NAME_BUFFER is access all FIND_NAME_BUFFER;
+   -- type PACTION_HEADER is access all ACTION_HEADER;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpc.h
    type RPC_NS_HANDLE is access all Void;
    type I_RPC_HANDLE is access all Void;
@@ -2814,8 +4349,31 @@ package Win32 is
    type RPC_WSTR is access all UInt16;
    type RPC_CWSTR is access all UInt16;
    type RPC_IF_HANDLE is access all Void;
+   -- type PRPC_POLICY is access all RPC_POLICY;
    type RPC_AUTH_IDENTITY_HANDLE is access all Void;
    type RPC_AUTHZ_HANDLE is access all Void;
+   -- type PRPC_SECURITY_QOS is access all RPC_SECURITY_QOS;
+   -- type PSEC_WINNT_AUTH_IDENTITY_W is access all SEC_WINNT_AUTH_IDENTITY_W;
+   -- type PSEC_WINNT_AUTH_IDENTITY_A is access all SEC_WINNT_AUTH_IDENTITY_A;
+   -- type PRPC_HTTP_TRANSPORT_CREDENTIALS_W is access all RPC_HTTP_TRANSPORT_CREDENTIALS_W;
+   -- type PRPC_HTTP_TRANSPORT_CREDENTIALS_A is access all RPC_HTTP_TRANSPORT_CREDENTIALS_A;
+   -- type PRPC_HTTP_TRANSPORT_CREDENTIALS_V2_W is access all RPC_HTTP_TRANSPORT_CREDENTIALS_V2_W;
+   -- type PRPC_HTTP_TRANSPORT_CREDENTIALS_V2_A is access all RPC_HTTP_TRANSPORT_CREDENTIALS_V2_A;
+   -- type PRPC_HTTP_TRANSPORT_CREDENTIALS_V3_W is access all RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W;
+   -- type PRPC_HTTP_TRANSPORT_CREDENTIALS_V3_A is access all RPC_HTTP_TRANSPORT_CREDENTIALS_V3_A;
+   -- type PRPC_SECURITY_QOS_V2_W is access all RPC_SECURITY_QOS_V2_W;
+   -- type PRPC_SECURITY_QOS_V2_A is access all RPC_SECURITY_QOS_V2_A;
+   -- type PRPC_SECURITY_QOS_V3_W is access all RPC_SECURITY_QOS_V3_W;
+   -- type PRPC_SECURITY_QOS_V3_A is access all RPC_SECURITY_QOS_V3_A;
+   -- type PRPC_SECURITY_QOS_V4_W is access all RPC_SECURITY_QOS_V4_W;
+   -- type PRPC_SECURITY_QOS_V4_A is access all RPC_SECURITY_QOS_V4_A;
+   -- type PRPC_SECURITY_QOS_V5_W is access all RPC_SECURITY_QOS_V5_W;
+   -- type PRPC_SECURITY_QOS_V5_A is access all RPC_SECURITY_QOS_V5_A;
+   -- type PRPC_BINDING_HANDLE_TEMPLATE_V1_W is access all RPC_BINDING_HANDLE_TEMPLATE_V1_W;
+   -- type PRPC_BINDING_HANDLE_TEMPLATE_V1_A is access all RPC_BINDING_HANDLE_TEMPLATE_V1_A;
+   -- type PRPC_BINDING_HANDLE_SECURITY_V1_W is access all RPC_BINDING_HANDLE_SECURITY_V1_W;
+   -- type PRPC_BINDING_HANDLE_SECURITY_V1_A is access all RPC_BINDING_HANDLE_SECURITY_V1_A;
+   -- type PRPC_BINDING_HANDLE_OPTIONS_V1 is access all RPC_BINDING_HANDLE_OPTIONS_V1;
    type RPC_HTTP_REDIRECTOR_STAGE is (
       RPCHTTP_RS_REDIRECT,
       RPCHTTP_RS_ACCESS_1,
@@ -2832,8 +4390,16 @@ package Win32 is
    );
    for RPC_HTTP_REDIRECTOR_STAGE'Size use 32;
    
+   -- type PRPC_CLIENT_INFORMATION1 is access all RPC_CLIENT_INFORMATION1;
+   -- type RPC_EP_INQ_HANDLE is access all I_RPC_HANDLE;
    type RPC_INTERFACE_GROUP is access all Void;
+   -- type PRPC_ENDPOINT_TEMPLATEW is access all RPC_ENDPOINT_TEMPLATEW;
+   -- type PRPC_ENDPOINT_TEMPLATEA is access all RPC_ENDPOINT_TEMPLATEA;
+   -- type PRPC_INTERFACE_TEMPLATEA is access all RPC_INTERFACE_TEMPLATEA;
+   -- type PRPC_INTERFACE_TEMPLATEW is access all RPC_INTERFACE_TEMPLATEW;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcdcep.h
+   -- type PRPC_SYNTAX_IDENTIFIER is access all RPC_SYNTAX_IDENTIFIER;
+   -- type PRPC_MESSAGE is access all RPC_MESSAGE;
    type RPC_ADDRESS_CHANGE_TYPE is (
       PROTOCOL_NOT_LOADED,
       PROTOCOL_LOADED,
@@ -2846,6 +4412,10 @@ package Win32 is
    );
    for RPC_ADDRESS_CHANGE_TYPE'Size use 32;
    
+   -- type PRPC_DISPATCH_TABLE is access all RPC_DISPATCH_TABLE;
+   -- type PRPC_PROTSEQ_ENDPOINT is access all RPC_PROTSEQ_ENDPOINT;
+   -- type PRPC_SERVER_INTERFACE is access all RPC_SERVER_INTERFACE;
+   -- type PRPC_CLIENT_INTERFACE is access all RPC_CLIENT_INTERFACE;
    type I_RPC_MUTEX is access all Void;
    type LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION is (
       MarshalDirectionMarshal,
@@ -2857,6 +4427,7 @@ package Win32 is
    );
    for LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION'Size use 32;
    
+   -- type PRPC_SEC_CONTEXT_KEY_INFO is access all RPC_SEC_CONTEXT_KEY_INFO;
    type RpcProxyPerfCounters is (
       RpcCurrentUniqueUser,
       RpcBackEndConnectionAttempts,
@@ -2922,6 +4493,9 @@ package Win32 is
    );
    for RPC_ASYNC_EVENT'Size use 32;
    
+   -- type PFN_RPCNOTIFICATION_ROUTINE is access all RPCNOTIFICATION_ROUTINE;
+   -- type PRPC_ASYNC_NOTIFICATION_INFO is access all RPC_ASYNC_NOTIFICATION_INFO;
+   -- type PRPC_ASYNC_STATE is access all RPC_ASYNC_STATE;
    type tagExtendedErrorParamTypes is (
       eeptAnsiString,
       eeptUnicodeString,
@@ -2954,6 +4528,7 @@ package Win32 is
    );
    for tagRpcLocalAddressFormat'Size use 32;
    
+   -- type PRPC_CALL_LOCAL_ADDRESS_V1 is access all RPC_CALL_LOCAL_ADDRESS_V1;
    type tagRpcCallType is (
       rctInvalid,
       rctNormal,
@@ -2995,6 +4570,17 @@ package Win32 is
    for RPC_NOTIFICATIONS'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\shellapi.h
+   -- type HDROP is access all HDROP_x;
+   -- type LPDRAGINFOA is access all DRAGINFOA;
+   -- type LPDRAGINFOW is access all DRAGINFOW;
+   -- type PAPPBARDATA is access all AppBarData;
+   -- type LPSHFILEOPSTRUCTA is access all SHFILEOPSTRUCTA;
+   -- type LPSHFILEOPSTRUCTW is access all SHFILEOPSTRUCTW;
+   -- type LPSHNAMEMAPPINGA is access all SHNAMEMAPPINGA;
+   -- type LPSHNAMEMAPPINGW is access all SHNAMEMAPPINGW;
+   -- type LPSHELLEXECUTEINFOA is access all SHELLEXECUTEINFOA;
+   -- type LPSHELLEXECUTEINFOW is access all SHELLEXECUTEINFOW;
+   -- type PSHCREATEPROCESSINFOW is access all SHCREATEPROCESSINFOW;
    type ASSOCCLASS is (
       ASSOCCLASS_SHELL_KEY,
       ASSOCCLASS_PROGID_KEY,
@@ -3025,6 +4611,7 @@ package Win32 is
    );
    for ASSOCCLASS'Size use 32;
    
+   -- type LPSHQUERYRBINFO is access all SHQUERYRBINFO;
    type QUERY_USER_NOTIFICATION_STATE is (
       QUNS_NOT_PRESENT,
       QUNS_BUSY,
@@ -3045,6 +4632,9 @@ package Win32 is
    );
    for QUERY_USER_NOTIFICATION_STATE'Size use 32;
    
+   -- type PNOTIFYICONDATAA is access all NOTIFYICONDATAA;
+   -- type PNOTIFYICONDATAW is access all NOTIFYICONDATAW;
+   -- type PNOTIFYICONIDENTIFIER is access all NOTIFYICONIDENTIFIER;
    type SHSTOCKICONID is (
       SIID_DOCNOASSOC,
       SIID_DOCASSOC,
@@ -3239,19 +4829,249 @@ package Win32 is
    );
    for SHSTOCKICONID'Size use 32;
    
+   -- type POPEN_PRINTER_PROPS_INFOA is access all OPEN_PRINTER_PROPS_INFOA;
+   -- type POPEN_PRINTER_PROPS_INFOW is access all OPEN_PRINTER_PROPS_INFOW;
+   -- type PNC_ADDRESS is access all tagNC_ADDRESS;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winperf.h
+   -- type PPERF_DATA_BLOCK is access all PERF_DATA_BLOCK;
+   -- type PPERF_OBJECT_TYPE is access all PERF_OBJECT_TYPE;
+   -- type PPERF_COUNTER_DEFINITION is access all PERF_COUNTER_DEFINITION;
+   -- type PPERF_INSTANCE_DEFINITION is access all PERF_INSTANCE_DEFINITION;
+   -- type PPERF_COUNTER_BLOCK is access all PERF_COUNTER_BLOCK;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winsock.h
    subtype u_char is Uint8;
    subtype u_short is UInt16;
    subtype u_int is UInt32;
    subtype u_long is UInt32;
+   -- type LPWSADATA is access all WSADATA;
+   -- type PTRANSMIT_FILE_BUFFERS is access all TRANSMIT_FILE_BUFFERS;
+   -- type LPTRANSMIT_FILE_BUFFERS is access all TRANSMIT_FILE_BUFFERS;
+   -- type PSOCKADDR is access all sockaddr;
+   -- type LPSOCKADDR is access all sockaddr;
+   -- type PSOCKADDR_IN is access all sockaddr_in;
+   -- type LPSOCKADDR_IN is access all sockaddr_in;
+   -- type PLINGER is access all linger;
+   -- type LPLINGER is access all linger;
+   -- type PFD_SET is access all fd_set;
+   -- type LPFD_SET is access all fd_set;
+   -- type PHOSTENT is access all hostent;
+   -- type LPHOSTENT is access all hostent;
+   -- type PSERVENT is access all servent;
+   -- type LPSERVENT is access all servent;
+   -- type PPROTOENT is access all protoent;
+   -- type LPPROTOENT is access all protoent;
+   -- type PTIMEVAL is access all timeval;
+   -- type LPTIMEVAL is access all timeval;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\inaddr.h
+   -- type PIN_ADDR is access all in_addr;
+   -- type LPIN_ADDR is access all in_addr;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\wincrypt.h
    subtype ALG_ID is UInt32;
+   -- type PCMS_KEY_INFO is access all CMS_KEY_INFO;
+   -- type PHMAC_INFO is access all HMAC_Info;
+   -- type PSCHANNEL_ALG is access all SCHANNEL_ALG;
+   -- type PKEY_TYPE_SUBTYPE is access all KEY_TYPE_SUBTYPE;
+   -- type PCRYPT_RC4_KEY_STATE is access all CRYPT_RC4_KEY_STATE;
+   -- type PCRYPT_DES_KEY_STATE is access all CRYPT_DES_KEY_STATE;
+   -- type PCRYPT_3DES_KEY_STATE is access all CRYPT_3DES_KEY_STATE;
+   -- type PCRYPT_AES_128_KEY_STATE is access all CRYPT_AES_128_KEY_STATE;
+   -- type PCRYPT_AES_256_KEY_STATE is access all CRYPT_AES_256_KEY_STATE;
+   -- type PCRYPT_DIGEST_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCRYPT_HASH_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCRYPT_DER_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCRYPT_ATTR_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCRYPT_DATA_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCERT_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCRL_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PDATA_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCERT_RDN_VALUE_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCERT_NAME_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCRYPT_OBJID_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCRYPT_UINT_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCRYPT_INTEGER_BLOB is access all CRYPTOAPI_BLOB;
+   -- type PCMS_DH_KEY_INFO is access all CMS_DH_KEY_INFO;
+   -- type PCRYPT_BIT_BLOB is access all CRYPT_BIT_BLOB;
+   -- type PCRYPT_ALGORITHM_IDENTIFIER is access all CRYPT_ALGORITHM_IDENTIFIER;
+   -- type PCRYPT_OBJID_TABLE is access all CRYPT_OBJID_TABLE;
+   -- type PCRYPT_HASH_INFO is access all CRYPT_HASH_INFO;
+   -- type PCERT_EXTENSION is access all CERT_EXTENSION;
+   -- type PCCERT_EXTENSION is access all CERT_EXTENSION;
+   -- type PCRYPT_ATTRIBUTE_TYPE_VALUE is access all CRYPT_ATTRIBUTE_TYPE_VALUE;
+   -- type PCRYPT_ATTRIBUTE is access all CRYPT_ATTRIBUTE;
+   -- type PCRYPT_ATTRIBUTES is access all CRYPT_ATTRIBUTES;
+   -- type PCERT_RDN_ATTR is access all CERT_RDN_ATTR;
+   -- type PCERT_RDN is access all CERT_RDN;
+   -- type PCERT_NAME_INFO is access all CERT_NAME_INFO;
+   -- type PCERT_NAME_VALUE is access all CERT_NAME_VALUE;
+   -- type PCERT_PUBLIC_KEY_INFO is access all CERT_PUBLIC_KEY_INFO;
+   -- type PCRYPT_ECC_PRIVATE_KEY_INFO is access all CRYPT_ECC_PRIVATE_KEY_INFO;
+   -- type PCRYPT_PRIVATE_KEY_INFO is access all CRYPT_PRIVATE_KEY_INFO;
+   -- type PCRYPT_ENCRYPTED_PRIVATE_KEY_INFO is access all CRYPT_ENCRYPTED_PRIVATE_KEY_INFO;
+   -- type PCRYPT_PKCS8_IMPORT_PARAMS is access all CRYPT_PKCS8_IMPORT_PARAMS;
+   -- type PCRYPT_PRIVATE_KEY_BLOB_AND_PARAMS is access all CRYPT_PKCS8_IMPORT_PARAMS;
+   -- type PCRYPT_PKCS8_EXPORT_PARAMS is access all CRYPT_PKCS8_EXPORT_PARAMS;
+   -- type PCERT_INFO is access all CERT_INFO;
+   -- type PCRL_ENTRY is access all CRL_ENTRY;
+   -- type PCRL_INFO is access all CRL_INFO;
+   -- type PCERT_OR_CRL_BLOB is access all CERT_OR_CRL_BLOB;
+   -- type PCERT_OR_CRL_BUNDLE is access all CERT_OR_CRL_BUNDLE;
+   -- type PCERT_REQUEST_INFO is access all CERT_REQUEST_INFO;
+   -- type PCERT_KEYGEN_REQUEST_INFO is access all CERT_KEYGEN_REQUEST_INFO;
+   -- type PCERT_SIGNED_CONTENT_INFO is access all CERT_SIGNED_CONTENT_INFO;
+   -- type PCTL_USAGE is access all CTL_USAGE;
+   -- type PCERT_ENHKEY_USAGE is access all CTL_USAGE;
+   -- type PCCTL_USAGE is access all CTL_USAGE;
+   -- type PCCERT_ENHKEY_USAGE is access all CERT_ENHKEY_USAGE;
+   -- type PCTL_ENTRY is access all CTL_ENTRY;
+   -- type PCTL_INFO is access all CTL_INFO;
+   -- type PCRYPT_TIME_STAMP_REQUEST_INFO is access all CRYPT_TIME_STAMP_REQUEST_INFO;
+   -- type PCRYPT_ENROLLMENT_NAME_VALUE_PAIR is access all CRYPT_ENROLLMENT_NAME_VALUE_PAIR;
+   -- type PCRYPT_CSP_PROVIDER is access all CRYPT_CSP_PROVIDER;
+   -- type PCRYPT_ENCODE_PARA is access all CRYPT_ENCODE_PARA;
+   -- type PCRYPT_DECODE_PARA is access all CRYPT_DECODE_PARA;
+   -- type PCERT_EXTENSIONS is access all CERT_EXTENSIONS;
+   -- type PCERT_AUTHORITY_KEY_ID_INFO is access all CERT_AUTHORITY_KEY_ID_INFO;
+   -- type PCERT_PRIVATE_KEY_VALIDITY is access all CERT_PRIVATE_KEY_VALIDITY;
+   -- type PCERT_KEY_ATTRIBUTES_INFO is access all CERT_KEY_ATTRIBUTES_INFO;
+   -- type PCERT_POLICY_ID is access all CERT_POLICY_ID;
+   -- type PCERT_KEY_USAGE_RESTRICTION_INFO is access all CERT_KEY_USAGE_RESTRICTION_INFO;
+   -- type PCERT_OTHER_NAME is access all CERT_OTHER_NAME;
+   -- type PCERT_ALT_NAME_ENTRY is access all CERT_ALT_NAME_ENTRY;
+   -- type PCERT_ALT_NAME_INFO is access all CERT_ALT_NAME_INFO;
+   -- type PCERT_BASIC_CONSTRAINTS_INFO is access all CERT_BASIC_CONSTRAINTS_INFO;
+   -- type PCERT_BASIC_CONSTRAINTS2_INFO is access all CERT_BASIC_CONSTRAINTS2_INFO;
+   -- type PCERT_POLICY_QUALIFIER_INFO is access all CERT_POLICY_QUALIFIER_INFO;
+   -- type PCERT_POLICY_INFO is access all CERT_POLICY_INFO;
+   -- type PCERT_POLICIES_INFO is access all CERT_POLICIES_INFO;
+   -- type PCERT_POLICY_QUALIFIER_NOTICE_REFERENCE is access all CERT_POLICY_QUALIFIER_NOTICE_REFERENCE;
+   -- type PCERT_POLICY_QUALIFIER_USER_NOTICE is access all CERT_POLICY_QUALIFIER_USER_NOTICE;
+   -- type PCPS_URLS is access all CPS_URLS;
+   -- type PCERT_POLICY95_QUALIFIER1 is access all CERT_POLICY95_QUALIFIER1;
+   -- type PCERT_POLICY_MAPPING is access all CERT_POLICY_MAPPING;
+   -- type PCERT_POLICY_MAPPINGS_INFO is access all CERT_POLICY_MAPPINGS_INFO;
+   -- type PCERT_POLICY_CONSTRAINTS_INFO is access all CERT_POLICY_CONSTRAINTS_INFO;
+   -- type PCRYPT_CONTENT_INFO_SEQUENCE_OF_ANY is access all CRYPT_CONTENT_INFO_SEQUENCE_OF_ANY;
+   -- type PCRYPT_CONTENT_INFO is access all CRYPT_CONTENT_INFO;
+   -- type PCRYPT_SEQUENCE_OF_ANY is access all CRYPT_SEQUENCE_OF_ANY;
+   -- type PCERT_AUTHORITY_KEY_ID2_INFO is access all CERT_AUTHORITY_KEY_ID2_INFO;
+   -- type PCERT_ACCESS_DESCRIPTION is access all CERT_ACCESS_DESCRIPTION;
+   -- type PCERT_SUBJECT_INFO_ACCESS is access all CERT_AUTHORITY_INFO_ACCESS;
+   -- type PCERT_AUTHORITY_INFO_ACCESS is access all CERT_AUTHORITY_INFO_ACCESS;
+   -- type PCRL_DIST_POINT_NAME is access all CRL_DIST_POINT_NAME;
+   -- type PCRL_DIST_POINT is access all CRL_DIST_POINT;
+   -- type PCRL_DIST_POINTS_INFO is access all CRL_DIST_POINTS_INFO;
+   -- type PCROSS_CERT_DIST_POINTS_INFO is access all CROSS_CERT_DIST_POINTS_INFO;
+   -- type PCERT_PAIR is access all CERT_PAIR;
+   -- type PCRL_ISSUING_DIST_POINT is access all CRL_ISSUING_DIST_POINT;
+   -- type PCERT_GENERAL_SUBTREE is access all CERT_GENERAL_SUBTREE;
+   -- type PCERT_NAME_CONSTRAINTS_INFO is access all CERT_NAME_CONSTRAINTS_INFO;
+   -- type PCERT_DSS_PARAMETERS is access all CERT_DSS_PARAMETERS;
+   -- type PCERT_DH_PARAMETERS is access all CERT_DH_PARAMETERS;
+   -- type PCERT_ECC_SIGNATURE is access all CERT_ECC_SIGNATURE;
+   -- type PCERT_X942_DH_VALIDATION_PARAMS is access all CERT_X942_DH_VALIDATION_PARAMS;
+   -- type PCERT_X942_DH_PARAMETERS is access all CERT_X942_DH_PARAMETERS;
+   -- type PCRYPT_X942_OTHER_INFO is access all CRYPT_X942_OTHER_INFO;
+   -- type PCRYPT_ECC_CMS_SHARED_INFO is access all CRYPT_ECC_CMS_SHARED_INFO;
+   -- type PCRYPT_RC2_CBC_PARAMETERS is access all CRYPT_RC2_CBC_PARAMETERS;
+   -- type PCRYPT_SMIME_CAPABILITY is access all CRYPT_SMIME_CAPABILITY;
+   -- type PCRYPT_SMIME_CAPABILITIES is access all CRYPT_SMIME_CAPABILITIES;
+   -- type PCERT_QC_STATEMENT is access all CERT_QC_STATEMENT;
+   -- type PCERT_QC_STATEMENTS_EXT_INFO is access all CERT_QC_STATEMENTS_EXT_INFO;
+   -- type PCRYPT_MASK_GEN_ALGORITHM is access all CRYPT_MASK_GEN_ALGORITHM;
+   -- type PCRYPT_RSA_SSA_PSS_PARAMETERS is access all CRYPT_RSA_SSA_PSS_PARAMETERS;
+   -- type PCRYPT_PSOURCE_ALGORITHM is access all CRYPT_PSOURCE_ALGORITHM;
+   -- type PCRYPT_RSAES_OAEP_PARAMETERS is access all CRYPT_RSAES_OAEP_PARAMETERS;
+   -- type PCMC_TAGGED_ATTRIBUTE is access all CMC_TAGGED_ATTRIBUTE;
+   -- type PCMC_TAGGED_CERT_REQUEST is access all CMC_TAGGED_CERT_REQUEST;
+   -- type PCMC_TAGGED_REQUEST is access all CMC_TAGGED_REQUEST;
+   -- type PCMC_TAGGED_CONTENT_INFO is access all CMC_TAGGED_CONTENT_INFO;
+   -- type PCMC_TAGGED_OTHER_MSG is access all CMC_TAGGED_OTHER_MSG;
+   -- type PCMC_DATA_INFO is access all CMC_DATA_INFO;
+   -- type PCMC_RESPONSE_INFO is access all CMC_RESPONSE_INFO;
+   -- type PCMC_PEND_INFO is access all CMC_PEND_INFO;
+   -- type PCMC_STATUS_INFO is access all CMC_STATUS_INFO;
+   -- type PCMC_ADD_EXTENSIONS_INFO is access all CMC_ADD_EXTENSIONS_INFO;
+   -- type PCMC_ADD_ATTRIBUTES_INFO is access all CMC_ADD_ATTRIBUTES_INFO;
+   -- type PCERT_TEMPLATE_EXT is access all CERT_TEMPLATE_EXT;
+   -- type PCERT_HASHED_URL is access all CERT_HASHED_URL;
+   -- type PCERT_LOGOTYPE_DETAILS is access all CERT_LOGOTYPE_DETAILS;
+   -- type PCERT_LOGOTYPE_REFERENCE is access all CERT_LOGOTYPE_REFERENCE;
+   -- type PCERT_LOGOTYPE_IMAGE_INFO is access all CERT_LOGOTYPE_IMAGE_INFO;
+   -- type PCERT_LOGOTYPE_IMAGE is access all CERT_LOGOTYPE_IMAGE;
+   -- type PCERT_LOGOTYPE_AUDIO_INFO is access all CERT_LOGOTYPE_AUDIO_INFO;
+   -- type PCERT_LOGOTYPE_AUDIO is access all CERT_LOGOTYPE_AUDIO;
+   -- type PCERT_LOGOTYPE_DATA is access all CERT_LOGOTYPE_DATA;
+   -- type PCERT_LOGOTYPE_INFO is access all CERT_LOGOTYPE_INFO;
+   -- type PCERT_OTHER_LOGOTYPE_INFO is access all CERT_OTHER_LOGOTYPE_INFO;
+   -- type PCERT_LOGOTYPE_EXT_INFO is access all CERT_LOGOTYPE_EXT_INFO;
+   -- type PCERT_BIOMETRIC_DATA is access all CERT_BIOMETRIC_DATA;
+   -- type PCERT_BIOMETRIC_EXT_INFO is access all CERT_BIOMETRIC_EXT_INFO;
+   -- type POCSP_SIGNATURE_INFO is access all OCSP_SIGNATURE_INFO;
+   -- type POCSP_SIGNED_REQUEST_INFO is access all OCSP_SIGNED_REQUEST_INFO;
+   -- type POCSP_CERT_ID is access all OCSP_CERT_ID;
+   -- type POCSP_REQUEST_ENTRY is access all OCSP_REQUEST_ENTRY;
+   -- type POCSP_REQUEST_INFO is access all OCSP_REQUEST_INFO;
+   -- type POCSP_RESPONSE_INFO is access all OCSP_RESPONSE_INFO;
+   -- type POCSP_BASIC_SIGNED_RESPONSE_INFO is access all OCSP_BASIC_SIGNED_RESPONSE_INFO;
+   -- type POCSP_BASIC_REVOKED_INFO is access all OCSP_BASIC_REVOKED_INFO;
+   -- type POCSP_BASIC_RESPONSE_ENTRY is access all OCSP_BASIC_RESPONSE_ENTRY;
+   -- type POCSP_BASIC_RESPONSE_INFO is access all OCSP_BASIC_RESPONSE_INFO;
+   -- type PCERT_SUPPORTED_ALGORITHM_INFO is access all CERT_SUPPORTED_ALGORITHM_INFO;
+   -- type PCERT_TPM_SPECIFICATION_INFO is access all CERT_TPM_SPECIFICATION_INFO;
    type HCRYPTOIDFUNCSET is access all Void;
    type HCRYPTOIDFUNCADDR is access all Void;
+   -- type PCRYPT_OID_FUNC_ENTRY is access all CRYPT_OID_FUNC_ENTRY;
+   -- type PCRYPT_OID_INFO is access all CRYPT_OID_INFO;
+   -- type PCCRYPT_OID_INFO is access all CRYPT_OID_INFO;
+   -- type PCERT_STRONG_SIGN_SERIALIZED_INFO is access all CERT_STRONG_SIGN_SERIALIZED_INFO;
+   -- type PCERT_STRONG_SIGN_PARA is access all CERT_STRONG_SIGN_PARA;
+   -- type PCCERT_STRONG_SIGN_PARA is access all CERT_STRONG_SIGN_PARA;
    type HCRYPTMSG is access all Void;
+   -- type PCERT_ISSUER_SERIAL_NUMBER is access all CERT_ISSUER_SERIAL_NUMBER;
+   -- type PCERT_ID is access all CERT_ID;
+   -- type PCMSG_SIGNER_ENCODE_INFO is access all CMSG_SIGNER_ENCODE_INFO;
+   -- type PCMSG_SIGNED_ENCODE_INFO is access all CMSG_SIGNED_ENCODE_INFO;
+   -- type PCMSG_RECIPIENT_ENCODE_INFO is access all CMSG_RECIPIENT_ENCODE_INFO;
+   -- type PCMSG_ENVELOPED_ENCODE_INFO is access all CMSG_ENVELOPED_ENCODE_INFO;
+   -- type PCMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO is access all CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO;
+   -- type PCMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO is access all CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO;
+   -- type PCMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO is access all CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO;
+   -- type PCMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO is access all CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO;
+   -- type PCMSG_RC2_AUX_INFO is access all CMSG_RC2_AUX_INFO;
+   -- type PCMSG_SP3_COMPATIBLE_AUX_INFO is access all CMSG_SP3_COMPATIBLE_AUX_INFO;
+   -- type PCMSG_RC4_AUX_INFO is access all CMSG_RC4_AUX_INFO;
+   -- type PCMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO is access all CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO;
+   -- type PCMSG_HASHED_ENCODE_INFO is access all CMSG_HASHED_ENCODE_INFO;
+   -- type PCMSG_ENCRYPTED_ENCODE_INFO is access all CMSG_ENCRYPTED_ENCODE_INFO;
+   -- type PCMSG_STREAM_INFO is access all CMSG_STREAM_INFO;
+   -- type PCMSG_SIGNER_INFO is access all CMSG_SIGNER_INFO;
+   -- type PCMSG_CMS_SIGNER_INFO is access all CMSG_CMS_SIGNER_INFO;
+   -- type PCMSG_ATTR is access all CRYPT_ATTRIBUTES;
+   -- type PCMSG_KEY_TRANS_RECIPIENT_INFO is access all CMSG_KEY_TRANS_RECIPIENT_INFO;
+   -- type PCMSG_RECIPIENT_ENCRYPTED_KEY_INFO is access all CMSG_RECIPIENT_ENCRYPTED_KEY_INFO;
+   -- type PCMSG_KEY_AGREE_RECIPIENT_INFO is access all CMSG_KEY_AGREE_RECIPIENT_INFO;
+   -- type PCMSG_MAIL_LIST_RECIPIENT_INFO is access all CMSG_MAIL_LIST_RECIPIENT_INFO;
+   -- type PCMSG_CMS_RECIPIENT_INFO is access all CMSG_CMS_RECIPIENT_INFO;
+   -- type PCMSG_CTRL_VERIFY_SIGNATURE_EX_PARA is access all CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA;
+   -- type PCMSG_CTRL_DECRYPT_PARA is access all CMSG_CTRL_DECRYPT_PARA;
+   -- type PCMSG_CTRL_KEY_TRANS_DECRYPT_PARA is access all CMSG_CTRL_KEY_TRANS_DECRYPT_PARA;
+   -- type PCMSG_CTRL_KEY_AGREE_DECRYPT_PARA is access all CMSG_CTRL_KEY_AGREE_DECRYPT_PARA;
+   -- type PCMSG_CTRL_MAIL_LIST_DECRYPT_PARA is access all CMSG_CTRL_MAIL_LIST_DECRYPT_PARA;
+   -- type PCMSG_CTRL_ADD_SIGNER_UNAUTH_ATTR_PARA is access all CMSG_CTRL_ADD_SIGNER_UNAUTH_ATTR_PARA;
+   -- type PCMSG_CTRL_DEL_SIGNER_UNAUTH_ATTR_PARA is access all CMSG_CTRL_DEL_SIGNER_UNAUTH_ATTR_PARA;
+   -- type PCMSG_CONTENT_ENCRYPT_INFO is access all CMSG_CONTENT_ENCRYPT_INFO;
+   -- type PCMSG_KEY_TRANS_ENCRYPT_INFO is access all CMSG_KEY_TRANS_ENCRYPT_INFO;
+   -- type PCMSG_KEY_AGREE_KEY_ENCRYPT_INFO is access all CMSG_KEY_AGREE_KEY_ENCRYPT_INFO;
+   -- type PCMSG_KEY_AGREE_ENCRYPT_INFO is access all CMSG_KEY_AGREE_ENCRYPT_INFO;
+   -- type PCMSG_MAIL_LIST_ENCRYPT_INFO is access all CMSG_MAIL_LIST_ENCRYPT_INFO;
+   -- type PCMSG_CNG_CONTENT_DECRYPT_INFO is access all CMSG_CNG_CONTENT_DECRYPT_INFO;
    type HCERTSTORE is access all Void;
+   -- type PCERT_CONTEXT is access all CERT_CONTEXT;
+   -- type PCCERT_CONTEXT is access all CERT_CONTEXT;
+   -- type PCRL_CONTEXT is access all CRL_CONTEXT;
+   -- type PCCRL_CONTEXT is access all CRL_CONTEXT;
+   -- type PCTL_CONTEXT is access all CTL_CONTEXT;
+   -- type PCCTL_CONTEXT is access all CTL_CONTEXT;
    type CertKeyType is (
       KeyTypeOther,
       KeyTypeVirtualSmartCard,
@@ -3276,10 +5096,110 @@ package Win32 is
    );
    for CertKeyType'Size use 32;
    
+   -- type PCRYPT_KEY_PROV_PARAM is access all CRYPT_KEY_PROV_PARAM;
+   -- type PCRYPT_KEY_PROV_INFO is access all CRYPT_KEY_PROV_INFO;
+   -- type PCERT_KEY_CONTEXT is access all CERT_KEY_CONTEXT;
+   -- type PROOT_INFO_LUID is access all ROOT_INFO_LUID;
+   -- type PCRYPT_SMART_CARD_ROOT_INFO is access all CRYPT_SMART_CARD_ROOT_INFO;
+   -- type PCERT_SYSTEM_STORE_RELOCATE_PARA is access all CERT_SYSTEM_STORE_RELOCATE_PARA;
+   -- type PCERT_REGISTRY_STORE_CLIENT_GPT_PARA is access all CERT_REGISTRY_STORE_CLIENT_GPT_PARA;
+   -- type PCERT_REGISTRY_STORE_ROAMING_PARA is access all CERT_REGISTRY_STORE_ROAMING_PARA;
+   -- type PCERT_LDAP_STORE_OPENED_PARA is access all CERT_LDAP_STORE_OPENED_PARA;
    type HCERTSTOREPROV is access all Void;
+   -- type PCERT_STORE_PROV_INFO is access all CERT_STORE_PROV_INFO;
+   -- type PCERT_STORE_PROV_FIND_INFO is access all CERT_STORE_PROV_FIND_INFO;
+   -- type PCCERT_STORE_PROV_FIND_INFO is access all CERT_STORE_PROV_FIND_INFO;
+   -- type PCRL_FIND_ISSUED_FOR_PARA is access all CRL_FIND_ISSUED_FOR_PARA;
+   -- type PCTL_ANY_SUBJECT_INFO is access all CTL_ANY_SUBJECT_INFO;
+   -- type PCTL_FIND_USAGE_PARA is access all CTL_FIND_USAGE_PARA;
+   -- type PCTL_FIND_SUBJECT_PARA is access all CTL_FIND_SUBJECT_PARA;
+   -- type PCERT_CREATE_CONTEXT_PARA is access all CERT_CREATE_CONTEXT_PARA;
+   -- type PCERT_SYSTEM_STORE_INFO is access all CERT_SYSTEM_STORE_INFO;
+   -- type PCERT_PHYSICAL_STORE_INFO is access all CERT_PHYSICAL_STORE_INFO;
+   -- type PCTL_VERIFY_USAGE_PARA is access all CTL_VERIFY_USAGE_PARA;
+   -- type PCTL_VERIFY_USAGE_STATUS is access all CTL_VERIFY_USAGE_STATUS;
+   -- type PCERT_REVOCATION_CRL_INFO is access all CERT_REVOCATION_CRL_INFO;
+   -- type PCERT_REVOCATION_CHAIN_PARA is access all CERT_REVOCATION_CHAIN_PARA;
+   -- type PCERT_REVOCATION_PARA is access all CERT_REVOCATION_PARA;
+   -- type PCERT_REVOCATION_STATUS is access all CERT_REVOCATION_STATUS;
+   -- type PCRYPT_VERIFY_CERT_SIGN_STRONG_PROPERTIES_INFO is access all CRYPT_VERIFY_CERT_SIGN_STRONG_PROPERTIES_INFO;
+   -- type PCRYPT_VERIFY_CERT_SIGN_WEAK_HASH_INFO is access all CRYPT_VERIFY_CERT_SIGN_WEAK_HASH_INFO;
    type HCRYPTDEFAULTCONTEXT is access all Void;
+   -- type PCRYPT_DEFAULT_CONTEXT_MULTI_OID_PARA is access all CRYPT_DEFAULT_CONTEXT_MULTI_OID_PARA;
+   -- type PCRYPT_SIGN_MESSAGE_PARA is access all CRYPT_SIGN_MESSAGE_PARA;
+   -- type PCRYPT_VERIFY_MESSAGE_PARA is access all CRYPT_VERIFY_MESSAGE_PARA;
+   -- type PCRYPT_ENCRYPT_MESSAGE_PARA is access all CRYPT_ENCRYPT_MESSAGE_PARA;
+   -- type PCRYPT_DECRYPT_MESSAGE_PARA is access all CRYPT_DECRYPT_MESSAGE_PARA;
+   -- type PCRYPT_HASH_MESSAGE_PARA is access all CRYPT_HASH_MESSAGE_PARA;
+   -- type PCRYPT_KEY_SIGN_MESSAGE_PARA is access all CRYPT_KEY_SIGN_MESSAGE_PARA;
+   -- type PCRYPT_KEY_VERIFY_MESSAGE_PARA is access all CRYPT_KEY_VERIFY_MESSAGE_PARA;
+   -- type PCERT_CHAIN is access all CERT_CHAIN;
+   -- type PHCRYPTASYNC is access all HANDLE;
+   -- type PCRYPT_BLOB_ARRAY is access all CRYPT_BLOB_ARRAY;
+   -- type PCRYPT_CREDENTIALS is access all CRYPT_CREDENTIALS;
+   -- type PCRYPT_PASSWORD_CREDENTIALSA is access all CRYPT_PASSWORD_CREDENTIALSA;
+   -- type PCRYPT_PASSWORD_CREDENTIALSW is access all CRYPT_PASSWORD_CREDENTIALSW;
+   -- type PCRYPTNET_URL_CACHE_PRE_FETCH_INFO is access all CRYPTNET_URL_CACHE_PRE_FETCH_INFO;
+   -- type PCRYPTNET_URL_CACHE_FLUSH_INFO is access all CRYPTNET_URL_CACHE_FLUSH_INFO;
+   -- type PCRYPTNET_URL_CACHE_RESPONSE_INFO is access all CRYPTNET_URL_CACHE_RESPONSE_INFO;
+   -- type PCRYPT_RETRIEVE_AUX_INFO is access all CRYPT_RETRIEVE_AUX_INFO;
+   -- type PCRYPT_ASYNC_RETRIEVAL_COMPLETION is access all CRYPT_ASYNC_RETRIEVAL_COMPLETION;
+   -- type PCRYPT_URL_ARRAY is access all CRYPT_URL_ARRAY;
+   -- type PCRYPT_URL_INFO is access all CRYPT_URL_INFO;
+   -- type PCERT_CRL_CONTEXT_PAIR is access all CERT_CRL_CONTEXT_PAIR;
+   -- type PCCERT_CRL_CONTEXT_PAIR is access all CERT_CRL_CONTEXT_PAIR;
+   -- type PCRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO is access all CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO;
+   -- type PCERT_CHAIN_ENGINE_CONFIG is access all CERT_CHAIN_ENGINE_CONFIG;
+   -- type PCERT_TRUST_STATUS is access all CERT_TRUST_STATUS;
+   -- type PCERT_REVOCATION_INFO is access all CERT_REVOCATION_INFO;
+   -- type PCERT_TRUST_LIST_INFO is access all CERT_TRUST_LIST_INFO;
+   -- type PCERT_CHAIN_ELEMENT is access all CERT_CHAIN_ELEMENT;
+   -- type PCCERT_CHAIN_ELEMENT is access all CERT_CHAIN_ELEMENT;
+   -- type PCERT_SIMPLE_CHAIN is access all CERT_SIMPLE_CHAIN;
+   -- type PCCERT_SIMPLE_CHAIN is access all CERT_SIMPLE_CHAIN;
+   -- type PCERT_CHAIN_CONTEXT is access all CERT_CHAIN_CONTEXT;
+   -- type PCCERT_CHAIN_CONTEXT is access all CERT_CHAIN_CONTEXT;
+   -- type PCERT_USAGE_MATCH is access all CERT_USAGE_MATCH;
+   -- type PCTL_USAGE_MATCH is access all CTL_USAGE_MATCH;
+   -- type PCERT_CHAIN_PARA is access all CERT_CHAIN_PARA;
+   -- type PCRL_REVOCATION_INFO is access all CRL_REVOCATION_INFO;
+   -- type PCERT_CHAIN_FIND_ISSUER_PARA is access all CERT_CHAIN_FIND_BY_ISSUER_PARA;
+   -- type PCERT_CHAIN_FIND_BY_ISSUER_PARA is access all CERT_CHAIN_FIND_BY_ISSUER_PARA;
+   -- type PCERT_CHAIN_POLICY_PARA is access all CERT_CHAIN_POLICY_PARA;
+   -- type PCERT_CHAIN_POLICY_STATUS is access all CERT_CHAIN_POLICY_STATUS;
+   -- type PAUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA is access all AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA;
+   -- type PAUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS is access all AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS;
+   -- type PAUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA is access all AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA;
+   -- type PSSL_EXTRA_CERT_CHAIN_POLICY_PARA is access all HTTPSPolicyCallbackData;
+   -- type PHTTPSPolicyCallbackData is access all HTTPSPolicyCallbackData;
+   -- type PEV_EXTRA_CERT_CHAIN_POLICY_PARA is access all EV_EXTRA_CERT_CHAIN_POLICY_PARA;
+   -- type PEV_EXTRA_CERT_CHAIN_POLICY_STATUS is access all EV_EXTRA_CERT_CHAIN_POLICY_STATUS;
+   -- type PSSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS is access all SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS;
+   -- type PSSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA is access all SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA;
+   -- type PSSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_PARA is access all SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_PARA;
+   -- type PSSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_STATUS is access all SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_STATUS;
    type HCERT_SERVER_OCSP_RESPONSE is access all Void;
+   -- type PCERT_SERVER_OCSP_RESPONSE_CONTEXT is access all CERT_SERVER_OCSP_RESPONSE_CONTEXT;
+   -- type PCCERT_SERVER_OCSP_RESPONSE_CONTEXT is access all CERT_SERVER_OCSP_RESPONSE_CONTEXT;
+   -- type PCERT_SERVER_OCSP_RESPONSE_OPEN_PARA is access all CERT_SERVER_OCSP_RESPONSE_OPEN_PARA;
+   -- type PCERT_SELECT_CHAIN_PARA is access all CERT_SELECT_CHAIN_PARA;
+   -- type PCCERT_SELECT_CHAIN_PARA is access all CERT_SELECT_CHAIN_PARA;
+   -- type PCERT_SELECT_CRITERIA is access all CERT_SELECT_CRITERIA;
+   -- type PCCERT_SELECT_CRITERIA is access all CERT_SELECT_CRITERIA;
+   -- type PCRYPT_TIMESTAMP_REQUEST is access all CRYPT_TIMESTAMP_REQUEST;
+   -- type PCRYPT_TIMESTAMP_RESPONSE is access all CRYPT_TIMESTAMP_RESPONSE;
+   -- type PCRYPT_TIMESTAMP_ACCURACY is access all CRYPT_TIMESTAMP_ACCURACY;
+   -- type PCRYPT_TIMESTAMP_INFO is access all CRYPT_TIMESTAMP_INFO;
+   -- type PCRYPT_TIMESTAMP_CONTEXT is access all CRYPT_TIMESTAMP_CONTEXT;
+   -- type PCRYPT_TIMESTAMP_PARA is access all CRYPT_TIMESTAMP_PARA;
+   -- type PCRYPT_OBJECT_LOCATOR_PROVIDER_TABLE is access all CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\bcrypt.h
+   -- type PNTSTATUS is access all NTSTATUS;
+   -- type PBCRYPT_AUTHENTICATED_CIPHER_MODE_INFO is access all BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO;
+   -- type PBCryptBuffer is access all BCryptBuffer;
+   -- type PBCryptBufferDesc is access all BCryptBufferDesc;
+   -- type PBCRYPT_ECCKEY_BLOB is access all BCRYPT_ECCKEY_BLOB;
+   -- type PSSL_ECCKEY_BLOB is access all SSL_ECCKEY_BLOB;
    type ECC_CURVE_TYPE_ENUM is (
       BCRYPT_ECC_PRIME_SHORT_WEIERSTRASS_CURVE,
       BCRYPT_ECC_PRIME_TWISTED_EDWARDS_CURVE,
@@ -3300,6 +5220,9 @@ package Win32 is
    );
    for ECC_CURVE_ALG_ID_ENUM'Size use 32;
    
+   -- type PBCRYPT_ECCFULLKEY_BLOB is access all BCRYPT_ECCFULLKEY_BLOB;
+   -- type PBCRYPT_DH_KEY_BLOB is access all BCRYPT_DH_KEY_BLOB;
+   -- type PBCRYPT_DSA_KEY_BLOB is access all BCRYPT_DSA_KEY_BLOB;
    type HASHALGORITHM_ENUM is (
       DSA_HASH_ALGORITHM_SHA1,
       DSA_HASH_ALGORITHM_SHA256,
@@ -3322,6 +5245,8 @@ package Win32 is
    );
    for DSAFIPSVERSION_ENUM'Size use 32;
    
+   -- type PBCRYPT_DSA_KEY_BLOB_V2 is access all BCRYPT_DSA_KEY_BLOB_V2;
+   -- type PBCRYPT_KEY_DATA_BLOB_HEADER is access all BCRYPT_KEY_DATA_BLOB_HEADER;
    type BCRYPT_HASH_OPERATION_TYPE is (
       BCRYPT_HASH_OPERATION_HASH_DATA,
       BCRYPT_HASH_OPERATION_FINISH_HASH
@@ -3340,10 +5265,71 @@ package Win32 is
    );
    for BCRYPT_MULTI_OPERATION_TYPE'Size use 32;
    
+   -- type PBCRYPT_INTERFACE_VERSION is access all BCRYPT_INTERFACE_VERSION;
+   -- type PCRYPT_INTERFACE_REG is access all CRYPT_INTERFACE_REG;
+   -- type PCRYPT_IMAGE_REG is access all CRYPT_IMAGE_REG;
+   -- type PCRYPT_PROVIDER_REG is access all CRYPT_PROVIDER_REG;
+   -- type PCRYPT_PROVIDERS is access all CRYPT_PROVIDERS;
+   -- type PCRYPT_CONTEXT_CONFIG is access all CRYPT_CONTEXT_CONFIG;
+   -- type PCRYPT_CONTEXT_FUNCTION_CONFIG is access all CRYPT_CONTEXT_FUNCTION_CONFIG;
+   -- type PCRYPT_CONTEXTS is access all CRYPT_CONTEXTS;
+   -- type PCRYPT_CONTEXT_FUNCTIONS is access all CRYPT_CONTEXT_FUNCTIONS;
+   -- type PCRYPT_CONTEXT_FUNCTION_PROVIDERS is access all CRYPT_CONTEXT_FUNCTION_PROVIDERS;
+   -- type PCRYPT_PROPERTY_REF is access all CRYPT_PROPERTY_REF;
+   -- type PCRYPT_IMAGE_REF is access all CRYPT_IMAGE_REF;
+   -- type PCRYPT_PROVIDER_REF is access all CRYPT_PROVIDER_REF;
+   -- type PCRYPT_PROVIDER_REFS is access all CRYPT_PROVIDER_REFS;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\ncrypt.h
+   -- type PNCryptBuffer is access all BCryptBuffer;
+   -- type PNCryptBufferDesc is access all BCryptBufferDesc;
+   -- type PNCRYPT_CIPHER_PADDING_INFO is access all NCRYPT_CIPHER_PADDING_INFO;
+   -- type PNCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES is access all NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES;
+   -- type PNCRYPT_VSM_KEY_ATTESTATION_STATEMENT is access all NCRYPT_VSM_KEY_ATTESTATION_STATEMENT;
+   -- type PNCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS is access all NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS;
+   -- type PNCRYPT_EXPORTED_ISOLATED_KEY_HEADER is access all NCRYPT_EXPORTED_ISOLATED_KEY_HEADER;
+   -- type PNCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE is access all NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE;
+   -- type PNCRYPT_PCP_TPM_WEB_AUTHN_ATTESTATION_STATEMENT is access all NCRYPT_PCP_TPM_WEB_AUTHN_ATTESTATION_STATEMENT;
+   -- type PNCRYPT_KEY_BLOB_HEADER is access all NCRYPT_KEY_BLOB_HEADER;
+   -- type PNCRYPT_TPM_LOADABLE_KEY_BLOB_HEADER is access all NCRYPT_TPM_LOADABLE_KEY_BLOB_HEADER;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\dpapi.h
+   -- type PCRYPTPROTECT_PROMPTSTRUCT is access all CRYPTPROTECT_PROMPTSTRUCT;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winefs.h
+   -- type PEFS_CERTIFICATE_BLOB is access all CERTIFICATE_BLOB;
+   -- type PEFS_HASH_BLOB is access all EFS_HASH_BLOB;
+   -- type PEFS_RPC_BLOB is access all EFS_RPC_BLOB;
+   -- type PEFS_PIN_BLOB is access all EFS_PIN_BLOB;
+   -- type PEFS_KEY_INFO is access all EFS_KEY_INFO;
+   -- type PEFS_COMPATIBILITY_INFO is access all EFS_COMPATIBILITY_INFO;
+   -- type PEFS_VERSION_INFO is access all EFS_VERSION_INFO;
+   -- type PEFS_DECRYPTION_STATUS_INFO is access all EFS_DECRYPTION_STATUS_INFO;
+   -- type PEFS_ENCRYPTION_STATUS_INFO is access all EFS_ENCRYPTION_STATUS_INFO;
+   -- type PENCRYPTION_CERTIFICATE is access all ENCRYPTION_CERTIFICATE;
+   -- type PENCRYPTION_CERTIFICATE_HASH is access all ENCRYPTION_CERTIFICATE_HASH;
+   -- type PENCRYPTION_CERTIFICATE_HASH_LIST is access all ENCRYPTION_CERTIFICATE_HASH_LIST;
+   -- type PENCRYPTION_CERTIFICATE_LIST is access all ENCRYPTION_CERTIFICATE_LIST;
+   -- type PENCRYPTED_FILE_METADATA_SIGNATURE is access all ENCRYPTED_FILE_METADATA_SIGNATURE;
+   -- type PENCRYPTION_PROTECTOR is access all ENCRYPTION_PROTECTOR;
+   -- type PENCRYPTION_PROTECTOR_LIST is access all ENCRYPTION_PROTECTOR_LIST;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winscard.h
+   -- type LPCBYTE is access all BYTE;
+   -- type LPSCARDCONTEXT is access all SCARDCONTEXT;
+   -- type PSCARDCONTEXT is access all SCARDCONTEXT;
+   -- type LPSCARDHANDLE is access all SCARDHANDLE;
+   -- type PSCARDHANDLE is access all SCARDHANDLE;
+   -- type PSCARD_READERSTATEA is access all SCARD_READERSTATEA;
+   -- type LPSCARD_READERSTATEA is access all SCARD_READERSTATEA;
+   -- type LPSCARD_READERSTATEW is access all SCARD_READERSTATEW;
+   -- type PSCARD_READERSTATEW is access all SCARD_READERSTATEW;
+   -- type LPSCARD_ATRMASK is access all SCARD_ATRMASK;
+   -- type PSCARD_ATRMASK is access all SCARD_ATRMASK;
+   -- type LPOPENCARD_SEARCH_CRITERIAA is access all OPENCARD_SEARCH_CRITERIAA;
+   -- type POPENCARD_SEARCH_CRITERIAA is access all OPENCARD_SEARCH_CRITERIAA;
+   -- type POPENCARD_SEARCH_CRITERIAW is access all OPENCARD_SEARCH_CRITERIAW;
+   -- type LPOPENCARD_SEARCH_CRITERIAW is access all OPENCARD_SEARCH_CRITERIAW;
+   -- type POPENCARDNAME_EXA is access all OPENCARDNAME_EXA;
+   -- type LPOPENCARDNAME_EXA is access all OPENCARDNAME_EXA;
+   -- type LPOPENCARDNAME_EXW is access all OPENCARDNAME_EXW;
+   -- type POPENCARDNAME_EXW is access all OPENCARDNAME_EXW;
    type READER_SEL_REQUEST_MATCH_TYPE is (
       RSR_MATCH_TYPE_READER_AND_CONTAINER,
       RSR_MATCH_TYPE_SERIAL_NUMBER,
@@ -3356,6 +5342,12 @@ package Win32 is
    );
    for READER_SEL_REQUEST_MATCH_TYPE'Size use 32;
    
+   -- type PREADER_SEL_REQUEST is access all READER_SEL_REQUEST;
+   -- type PREADER_SEL_RESPONSE is access all READER_SEL_RESPONSE;
+   -- type POPENCARDNAMEA is access all OPENCARDNAMEA;
+   -- type LPOPENCARDNAMEA is access all OPENCARDNAMEA;
+   -- type LPOPENCARDNAMEW is access all OPENCARDNAMEW;
+   -- type POPENCARDNAMEW is access all OPENCARDNAMEW;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\wtypes.h
    type tagDVASPECT is (
       DVASPECT_CONTENT,
@@ -3412,9 +5404,31 @@ package Win32 is
    for tagSTATFLAG'Size use 32;
    
    type HCONTEXT is access all Void;
+   -- type wireCLIPFORMAT is access all userCLIPFORMAT;
+   -- type wireHGLOBAL is access all userHGLOBAL;
+   -- type wireHWND is access all RemotableHandle;
+   -- type wireHMENU is access all RemotableHandle;
+   -- type wireHACCEL is access all RemotableHandle;
+   -- type wireHBRUSH is access all RemotableHandle;
+   -- type wireHFONT is access all RemotableHandle;
+   -- type wireHDC is access all RemotableHandle;
+   -- type wireHICON is access all RemotableHandle;
+   -- type wireHRGN is access all RemotableHandle;
+   -- type wireHMONITOR is access all RemotableHandle;
+   -- type wireHBITMAP is access all userHBITMAP;
+   -- type wireHPALETTE is access all userHPALETTE;
+   -- type wireHENHMETAFILE is access all userHENHMETAFILE;
+   -- type wireHMETAFILE is access all userHMETAFILE;
+   -- type wireHMETAFILEPICT is access all userHMETAFILEPICT;
    type HMETAFILEPICT is access all Void;
    subtype DATE is Long_Float;
+   -- type LPCY is access all CY;
+   -- type LPDECIMAL is access all DECIMAL;
+   -- type wireBSTR is access all FLAGGED_WORD_BLOB;
+   -- type BSTR is access all OLECHAR;
+   -- type LPBSTR is access all BSTR;
    subtype VARIANT_BOOL is Int16;
+   -- type LPBSTRBLOB is access all tagBSTRBLOB;
    subtype VARTYPE is UInt16;
    type VARENUM is (
       VT_EMPTY,
@@ -3545,10 +5559,19 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\rpcndr.h
    subtype boolean is Uint8;
    type NDR_CCONTEXT is access all Void;
+   -- type PSCONTEXT_QUEUE is access all SCONTEXT_QUEUE;
    subtype error_status_t is UInt32;
    type RPC_BUFPTR is access all Uint8;
    subtype RPC_LENGTH is UInt32;
+   -- type PARRAY_INFO is access all ARRAY_INFO;
+   -- type PNDR_ASYNC_MESSAGE is access all NDR_ASYNC_MESSAGE;
+   -- type PNDR_CORRELATION_INFO is access all NDR_CORRELATION_INFO;
    type PFORMAT_STRING is access all Uint8;
+   -- type PMIDL_SYNTAX_INFO is access all MIDL_SYNTAX_INFO;
+   -- type PMIDL_STUB_MESSAGE is access all MIDL_STUB_MESSAGE;
+   -- type PGENERIC_BINDING_ROUTINE_PAIR is access all GENERIC_BINDING_ROUTINE_PAIR;
+   -- type PGENERIC_BINDING_INFO is access all GENERIC_BINDING_INFO;
+   -- type PXMIT_ROUTINE_QUINTUPLE is access all XMIT_ROUTINE_QUINTUPLE;
    type USER_MARSHAL_CB_TYPE is (
       USER_MARSHAL_CB_BUFFER_SIZE,
       USER_MARSHAL_CB_MARSHALL,
@@ -3575,7 +5598,12 @@ package Win32 is
    );
    for IDL_CS_CONVERT'Size use 32;
    
+   -- type PMIDL_STUB_DESC is access all MIDL_STUB_DESC;
    type PMIDL_XMIT_TYPE is access all Void;
+   -- type PMIDL_METHOD_PROPERTY is access all MIDL_METHOD_PROPERTY;
+   -- type PMIDL_METHOD_PROPERTY_MAP is access all MIDL_METHOD_PROPERTY_MAP;
+   -- type PMIDL_SERVER_INFO is access all MIDL_SERVER_INFO_x;
+   -- type PMIDL_STUBLESS_PROXY_INFO is access all MIDL_STUBLESS_PROXY_INFO;
    type PPARAM_OFFSETTABLE is access all UInt16;
    type PARAM_OFFSETTABLE is access all UInt16;
    type XLAT_SIDE is (
@@ -3588,6 +5616,7 @@ package Win32 is
    );
    for XLAT_SIDE'Size use 32;
    
+   -- type PFULL_PTR_XLAT_TABLES is access all FULL_PTR_XLAT_TABLES;
    type system_handle_t is (
       SYSTEM_HANDLE_FILE,
       SYSTEM_HANDLE_SEMAPHORE,
@@ -3622,6 +5651,8 @@ package Win32 is
    );
    for system_handle_t'Size use 32;
    
+   -- type PMIDL_INTERCEPTION_INFO is access all MIDL_INTERCEPTION_INFO;
+   -- type PMIDL_WINRT_TYPE_SERIALIZATION_INFO is access all MIDL_WINRT_TYPE_SERIALIZATION_INFO;
    type STUB_PHASE is (
       STUB_UNMARSHAL,
       STUB_CALL_SERVER,
@@ -3654,8 +5685,12 @@ package Win32 is
    
    type RPC_SS_THREAD_HANDLE is access all Void;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\rpcnsip.h
+   -- type PRPC_IMPORT_CONTEXT_P is access all RPC_IMPORT_CONTEXT_P;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\wtypesbase.h
+   -- type LPOLESTR is access all OLECHAR;
+   -- type LPCOLESTR is access all OLECHAR;
    subtype DOUBLE is Long_Float;
+   -- type PSCODE is access all SCODE;
    type tagMEMCTX is (
       MEMCTX_SAME,
       MEMCTX_UNKNOWN,
@@ -3768,7 +5803,24 @@ package Win32 is
    );
    for tagMSHCTX'Size use 32;
    
+   -- type UP_BYTE_BLOB is access all BYTE_BLOB;
+   -- type UP_WORD_BLOB is access all WORD_BLOB;
+   -- type UP_DWORD_BLOB is access all DWORD_BLOB;
+   -- type UP_FLAGGED_BYTE_BLOB is access all FLAGGED_BYTE_BLOB;
+   -- type UP_FLAGGED_WORD_BLOB is access all FLAGGED_WORD_BLOB;
+   -- type LPBLOB is access all tagBLOB;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winioctl.h
+   -- type PSTORAGE_HOTPLUG_INFO is access all STORAGE_HOTPLUG_INFO;
+   -- type PSTORAGE_DEVICE_NUMBER is access all STORAGE_DEVICE_NUMBER;
+   -- type PSTORAGE_DEVICE_NUMBERS is access all STORAGE_DEVICE_NUMBERS;
+   -- type PSTORAGE_DEVICE_NUMBER_EX is access all STORAGE_DEVICE_NUMBER_EX;
+   -- type PSTORAGE_BUS_RESET_REQUEST is access all STORAGE_BUS_RESET_REQUEST;
+   -- type PSTORAGE_BREAK_RESERVATION_REQUEST is access all STORAGE_BREAK_RESERVATION_REQUEST;
+   -- type PPREVENT_MEDIA_REMOVAL is access all PREVENT_MEDIA_REMOVAL;
+   -- type PCLASS_MEDIA_CHANGE_CONTEXT is access all CLASS_MEDIA_CHANGE_CONTEXT;
+   -- type PTAPE_STATISTICS is access all TAPE_STATISTICS;
+   -- type PTAPE_GET_STATISTICS is access all TAPE_GET_STATISTICS;
+   -- type PSTORAGE_MEDIA_TYPE is access all STORAGE_MEDIA_TYPE;
    type STORAGE_MEDIA_TYPE is (
       DDS_4mm,
       MiniQic,
@@ -3951,6 +6003,12 @@ package Win32 is
    );
    for STORAGE_BUS_TYPE'Size use 32;
    
+   -- type PSTORAGE_BUS_TYPE is access all STORAGE_BUS_TYPE;
+   -- type PDEVICE_MEDIA_INFO is access all DEVICE_MEDIA_INFO;
+   -- type PGET_MEDIA_TYPES is access all GET_MEDIA_TYPES;
+   -- type PSTORAGE_PREDICT_FAILURE is access all STORAGE_PREDICT_FAILURE;
+   -- type PSTORAGE_FAILURE_PREDICTION_CONFIG is access all STORAGE_FAILURE_PREDICTION_CONFIG;
+   -- type PSTORAGE_QUERY_TYPE is access all STORAGE_QUERY_TYPE;
    type STORAGE_QUERY_TYPE is (
       PropertyStandardQuery,
       PropertyExistsQuery,
@@ -3965,6 +6023,7 @@ package Win32 is
    );
    for STORAGE_QUERY_TYPE'Size use 32;
    
+   -- type PSTORAGE_PROPERTY_ID is access all STORAGE_PROPERTY_ID;
    type STORAGE_PROPERTY_ID is (
       StorageDeviceProperty,
       StorageAdapterProperty,
@@ -4035,6 +6094,13 @@ package Win32 is
    );
    for STORAGE_PROPERTY_ID'Size use 32;
    
+   -- type PSTORAGE_PROPERTY_QUERY is access all STORAGE_PROPERTY_QUERY;
+   -- type PSTORAGE_DESCRIPTOR_HEADER is access all STORAGE_DESCRIPTOR_HEADER;
+   -- type PSTORAGE_DEVICE_DESCRIPTOR is access all STORAGE_DEVICE_DESCRIPTOR;
+   -- type PSTORAGE_ADAPTER_DESCRIPTOR is access all STORAGE_ADAPTER_DESCRIPTOR;
+   -- type PSTORAGE_ACCESS_ALIGNMENT_DESCRIPTOR is access all STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR;
+   -- type PSTORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR is access all STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR;
+   -- type PSTORAGE_PORT_CODE_SET is access all STORAGE_PORT_CODE_SET;
    type STORAGE_PORT_CODE_SET is (
       StoragePortCodeSetReserved,
       StoragePortCodeSetStorport,
@@ -4057,6 +6123,7 @@ package Win32 is
    );
    for STORAGE_PORT_CODE_SET'Size use 32;
    
+   -- type PSTORAGE_MINIPORT_DESCRIPTOR is access all STORAGE_MINIPORT_DESCRIPTOR;
    type STORAGE_IDENTIFIER_CODE_SET is (
       StorageIdCodeSetReserved,
       StorageIdCodeSetBinary,
@@ -4071,6 +6138,7 @@ package Win32 is
    );
    for STORAGE_IDENTIFIER_CODE_SET'Size use 32;
    
+   -- type PSTORAGE_IDENTIFIER_CODE_SET is access all STORAGE_IDENTIFIER_CODE_SET;
    type STORAGE_IDENTIFIER_TYPE is (
       StorageIdTypeVendorSpecific,
       StorageIdTypeVendorId,
@@ -4095,6 +6163,8 @@ package Win32 is
    );
    for STORAGE_IDENTIFIER_TYPE'Size use 32;
    
+   -- type PSTORAGE_IDENTIFIER_TYPE is access all STORAGE_IDENTIFIER_TYPE;
+   -- type PSTORAGE_ID_NAA_FORMAT is access all STORAGE_ID_NAA_FORMAT;
    type STORAGE_ID_NAA_FORMAT is (
       StorageIdNAAFormatIEEEExtended,
       StorageIdNAAFormatIEEERegistered,
@@ -4107,6 +6177,7 @@ package Win32 is
    );
    for STORAGE_ID_NAA_FORMAT'Size use 32;
    
+   -- type PSTORAGE_ASSOCIATION_TYPE is access all STORAGE_ASSOCIATION_TYPE;
    type STORAGE_ASSOCIATION_TYPE is (
       StorageIdAssocDevice,
       StorageIdAssocPort,
@@ -4119,6 +6190,17 @@ package Win32 is
    );
    for STORAGE_ASSOCIATION_TYPE'Size use 32;
    
+   -- type PSTORAGE_IDENTIFIER is access all STORAGE_IDENTIFIER;
+   -- type PSTORAGE_DEVICE_ID_DESCRIPTOR is access all STORAGE_DEVICE_ID_DESCRIPTOR;
+   -- type PDEVICE_SEEK_PENALTY_DESCRIPTOR is access all DEVICE_SEEK_PENALTY_DESCRIPTOR;
+   -- type PDEVICE_WRITE_AGGREGATION_DESCRIPTOR is access all DEVICE_WRITE_AGGREGATION_DESCRIPTOR;
+   -- type PDEVICE_TRIM_DESCRIPTOR is access all DEVICE_TRIM_DESCRIPTOR;
+   -- type PDEVICE_LB_PROVISIONING_DESCRIPTOR is access all DEVICE_LB_PROVISIONING_DESCRIPTOR;
+   -- type PSTORAGE_LB_PROVISIONING_MAP_RESOURCES is access all STORAGE_LB_PROVISIONING_MAP_RESOURCES;
+   -- type PDEVICE_POWER_DESCRIPTOR is access all DEVICE_POWER_DESCRIPTOR;
+   -- type PDEVICE_COPY_OFFLOAD_DESCRIPTOR is access all DEVICE_COPY_OFFLOAD_DESCRIPTOR;
+   -- type PSTORAGE_DEVICE_RESILIENCY_DESCRIPTOR is access all STORAGE_DEVICE_RESILIENCY_DESCRIPTOR;
+   -- type PSTORAGE_RPMB_FRAME_TYPE is access all STORAGE_RPMB_FRAME_TYPE;
    type STORAGE_RPMB_FRAME_TYPE is (
       StorageRpmbFrameTypeUnknown,
       StorageRpmbFrameTypeStandard,
@@ -4131,6 +6213,8 @@ package Win32 is
    );
    for STORAGE_RPMB_FRAME_TYPE'Size use 32;
    
+   -- type PSTORAGE_RPMB_DESCRIPTOR is access all STORAGE_RPMB_DESCRIPTOR;
+   -- type PSTORAGE_CRYPTO_ALGORITHM_ID is access all STORAGE_CRYPTO_ALGORITHM_ID;
    type STORAGE_CRYPTO_ALGORITHM_ID is (
       StorageCryptoAlgorithmUnknown,
       StorageCryptoAlgorithmXTSAES,
@@ -4149,6 +6233,7 @@ package Win32 is
    );
    for STORAGE_CRYPTO_ALGORITHM_ID'Size use 32;
    
+   -- type PSTORAGE_CRYPTO_KEY_SIZE is access all STORAGE_CRYPTO_KEY_SIZE;
    type STORAGE_CRYPTO_KEY_SIZE is (
       StorageCryptoKeySizeUnknown,
       StorageCryptoKeySize128Bits,
@@ -4165,6 +6250,9 @@ package Win32 is
    );
    for STORAGE_CRYPTO_KEY_SIZE'Size use 32;
    
+   -- type PSTORAGE_CRYPTO_CAPABILITY is access all STORAGE_CRYPTO_CAPABILITY;
+   -- type PSTORAGE_CRYPTO_DESCRIPTOR is access all STORAGE_CRYPTO_DESCRIPTOR;
+   -- type PSTORAGE_TIER_MEDIA_TYPE is access all STORAGE_TIER_MEDIA_TYPE;
    type STORAGE_TIER_MEDIA_TYPE is (
       StorageTierMediaTypeUnspecified,
       StorageTierMediaTypeDisk,
@@ -4181,6 +6269,7 @@ package Win32 is
    );
    for STORAGE_TIER_MEDIA_TYPE'Size use 32;
    
+   -- type PSTORAGE_TIER_CLASS is access all STORAGE_TIER_CLASS;
    type STORAGE_TIER_CLASS is (
       StorageTierClassUnspecified,
       StorageTierClassCapacity,
@@ -4195,6 +6284,10 @@ package Win32 is
    );
    for STORAGE_TIER_CLASS'Size use 32;
    
+   -- type PSTORAGE_TIER is access all STORAGE_TIER;
+   -- type PSTORAGE_DEVICE_TIERING_DESCRIPTOR is access all STORAGE_DEVICE_TIERING_DESCRIPTOR;
+   -- type PSTORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR is access all STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR;
+   -- type PSTORAGE_PROTOCOL_TYPE is access all STORAGE_PROTOCOL_TYPE;
    type STORAGE_PROTOCOL_TYPE is (
       ProtocolTypeUnknown,
       ProtocolTypeScsi,
@@ -4231,6 +6324,7 @@ package Win32 is
    );
    for STORAGE_PROTOCOL_NVME_DATA_TYPE'Size use 32;
    
+   -- type PSTORAGE_PROTOCOL_NVME_DATA_TYPE is access all STORAGE_PROTOCOL_NVME_DATA_TYPE;
    type STORAGE_PROTOCOL_ATA_DATA_TYPE is (
       AtaDataTypeUnknown,
       AtaDataTypeIdentify,
@@ -4243,6 +6337,7 @@ package Win32 is
    );
    for STORAGE_PROTOCOL_ATA_DATA_TYPE'Size use 32;
    
+   -- type PSTORAGE_PROTOCOL_ATA_DATA_TYPE is access all STORAGE_PROTOCOL_ATA_DATA_TYPE;
    type STORAGE_PROTOCOL_UFS_DATA_TYPE is (
       UfsDataTypeUnknown,
       UfsDataTypeQueryDescriptor,
@@ -4255,6 +6350,13 @@ package Win32 is
    );
    for STORAGE_PROTOCOL_UFS_DATA_TYPE'Size use 32;
    
+   -- type PSTORAGE_PROTOCOL_UFS_DATA_TYPE is access all STORAGE_PROTOCOL_UFS_DATA_TYPE;
+   -- type PSTORAGE_PROTOCOL_SPECIFIC_DATA is access all STORAGE_PROTOCOL_SPECIFIC_DATA;
+   -- type PSTORAGE_PROTOCOL_DATA_DESCRIPTOR is access all STORAGE_PROTOCOL_DATA_DESCRIPTOR;
+   -- type PSTORAGE_TEMPERATURE_INFO is access all STORAGE_TEMPERATURE_INFO;
+   -- type PSTORAGE_TEMPERATURE_DATA_DESCRIPTOR is access all STORAGE_TEMPERATURE_DATA_DESCRIPTOR;
+   -- type PSTORAGE_TEMPERATURE_THRESHOLD is access all STORAGE_TEMPERATURE_THRESHOLD;
+   -- type PSTORAGE_DEVICE_FORM_FACTOR is access all STORAGE_DEVICE_FORM_FACTOR;
    type STORAGE_DEVICE_FORM_FACTOR is (
       FormFactorUnknown,
       FormFactor3_5,
@@ -4283,6 +6385,7 @@ package Win32 is
    );
    for STORAGE_DEVICE_FORM_FACTOR'Size use 32;
    
+   -- type PSTORAGE_COMPONENT_HEALTH_STATUS is access all STORAGE_COMPONENT_HEALTH_STATUS;
    type STORAGE_COMPONENT_HEALTH_STATUS is (
       HealthStatusUnknown,
       HealthStatusNormal,
@@ -4301,6 +6404,13 @@ package Win32 is
    );
    for STORAGE_COMPONENT_HEALTH_STATUS'Size use 32;
    
+   -- type PSTORAGE_SPEC_VERSION is access all STORAGE_SPEC_VERSION;
+   -- type PSTORAGE_PHYSICAL_DEVICE_DATA is access all STORAGE_PHYSICAL_DEVICE_DATA;
+   -- type PSTORAGE_PHYSICAL_ADAPTER_DATA is access all STORAGE_PHYSICAL_ADAPTER_DATA;
+   -- type PSTORAGE_PHYSICAL_NODE_DATA is access all STORAGE_PHYSICAL_NODE_DATA;
+   -- type PSTORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR is access all STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR;
+   -- type PSTORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR is access all STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR;
+   -- type PSTORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR is access all STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR;
    type STORAGE_DISK_HEALTH_STATUS is (
       DiskHealthUnknown,
       DiskHealthUnhealthy,
@@ -4317,6 +6427,7 @@ package Win32 is
    );
    for STORAGE_DISK_HEALTH_STATUS'Size use 32;
    
+   -- type PSTORAGE_DISK_HEALTH_STATUS is access all STORAGE_DISK_HEALTH_STATUS;
    type STORAGE_DISK_OPERATIONAL_STATUS is (
       DiskOpStatusNone,
       DiskOpStatusUnknown,
@@ -4341,6 +6452,7 @@ package Win32 is
    );
    for STORAGE_DISK_OPERATIONAL_STATUS'Size use 32;
    
+   -- type PSTORAGE_DISK_OPERATIONAL_STATUS is access all STORAGE_DISK_OPERATIONAL_STATUS;
    type STORAGE_OPERATIONAL_STATUS_REASON is (
       DiskOpReasonUnknown,
       DiskOpReasonScsiSenseCode,
@@ -4389,6 +6501,11 @@ package Win32 is
    );
    for STORAGE_OPERATIONAL_STATUS_REASON'Size use 32;
    
+   -- type PSTORAGE_OPERATIONAL_STATUS_REASON is access all STORAGE_OPERATIONAL_STATUS_REASON;
+   -- type PSTORAGE_OPERATIONAL_REASON is access all STORAGE_OPERATIONAL_REASON;
+   -- type PSTORAGE_DEVICE_MANAGEMENT_STATUS is access all STORAGE_DEVICE_MANAGEMENT_STATUS;
+   -- type PSTORAGE_ADAPTER_SERIAL_NUMBER is access all STORAGE_ADAPTER_SERIAL_NUMBER;
+   -- type PSTORAGE_ZONED_DEVICE_TYPES is access all STORAGE_ZONED_DEVICE_TYPES;
    type STORAGE_ZONED_DEVICE_TYPES is (
       ZonedDeviceTypeUnknown,
       ZonedDeviceTypeHostManaged,
@@ -4419,6 +6536,36 @@ package Win32 is
    );
    for STORAGE_ZONE_TYPES'Size use 32;
    
+   -- type PSTORAGE_ZONE_TYPES is access all STORAGE_ZONE_TYPES;
+   -- type PSTORAGE_ZONE_GROUP is access all STORAGE_ZONE_GROUP;
+   -- type PSTORAGE_ZONED_DEVICE_DESCRIPTOR is access all STORAGE_ZONED_DEVICE_DESCRIPTOR;
+   -- type PDEVICE_LOCATION is access all DEVICE_LOCATION;
+   -- type PSTORAGE_DEVICE_LOCATION_DESCRIPTOR is access all STORAGE_DEVICE_LOCATION_DESCRIPTOR;
+   -- type PSTORAGE_DEVICE_NUMA_PROPERTY is access all STORAGE_DEVICE_NUMA_PROPERTY;
+   -- type PSTORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT is access all STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT;
+   -- type PDEVICE_DATA_SET_RANGE is access all DEVICE_DATA_SET_RANGE;
+   -- type PDEVICE_MANAGE_DATA_SET_ATTRIBUTES is access all DEVICE_MANAGE_DATA_SET_ATTRIBUTES;
+   -- type PDEVICE_DSM_NOTIFICATION_PARAMETERS is access all DEVICE_DSM_NOTIFICATION_PARAMETERS;
+   -- type PDEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS is access all DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS;
+   -- type PSTORAGE_OFFLOAD_TOKEN is access all STORAGE_OFFLOAD_TOKEN;
+   -- type PDEVICE_DSM_OFFLOAD_READ_PARAMETERS is access all DEVICE_DSM_OFFLOAD_READ_PARAMETERS;
+   -- type PDEVICE_DSM_OFFLOAD_WRITE_PARAMETERS is access all DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS;
+   -- type PDEVICE_DATA_SET_REPAIR_PARAMETERS is access all DEVICE_DATA_SET_REPAIR_PARAMETERS;
+   -- type PDEVICE_DATA_SET_LBP_STATE_PARAMETERS is access all DEVICE_DATA_SET_LBP_STATE_PARAMETERS;
+   -- type PDEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT is access all DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT;
+   -- type PDEVICE_DATA_SET_LB_PROVISIONING_STATE is access all DEVICE_DATA_SET_LB_PROVISIONING_STATE;
+   -- type PDEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 is access all DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2;
+   -- type PSTORAGE_OFFLOAD_READ_OUTPUT is access all STORAGE_OFFLOAD_READ_OUTPUT;
+   -- type PSTORAGE_OFFLOAD_WRITE_OUTPUT is access all STORAGE_OFFLOAD_WRITE_OUTPUT;
+   -- type PDEVICE_DATA_SET_SCRUB_OUTPUT is access all DEVICE_DATA_SET_SCRUB_OUTPUT;
+   -- type PDEVICE_DATA_SET_SCRUB_EX_OUTPUT is access all DEVICE_DATA_SET_SCRUB_EX_OUTPUT;
+   -- type PDEVICE_DATA_SET_REPAIR_OUTPUT is access all DEVICE_DATA_SET_REPAIR_OUTPUT;
+   -- type PDEVICE_DSM_TIERING_QUERY_INPUT is access all DEVICE_DSM_TIERING_QUERY_INPUT;
+   -- type PSTORAGE_TIER_REGION is access all STORAGE_TIER_REGION;
+   -- type PDEVICE_DSM_TIERING_QUERY_OUTPUT is access all DEVICE_DSM_TIERING_QUERY_OUTPUT;
+   -- type PDEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT is access all DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT;
+   -- type PDEVICE_STORAGE_ADDRESS_RANGE is access all DEVICE_STORAGE_ADDRESS_RANGE;
+   -- type PDEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT is access all DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT;
    type STORAGE_ZONE_CONDITION is (
       ZoneConditionConventional,
       ZoneConditionEmpty,
@@ -4441,6 +6588,9 @@ package Win32 is
    );
    for STORAGE_ZONE_CONDITION'Size use 32;
    
+   -- type PSTORAGE_ZONE_CONDITION is access all STORAGE_ZONE_CONDITION;
+   -- type PDEVICE_DSM_REPORT_ZONES_PARAMETERS is access all DEVICE_DSM_REPORT_ZONES_PARAMETERS;
+   -- type PSTORAGE_ZONES_ATTRIBUTES is access all STORAGE_ZONES_ATTRIBUTES;
    type STORAGE_ZONES_ATTRIBUTES is (
       ZonesAttributeTypeAndLengthMayDifferent,
       ZonesAttributeTypeSameLengthSame,
@@ -4455,6 +6605,14 @@ package Win32 is
    );
    for STORAGE_ZONES_ATTRIBUTES'Size use 32;
    
+   -- type PSTORAGE_ZONE_DESCRIPTOR is access all STORAGE_ZONE_DESCRIPTOR;
+   -- type PDEVICE_DSM_REPORT_ZONES_DATA is access all DEVICE_DSM_REPORT_ZONES_DATA;
+   -- type PDEVICE_STORAGE_RANGE_ATTRIBUTES is access all DEVICE_STORAGE_RANGE_ATTRIBUTES;
+   -- type PDEVICE_DSM_RANGE_ERROR_INFO is access all DEVICE_DSM_RANGE_ERROR_INFO;
+   -- type PSTORAGE_GET_BC_PROPERTIES_OUTPUT is access all STORAGE_GET_BC_PROPERTIES_OUTPUT;
+   -- type PSTORAGE_ALLOCATE_BC_STREAM_INPUT is access all STORAGE_ALLOCATE_BC_STREAM_INPUT;
+   -- type PSTORAGE_ALLOCATE_BC_STREAM_OUTPUT is access all STORAGE_ALLOCATE_BC_STREAM_OUTPUT;
+   -- type PSTORAGE_PRIORITY_HINT_SUPPORT is access all STORAGE_PRIORITY_HINT_SUPPORT;
    type STORAGE_DIAGNOSTIC_LEVEL is (
       StorageDiagnosticLevelDefault,
       StorageDiagnosticLevelMax
@@ -4465,6 +6623,8 @@ package Win32 is
    );
    for STORAGE_DIAGNOSTIC_LEVEL'Size use 32;
    
+   -- type PSTORAGE_DIAGNOSTIC_LEVEL is access all STORAGE_DIAGNOSTIC_LEVEL;
+   -- type PSTORAGE_DIAGNOSTIC_TARGET_TYPE is access all STORAGE_DIAGNOSTIC_TARGET_TYPE;
    type STORAGE_DIAGNOSTIC_TARGET_TYPE is (
       StorageDiagnosticTargetTypeUndefined,
       StorageDiagnosticTargetTypePort,
@@ -4481,6 +6641,14 @@ package Win32 is
    );
    for STORAGE_DIAGNOSTIC_TARGET_TYPE'Size use 32;
    
+   -- type PSTORAGE_DIAGNOSTIC_REQUEST is access all STORAGE_DIAGNOSTIC_REQUEST;
+   -- type PSTORAGE_DIAGNOSTIC_DATA is access all STORAGE_DIAGNOSTIC_DATA;
+   -- type PPHYSICAL_ELEMENT_STATUS_REQUEST is access all PHYSICAL_ELEMENT_STATUS_REQUEST;
+   -- type PPHYSICAL_ELEMENT_STATUS_DESCRIPTOR is access all PHYSICAL_ELEMENT_STATUS_DESCRIPTOR;
+   -- type PPHYSICAL_ELEMENT_STATUS is access all PHYSICAL_ELEMENT_STATUS;
+   -- type PREMOVE_ELEMENT_AND_TRUNCATE_REQUEST is access all REMOVE_ELEMENT_AND_TRUNCATE_REQUEST;
+   -- type PSTORAGE_MEDIA_SERIAL_NUMBER_DATA is access all STORAGE_MEDIA_SERIAL_NUMBER_DATA;
+   -- type PSTORAGE_READ_CAPACITY is access all STORAGE_READ_CAPACITY;
    type WRITE_CACHE_TYPE is (
       WriteCacheTypeUnknown,
       WriteCacheTypeNone,
@@ -4531,6 +6699,9 @@ package Win32 is
    );
    for WRITE_THROUGH'Size use 32;
    
+   -- type PSTORAGE_WRITE_CACHE_PROPERTY is access all STORAGE_WRITE_CACHE_PROPERTY;
+   -- type PPERSISTENT_RESERVE_COMMAND is access all PERSISTENT_RESERVE_COMMAND;
+   -- type PDEVICEDUMP_COLLECTION_TYPE is access all DEVICEDUMP_COLLECTION_TYPE;
    type DEVICEDUMP_COLLECTION_TYPE is (
       TCCollectionBugCheck,
       TCCollectionApplicationRequested,
@@ -4543,6 +6714,18 @@ package Win32 is
    );
    for DEVICEDUMP_COLLECTION_TYPE'Size use 32;
    
+   -- type PDEVICEDUMP_SUBSECTION_POINTER is access all DEVICEDUMP_SUBSECTION_POINTER;
+   -- type PDEVICEDUMP_STRUCTURE_VERSION is access all DEVICEDUMP_STRUCTURE_VERSION;
+   -- type PDEVICEDUMP_SECTION_HEADER is access all DEVICEDUMP_SECTION_HEADER;
+   -- type PGP_LOG_PAGE_DESCRIPTOR is access all GP_LOG_PAGE_DESCRIPTOR;
+   -- type PDEVICEDUMP_PUBLIC_SUBSECTION is access all DEVICEDUMP_PUBLIC_SUBSECTION;
+   -- type PDEVICEDUMP_RESTRICTED_SUBSECTION is access all DEVICEDUMP_RESTRICTED_SUBSECTION;
+   -- type PDEVICEDUMP_PRIVATE_SUBSECTION is access all DEVICEDUMP_PRIVATE_SUBSECTION;
+   -- type PDEVICEDUMP_STORAGEDEVICE_DATA is access all DEVICEDUMP_STORAGEDEVICE_DATA;
+   -- type PDEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD is access all DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD;
+   -- type PDEVICEDUMP_STORAGESTACK_PUBLIC_DUMP is access all DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP;
+   -- type PSTORAGE_IDLE_POWER is access all STORAGE_IDLE_POWER;
+   -- type PSTORAGE_POWERUP_REASON_TYPE is access all STORAGE_POWERUP_REASON_TYPE;
    type STORAGE_POWERUP_REASON_TYPE is (
       StoragePowerupUnknown,
       StoragePowerupIO,
@@ -4555,6 +6738,7 @@ package Win32 is
    );
    for STORAGE_POWERUP_REASON_TYPE'Size use 32;
    
+   -- type PSTORAGE_IDLE_POWERUP_REASON is access all STORAGE_IDLE_POWERUP_REASON;
    type STORAGE_DEVICE_POWER_CAP_UNITS is (
       StorageDevicePowerCapUnitsPercent,
       StorageDevicePowerCapUnitsMilliwatts
@@ -4565,6 +6749,9 @@ package Win32 is
    );
    for STORAGE_DEVICE_POWER_CAP_UNITS'Size use 32;
    
+   -- type PSTORAGE_DEVICE_POWER_CAP_UNITS is access all STORAGE_DEVICE_POWER_CAP_UNITS;
+   -- type PSTORAGE_DEVICE_POWER_CAP is access all STORAGE_DEVICE_POWER_CAP;
+   -- type PSTORAGE_RPMB_DATA_FRAME is access all STORAGE_RPMB_DATA_FRAME;
    type STORAGE_RPMB_COMMAND_TYPE is (
       StorRpmbProgramAuthKey,
       StorRpmbQueryWriteCounter,
@@ -4585,6 +6772,8 @@ package Win32 is
    );
    for STORAGE_RPMB_COMMAND_TYPE'Size use 32;
    
+   -- type PSTORAGE_RPMB_COMMAND_TYPE is access all STORAGE_RPMB_COMMAND_TYPE;
+   -- type PSTORAGE_EVENT_NOTIFICATION is access all STORAGE_EVENT_NOTIFICATION;
    type STORAGE_COUNTER_TYPE is (
       StorageCounterTypeUnknown,
       StorageCounterTypeTemperatureCelsius,
@@ -4635,6 +6824,17 @@ package Win32 is
    );
    for STORAGE_COUNTER_TYPE'Size use 32;
    
+   -- type PSTORAGE_COUNTER_TYPE is access all STORAGE_COUNTER_TYPE;
+   -- type PSTORAGE_COUNTER is access all STORAGE_COUNTER;
+   -- type PSTORAGE_COUNTERS is access all STORAGE_COUNTERS;
+   -- type PSTORAGE_HW_FIRMWARE_INFO_QUERY is access all STORAGE_HW_FIRMWARE_INFO_QUERY;
+   -- type PSTORAGE_HW_FIRMWARE_SLOT_INFO is access all STORAGE_HW_FIRMWARE_SLOT_INFO;
+   -- type PSTORAGE_HW_FIRMWARE_INFO is access all STORAGE_HW_FIRMWARE_INFO;
+   -- type PSTORAGE_HW_FIRMWARE_DOWNLOAD is access all STORAGE_HW_FIRMWARE_DOWNLOAD;
+   -- type PSTORAGE_HW_FIRMWARE_DOWNLOAD_V2 is access all STORAGE_HW_FIRMWARE_DOWNLOAD_V2;
+   -- type PSTORAGE_HW_FIRMWARE_ACTIVATE is access all STORAGE_HW_FIRMWARE_ACTIVATE;
+   -- type PSTORAGE_PROTOCOL_COMMAND is access all STORAGE_PROTOCOL_COMMAND;
+   -- type PSTORAGE_ATTRIBUTE_MGMT_ACTION is access all STORAGE_ATTRIBUTE_MGMT_ACTION;
    type STORAGE_ATTRIBUTE_MGMT_ACTION is (
       StorAttributeMgmt_ClearAttribute,
       StorAttributeMgmt_SetAttribute,
@@ -4647,6 +6847,8 @@ package Win32 is
    );
    for STORAGE_ATTRIBUTE_MGMT_ACTION'Size use 32;
    
+   -- type PSTORAGE_ATTRIBUTE_MGMT is access all STORAGE_ATTRIBUTE_MGMT;
+   -- type PMEDIA_TYPE is access all MEDIA_TYPE;
    type MEDIA_TYPE is (
       Unknown,
       F5_1Pt2_512,
@@ -4705,6 +6907,16 @@ package Win32 is
    );
    for MEDIA_TYPE'Size use 32;
    
+   -- type PFORMAT_PARAMETERS is access all FORMAT_PARAMETERS;
+   -- type PBAD_TRACK_NUMBER is access all WORD;
+   -- type PFORMAT_EX_PARAMETERS is access all FORMAT_EX_PARAMETERS;
+   -- type PDISK_GEOMETRY is access all DISK_GEOMETRY;
+   -- type PPARTITION_INFORMATION is access all PARTITION_INFORMATION;
+   -- type PSET_PARTITION_INFORMATION is access all SET_PARTITION_INFORMATION;
+   -- type PDRIVE_LAYOUT_INFORMATION is access all DRIVE_LAYOUT_INFORMATION;
+   -- type PVERIFY_INFORMATION is access all VERIFY_INFORMATION;
+   -- type PREASSIGN_BLOCKS is access all REASSIGN_BLOCKS;
+   -- type PREASSIGN_BLOCKS_EX is access all REASSIGN_BLOCKS_EX;
    type PARTITION_STYLE is (
       PARTITION_STYLE_MBR,
       PARTITION_STYLE_GPT,
@@ -4717,6 +6929,17 @@ package Win32 is
    );
    for PARTITION_STYLE'Size use 32;
    
+   -- type PPARTITION_INFORMATION_GPT is access all PARTITION_INFORMATION_GPT;
+   -- type PPARTITION_INFORMATION_MBR is access all PARTITION_INFORMATION_MBR;
+   -- type PSET_PARTITION_INFORMATION_EX is access all SET_PARTITION_INFORMATION_EX;
+   -- type PCREATE_DISK_GPT is access all CREATE_DISK_GPT;
+   -- type PCREATE_DISK_MBR is access all CREATE_DISK_MBR;
+   -- type PCREATE_DISK is access all CREATE_DISK;
+   -- type PGET_LENGTH_INFORMATION is access all GET_LENGTH_INFORMATION;
+   -- type PPARTITION_INFORMATION_EX is access all PARTITION_INFORMATION_EX;
+   -- type PDRIVE_LAYOUT_INFORMATION_GPT is access all DRIVE_LAYOUT_INFORMATION_GPT;
+   -- type PDRIVE_LAYOUT_INFORMATION_MBR is access all DRIVE_LAYOUT_INFORMATION_MBR;
+   -- type PDRIVE_LAYOUT_INFORMATION_EX is access all DRIVE_LAYOUT_INFORMATION_EX;
    type DETECTION_TYPE is (
       DetectNone,
       DetectInt13,
@@ -4729,6 +6952,12 @@ package Win32 is
    );
    for DETECTION_TYPE'Size use 32;
    
+   -- type PDISK_INT13_INFO is access all DISK_INT13_INFO;
+   -- type PDISK_EX_INT13_INFO is access all DISK_EX_INT13_INFO;
+   -- type PDISK_DETECTION_INFO is access all DISK_DETECTION_INFO;
+   -- type PDISK_PARTITION_INFO is access all DISK_PARTITION_INFO;
+   -- type PDISK_GEOMETRY_EX is access all DISK_GEOMETRY_EX;
+   -- type PDISK_CONTROLLER_NUMBER is access all DISK_CONTROLLER_NUMBER;
    type DISK_CACHE_RETENTION_PRIORITY is (
       EqualPriority,
       KeepPrefetchedData,
@@ -4741,6 +6970,13 @@ package Win32 is
    );
    for DISK_CACHE_RETENTION_PRIORITY'Size use 32;
    
+   -- type PDISK_CACHE_INFORMATION is access all DISK_CACHE_INFORMATION;
+   -- type PDISK_GROW_PARTITION is access all DISK_GROW_PARTITION;
+   -- type PHISTOGRAM_BUCKET is access all HISTOGRAM_BUCKET;
+   -- type PDISK_HISTOGRAM is access all DISK_HISTOGRAM;
+   -- type PDISK_PERFORMANCE is access all DISK_PERFORMANCE;
+   -- type PDISK_RECORD is access all DISK_RECORD;
+   -- type PDISK_LOGGING is access all DISK_LOGGING;
    type BIN_TYPES is (
       RequestSize,
       RequestLocation
@@ -4751,6 +6987,22 @@ package Win32 is
    );
    for BIN_TYPES'Size use 32;
    
+   -- type PBIN_RANGE is access all BIN_RANGE;
+   -- type PPERF_BIN is access all PERF_BIN;
+   -- type PBIN_COUNT is access all BIN_COUNT;
+   -- type PBIN_RESULTS is access all BIN_RESULTS;
+   -- type LPGETVERSIONINPARAMS is access all GETVERSIONINPARAMS;
+   -- type PGETVERSIONINPARAMS is access all GETVERSIONINPARAMS;
+   -- type LPIDEREGS is access all IDEREGS;
+   -- type PIDEREGS is access all IDEREGS;
+   -- type PSENDCMDINPARAMS is access all SENDCMDINPARAMS;
+   -- type LPSENDCMDINPARAMS is access all SENDCMDINPARAMS;
+   -- type PDRIVERSTATUS is access all DRIVERSTATUS;
+   -- type LPDRIVERSTATUS is access all DRIVERSTATUS;
+   -- type PSENDCMDOUTPARAMS is access all SENDCMDOUTPARAMS;
+   -- type LPSENDCMDOUTPARAMS is access all SENDCMDOUTPARAMS;
+   -- type PGET_DISK_ATTRIBUTES is access all GET_DISK_ATTRIBUTES;
+   -- type PSET_DISK_ATTRIBUTES is access all SET_DISK_ATTRIBUTES;
    type ELEMENT_TYPE is (
       AllElements,
       ChangerTransport,
@@ -4773,6 +7025,21 @@ package Win32 is
    );
    for ELEMENT_TYPE'Size use 32;
    
+   -- type PELEMENT_TYPE is access all ELEMENT_TYPE;
+   -- type PCHANGER_ELEMENT is access all CHANGER_ELEMENT;
+   -- type PCHANGER_ELEMENT_LIST is access all CHANGER_ELEMENT_LIST;
+   -- type PGET_CHANGER_PARAMETERS is access all GET_CHANGER_PARAMETERS;
+   -- type PCHANGER_PRODUCT_DATA is access all CHANGER_PRODUCT_DATA;
+   -- type PCHANGER_SET_ACCESS is access all CHANGER_SET_ACCESS;
+   -- type PCHANGER_READ_ELEMENT_STATUS is access all CHANGER_READ_ELEMENT_STATUS;
+   -- type PCHANGER_ELEMENT_STATUS is access all CHANGER_ELEMENT_STATUS;
+   -- type PCHANGER_ELEMENT_STATUS_EX is access all CHANGER_ELEMENT_STATUS_EX;
+   -- type PCHANGER_INITIALIZE_ELEMENT_STATUS is access all CHANGER_INITIALIZE_ELEMENT_STATUS;
+   -- type PCHANGER_SET_POSITION is access all CHANGER_SET_POSITION;
+   -- type PCHANGER_EXCHANGE_MEDIUM is access all CHANGER_EXCHANGE_MEDIUM;
+   -- type PCHANGER_MOVE_MEDIUM is access all CHANGER_MOVE_MEDIUM;
+   -- type PCHANGER_SEND_VOLUME_TAG_INFORMATION is access all CHANGER_SEND_VOLUME_TAG_INFORMATION;
+   -- type PREAD_ELEMENT_ADDRESS_INFO is access all READ_ELEMENT_ADDRESS_INFO;
    type CHANGER_DEVICE_PROBLEM_TYPE is (
       DeviceProblemNone,
       DeviceProblemHardware,
@@ -4807,6 +7074,73 @@ package Win32 is
    );
    for CHANGER_DEVICE_PROBLEM_TYPE'Size use 32;
    
+   -- type PCHANGER_DEVICE_PROBLEM_TYPE is access all CHANGER_DEVICE_PROBLEM_TYPE;
+   -- type PPATHNAME_BUFFER is access all PATHNAME_BUFFER;
+   -- type PFSCTL_QUERY_FAT_BPB_BUFFER is access all FSCTL_QUERY_FAT_BPB_BUFFER;
+   -- type PNTFS_VOLUME_DATA_BUFFER is access all NTFS_VOLUME_DATA_BUFFER;
+   -- type PNTFS_EXTENDED_VOLUME_DATA is access all NTFS_EXTENDED_VOLUME_DATA;
+   -- type PREFS_VOLUME_DATA_BUFFER is access all REFS_VOLUME_DATA_BUFFER;
+   -- type PSTARTING_LCN_INPUT_BUFFER is access all STARTING_LCN_INPUT_BUFFER;
+   -- type PSTARTING_LCN_INPUT_BUFFER_EX is access all STARTING_LCN_INPUT_BUFFER_EX;
+   -- type PVOLUME_BITMAP_BUFFER is access all VOLUME_BITMAP_BUFFER;
+   -- type PSTARTING_VCN_INPUT_BUFFER is access all STARTING_VCN_INPUT_BUFFER;
+   -- type PRETRIEVAL_POINTERS_BUFFER is access all RETRIEVAL_POINTERS_BUFFER;
+   -- type PRETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER is access all RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER;
+   -- type PNTFS_FILE_RECORD_INPUT_BUFFER is access all NTFS_FILE_RECORD_INPUT_BUFFER;
+   -- type PNTFS_FILE_RECORD_OUTPUT_BUFFER is access all NTFS_FILE_RECORD_OUTPUT_BUFFER;
+   -- type PMOVE_FILE_DATA is access all MOVE_FILE_DATA;
+   -- type PMOVE_FILE_RECORD_DATA is access all MOVE_FILE_RECORD_DATA;
+   -- type PFIND_BY_SID_DATA is access all FIND_BY_SID_DATA;
+   -- type PFIND_BY_SID_OUTPUT is access all FIND_BY_SID_OUTPUT;
+   -- type PMFT_ENUM_DATA_V0 is access all MFT_ENUM_DATA_V0;
+   -- type PMFT_ENUM_DATA_V1 is access all MFT_ENUM_DATA_V1;
+   -- type PMFT_ENUM_DATA is access all MFT_ENUM_DATA_V1;
+   -- type PCREATE_USN_JOURNAL_DATA is access all CREATE_USN_JOURNAL_DATA;
+   -- type PREAD_FILE_USN_DATA is access all READ_FILE_USN_DATA;
+   -- type PREAD_USN_JOURNAL_DATA_V0 is access all READ_USN_JOURNAL_DATA_V0;
+   -- type PREAD_USN_JOURNAL_DATA_V1 is access all READ_USN_JOURNAL_DATA_V1;
+   -- type PREAD_USN_JOURNAL_DATA is access all READ_USN_JOURNAL_DATA_V1;
+   -- type PUSN_TRACK_MODIFIED_RANGES is access all USN_TRACK_MODIFIED_RANGES;
+   -- type PUSN_RANGE_TRACK_OUTPUT is access all USN_RANGE_TRACK_OUTPUT;
+   -- type PUSN_RECORD_V2 is access all USN_RECORD_V2;
+   -- type PUSN_RECORD_V3 is access all USN_RECORD_V3;
+   -- type PUSN_RECORD is access all USN_RECORD_V2;
+   -- type PUSN_RECORD_COMMON_HEADER is access all USN_RECORD_COMMON_HEADER;
+   -- type PUSN_RECORD_EXTENT is access all USN_RECORD_EXTENT;
+   -- type PUSN_RECORD_V4 is access all USN_RECORD_V4;
+   -- type PUSN_RECORD_UNION is access all USN_RECORD_UNION;
+   -- type PUSN_JOURNAL_DATA_V0 is access all USN_JOURNAL_DATA_V0;
+   -- type PUSN_JOURNAL_DATA_V1 is access all USN_JOURNAL_DATA_V1;
+   -- type PUSN_JOURNAL_DATA_V2 is access all USN_JOURNAL_DATA_V2;
+   -- type PUSN_JOURNAL_DATA is access all USN_JOURNAL_DATA_V1;
+   -- type PDELETE_USN_JOURNAL_DATA is access all DELETE_USN_JOURNAL_DATA;
+   -- type PMARK_HANDLE_INFO is access all MARK_HANDLE_INFO;
+   -- type PBULK_SECURITY_TEST_DATA is access all BULK_SECURITY_TEST_DATA;
+   -- type PFILE_PREFETCH is access all FILE_PREFETCH;
+   -- type PFILE_PREFETCH_EX is access all FILE_PREFETCH_EX;
+   -- type PFILESYSTEM_STATISTICS is access all FILESYSTEM_STATISTICS;
+   -- type PFAT_STATISTICS is access all FAT_STATISTICS;
+   -- type PEXFAT_STATISTICS is access all EXFAT_STATISTICS;
+   -- type PNTFS_STATISTICS is access all NTFS_STATISTICS;
+   -- type PFILESYSTEM_STATISTICS_EX is access all FILESYSTEM_STATISTICS_EX;
+   -- type PNTFS_STATISTICS_EX is access all NTFS_STATISTICS_EX;
+   -- type PFILE_OBJECTID_BUFFER is access all FILE_OBJECTID_BUFFER;
+   -- type PFILE_SET_SPARSE_BUFFER is access all FILE_SET_SPARSE_BUFFER;
+   -- type PFILE_ZERO_DATA_INFORMATION is access all FILE_ZERO_DATA_INFORMATION;
+   -- type PFILE_ZERO_DATA_INFORMATION_EX is access all FILE_ZERO_DATA_INFORMATION_EX;
+   -- type PFILE_ALLOCATED_RANGE_BUFFER is access all FILE_ALLOCATED_RANGE_BUFFER;
+   -- type PENCRYPTION_BUFFER is access all ENCRYPTION_BUFFER;
+   -- type PDECRYPTION_STATUS_BUFFER is access all DECRYPTION_STATUS_BUFFER;
+   -- type PREQUEST_RAW_ENCRYPTED_DATA is access all REQUEST_RAW_ENCRYPTED_DATA;
+   -- type PENCRYPTED_DATA_INFO is access all ENCRYPTED_DATA_INFO;
+   -- type PEXTENDED_ENCRYPTED_DATA_INFO is access all EXTENDED_ENCRYPTED_DATA_INFO;
+   -- type PPLEX_READ_DATA_REQUEST is access all PLEX_READ_DATA_REQUEST;
+   -- type PSI_COPYFILE is access all SI_COPYFILE;
+   -- type PFILE_MAKE_COMPATIBLE_BUFFER is access all FILE_MAKE_COMPATIBLE_BUFFER;
+   -- type PFILE_SET_DEFECT_MGMT_BUFFER is access all FILE_SET_DEFECT_MGMT_BUFFER;
+   -- type PFILE_QUERY_SPARING_BUFFER is access all FILE_QUERY_SPARING_BUFFER;
+   -- type PFILE_QUERY_ON_DISK_VOL_INFO_BUFFER is access all FILE_QUERY_ON_DISK_VOL_INFO_BUFFER;
+   -- type PFILE_INITIATE_REPAIR_OUTPUT_BUFFER is access all FILE_INITIATE_REPAIR_OUTPUT_BUFFER;
    type SHRINK_VOLUME_REQUEST_TYPES is (
       ShrinkPrepare,
       ShrinkCommit,
@@ -4819,6 +7153,50 @@ package Win32 is
    );
    for SHRINK_VOLUME_REQUEST_TYPES'Size use 32;
    
+   -- type PSHRINK_VOLUME_REQUEST_TYPES is access all SHRINK_VOLUME_REQUEST_TYPES;
+   -- type PSHRINK_VOLUME_INFORMATION is access all SHRINK_VOLUME_INFORMATION;
+   -- type PTXFS_MODIFY_RM is access all TXFS_MODIFY_RM;
+   -- type PTXFS_QUERY_RM_INFORMATION is access all TXFS_QUERY_RM_INFORMATION;
+   -- type PTXFS_ROLLFORWARD_REDO_INFORMATION is access all TXFS_ROLLFORWARD_REDO_INFORMATION;
+   -- type PTXFS_START_RM_INFORMATION is access all TXFS_START_RM_INFORMATION;
+   -- type PTXFS_GET_METADATA_INFO_OUT is access all TXFS_GET_METADATA_INFO_OUT;
+   -- type PTXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY is access all TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY;
+   -- type PTXFS_LIST_TRANSACTION_LOCKED_FILES is access all TXFS_LIST_TRANSACTION_LOCKED_FILES;
+   -- type PTXFS_LIST_TRANSACTIONS_ENTRY is access all TXFS_LIST_TRANSACTIONS_ENTRY;
+   -- type PTXFS_LIST_TRANSACTIONS is access all TXFS_LIST_TRANSACTIONS;
+   -- type PTXFS_READ_BACKUP_INFORMATION_OUT is access all TXFS_READ_BACKUP_INFORMATION_OUT;
+   -- type PTXFS_WRITE_BACKUP_INFORMATION is access all TXFS_WRITE_BACKUP_INFORMATION;
+   -- type PTXFS_GET_TRANSACTED_VERSION is access all TXFS_GET_TRANSACTED_VERSION;
+   -- type PTXFS_SAVEPOINT_INFORMATION is access all TXFS_SAVEPOINT_INFORMATION;
+   -- type PTXFS_CREATE_MINIVERSION_INFO is access all TXFS_CREATE_MINIVERSION_INFO;
+   -- type PTXFS_TRANSACTION_ACTIVE_INFO is access all TXFS_TRANSACTION_ACTIVE_INFO;
+   -- type PBOOT_AREA_INFO is access all BOOT_AREA_INFO;
+   -- type PRETRIEVAL_POINTER_BASE is access all RETRIEVAL_POINTER_BASE;
+   -- type PFILE_FS_PERSISTENT_VOLUME_INFORMATION is access all FILE_FS_PERSISTENT_VOLUME_INFORMATION;
+   -- type PFILE_SYSTEM_RECOGNITION_INFORMATION is access all FILE_SYSTEM_RECOGNITION_INFORMATION;
+   -- type PREQUEST_OPLOCK_INPUT_BUFFER is access all REQUEST_OPLOCK_INPUT_BUFFER;
+   -- type PREQUEST_OPLOCK_OUTPUT_BUFFER is access all REQUEST_OPLOCK_OUTPUT_BUFFER;
+   -- type PVIRTUAL_STORAGE_TYPE is access all VIRTUAL_STORAGE_TYPE;
+   -- type PSTORAGE_QUERY_DEPENDENT_VOLUME_REQUEST is access all STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST;
+   -- type PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY is access all STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY;
+   -- type PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY is access all STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY;
+   -- type PSTORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE is access all STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE;
+   -- type PSD_CHANGE_MACHINE_SID_INPUT is access all SD_CHANGE_MACHINE_SID_INPUT;
+   -- type PSD_CHANGE_MACHINE_SID_OUTPUT is access all SD_CHANGE_MACHINE_SID_OUTPUT;
+   -- type PSD_QUERY_STATS_INPUT is access all SD_QUERY_STATS_INPUT;
+   -- type PSD_QUERY_STATS_OUTPUT is access all SD_QUERY_STATS_OUTPUT;
+   -- type PSD_ENUM_SDS_INPUT is access all SD_ENUM_SDS_INPUT;
+   -- type PSD_ENUM_SDS_ENTRY is access all SD_ENUM_SDS_ENTRY;
+   -- type PSD_ENUM_SDS_OUTPUT is access all SD_ENUM_SDS_OUTPUT;
+   -- type PSD_GLOBAL_CHANGE_INPUT is access all SD_GLOBAL_CHANGE_INPUT;
+   -- type PSD_GLOBAL_CHANGE_OUTPUT is access all SD_GLOBAL_CHANGE_OUTPUT;
+   -- type PLOOKUP_STREAM_FROM_CLUSTER_INPUT is access all LOOKUP_STREAM_FROM_CLUSTER_INPUT;
+   -- type PLOOKUP_STREAM_FROM_CLUSTER_OUTPUT is access all LOOKUP_STREAM_FROM_CLUSTER_OUTPUT;
+   -- type PLOOKUP_STREAM_FROM_CLUSTER_ENTRY is access all LOOKUP_STREAM_FROM_CLUSTER_ENTRY;
+   -- type PFILE_TYPE_NOTIFICATION_INPUT is access all FILE_TYPE_NOTIFICATION_INPUT;
+   -- type PCSV_MGMT_LOCK is access all CSV_MGMT_LOCK;
+   -- type PCSV_NAMESPACE_INFO is access all CSV_NAMESPACE_INFO;
+   -- type PCSV_CONTROL_OP is access all CSV_CONTROL_OP;
    type CSV_CONTROL_OP is (
       CsvControlStartRedirectFile,
       CsvControlStopRedirectFile,
@@ -4847,6 +7225,11 @@ package Win32 is
    );
    for CSV_CONTROL_OP'Size use 32;
    
+   -- type PCSV_CONTROL_PARAM is access all CSV_CONTROL_PARAM;
+   -- type PCSV_QUERY_REDIRECT_STATE is access all CSV_QUERY_REDIRECT_STATE;
+   -- type PCSV_QUERY_FILE_REVISION is access all CSV_QUERY_FILE_REVISION;
+   -- type PCSV_QUERY_FILE_REVISION_FILE_ID_128 is access all CSV_QUERY_FILE_REVISION_FILE_ID_128;
+   -- type PCSV_QUERY_MDS_PATH is access all CSV_QUERY_MDS_PATH;
    type CSVFS_DISK_CONNECTIVITY is (
       CsvFsDiskConnectivityNone,
       CsvFsDiskConnectivityMdsNodeOnly,
@@ -4861,6 +7244,14 @@ package Win32 is
    );
    for CSVFS_DISK_CONNECTIVITY'Size use 32;
    
+   -- type PCSVFS_DISK_CONNECTIVITY is access all CSVFS_DISK_CONNECTIVITY;
+   -- type PCSV_QUERY_VOLUME_REDIRECT_STATE is access all CSV_QUERY_VOLUME_REDIRECT_STATE;
+   -- type PCSV_QUERY_MDS_PATH_V2 is access all CSV_QUERY_MDS_PATH_V2;
+   -- type PCSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT is access all CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT;
+   -- type PCSV_IS_OWNED_BY_CSVFS is access all CSV_IS_OWNED_BY_CSVFS;
+   -- type PFILE_LEVEL_TRIM_RANGE is access all FILE_LEVEL_TRIM_RANGE;
+   -- type PFILE_LEVEL_TRIM is access all FILE_LEVEL_TRIM;
+   -- type PFILE_LEVEL_TRIM_OUTPUT is access all FILE_LEVEL_TRIM_OUTPUT;
    type QUERY_FILE_LAYOUT_FILTER_TYPE is (
       QUERY_FILE_LAYOUT_FILTER_TYPE_NONE,
       QUERY_FILE_LAYOUT_FILTER_TYPE_CLUSTERS,
@@ -4875,6 +7266,30 @@ package Win32 is
    );
    for QUERY_FILE_LAYOUT_FILTER_TYPE'Size use 32;
    
+   -- type PCLUSTER_RANGE is access all CLUSTER_RANGE;
+   -- type PFILE_REFERENCE_RANGE is access all FILE_REFERENCE_RANGE;
+   -- type PQUERY_FILE_LAYOUT_INPUT is access all QUERY_FILE_LAYOUT_INPUT;
+   -- type PQUERY_FILE_LAYOUT_OUTPUT is access all QUERY_FILE_LAYOUT_OUTPUT;
+   -- type PFILE_LAYOUT_ENTRY is access all FILE_LAYOUT_ENTRY;
+   -- type PFILE_LAYOUT_NAME_ENTRY is access all FILE_LAYOUT_NAME_ENTRY;
+   -- type PFILE_LAYOUT_INFO_ENTRY is access all FILE_LAYOUT_INFO_ENTRY;
+   -- type PSTREAM_LAYOUT_ENTRY is access all STREAM_LAYOUT_ENTRY;
+   -- type PSTREAM_EXTENT_ENTRY is access all STREAM_EXTENT_ENTRY;
+   -- type PFSCTL_GET_INTEGRITY_INFORMATION_BUFFER is access all FSCTL_GET_INTEGRITY_INFORMATION_BUFFER;
+   -- type PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER is access all FSCTL_SET_INTEGRITY_INFORMATION_BUFFER;
+   -- type PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX is access all FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX;
+   -- type PFSCTL_OFFLOAD_READ_INPUT is access all FSCTL_OFFLOAD_READ_INPUT;
+   -- type PFSCTL_OFFLOAD_READ_OUTPUT is access all FSCTL_OFFLOAD_READ_OUTPUT;
+   -- type PFSCTL_OFFLOAD_WRITE_INPUT is access all FSCTL_OFFLOAD_WRITE_INPUT;
+   -- type PFSCTL_OFFLOAD_WRITE_OUTPUT is access all FSCTL_OFFLOAD_WRITE_OUTPUT;
+   -- type PSET_PURGE_FAILURE_MODE_INPUT is access all SET_PURGE_FAILURE_MODE_INPUT;
+   -- type PREPAIR_COPIES_INPUT is access all REPAIR_COPIES_INPUT;
+   -- type PREPAIR_COPIES_OUTPUT is access all REPAIR_COPIES_OUTPUT;
+   -- type PFILE_REGION_INFO is access all FILE_REGION_INFO;
+   -- type PFILE_REGION_OUTPUT is access all FILE_REGION_OUTPUT;
+   -- type PFILE_REGION_INPUT is access all FILE_REGION_INPUT;
+   -- type PWRITE_USN_REASON_INPUT is access all WRITE_USN_REASON_INPUT;
+   -- type PFILE_STORAGE_TIER_MEDIA_TYPE is access all FILE_STORAGE_TIER_MEDIA_TYPE;
    type FILE_STORAGE_TIER_MEDIA_TYPE is (
       FileStorageTierMediaTypeUnspecified,
       FileStorageTierMediaTypeDisk,
@@ -4905,6 +7320,17 @@ package Win32 is
    );
    for FILE_STORAGE_TIER_CLASS'Size use 32;
    
+   -- type PFILE_STORAGE_TIER_CLASS is access all FILE_STORAGE_TIER_CLASS;
+   -- type PFILE_STORAGE_TIER is access all FILE_STORAGE_TIER;
+   -- type PFSCTL_QUERY_STORAGE_CLASSES_OUTPUT is access all FSCTL_QUERY_STORAGE_CLASSES_OUTPUT;
+   -- type PSTREAM_INFORMATION_ENTRY is access all STREAM_INFORMATION_ENTRY;
+   -- type PFSCTL_QUERY_REGION_INFO_INPUT is access all FSCTL_QUERY_REGION_INFO_INPUT;
+   -- type PFILE_STORAGE_TIER_REGION is access all FILE_STORAGE_TIER_REGION;
+   -- type PFSCTL_QUERY_REGION_INFO_OUTPUT is access all FSCTL_QUERY_REGION_INFO_OUTPUT;
+   -- type PFILE_DESIRED_STORAGE_CLASS_INFORMATION is access all FILE_DESIRED_STORAGE_CLASS_INFORMATION;
+   -- type PDUPLICATE_EXTENTS_DATA is access all DUPLICATE_EXTENTS_DATA;
+   -- type PDUPLICATE_EXTENTS_DATA_EX is access all DUPLICATE_EXTENTS_DATA_EX;
+   -- type PREFS_SMR_VOLUME_GC_STATE is access all REFS_SMR_VOLUME_GC_STATE;
    type REFS_SMR_VOLUME_GC_STATE is (
       SmrGcStateInactive,
       SmrGcStatePaused,
@@ -4919,6 +7345,8 @@ package Win32 is
    );
    for REFS_SMR_VOLUME_GC_STATE'Size use 32;
    
+   -- type PREFS_SMR_VOLUME_INFO_OUTPUT is access all REFS_SMR_VOLUME_INFO_OUTPUT;
+   -- type PREFS_SMR_VOLUME_GC_ACTION is access all REFS_SMR_VOLUME_GC_ACTION;
    type REFS_SMR_VOLUME_GC_ACTION is (
       SmrGcActionStart,
       SmrGcActionStartFullSpeed,
@@ -4945,8 +7373,203 @@ package Win32 is
    );
    for REFS_SMR_VOLUME_GC_METHOD'Size use 32;
    
+   -- type PREFS_SMR_VOLUME_GC_METHOD is access all REFS_SMR_VOLUME_GC_METHOD;
+   -- type PREFS_SMR_VOLUME_GC_PARAMETERS is access all REFS_SMR_VOLUME_GC_PARAMETERS;
+   -- type PSTREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER is access all STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER;
+   -- type PSTREAMS_ASSOCIATE_ID_INPUT_BUFFER is access all STREAMS_ASSOCIATE_ID_INPUT_BUFFER;
+   -- type PSTREAMS_QUERY_ID_OUTPUT_BUFFER is access all STREAMS_QUERY_ID_OUTPUT_BUFFER;
+   -- type PQUERY_BAD_RANGES_INPUT_RANGE is access all QUERY_BAD_RANGES_INPUT_RANGE;
+   -- type PQUERY_BAD_RANGES_INPUT is access all QUERY_BAD_RANGES_INPUT;
+   -- type PQUERY_BAD_RANGES_OUTPUT_RANGE is access all QUERY_BAD_RANGES_OUTPUT_RANGE;
+   -- type PQUERY_BAD_RANGES_OUTPUT is access all QUERY_BAD_RANGES_OUTPUT;
+   -- type PSET_DAX_ALLOC_ALIGNMENT_HINT_INPUT is access all SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT;
+   -- type PWOF_EXTERNAL_INFO is access all WOF_EXTERNAL_INFO;
+   -- type PWOF_EXTERNAL_FILE_ID is access all WOF_EXTERNAL_FILE_ID;
+   -- type PWOF_VERSION_INFO is access all WOF_VERSION_INFO;
+   -- type PWIM_PROVIDER_EXTERNAL_INFO is access all WIM_PROVIDER_EXTERNAL_INFO;
+   -- type PWIM_PROVIDER_ADD_OVERLAY_INPUT is access all WIM_PROVIDER_ADD_OVERLAY_INPUT;
+   -- type PWIM_PROVIDER_UPDATE_OVERLAY_INPUT is access all WIM_PROVIDER_UPDATE_OVERLAY_INPUT;
+   -- type PWIM_PROVIDER_REMOVE_OVERLAY_INPUT is access all WIM_PROVIDER_REMOVE_OVERLAY_INPUT;
+   -- type PWIM_PROVIDER_SUSPEND_OVERLAY_INPUT is access all WIM_PROVIDER_SUSPEND_OVERLAY_INPUT;
+   -- type PWIM_PROVIDER_OVERLAY_ENTRY is access all WIM_PROVIDER_OVERLAY_ENTRY;
+   -- type PFILE_PROVIDER_EXTERNAL_INFO_V0 is access all FILE_PROVIDER_EXTERNAL_INFO_V0;
+   -- type PFILE_PROVIDER_EXTERNAL_INFO_V1 is access all FILE_PROVIDER_EXTERNAL_INFO_V1;
+   -- type PCONTAINER_VOLUME_STATE is access all CONTAINER_VOLUME_STATE;
+   -- type PCONTAINER_ROOT_INFO_INPUT is access all CONTAINER_ROOT_INFO_INPUT;
+   -- type PCONTAINER_ROOT_INFO_OUTPUT is access all CONTAINER_ROOT_INFO_OUTPUT;
+   -- type PVIRTUALIZATION_INSTANCE_INFO_INPUT is access all VIRTUALIZATION_INSTANCE_INFO_INPUT;
+   -- type PVIRTUALIZATION_INSTANCE_INFO_OUTPUT is access all VIRTUALIZATION_INSTANCE_INFO_OUTPUT;
+   -- type PGET_FILTER_FILE_IDENTIFIER_INPUT is access all GET_FILTER_FILE_IDENTIFIER_INPUT;
+   -- type PGET_FILTER_FILE_IDENTIFIER_OUTPUT is access all GET_FILTER_FILE_IDENTIFIER_OUTPUT;
+   -- type PDISK_EXTENT is access all DISK_EXTENT;
+   -- type PVOLUME_DISK_EXTENTS is access all VOLUME_DISK_EXTENTS;
+   -- type PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION is access all VOLUME_GET_GPT_ATTRIBUTES_INFORMATION;
+   -- type PIO_IRP_EXT_TRACK_OFFSET_HEADER is access all IO_IRP_EXT_TRACK_OFFSET_HEADER;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\winsmcrd.h
+   -- type PSCARD_IO_REQUEST is access all SCARD_IO_REQUEST;
+   -- type LPSCARD_IO_REQUEST is access all SCARD_IO_REQUEST;
+   -- type LPCSCARD_IO_REQUEST is access all SCARD_IO_REQUEST;
+   -- type LPSCARD_T0_COMMAND is access all SCARD_T0_COMMAND;
+   -- type PSCARD_T0_REQUEST is access all SCARD_T0_REQUEST;
+   -- type LPSCARD_T0_REQUEST is access all SCARD_T0_REQUEST;
+   -- type LPSCARD_T1_REQUEST is access all SCARD_T1_REQUEST;
+   -- type PSCARD_T1_REQUEST is access all SCARD_T1_REQUEST;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winspool.h
+   -- type LPPRINTER_INFO_1A is access all PRINTER_INFO_1A;
+   -- type PPRINTER_INFO_1A is access all PRINTER_INFO_1A;
+   -- type PPRINTER_INFO_1W is access all PRINTER_INFO_1W;
+   -- type LPPRINTER_INFO_1W is access all PRINTER_INFO_1W;
+   -- type PPRINTER_INFO_2A is access all PRINTER_INFO_2A;
+   -- type LPPRINTER_INFO_2A is access all PRINTER_INFO_2A;
+   -- type LPPRINTER_INFO_2W is access all PRINTER_INFO_2W;
+   -- type PPRINTER_INFO_2W is access all PRINTER_INFO_2W;
+   -- type PPRINTER_INFO_3 is access all PRINTER_INFO_3;
+   -- type LPPRINTER_INFO_3 is access all PRINTER_INFO_3;
+   -- type PPRINTER_INFO_4A is access all PRINTER_INFO_4A;
+   -- type LPPRINTER_INFO_4A is access all PRINTER_INFO_4A;
+   -- type PPRINTER_INFO_4W is access all PRINTER_INFO_4W;
+   -- type LPPRINTER_INFO_4W is access all PRINTER_INFO_4W;
+   -- type PPRINTER_INFO_5A is access all PRINTER_INFO_5A;
+   -- type LPPRINTER_INFO_5A is access all PRINTER_INFO_5A;
+   -- type PPRINTER_INFO_5W is access all PRINTER_INFO_5W;
+   -- type LPPRINTER_INFO_5W is access all PRINTER_INFO_5W;
+   -- type PPRINTER_INFO_6 is access all PRINTER_INFO_6;
+   -- type LPPRINTER_INFO_6 is access all PRINTER_INFO_6;
+   -- type PPRINTER_INFO_7A is access all PRINTER_INFO_7A;
+   -- type LPPRINTER_INFO_7A is access all PRINTER_INFO_7A;
+   -- type PPRINTER_INFO_7W is access all PRINTER_INFO_7W;
+   -- type LPPRINTER_INFO_7W is access all PRINTER_INFO_7W;
+   -- type LPPRINTER_INFO_8A is access all PRINTER_INFO_8A;
+   -- type PPRINTER_INFO_8A is access all PRINTER_INFO_8A;
+   -- type LPPRINTER_INFO_8W is access all PRINTER_INFO_8W;
+   -- type PPRINTER_INFO_8W is access all PRINTER_INFO_8W;
+   -- type LPPRINTER_INFO_9A is access all PRINTER_INFO_9A;
+   -- type PPRINTER_INFO_9A is access all PRINTER_INFO_9A;
+   -- type LPPRINTER_INFO_9W is access all PRINTER_INFO_9W;
+   -- type PPRINTER_INFO_9W is access all PRINTER_INFO_9W;
+   -- type PJOB_INFO_1A is access all JOB_INFO_1A;
+   -- type LPJOB_INFO_1A is access all JOB_INFO_1A;
+   -- type PJOB_INFO_1W is access all JOB_INFO_1W;
+   -- type LPJOB_INFO_1W is access all JOB_INFO_1W;
+   -- type PJOB_INFO_2A is access all JOB_INFO_2A;
+   -- type LPJOB_INFO_2A is access all JOB_INFO_2A;
+   -- type LPJOB_INFO_2W is access all JOB_INFO_2W;
+   -- type PJOB_INFO_2W is access all JOB_INFO_2W;
+   -- type LPJOB_INFO_3 is access all JOB_INFO_3;
+   -- type PJOB_INFO_3 is access all JOB_INFO_3;
+   -- type PJOB_INFO_4A is access all JOB_INFO_4A;
+   -- type LPJOB_INFO_4A is access all JOB_INFO_4A;
+   -- type PJOB_INFO_4W is access all JOB_INFO_4W;
+   -- type LPJOB_INFO_4W is access all JOB_INFO_4W;
+   -- type PADDJOB_INFO_1A is access all ADDJOB_INFO_1A;
+   -- type LPADDJOB_INFO_1A is access all ADDJOB_INFO_1A;
+   -- type LPADDJOB_INFO_1W is access all ADDJOB_INFO_1W;
+   -- type PADDJOB_INFO_1W is access all ADDJOB_INFO_1W;
+   -- type PDRIVER_INFO_1A is access all DRIVER_INFO_1A;
+   -- type LPDRIVER_INFO_1A is access all DRIVER_INFO_1A;
+   -- type PDRIVER_INFO_1W is access all DRIVER_INFO_1W;
+   -- type LPDRIVER_INFO_1W is access all DRIVER_INFO_1W;
+   -- type LPDRIVER_INFO_2A is access all DRIVER_INFO_2A;
+   -- type PDRIVER_INFO_2A is access all DRIVER_INFO_2A;
+   -- type PDRIVER_INFO_2W is access all DRIVER_INFO_2W;
+   -- type LPDRIVER_INFO_2W is access all DRIVER_INFO_2W;
+   -- type LPDRIVER_INFO_3A is access all DRIVER_INFO_3A;
+   -- type PDRIVER_INFO_3A is access all DRIVER_INFO_3A;
+   -- type LPDRIVER_INFO_3W is access all DRIVER_INFO_3W;
+   -- type PDRIVER_INFO_3W is access all DRIVER_INFO_3W;
+   -- type LPDRIVER_INFO_4A is access all DRIVER_INFO_4A;
+   -- type PDRIVER_INFO_4A is access all DRIVER_INFO_4A;
+   -- type LPDRIVER_INFO_4W is access all DRIVER_INFO_4W;
+   -- type PDRIVER_INFO_4W is access all DRIVER_INFO_4W;
+   -- type PDRIVER_INFO_5A is access all DRIVER_INFO_5A;
+   -- type LPDRIVER_INFO_5A is access all DRIVER_INFO_5A;
+   -- type PDRIVER_INFO_5W is access all DRIVER_INFO_5W;
+   -- type LPDRIVER_INFO_5W is access all DRIVER_INFO_5W;
+   -- type LPDRIVER_INFO_6A is access all DRIVER_INFO_6A;
+   -- type PDRIVER_INFO_6A is access all DRIVER_INFO_6A;
+   -- type PDRIVER_INFO_6W is access all DRIVER_INFO_6W;
+   -- type LPDRIVER_INFO_6W is access all DRIVER_INFO_6W;
+   -- type LPDRIVER_INFO_8A is access all DRIVER_INFO_8A;
+   -- type PDRIVER_INFO_8A is access all DRIVER_INFO_8A;
+   -- type LPDRIVER_INFO_8W is access all DRIVER_INFO_8W;
+   -- type PDRIVER_INFO_8W is access all DRIVER_INFO_8W;
+   -- type LPDOC_INFO_1A is access all DOC_INFO_1A;
+   -- type PDOC_INFO_1A is access all DOC_INFO_1A;
+   -- type LPDOC_INFO_1W is access all DOC_INFO_1W;
+   -- type PDOC_INFO_1W is access all DOC_INFO_1W;
+   -- type PFORM_INFO_1A is access all FORM_INFO_1A;
+   -- type LPFORM_INFO_1A is access all FORM_INFO_1A;
+   -- type PFORM_INFO_1W is access all FORM_INFO_1W;
+   -- type LPFORM_INFO_1W is access all FORM_INFO_1W;
+   -- type LPFORM_INFO_2A is access all FORM_INFO_2A;
+   -- type PFORM_INFO_2A is access all FORM_INFO_2A;
+   -- type PFORM_INFO_2W is access all FORM_INFO_2W;
+   -- type LPFORM_INFO_2W is access all FORM_INFO_2W;
+   -- type PDOC_INFO_2A is access all DOC_INFO_2A;
+   -- type LPDOC_INFO_2A is access all DOC_INFO_2A;
+   -- type LPDOC_INFO_2W is access all DOC_INFO_2W;
+   -- type PDOC_INFO_2W is access all DOC_INFO_2W;
+   -- type PDOC_INFO_3A is access all DOC_INFO_3A;
+   -- type LPDOC_INFO_3A is access all DOC_INFO_3A;
+   -- type LPDOC_INFO_3W is access all DOC_INFO_3W;
+   -- type PDOC_INFO_3W is access all DOC_INFO_3W;
+   -- type PPRINTPROCESSOR_INFO_1A is access all PRINTPROCESSOR_INFO_1A;
+   -- type LPPRINTPROCESSOR_INFO_1A is access all PRINTPROCESSOR_INFO_1A;
+   -- type LPPRINTPROCESSOR_INFO_1W is access all PRINTPROCESSOR_INFO_1W;
+   -- type PPRINTPROCESSOR_INFO_1W is access all PRINTPROCESSOR_INFO_1W;
+   -- type PPRINTPROCESSOR_CAPS_1 is access all PRINTPROCESSOR_CAPS_1;
+   -- type PPRINTPROCESSOR_CAPS_2 is access all PRINTPROCESSOR_CAPS_2;
+   -- type LPPORT_INFO_1A is access all PORT_INFO_1A;
+   -- type PPORT_INFO_1A is access all PORT_INFO_1A;
+   -- type PPORT_INFO_1W is access all PORT_INFO_1W;
+   -- type LPPORT_INFO_1W is access all PORT_INFO_1W;
+   -- type LPPORT_INFO_2A is access all PORT_INFO_2A;
+   -- type PPORT_INFO_2A is access all PORT_INFO_2A;
+   -- type PPORT_INFO_2W is access all PORT_INFO_2W;
+   -- type LPPORT_INFO_2W is access all PORT_INFO_2W;
+   -- type PPORT_INFO_3A is access all PORT_INFO_3A;
+   -- type LPPORT_INFO_3A is access all PORT_INFO_3A;
+   -- type PPORT_INFO_3W is access all PORT_INFO_3W;
+   -- type LPPORT_INFO_3W is access all PORT_INFO_3W;
+   -- type LPMONITOR_INFO_1A is access all MONITOR_INFO_1A;
+   -- type PMONITOR_INFO_1A is access all MONITOR_INFO_1A;
+   -- type LPMONITOR_INFO_1W is access all MONITOR_INFO_1W;
+   -- type PMONITOR_INFO_1W is access all MONITOR_INFO_1W;
+   -- type LPMONITOR_INFO_2A is access all MONITOR_INFO_2A;
+   -- type PMONITOR_INFO_2A is access all MONITOR_INFO_2A;
+   -- type LPMONITOR_INFO_2W is access all MONITOR_INFO_2W;
+   -- type PMONITOR_INFO_2W is access all MONITOR_INFO_2W;
+   -- type LPDATATYPES_INFO_1A is access all DATATYPES_INFO_1A;
+   -- type PDATATYPES_INFO_1A is access all DATATYPES_INFO_1A;
+   -- type LPDATATYPES_INFO_1W is access all DATATYPES_INFO_1W;
+   -- type PDATATYPES_INFO_1W is access all DATATYPES_INFO_1W;
+   -- type LPPRINTER_DEFAULTSA is access all PRINTER_DEFAULTSA;
+   -- type PPRINTER_DEFAULTSA is access all PRINTER_DEFAULTSA;
+   -- type LPPRINTER_DEFAULTSW is access all PRINTER_DEFAULTSW;
+   -- type PPRINTER_DEFAULTSW is access all PRINTER_DEFAULTSW;
+   -- type LPPRINTER_ENUM_VALUESA is access all PRINTER_ENUM_VALUESA;
+   -- type PPRINTER_ENUM_VALUESA is access all PRINTER_ENUM_VALUESA;
+   -- type LPPRINTER_ENUM_VALUESW is access all PRINTER_ENUM_VALUESW;
+   -- type PPRINTER_ENUM_VALUESW is access all PRINTER_ENUM_VALUESW;
+   -- type PPRINTER_NOTIFY_OPTIONS_TYPE is access all PRINTER_NOTIFY_OPTIONS_TYPE;
+   -- type LPPRINTER_NOTIFY_OPTIONS_TYPE is access all PRINTER_NOTIFY_OPTIONS_TYPE;
+   -- type PPRINTER_NOTIFY_OPTIONS is access all PRINTER_NOTIFY_OPTIONS;
+   -- type LPPRINTER_NOTIFY_OPTIONS is access all PRINTER_NOTIFY_OPTIONS;
+   -- type PPRINTER_NOTIFY_INFO_DATA is access all PRINTER_NOTIFY_INFO_DATA;
+   -- type LPPRINTER_NOTIFY_INFO_DATA is access all PRINTER_NOTIFY_INFO_DATA;
+   -- type PPRINTER_NOTIFY_INFO is access all PRINTER_NOTIFY_INFO;
+   -- type LPPRINTER_NOTIFY_INFO is access all PRINTER_NOTIFY_INFO;
+   -- type PBINARY_CONTAINER is access all BINARY_CONTAINER;
+   -- type PBIDI_DATA is access all BIDI_DATA;
+   -- type LPBIDI_DATA is access all BIDI_DATA;
+   -- type PBIDI_REQUEST_DATA is access all BIDI_REQUEST_DATA;
+   -- type LPBIDI_REQUEST_DATA is access all BIDI_REQUEST_DATA;
+   -- type PBIDI_REQUEST_CONTAINER is access all BIDI_REQUEST_CONTAINER;
+   -- type LPBIDI_REQUEST_CONTAINER is access all BIDI_REQUEST_CONTAINER;
+   -- type PBIDI_RESPONSE_DATA is access all BIDI_RESPONSE_DATA;
+   -- type LPBIDI_RESPONSE_DATA is access all BIDI_RESPONSE_DATA;
+   -- type PBIDI_RESPONSE_CONTAINER is access all BIDI_RESPONSE_CONTAINER;
+   -- type LPBIDI_RESPONSE_CONTAINER is access all BIDI_RESPONSE_CONTAINER;
    type BIDI_TYPE is (
       BIDI_NULL,
       BIDI_INT,
@@ -4969,6 +7592,14 @@ package Win32 is
    );
    for BIDI_TYPE'Size use 32;
    
+   -- type LPPROVIDOR_INFO_1A is access all PROVIDOR_INFO_1A;
+   -- type PPROVIDOR_INFO_1A is access all PROVIDOR_INFO_1A;
+   -- type LPPROVIDOR_INFO_1W is access all PROVIDOR_INFO_1W;
+   -- type PPROVIDOR_INFO_1W is access all PROVIDOR_INFO_1W;
+   -- type PPROVIDOR_INFO_2A is access all PROVIDOR_INFO_2A;
+   -- type LPPROVIDOR_INFO_2A is access all PROVIDOR_INFO_2A;
+   -- type LPPROVIDOR_INFO_2W is access all PROVIDOR_INFO_2W;
+   -- type PPROVIDOR_INFO_2W is access all PROVIDOR_INFO_2W;
    type PRINTER_OPTION_FLAGS is (
       PRINTER_OPTION_NO_CACHE,
       PRINTER_OPTION_CACHE,
@@ -4983,6 +7614,14 @@ package Win32 is
    );
    for PRINTER_OPTION_FLAGS'Size use 32;
    
+   -- type LPPRINTER_OPTIONSA is access all PRINTER_OPTIONSA;
+   -- type PPRINTER_OPTIONSA is access all PRINTER_OPTIONSA;
+   -- type PPRINTER_OPTIONSW is access all PRINTER_OPTIONSW;
+   -- type LPPRINTER_OPTIONSW is access all PRINTER_OPTIONSW;
+   -- type PPRINTER_CONNECTION_INFO_1A is access all PRINTER_CONNECTION_INFO_1A;
+   -- type PPRINTER_CONNECTION_INFO_1W is access all PRINTER_CONNECTION_INFO_1W;
+   -- type PCORE_PRINTER_DRIVERA is access all CORE_PRINTER_DRIVERA;
+   -- type PCORE_PRINTER_DRIVERW is access all CORE_PRINTER_DRIVERW;
    type EPrintPropertyType is (
       kPropertyTypeString,
       kPropertyTypeInt32,
@@ -5062,7 +7701,35 @@ package Win32 is
    for PRINT_EXECUTION_CONTEXT'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\prsht.h
+   -- type HPROPSHEETPAGE is access all PSP;
+   -- type LPPROPSHEETPAGEA_V1 is access all PROPSHEETPAGEA_V1;
+   -- type LPCPROPSHEETPAGEA_V1 is access all PROPSHEETPAGEA_V1;
+   -- type LPPROPSHEETPAGEA_V2 is access all PROPSHEETPAGEA_V2;
+   -- type LPCPROPSHEETPAGEA_V2 is access all PROPSHEETPAGEA_V2;
+   -- type LPPROPSHEETPAGEA_V3 is access all PROPSHEETPAGEA_V3;
+   -- type LPCPROPSHEETPAGEA_V3 is access all PROPSHEETPAGEA_V3;
+   -- type LPPROPSHEETPAGEA_V4 is access all PROPSHEETPAGEA;
+   -- type LPCPROPSHEETPAGEA_V4 is access all PROPSHEETPAGEA_V4;
+   -- type LPPROPSHEETPAGEW_V1 is access all PROPSHEETPAGEW_V1;
+   -- type LPCPROPSHEETPAGEW_V1 is access all PROPSHEETPAGEW_V1;
+   -- type LPPROPSHEETPAGEW_V2 is access all PROPSHEETPAGEW_V2;
+   -- type LPCPROPSHEETPAGEW_V2 is access all PROPSHEETPAGEW_V2;
+   -- type LPPROPSHEETPAGEW_V3 is access all PROPSHEETPAGEW_V3;
+   -- type LPCPROPSHEETPAGEW_V3 is access all PROPSHEETPAGEW_V3;
+   -- type LPPROPSHEETPAGEW_V4 is access all PROPSHEETPAGEW;
+   -- type LPCPROPSHEETPAGEW_V4 is access all PROPSHEETPAGEW_V4;
+   -- type LPPROPSHEETHEADERA_V1 is access all PROPSHEETHEADERA_V1;
+   -- type LPCPROPSHEETHEADERA_V1 is access all PROPSHEETHEADERA_V1;
+   -- type LPPROPSHEETHEADERA_V2 is access all PROPSHEETHEADERA_V2;
+   -- type LPCPROPSHEETHEADERA_V2 is access all PROPSHEETHEADERA_V2;
+   -- type LPPROPSHEETHEADERW_V1 is access all PROPSHEETHEADERW_V1;
+   -- type LPCPROPSHEETHEADERW_V1 is access all PROPSHEETHEADERW_V1;
+   -- type LPPROPSHEETHEADERW_V2 is access all PROPSHEETHEADERW_V2;
+   -- type LPCPROPSHEETHEADERW_V2 is access all PROPSHEETHEADERW_V2;
+   -- type LPPSHNOTIFY is access all PSHNOTIFY;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\ole2.h
+   -- type LPOLESTREAM is access all OLESTREAM;
+   -- type LPOLESTREAMVTBL is access all OLESTREAMVTBL;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\objbase.h
    type tagCOINIT is (
       COINIT_MULTITHREADED,
@@ -5119,6 +7786,8 @@ package Win32 is
    );
    for tagCOINITBASE'Size use 32;
    
+   -- type PServerInformation is access all tagServerInformation;
+   -- type CO_MTA_USAGE_COOKIE is access all CO_MTA_USAGE_COOKIE_x;
    type tagSTDMSHLFLAGS is (
       SMEXF_SERVER,
       SMEXF_HANDLER
@@ -5175,7 +7844,10 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\corecrt_wstdlib.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt\stdlib.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\unknwnbase.h
+   -- type LPUNKNOWN is access all IUnknown;
+   -- type LPCLASSFACTORY is access all IClassFactory;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\objidlbase.h
+   -- type LPMARSHAL is access all IMarshal;
    type tagACTIVATIONTYPE is (
       ACTIVATIONTYPE_UNCATEGORIZED,
       ACTIVATIONTYPE_FROM_MONIKER,
@@ -5194,6 +7866,10 @@ package Win32 is
    );
    for tagACTIVATIONTYPE'Size use 32;
    
+   -- type LPMARSHAL2 is access all IMarshal2;
+   -- type LPMALLOC is access all IMalloc;
+   -- type LPSTDMARSHALINFO is access all IStdMarshalInfo;
+   -- type LPEXTERNALCONNECTION is access all IExternalConnection;
    type tagEXTCONN is (
       EXTCONN_STRONG,
       EXTCONN_WEAK,
@@ -5206,6 +7882,10 @@ package Win32 is
    );
    for tagEXTCONN'Size use 32;
    
+   -- type LPMULTIQI is access all IMultiQI;
+   -- type LPENUMUNKNOWN is access all IEnumUnknown;
+   -- type LPENUMSTRING is access all IEnumString;
+   -- type LPSTREAM is access all IStream;
    type tagSTGTY is (
       STGTY_STORAGE,
       STGTY_STREAM,
@@ -5244,6 +7924,8 @@ package Win32 is
    );
    for tagLOCKTYPE'Size use 32;
    
+   -- type PRPCOLEMESSAGE is access all RPCOLEMESSAGE;
+   -- type PSOLE_AUTHENTICATION_SERVICE is access all SOLE_AUTHENTICATION_SERVICE;
    type tagEOLE_AUTHENTICATION_CAPABILITIES is (
       EOAC_NONE,
       EOAC_MUTUAL_AUTH,
@@ -5282,6 +7964,8 @@ package Win32 is
    );
    for tagEOLE_AUTHENTICATION_CAPABILITIES'Size use 32;
    
+   -- type PSOLE_AUTHENTICATION_INFO is access all tagSOLE_AUTHENTICATION_INFO;
+   -- type PSOLE_AUTHENTICATION_LIST is access all tagSOLE_AUTHENTICATION_LIST;
    type tagRPCOPT_PROPERTIES is (
       COMBND_RPCTIMEOUT,
       COMBND_SERVER_LOCALITY,
@@ -5392,6 +8076,9 @@ package Win32 is
    );
    for tagGLOBALOPT_UNMARSHALING_POLICY_VALUES'Size use 32;
    
+   -- type LPSURROGATE is access all ISurrogate;
+   -- type LPGLOBALINTERFACETABLE is access all IGlobalInterfaceTable;
+   -- type LPCANCELMETHODCALLS is access all ICancelMethodCalls;
    type tagDCOM_CALL_STATE is (
       DCOM_NONE,
       DCOM_CALL_COMPLETE,
@@ -5404,6 +8091,8 @@ package Win32 is
    );
    for tagDCOM_CALL_STATE'Size use 32;
    
+   -- type LPADDRTRACKINGCONTROL is access all IAddrTrackingControl;
+   -- type LPADDREXCLUSIONCONTROL is access all IAddrExclusionControl;
    type APTTYPEQUALIFIER is (
       APTTYPEQUALIFIER_NONE,
       APTTYPEQUALIFIER_IMPLICIT_MTA,
@@ -5479,6 +8168,12 @@ package Win32 is
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\cguid.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\coml2api.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\objidl.h
+   -- type LPMALLOCSPY is access all IMallocSpy;
+   -- type LPBC is access all IBindCtx;
+   -- type LPBINDCTX is access all IBindCtx;
+   -- type LPBIND_OPTS is access all tagBIND_OPTS;
+   -- type LPBIND_OPTS2 is access all tagBIND_OPTS2;
+   -- type LPBIND_OPTS3 is access all tagBIND_OPTS3;
    type tagBIND_FLAGS is (
       BIND_MAYBOTHERUSER,
       BIND_JUSTTESTEXISTENCE
@@ -5489,6 +8184,12 @@ package Win32 is
    );
    for tagBIND_FLAGS'Size use 32;
    
+   -- type LPENUMMONIKER is access all IEnumMoniker;
+   -- type LPRUNNABLEOBJECT is access all IRunnableObject;
+   -- type LPRUNNINGOBJECTTABLE is access all IRunningObjectTable;
+   -- type LPPERSIST is access all IPersist;
+   -- type LPPERSISTSTREAM is access all IPersistStream;
+   -- type LPMONIKER is access all IMoniker;
    type tagMKSYS is (
       MKSYS_NONE,
       MKSYS_GENERICCOMPOSITE,
@@ -5529,6 +8230,17 @@ package Win32 is
    );
    for tagMKREDUCE'Size use 32;
    
+   -- type LPENUMSTATSTG is access all IEnumSTATSTG;
+   -- type LPSTORAGE is access all IStorage;
+   -- type wireSNB is access all RemSNB;
+   -- type SNB is access all LPOLESTR;
+   -- type LPPERSISTFILE is access all IPersistFile;
+   -- type LPPERSISTSTORAGE is access all IPersistStorage;
+   -- type LPLOCKBYTES is access all ILockBytes;
+   -- type LPENUMFORMATETC is access all IEnumFORMATETC;
+   -- type LPCLIPFORMAT is access all CLIPFORMAT;
+   -- type LPFORMATETC is access all tagFORMATETC;
+   -- type LPENUMSTATDATA is access all IEnumSTATDATA;
    type tagADVF is (
       ADVF_NODATA,
       ADVF_PRIMEFIRST,
@@ -5549,6 +8261,9 @@ package Win32 is
    );
    for tagADVF'Size use 32;
    
+   -- type LPSTATDATA is access all STATDATA;
+   -- type LPROOTSTORAGE is access all IRootStorage;
+   -- type LPADVISESINK is access all IAdviseSink;
    type tagTYMED is (
       TYMED_NULL,
       TYMED_HGLOBAL,
@@ -5571,6 +8286,12 @@ package Win32 is
    );
    for tagTYMED'Size use 32;
    
+   -- type wireSTGMEDIUM is access all userSTGMEDIUM;
+   -- type wireASYNC_STGMEDIUM is access all userSTGMEDIUM;
+   -- type LPSTGMEDIUM is access all STGMEDIUM;
+   -- type wireFLAG_STGMEDIUM is access all userFLAG_STGMEDIUM;
+   -- type LPADVISESINK2 is access all IAdviseSink2;
+   -- type LPDATAOBJECT is access all IDataObject;
    type tagDATADIR is (
       DATADIR_GET,
       DATADIR_SET
@@ -5581,6 +8302,8 @@ package Win32 is
    );
    for tagDATADIR'Size use 32;
    
+   -- type LPDATAADVISEHOLDER is access all IDataAdviseHolder;
+   -- type LPMESSAGEFILTER is access all IMessageFilter;
    type tagCALLTYPE is (
       CALLTYPE_TOPLEVEL,
       CALLTYPE_NESTED,
@@ -5631,6 +8354,7 @@ package Win32 is
    );
    for tagPENDINGMSG'Size use 32;
    
+   -- type LPINTERFACEINFO is access all tagINTERFACEINFO;
    type tagApplicationType is (
       ServerApplication,
       LibraryApplication
@@ -5651,9 +8375,19 @@ package Win32 is
    );
    for tagShutdownType'Size use 32;
    
+   -- type LPINITIALIZESPY is access all IInitializeSpy;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\unknwn.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\propidlbase.h
+   -- type LPVERSIONEDSTREAM is access all tagVersionedStream;
+   -- type LPPROPVARIANT is access all tagPROPVARIANT;
+   -- type LPPROPERTYSETSTORAGE is access all IPropertySetStorage;
+   -- type LPENUMSTATPROPSTG is access all IEnumSTATPROPSTG;
+   -- type LPENUMSTATPROPSETSTG is access all IEnumSTATPROPSETSTG;
+   -- type LPPROPERTYSTORAGE is access all IPropertyStorage;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\oaidl.h
+   -- type LPSAFEARRAYBOUND is access all tagSAFEARRAYBOUND;
+   -- type wireVARIANT is access all wireVARIANT;
+   -- type wireBRECORD is access all wireBRECORD;
    type tagSF_TYPE is (
       SF_I2,
       SF_I4,
@@ -5682,6 +8416,11 @@ package Win32 is
    );
    for tagSF_TYPE'Size use 32;
    
+   -- type wireSAFEARRAY is access all wireSAFEARRAY;
+   -- type wirePSAFEARRAY is access all wireSAFEARRAY;
+   -- type LPSAFEARRAY is access all SAFEARRAY;
+   -- type LPVARIANT is access all VARIANT;
+   -- type LPVARIANTARG is access all VARIANT;
    type tagTYPEKIND is (
       TKIND_ENUM,
       TKIND_RECORD,
@@ -5706,6 +8445,12 @@ package Win32 is
    );
    for tagTYPEKIND'Size use 32;
    
+   -- type LPPARAMDESCEX is access all tagPARAMDESCEX;
+   -- type LPPARAMDESC is access all tagPARAMDESC;
+   -- type LPIDLDESC is access all tagIDLDESC;
+   -- type LPELEMDESC is access all tagELEMDESC;
+   -- type LPTYPEATTR is access all tagTYPEATTR;
+   -- type LPEXCEPINFO is access all tagEXCEPINFO;
    type tagCALLCONV is (
       CC_FASTCALL,
       CC_CDECL,
@@ -5762,6 +8507,7 @@ package Win32 is
    );
    for tagINVOKEKIND'Size use 32;
    
+   -- type LPFUNCDESC is access all tagFUNCDESC;
    type tagVARKIND is (
       VAR_PERINSTANCE,
       VAR_STATIC,
@@ -5776,6 +8522,7 @@ package Win32 is
    );
    for tagVARKIND'Size use 32;
    
+   -- type LPVARDESC is access all tagVARDESC;
    type tagTYPEFLAGS is (
       TYPEFLAG_FAPPOBJECT,
       TYPEFLAG_FCANCREATE,
@@ -5876,6 +8623,15 @@ package Win32 is
    );
    for tagVARFLAGS'Size use 32;
    
+   -- type LPCUSTDATAITEM is access all tagCUSTDATAITEM;
+   -- type LPCUSTDATA is access all tagCUSTDATA;
+   -- type LPCREATETYPEINFO is access all ICreateTypeInfo;
+   -- type LPCREATETYPEINFO2 is access all ICreateTypeInfo2;
+   -- type LPCREATETYPELIB is access all ICreateTypeLib;
+   -- type LPCREATETYPELIB2 is access all ICreateTypeLib2;
+   -- type LPDISPATCH is access all IDispatch;
+   -- type LPENUMVARIANT is access all IEnumVARIANT;
+   -- type LPTYPECOMP is access all ITypeComp;
    type tagDESCKIND is (
       DESCKIND_NONE,
       DESCKIND_FUNCDESC,
@@ -5894,6 +8650,9 @@ package Win32 is
    );
    for tagDESCKIND'Size use 32;
    
+   -- type LPBINDPTR is access all tagBINDPTR;
+   -- type LPTYPEINFO is access all ITypeInfo;
+   -- type LPTYPEINFO2 is access all ITypeInfo2;
    type tagSYSKIND is (
       SYS_WIN16,
       SYS_WIN32,
@@ -5922,6 +8681,10 @@ package Win32 is
    );
    for tagLIBFLAGS'Size use 32;
    
+   -- type LPTYPELIB is access all ITypeLib;
+   -- type LPTLIBATTR is access all tagTLIBATTR;
+   -- type LPTYPELIB2 is access all ITypeLib2;
+   -- type LPTYPECHANGEEVENTS is access all ITypeChangeEvents;
    type tagCHANGEKIND is (
       CHANGEKIND_ADDMEMBER,
       CHANGEKIND_DELETEMEMBER,
@@ -5944,6 +8707,12 @@ package Win32 is
    );
    for tagCHANGEKIND'Size use 32;
    
+   -- type LPERRORINFO is access all IErrorInfo;
+   -- type LPCREATEERRORINFO is access all ICreateErrorInfo;
+   -- type LPSUPPORTERRORINFO is access all ISupportErrorInfo;
+   -- type LPRECORDINFO is access all IRecordInfo;
+   -- type LPERRORLOG is access all IErrorLog;
+   -- type LPPROPERTYBAG is access all IPropertyBag;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\urlmon.h
    type IEObjectType is (
       IE_EPM_OBJECT_EVENT,
@@ -5967,6 +8736,8 @@ package Win32 is
    );
    for IEObjectType'Size use 32;
    
+   -- type LPPERSISTMONIKER is access all IPersistMoniker;
+   -- type LPMONIKERPROP is access all IMonikerProp;
    type MIDL_IMonikerProp_0001 is (
       MIMETYPEPROP,
       USE_SRC_URL,
@@ -5983,6 +8754,9 @@ package Win32 is
    );
    for MIDL_IMonikerProp_0001'Size use 32;
    
+   -- type LPBINDPROTOCOL is access all IBindProtocol;
+   -- type LPBINDING is access all IBinding;
+   -- type LPBINDSTATUSCALLBACK is access all IBindStatusCallback;
    type MIDL_IBindStatusCallback_0001 is (
       BINDVERB_GET,
       BINDVERB_POST,
@@ -6089,6 +8863,9 @@ package Win32 is
    );
    for MIDL_IBindStatusCallback_0004'Size use 32;
    
+   -- type PREMSECURITY_ATTRIBUTES is access all REMSECURITY_ATTRIBUTES;
+   -- type LPREMSECURITY_ATTRIBUTES is access all REMSECURITY_ATTRIBUTES;
+   -- type LPREMFORMATETC is access all tagRemFORMATETC;
    type MIDL_IBindStatusCallback_0005 is (
       BINDINFO_OPTIONS_SHDOCVW_NAVIGATE,
       BINDINFO_OPTIONS_WININETFLAG,
@@ -6301,6 +9078,7 @@ package Win32 is
    );
    for tagBINDSTATUS'Size use 32;
    
+   -- type LPBINDSTATUSCALLBACKEX is access all IBindStatusCallbackEx;
    type MIDL_IBindStatusCallbackEx_0001 is (
       BINDF2_RESERVED_1,
       BINDF2_DISABLEBASICOVERHTTP,
@@ -6369,6 +9147,8 @@ package Win32 is
    );
    for MIDL_IBindStatusCallbackEx_0001'Size use 32;
    
+   -- type LPAUTHENTICATION is access all IAuthenticate;
+   -- type LPAUTHENTICATIONEX is access all IAuthenticateEx;
    type MIDL_IAuthenticateEx_0001 is (
       AUTHENTICATEF_PROXY,
       AUTHENTICATEF_BASIC,
@@ -6381,6 +9161,12 @@ package Win32 is
    );
    for MIDL_IAuthenticateEx_0001'Size use 32;
    
+   -- type LPHTTPNEGOTIATE is access all IHttpNegotiate;
+   -- type LPHTTPNEGOTIATE2 is access all IHttpNegotiate2;
+   -- type LPHTTPNEGOTIATE3 is access all IHttpNegotiate3;
+   -- type LPWININETFILESTREAM is access all IWinInetFileStream;
+   -- type LPWINDOWFORBINDINGUI is access all IWindowForBindingUI;
+   -- type LPCODEINSTALL is access all ICodeInstall;
    type MIDL_ICodeInstall_0001 is (
       CIP_DISK_FULL,
       CIP_ACCESS_DENIED,
@@ -6467,6 +9253,14 @@ package Win32 is
    );
    for MIDL_IUri_0002'Size use 32;
    
+   -- type LPWININETINFO is access all IWinInetInfo;
+   -- type LPHTTPSECURITY is access all IHttpSecurity;
+   -- type LPWININETHTTPINFO is access all IWinInetHttpInfo;
+   -- type LPWININETCACHEHINTS is access all IWinInetCacheHints;
+   -- type LPWININETCACHEHINTS2 is access all IWinInetCacheHints2;
+   -- type LPBINDHOST is access all IBindHost;
+   -- type LPIINTERNET is access all IInternet;
+   -- type LPIINTERNETBINDINFO is access all IInternetBindInfo;
    type tagBINDSTRING is (
       BINDSTRING_HEADERS,
       BINDSTRING_ACCEPT_MIMES,
@@ -6523,6 +9317,8 @@ package Win32 is
    );
    for tagBINDSTRING'Size use 32;
    
+   -- type LPIINTERNETBINDINFOEX is access all IInternetBindInfoEx;
+   -- type LPIINTERNETPROTOCOLROOT is access all IInternetProtocolRoot;
    type tagPI_FLAGS is (
       PI_PARSE_URL,
       PI_FILTER_MODE,
@@ -6559,6 +9355,10 @@ package Win32 is
    );
    for tagPI_FLAGS'Size use 32;
    
+   -- type LPIINTERNETPROTOCOL is access all IInternetProtocol;
+   -- type LPIINTERNETPROTOCOLSINK is access all IInternetProtocolSink;
+   -- type LPIINTERNETPROTOCOLSINKStackable is access all IInternetProtocolSinkStackable;
+   -- type LPIINTERNETSESSION is access all IInternetSession;
    type tagOIBDG_FLAGS is (
       OIBDG_APARTMENTTHREADED,
       OIBDG_DATAONLY
@@ -6569,6 +9369,9 @@ package Win32 is
    );
    for tagOIBDG_FLAGS'Size use 32;
    
+   -- type LPIINTERNETTHREADSWITCH is access all IInternetThreadSwitch;
+   -- type LPIINTERNETPRIORITY is access all IInternetPriority;
+   -- type LPIINTERNETPROTOCOLINFO is access all IInternetProtocolInfo;
    type tagPARSEACTION is (
       PARSE_CANONICALIZE,
       PARSE_FRIENDLY,
@@ -6793,6 +9596,7 @@ package Win32 is
    );
    for MIDL_IInternetSecurityManager_0003'Size use 32;
    
+   -- type LPURLZONEMANAGER is access all IInternetZoneManager;
    type tagURLZONE is (
       URLZONE_INVALID,
       URLZONE_PREDEFINED_MIN,
@@ -6877,6 +9681,7 @@ package Win32 is
    );
    for MIDL_IInternetZoneManager_0002'Size use 32;
    
+   -- type LPZONEATTRIBUTES is access all ZONEATTRIBUTES;
    type URLZONEREG is (
       URLZONEREG_DEFAULT,
       URLZONEREG_HKLM,
@@ -6889,6 +9694,14 @@ package Win32 is
    );
    for URLZONEREG'Size use 32;
    
+   -- type LPCODEBASEHOLD is access all tagCODEBASEHOLD;
+   -- type LPSOFTDISTINFO is access all tagSOFTDISTINFO;
+   -- type LPCATALOGFILEINFO is access all ICatalogFileInfo;
+   -- type LPDATAFILTER is access all IDataFilter;
+   -- type LPENCODINGFILTERFACTORY is access all IEncodingFilterFactory;
+   -- type LPHIT_LOGGING_INFO is access all tagHIT_LOGGING_INFO;
+   -- type LPIWRAPPEDPROTOCOL is access all IWrappedProtocol;
+   -- type LPGETBINDHANDLE is access all IGetBindHandle;
    type MIDL_IGetBindHandle_0001 is (
       BINDHANDLETYPES_APPCACHE,
       BINDHANDLETYPES_DEPENDENCY,
@@ -6901,7 +9714,12 @@ package Win32 is
    );
    for MIDL_IGetBindHandle_0001'Size use 32;
    
+   -- type LPPROTOCOL_ARGUMENT is access all tagPROTOCOL_ARGUMENT;
+   -- type LPBINDCALLBACKREDIRECT is access all IBindCallbackRedirect;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\oleidl.h
+   -- type LPOLEADVISEHOLDER is access all IOleAdviseHolder;
+   -- type LPOLECACHE is access all IOleCache;
+   -- type LPOLECACHE2 is access all IOleCache2;
    type tagDISCARDCACHE is (
       DISCARDCACHE_SAVEIFDIRTY,
       DISCARDCACHE_NOSAVE
@@ -6912,6 +9730,11 @@ package Win32 is
    );
    for tagDISCARDCACHE'Size use 32;
    
+   -- type LPOLECACHECONTROL is access all IOleCacheControl;
+   -- type LPPARSEDISPLAYNAME is access all IParseDisplayName;
+   -- type LPOLECONTAINER is access all IOleContainer;
+   -- type LPOLECLIENTSITE is access all IOleClientSite;
+   -- type LPOLEOBJECT is access all IOleObject;
    type tagOLEGETMONIKER is (
       OLEGETMONIKER_ONLYIFTHERE,
       OLEGETMONIKER_FORCEASSIGN,
@@ -7026,6 +9849,13 @@ package Win32 is
    );
    for tagOLERENDER'Size use 32;
    
+   -- type LPOLERENDER is access all OLERENDER;
+   -- type POBJECTDESCRIPTOR is access all tagOBJECTDESCRIPTOR;
+   -- type LPOBJECTDESCRIPTOR is access all tagOBJECTDESCRIPTOR;
+   -- type PLINKSRCDESCRIPTOR is access all tagOBJECTDESCRIPTOR;
+   -- type LPLINKSRCDESCRIPTOR is access all tagOBJECTDESCRIPTOR;
+   -- type LPOLEWINDOW is access all IOleWindow;
+   -- type LPOLELINK is access all IOleLink;
    type tagOLEUPDATE is (
       OLEUPDATE_ALWAYS,
       OLEUPDATE_ONCALL
@@ -7036,6 +9866,8 @@ package Win32 is
    );
    for tagOLEUPDATE'Size use 32;
    
+   -- type LPOLEUPDATE is access all OLEUPDATE;
+   -- type POLEUPDATE is access all OLEUPDATE;
    type tagOLELINKBIND is (
       OLELINKBIND_EVENIFCLASSDIFF
    );
@@ -7044,6 +9876,7 @@ package Win32 is
    );
    for tagOLELINKBIND'Size use 32;
    
+   -- type LPOLEITEMCONTAINER is access all IOleItemContainer;
    type tagBINDSPEED is (
       BINDSPEED_INDEFINITE,
       BINDSPEED_MODERATE,
@@ -7072,6 +9905,19 @@ package Win32 is
    );
    for tagOLECONTF'Size use 32;
    
+   -- type LPOLEINPLACEUIWINDOW is access all IOleInPlaceUIWindow;
+   -- type LPOLEINPLACEACTIVEOBJECT is access all IOleInPlaceActiveObject;
+   -- type LPOLEINPLACEFRAME is access all IOleInPlaceFrame;
+   -- type LPOLEINPLACEFRAMEINFO is access all tagOIFI;
+   -- type LPOLEMENUGROUPWIDTHS is access all tagOleMenuGroupWidths;
+   -- type LPOLEINPLACEOBJECT is access all IOleInPlaceObject;
+   -- type LPOLEINPLACESITE is access all IOleInPlaceSite;
+   -- type LPVIEWOBJECT is access all IViewObject;
+   -- type LPVIEWOBJECT2 is access all IViewObject2;
+   -- type LPDROPSOURCE is access all IDropSource;
+   -- type LPDROPTARGET is access all IDropTarget;
+   -- type LPENUMOLEVERB is access all IEnumOLEVERB;
+   -- type LPOLEVERB is access all tagOLEVERB;
    type tagOLEVERBATTRIB is (
       OLEVERBATTRIB_NEVERDIRTIES,
       OLEVERBATTRIB_ONCONTAINERMENU
@@ -7083,6 +9929,7 @@ package Win32 is
    for tagOLEVERBATTRIB'Size use 32;
    
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\servprov.h
+   -- type LPSERVICEPROVIDER is access all IServiceProvider;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\msxml.h
    type tagDOMNodeType is (
       NODE_INVALID,
@@ -7176,9 +10023,41 @@ package Win32 is
    );
    for tagREGKIND'Size use 32;
    
+   -- type LPPARAMDATA is access all tagPARAMDATA;
+   -- type LPMETHODDATA is access all tagMETHODDATA;
+   -- type LPINTERFACEDATA is access all tagINTERFACEDATA;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\commdlg.h
+   -- type LPOPENFILENAME_NT4A is access all tagOFN_NT4A;
+   -- type LPOPENFILENAME_NT4W is access all tagOFN_NT4W;
+   -- type LPOPENFILENAMEA is access all tagOFNA;
+   -- type LPOPENFILENAMEW is access all tagOFNW;
+   -- type LPOFNOTIFYA is access all OFNOTIFYA;
+   -- type LPOFNOTIFYW is access all OFNOTIFYW;
+   -- type LPOFNOTIFYEXA is access all OFNOTIFYEXA;
+   -- type LPOFNOTIFYEXW is access all OFNOTIFYEXW;
+   -- type LPCHOOSECOLORA is access all tagCHOOSECOLORA;
+   -- type LPCHOOSECOLORW is access all tagCHOOSECOLORW;
+   -- type LPFINDREPLACEA is access all tagFINDREPLACEA;
+   -- type LPFINDREPLACEW is access all tagFINDREPLACEW;
+   -- type LPCHOOSEFONTA is access all CHOOSEFONTA;
+   -- type LPCHOOSEFONTW is access all CHOOSEFONTW;
+   -- type PCCHOOSEFONTA is access all CHOOSEFONTA;
+   -- type PCCHOOSEFONTW is access all CHOOSEFONTW;
+   -- type LPPRINTDLGA is access all tagPDA;
+   -- type LPPRINTDLGW is access all tagPDW;
+   -- type LPPRINTPAGERANGE is access all PRINTPAGERANGE;
+   -- type PCPRINTPAGERANGE is access all PRINTPAGERANGE;
+   -- type LPPRINTDLGEXA is access all tagPDEXA;
+   -- type LPPRINTDLGEXW is access all tagPDEXW;
+   -- type LPDEVNAMES is access all DEVNAMES;
+   -- type PCDEVNAMES is access all DEVNAMES;
+   -- type LPPAGESETUPDLGA is access all tagPSDA;
+   -- type LPPAGESETUPDLGW is access all tagPSDW;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared\stralign.h
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\winsvc.h
+   -- type LPSERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM is access all SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM;
+   -- type LPSERVICE_DESCRIPTIONA is access all SERVICE_DESCRIPTIONA;
+   -- type LPSERVICE_DESCRIPTIONW is access all SERVICE_DESCRIPTIONW;
    type SC_ACTION_TYPE is (
       SC_ACTION_NONE,
       SC_ACTION_RESTART,
@@ -7195,6 +10074,24 @@ package Win32 is
    );
    for SC_ACTION_TYPE'Size use 32;
    
+   -- type LPSC_ACTION is access all SC_ACTION;
+   -- type LPSERVICE_FAILURE_ACTIONSA is access all SERVICE_FAILURE_ACTIONSA;
+   -- type LPSERVICE_FAILURE_ACTIONSW is access all SERVICE_FAILURE_ACTIONSW;
+   -- type LPSERVICE_DELAYED_AUTO_START_INFO is access all SERVICE_DELAYED_AUTO_START_INFO;
+   -- type LPSERVICE_FAILURE_ACTIONS_FLAG is access all SERVICE_FAILURE_ACTIONS_FLAG;
+   -- type LPSERVICE_SID_INFO is access all SERVICE_SID_INFO;
+   -- type LPSERVICE_REQUIRED_PRIVILEGES_INFOA is access all SERVICE_REQUIRED_PRIVILEGES_INFOA;
+   -- type LPSERVICE_REQUIRED_PRIVILEGES_INFOW is access all SERVICE_REQUIRED_PRIVILEGES_INFOW;
+   -- type LPSERVICE_PRESHUTDOWN_INFO is access all SERVICE_PRESHUTDOWN_INFO;
+   -- type PSERVICE_TRIGGER_SPECIFIC_DATA_ITEM is access all SERVICE_TRIGGER_SPECIFIC_DATA_ITEM;
+   -- type PSERVICE_TRIGGER is access all SERVICE_TRIGGER;
+   -- type PSERVICE_TRIGGER_INFO is access all SERVICE_TRIGGER_INFO;
+   -- type LPSERVICE_PREFERRED_NODE_INFO is access all SERVICE_PREFERRED_NODE_INFO;
+   -- type PSERVICE_TIMECHANGE_INFO is access all SERVICE_TIMECHANGE_INFO;
+   -- type PSERVICE_LAUNCH_PROTECTED_INFO is access all SERVICE_LAUNCH_PROTECTED_INFO;
+   -- type SC_HANDLE is access all SC_HANDLE_x;
+   -- type LPSC_HANDLE is access all SC_HANDLE;
+   -- type SERVICE_STATUS_HANDLE is access all SERVICE_STATUS_HANDLE_x;
    type SC_STATUS_TYPE is (
       SC_STATUS_PROCESS_INFO
    );
@@ -7211,6 +10108,27 @@ package Win32 is
    );
    for SC_ENUM_TYPE'Size use 32;
    
+   -- type LPSERVICE_STATUS is access all SERVICE_STATUS;
+   -- type LPSERVICE_STATUS_PROCESS is access all SERVICE_STATUS_PROCESS;
+   -- type LPENUM_SERVICE_STATUSA is access all ENUM_SERVICE_STATUSA;
+   -- type LPENUM_SERVICE_STATUSW is access all ENUM_SERVICE_STATUSW;
+   -- type LPENUM_SERVICE_STATUS_PROCESSA is access all ENUM_SERVICE_STATUS_PROCESSA;
+   -- type LPENUM_SERVICE_STATUS_PROCESSW is access all ENUM_SERVICE_STATUS_PROCESSW;
+   -- type LPQUERY_SERVICE_LOCK_STATUSA is access all QUERY_SERVICE_LOCK_STATUSA;
+   -- type LPQUERY_SERVICE_LOCK_STATUSW is access all QUERY_SERVICE_LOCK_STATUSW;
+   -- type LPQUERY_SERVICE_CONFIGA is access all QUERY_SERVICE_CONFIGA;
+   -- type LPQUERY_SERVICE_CONFIGW is access all QUERY_SERVICE_CONFIGW;
+   -- type LPSERVICE_TABLE_ENTRYA is access all SERVICE_TABLE_ENTRYA;
+   -- type LPSERVICE_TABLE_ENTRYW is access all SERVICE_TABLE_ENTRYW;
+   -- type PSERVICE_NOTIFY_1 is access all SERVICE_NOTIFY_1;
+   -- type PSERVICE_NOTIFY_2A is access all SERVICE_NOTIFY_2A;
+   -- type PSERVICE_NOTIFY_2W is access all SERVICE_NOTIFY_2W;
+   -- type PSERVICE_NOTIFYA is access all SERVICE_NOTIFY_2A;
+   -- type PSERVICE_NOTIFYW is access all SERVICE_NOTIFY_2W;
+   -- type PSERVICE_CONTROL_STATUS_REASON_PARAMSA is access all SERVICE_CONTROL_STATUS_REASON_PARAMSA;
+   -- type PSERVICE_CONTROL_STATUS_REASON_PARAMSW is access all SERVICE_CONTROL_STATUS_REASON_PARAMSW;
+   -- type PSERVICE_START_REASON is access all SERVICE_START_REASON;
+   -- type PSC_EVENT_TYPE is access all SC_EVENT_TYPE;
    type SC_EVENT_TYPE is (
       SC_EVENT_DATABASE_CHANGE,
       SC_EVENT_PROPERTY_CHANGE,
@@ -7223,8 +10141,50 @@ package Win32 is
    );
    for SC_EVENT_TYPE'Size use 32;
    
+   -- type PSC_NOTIFICATION_CALLBACK is access all SC_NOTIFICATION_CALLBACK;
+   -- type PSC_NOTIFICATION_REGISTRATION is access all SC_NOTIFICATION_REGISTRATION;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\mcx.h
+   -- type PMODEMDEVCAPS is access all MODEMDEVCAPS;
+   -- type LPMODEMDEVCAPS is access all MODEMDEVCAPS;
+   -- type PMODEMSETTINGS is access all MODEMSETTINGS;
+   -- type LPMODEMSETTINGS is access all MODEMSETTINGS;
    -- C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um\imm.h
+   -- type HIMC is access all HIMC_x;
+   -- type HIMCC is access all HIMCC_x;
+   -- type LPHKL is access all HKL;
+   -- type PCOMPOSITIONFORM is access all tagCOMPOSITIONFORM;
+   -- type NPCOMPOSITIONFORM is access all tagCOMPOSITIONFORM;
+   -- type LPCOMPOSITIONFORM is access all tagCOMPOSITIONFORM;
+   -- type LPCANDIDATEFORM is access all tagCANDIDATEFORM;
+   -- type PCANDIDATEFORM is access all tagCANDIDATEFORM;
+   -- type NPCANDIDATEFORM is access all tagCANDIDATEFORM;
+   -- type PCANDIDATELIST is access all tagCANDIDATELIST;
+   -- type NPCANDIDATELIST is access all tagCANDIDATELIST;
+   -- type LPCANDIDATELIST is access all tagCANDIDATELIST;
+   -- type LPREGISTERWORDA is access all tagREGISTERWORDA;
+   -- type NPREGISTERWORDA is access all tagREGISTERWORDA;
+   -- type PREGISTERWORDA is access all tagREGISTERWORDA;
+   -- type PREGISTERWORDW is access all tagREGISTERWORDW;
+   -- type LPREGISTERWORDW is access all tagREGISTERWORDW;
+   -- type NPREGISTERWORDW is access all tagREGISTERWORDW;
+   -- type PRECONVERTSTRING is access all tagRECONVERTSTRING;
+   -- type NPRECONVERTSTRING is access all tagRECONVERTSTRING;
+   -- type LPRECONVERTSTRING is access all tagRECONVERTSTRING;
+   -- type PSTYLEBUFA is access all tagSTYLEBUFA;
+   -- type NPSTYLEBUFA is access all tagSTYLEBUFA;
+   -- type LPSTYLEBUFA is access all tagSTYLEBUFA;
+   -- type LPSTYLEBUFW is access all tagSTYLEBUFW;
+   -- type NPSTYLEBUFW is access all tagSTYLEBUFW;
+   -- type PSTYLEBUFW is access all tagSTYLEBUFW;
+   -- type PIMEMENUITEMINFOA is access all tagIMEMENUITEMINFOA;
+   -- type NPIMEMENUITEMINFOA is access all tagIMEMENUITEMINFOA;
+   -- type LPIMEMENUITEMINFOA is access all tagIMEMENUITEMINFOA;
+   -- type NPIMEMENUITEMINFOW is access all tagIMEMENUITEMINFOW;
+   -- type PIMEMENUITEMINFOW is access all tagIMEMENUITEMINFOW;
+   -- type LPIMEMENUITEMINFOW is access all tagIMEMENUITEMINFOW;
+   -- type NPIMECHARPOSITION is access all tagIMECHARPOSITION;
+   -- type LPIMECHARPOSITION is access all tagIMECHARPOSITION;
+   -- type PIMECHARPOSITION is access all tagIMECHARPOSITION;
    -- <invalid>
    type builtin_va_list is access all Character;
 end;
