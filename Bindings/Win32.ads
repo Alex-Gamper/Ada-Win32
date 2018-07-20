@@ -1,1 +1,0 @@
-c:/OpenSource/ClangSharp/ClangAda/Win32.ads
