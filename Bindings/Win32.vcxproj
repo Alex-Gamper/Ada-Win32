@@ -25,7 +25,7 @@
     <Keyword>Win32</Keyword>
     <RootNamespace>Win32</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <UseMicrosoftLinker>true</UseMicrosoftLinker>
+    <UseMicrosoftLinker>false</UseMicrosoftLinker>
   </PropertyGroup>
   <Import Project="$(CustomProjectExtensionsPath)Ada_Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
