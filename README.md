@@ -4,28 +4,29 @@ Ada bindings for Win32
 Code generated from the below header file
 
 '''C++
+
 #include <SDKDDKVer.h>
 
-if (_MSC_VER >= 1900)
+#if (_MSC_VER >= 1900)
 
-ifdef _WIN64
+  #ifdef _WIN64
 
-if _WIN32_WINNT >= _WIN32_WINNT_WINBLUE
+    #if _WIN32_WINNT >= _WIN32_WINNT_WINBLUE
 
-include <Windows.h>
+      #include <Windows.h>
 
-include <shlwapi.h>
+      #include <shlwapi.h>
 
-include <ComSvcs.h>
+      #include <ComSvcs.h>
 
-include <roapi.h>>
+      #include <roapi.h>>
 
-include <winstring.h>
+      #include <winstring.h>
 
-endif
+    #endif
 
-endif
+  #endif
 
-endif
+#endif
 
 ```
