@@ -3,7 +3,8 @@ Ada bindings for Win32
 
 Code generated from the below header file
 
-include <SDKDDKVer.h>
+'''C++
+#include <SDKDDKVer.h>
 
 if (_MSC_VER >= 1900)
 
@@ -26,3 +27,5 @@ endif
 endif
 
 endif
+
+```
