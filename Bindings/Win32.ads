@@ -95,7 +95,7 @@ package Win32 is
    type PUINT is access Interfaces.C.unsigned; -- CXType_Pointer - CXType_UInt
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\winnt.h>
    -- #include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\ucrt\corecrt.h>
-   subtype Type_x is System.Address; -- [FIXME - CXType_Unexposed]
+   -- subtype Type_x is System.Address; -- [FIXME - CXType_Unexposed] and m_IgnoreTypes contains _Type
    subtype crt_bool_x is Boolean; -- CXType_Bool
    procedure invalid_parameter_noinfo;
    pragma import (C,invalid_parameter_noinfo,"_invalid_parameter_noinfo");
@@ -440,11 +440,19 @@ package Win32 is
       C : Interfaces.C.Int
    ) return Interfaces.C.Int;
    pragma import (C,tolower,"tolower");
+   function tolower_x(
+      C : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,tolower_x,"_tolower");
    function tolower_l(
       C : Interfaces.C.Int;
       Locale : locale_t_x
    ) return Interfaces.C.Int;
    pragma import (C,tolower_l,"_tolower_l");
+   function toupper_x(
+      C : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,toupper_x,"_toupper");
    function toupper_l(
       C : Interfaces.C.Int;
       Locale : locale_t_x
@@ -855,6 +863,13 @@ package Win32 is
       Size : size_t
    );
    pragma import (C,memccpy,"memccpy");
+   function memicmp_x(
+      Buf1 : access Void;
+      Buf2 : access Void;
+      Size : size_t
+   ) return Interfaces.C.Int;
+   pragma import (C,memicmp_x,"memicmp");
+   -- memchr_x(); -- inlined function not supported
    -- #include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\ucrt\corecrt_wstring.h>
    function wcscat_s(
       Destination : access Wide_Character;
@@ -914,12 +929,20 @@ package Win32 is
       Control : access Wide_Character
    ) return size_t;
    pragma import (C,wcsspn,"wcsspn");
+   -- wcstok_x(); -- inlined function not supported
+   -- wcstok_x_x(); -- inlined function not supported
    function wcserror_s(
       Buffer : access Wide_Character;
       SizeInWords : size_t;
       ErrorNumber : Interfaces.C.Int
    ) return errno_t;
    pragma import (C,wcserror_s,"_wcserror_s");
+   function wcserror_s_x(
+      Buffer : access Wide_Character;
+      SizeInWords : size_t;
+      ErrorMessage : access Wide_Character
+   ) return errno_t;
+   pragma import (C,wcserror_s_x,"__wcserror_s");
    function wcsicmp(
       String1 : access Wide_Character;
       String2 : access Wide_Character
@@ -1040,6 +1063,26 @@ package Win32 is
       Locale : locale_t_x
    ) return Interfaces.C.Int;
    pragma import (C,wcsnicoll_l,"_wcsnicoll_l");
+   -- wcschr_x(); -- inlined function not supported
+   -- wcspbrk_x(); -- inlined function not supported
+   -- wcsrchr_x(); -- inlined function not supported
+   -- wcsstr_x(); -- inlined function not supported
+   function wcsicmp_x(
+      String1 : access Wide_Character;
+      String2 : access Wide_Character
+   ) return Interfaces.C.Int;
+   pragma import (C,wcsicmp_x,"wcsicmp");
+   function wcsnicmp_x(
+      String1 : access Wide_Character;
+      String2 : access Wide_Character;
+      MaxCount : size_t
+   ) return Interfaces.C.Int;
+   pragma import (C,wcsnicmp_x,"wcsnicmp");
+   function wcsicoll_x(
+      String1 : access Wide_Character;
+      String2 : access Wide_Character
+   ) return Interfaces.C.Int;
+   pragma import (C,wcsicoll_x,"wcsicoll");
    -- #include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\ucrt\string.h>
    function strcpy_s(
       Destination : access Character;
@@ -1073,6 +1116,13 @@ package Win32 is
       MaxCount : rsize_t
    ) return errno_t;
    pragma import (C,strncpy_s,"strncpy_s");
+   procedure memccpy_x(
+      Dst : access Void;
+      Src : access Void;
+      Val : Interfaces.C.Int;
+      MaxCount : size_t
+   );
+   pragma import (C,memccpy_x,"_memccpy");
    function strcmp(
       Str1 : access Character;
       Str2 : access Character
@@ -1099,6 +1149,12 @@ package Win32 is
       Control : access Character
    ) return size_t;
    pragma import (C,strcspn,"strcspn");
+   function strerror_s_x(
+      Buffer : access Character;
+      SizeInBytes : size_t;
+      ErrorMessage : access Character
+   ) return errno_t;
+   pragma import (C,strerror_s_x,"_strerror_s");
    function stricmp(
       String1 : access Character;
       String2 : access Character
@@ -1234,6 +1290,26 @@ package Win32 is
       Locale : locale_t_x
    ) return size_t;
    pragma import (C,strxfrm_l,"_strxfrm_l");
+   -- strchr_x(); -- inlined function not supported
+   -- strpbrk_x(); -- inlined function not supported
+   -- strrchr_x(); -- inlined function not supported
+   -- strstr_x(); -- inlined function not supported
+   function strcmpi_x(
+      String1 : access Character;
+      String2 : access Character
+   ) return Interfaces.C.Int;
+   pragma import (C,strcmpi_x,"strcmpi");
+   function stricmp_x(
+      String1 : access Character;
+      String2 : access Character
+   ) return Interfaces.C.Int;
+   pragma import (C,stricmp_x,"stricmp");
+   function strnicmp_x(
+      String1 : access Character;
+      String2 : access Character;
+      MaxCount : size_t
+   ) return Interfaces.C.Int;
+   pragma import (C,strnicmp_x,"strnicmp");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared/guiddef.h>
    -- InlineIsEqualGUID(); -- inlined function not supported
    -- IsEqualGUID(); -- inlined function not supported
@@ -1248,7 +1324,7 @@ package Win32 is
    subtype EXCEPTION_ROUTINE is System.Address; -- [FIXME - CXType_FunctionProto] EXCEPTION_DISPOSITION (struct _EXCEPTION_RECORD *, PVOID, struct _CONTEXT *, PVOID)
    subtype PEXCEPTION_ROUTINE is System.Address; -- [FIXME - CXType_Pointer - CXType_FunctionProto] EXCEPTION_DISPOSITION (struct _EXCEPTION_RECORD *, PVOID, struct _CONTEXT *, PVOID)
    type ENUM_FLAG_INTEGER_FOR_SIZE_x is null record;
-   subtype type_xx is INT8; -- CXType_Typedef
+   subtype type_x is INT8; -- CXType_Typedef
    subtype KSPIN_LOCK is ULONG_PTR; -- CXType_Typedef
    type PKSPIN_LOCK is access KSPIN_LOCK; -- CXType_Pointer - CXType_Typedef
    type M128A_x is record
@@ -3520,6 +3596,13 @@ package Win32 is
       JOB_OBJECT_IO_RATE_CONTROL_VALID_FLAGS => 15
    );
    for JOB_OBJECT_IO_RATE_CONTROL_FLAGS'Size use 32;
+   -- operator|_x(); -- inlined function not supported
+   -- operator|=_x(); -- inlined function not supported
+   -- operator&_x(); -- inlined function not supported
+   -- operator&=_x(); -- inlined function not supported
+   -- operator~_x(); -- inlined function not supported
+   -- operator^_x(); -- inlined function not supported
+   -- operator^=_x(); -- inlined function not supported
    type JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE is record
       MaxIops : LONG64;
       MaxBandwidth : LONG64;
@@ -10121,6 +10204,12 @@ package Win32 is
       pdwReturnedProductType : PDWORD
    ) return BOOL;
    pragma import (C,GetProductInfo,"GetProductInfo");
+   function VerSetConditionMask_x(
+      ConditionMask : ULONGLONG;
+      TypeMask : ULONG;
+      Condition : UCHAR
+   ) return ULONGLONG;
+   pragma import (C,VerSetConditionMask_x,"VerSetConditionMask");
    function GetOsSafeBootMode(
       Flags : PDWORD
    ) return BOOL;
@@ -13144,6 +13233,13 @@ package Win32 is
       lpiResult : LPINT
    ) return BOOL;
    pragma import (C,IsTextUnicode,"IsTextUnicode");
+   function SignalObjectAndWait_x(
+      hObjectToSignal : HANDLE;
+      hObjectToWaitOn : HANDLE;
+      dwMilliseconds : DWORD;
+      bAlertable : BOOL
+   ) return DWORD;
+   pragma import (C,SignalObjectAndWait_x,"SignalObjectAndWait");
    function BackupRead(
       hFile_x : HANDLE;
       lpBuffer : LPBYTE;
@@ -15539,7 +15635,7 @@ package Win32 is
    subtype FILE_ATTRIBUTE_TAG_INFO is FILE_ATTRIBUTE_TAG_INFO_x; -- CXType_Elaborated
    type PFILE_ATTRIBUTE_TAG_INFO is access FILE_ATTRIBUTE_TAG_INFO_x; -- CXType_Pointer - CXType_Elaborated
    type FILE_DISPOSITION_INFO_x is record
-      DeleteFileA : BOOLEAN;
+      DeleteFileA_x : BOOLEAN;
    end record;
    subtype FILE_DISPOSITION_INFO is FILE_DISPOSITION_INFO_x; -- CXType_Elaborated
    type PFILE_DISPOSITION_INFO is access FILE_DISPOSITION_INFO_x; -- CXType_Pointer - CXType_Elaborated
@@ -15799,7 +15895,27 @@ package Win32 is
       CustomSystemEventTriggerConfig : PCUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG
    ) return DWORD;
    pragma import (C,RaiseCustomSystemEventTrigger,"RaiseCustomSystemEventTrigger");
+   -- InterlockedIncrement_x(); -- inlined function not supported
+   -- InterlockedIncrement_x_x(); -- inlined function not supported
+   -- InterlockedIncrement_x_x_x(); -- inlined function not supported
+   -- InterlockedDecrement_x(); -- inlined function not supported
+   -- InterlockedDecrement_x_x(); -- inlined function not supported
+   -- InterlockedDecrement_x_x_x(); -- inlined function not supported
+   -- InterlockedExchange_x(); -- inlined function not supported
+   -- InterlockedExchange_x_x(); -- inlined function not supported
+   -- InterlockedExchange_x_x_x(); -- inlined function not supported
+   -- InterlockedExchangeAdd_x(); -- inlined function not supported
    -- InterlockedExchangeSubtract(); -- inlined function not supported
+   -- InterlockedExchangeAdd_x_x(); -- inlined function not supported
+   -- InterlockedExchangeSubtract_x(); -- inlined function not supported
+   -- InterlockedExchangeAdd_x_x_x(); -- inlined function not supported
+   -- InterlockedExchangeSubtract_x_x(); -- inlined function not supported
+   -- InterlockedCompareExchange_x(); -- inlined function not supported
+   -- InterlockedCompareExchange_x_x(); -- inlined function not supported
+   -- InterlockedCompareExchange_x_x_x(); -- inlined function not supported
+   -- InterlockedAnd_x(); -- inlined function not supported
+   -- InterlockedOr_x(); -- inlined function not supported
+   -- InterlockedXor_x(); -- inlined function not supported
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\wingdi.h>
    type DRAWPATRECT_x is record
       ptPosition : POINT;
@@ -21927,6 +22043,13 @@ package Win32 is
       DCDC_DISABLE_RELAYOUT => 2
    );
    for DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS'Size use 32;
+   -- operator|_x_x(); -- inlined function not supported
+   -- operator|=_x_x(); -- inlined function not supported
+   -- operator&_x_x(); -- inlined function not supported
+   -- operator&=_x_x(); -- inlined function not supported
+   -- operator~_x_x(); -- inlined function not supported
+   -- operator^_x_x(); -- inlined function not supported
+   -- operator^=_x_x(); -- inlined function not supported
    function SetDialogControlDpiChangeBehavior(
       hWnd_x : HWND;
       mask : DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS;
@@ -21950,6 +22073,13 @@ package Win32 is
       DDC_DISABLE_CONTROL_RELAYOUT => 4
    );
    for DIALOG_DPI_CHANGE_BEHAVIORS'Size use 32;
+   -- operator|_x_x_x(); -- inlined function not supported
+   -- operator|=_x_x_x(); -- inlined function not supported
+   -- operator&_x_x_x(); -- inlined function not supported
+   -- operator&=_x_x_x(); -- inlined function not supported
+   -- operator~_x_x_x(); -- inlined function not supported
+   -- operator^_x_x_x(); -- inlined function not supported
+   -- operator^=_x_x_x(); -- inlined function not supported
    function SetDialogDpiChangeBehavior(
       hDlg : HWND;
       mask : DIALOG_DPI_CHANGE_BEHAVIORS;
@@ -22238,6 +22368,14 @@ package Win32 is
       nTypeFlag : Interfaces.C.Int
    ) return Interfaces.C.Int;
    pragma import (C,GetKeyboardType,"GetKeyboardType");
+   function ToAscii_x(
+      uVirtKey : UINT;
+      uScanCode : UINT;
+      lpKeyState : access constant BYTE;
+      lpChar : LPWORD;
+      uFlags : UINT
+   ) return Interfaces.C.Int;
+   pragma import (C,ToAscii_x,"ToAscii");
    function ToAsciiEx(
       uVirtKey : UINT;
       uScanCode : UINT;
@@ -25969,6 +26107,13 @@ package Win32 is
    for tagAR_STATE'Size use 32;
    subtype AR_STATE is tagAR_STATE; -- CXType_Elaborated
    type PAR_STATE is access tagAR_STATE; -- CXType_Pointer - CXType_Elaborated
+   -- operator|_x_x_x_x(); -- inlined function not supported
+   -- operator|=_x_x_x_x(); -- inlined function not supported
+   -- operator&_x_x_x_x(); -- inlined function not supported
+   -- operator&=_x_x_x_x(); -- inlined function not supported
+   -- operator~_x_x_x_x(); -- inlined function not supported
+   -- operator^_x_x_x_x(); -- inlined function not supported
+   -- operator^=_x_x_x_x(); -- inlined function not supported
    type ORIENTATION_PREFERENCE is (
       ORIENTATION_PREFERENCE_NONE,
       ORIENTATION_PREFERENCE_LANDSCAPE,
@@ -25984,6 +26129,13 @@ package Win32 is
       ORIENTATION_PREFERENCE_PORTRAIT_FLIPPED => 8
    );
    for ORIENTATION_PREFERENCE'Size use 32;
+   -- operator|_x_x_x_x_x(); -- inlined function not supported
+   -- operator|=_x_x_x_x_x(); -- inlined function not supported
+   -- operator&_x_x_x_x_x(); -- inlined function not supported
+   -- operator&=_x_x_x_x_x(); -- inlined function not supported
+   -- operator~_x_x_x_x_x(); -- inlined function not supported
+   -- operator^_x_x_x_x_x(); -- inlined function not supported
+   -- operator^=_x_x_x_x_x(); -- inlined function not supported
    function GetAutoRotationState(
       pState : PAR_STATE
    ) return BOOL;
@@ -44617,7 +44769,7 @@ package Win32 is
    subtype STORAGE_ZONED_DEVICE_DESCRIPTOR is STORAGE_ZONED_DEVICE_DESCRIPTOR_x; -- CXType_Elaborated
    type PSTORAGE_ZONED_DEVICE_DESCRIPTOR is access STORAGE_ZONED_DEVICE_DESCRIPTOR_x; -- CXType_Pointer - CXType_Elaborated
    type DEVICE_LOCATION_x is record
-      Socket_x : DWORD;
+      Socket_x_x : DWORD;
       Slot : DWORD;
       Adapter : DWORD;
       Port : DWORD;
@@ -51437,6 +51589,16 @@ package Win32 is
    pragma import (C,aligned_recalloc,"_aligned_recalloc");
    -- #include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\ucrt\stddef.h>
    subtype nullptr_t is System.Address; -- [FIXME - CXType_Unexposed]
+   function errno_x return PINT;
+   pragma import (C,errno_x,"_errno");
+   function set_errno_x(
+      Value : Interfaces.C.Int
+   ) return errno_t;
+   pragma import (C,set_errno_x,"_set_errno");
+   function get_errno_x(
+      Value : access Interfaces.C.Int
+   ) return errno_t;
+   pragma import (C,get_errno_x,"_get_errno");
    function threadid return Interfaces.C.unsigned_long;
    pragma import (C,threadid,"__threadid");
    function threadhandle return uintptr_t;
@@ -51510,6 +51672,22 @@ package Win32 is
       CompareFunction : CoreCrtNonSecureSearchSortCompareFunction_x
    );
    pragma import (C,lsearch,"_lsearch");
+   procedure lfind_x(
+      Key : access Void;
+      Base : access Void;
+      NumOfElements : access Interfaces.C.unsigned;
+      SizeOfElements : Interfaces.C.unsigned;
+      CompareFunction : CoreCrtNonSecureSearchSortCompareFunction_x
+   );
+   pragma import (C,lfind_x,"lfind");
+   procedure lsearch_x(
+      Key : access Void;
+      Base : access Void;
+      NumOfElements : access Interfaces.C.unsigned;
+      SizeOfElements : Interfaces.C.unsigned;
+      CompareFunction : CoreCrtNonSecureSearchSortCompareFunction_x
+   );
+   pragma import (C,lsearch_x,"lsearch");
    -- #include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\ucrt\corecrt_wstdlib.h>
    function itow_s(
       Value : Interfaces.C.Int;
@@ -51794,6 +51972,14 @@ package Win32 is
       Code : Interfaces.C.Int
    );
    pragma import (C,exit_x,"exit");
+   procedure exit_x_x(
+      Code : Interfaces.C.Int
+   );
+   pragma import (C,exit_x_x,"_exit");
+   procedure exit_x_x_x(
+      Code : Interfaces.C.Int
+   );
+   pragma import (C,exit_x_x_x,"_Exit");
    procedure quick_exit(
       Code : Interfaces.C.Int
    );
@@ -51842,6 +52028,26 @@ package Win32 is
       Mode : Interfaces.C.Int
    ) return Interfaces.C.Int;
    pragma import (C,set_error_mode,"_set_error_mode");
+   function errno_x_x return PINT;
+   pragma import (C,errno_x_x,"_errno");
+   function set_errno_x_x(
+      Value : Interfaces.C.Int
+   ) return errno_t;
+   pragma import (C,set_errno_x_x,"_set_errno");
+   function get_errno_x_x(
+      Value : access Interfaces.C.Int
+   ) return errno_t;
+   pragma import (C,get_errno_x_x,"_get_errno");
+   function doserrno_x return PULONG;
+   pragma import (C,doserrno_x,"__doserrno");
+   function set_doserrno_x(
+      Value : Interfaces.C.unsigned_long
+   ) return errno_t;
+   pragma import (C,set_doserrno_x,"_set_doserrno");
+   function get_doserrno_x(
+      Value : access Interfaces.C.unsigned_long
+   ) return errno_t;
+   pragma import (C,get_doserrno_x,"_get_doserrno");
    -- function sys_errlist return char **;
    function sys_nerr return PINT;
    pragma import (C,sys_nerr,"__sys_nerr");
@@ -51927,6 +52133,11 @@ package Win32 is
       Denominator : Interfaces.C.Extensions.long_long
    ) return lldiv_t;
    pragma import (C,lldiv,"lldiv");
+   function rotl_x(
+      Value : Interfaces.C.unsigned;
+      Shift : Interfaces.C.Int
+   ) return Interfaces.C.unsigned;
+   pragma import (C,rotl_x,"_rotl");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\winnt.h>
    -- #include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\ucrt\stdlib.h>
    function lrotl(
@@ -51934,8 +52145,18 @@ package Win32 is
       Shift : Interfaces.C.Int
    ) return Interfaces.C.unsigned_long;
    pragma import (C,lrotl,"_lrotl");
+   function rotl64_x(
+      Value : Interfaces.C.Extensions.unsigned_long_long;
+      Shift : Interfaces.C.Int
+   ) return Interfaces.C.Extensions.unsigned_long_long;
+   pragma import (C,rotl64_x,"_rotl64");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\winnt.h>
    -- #include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\ucrt\stdlib.h>
+   function rotr_x(
+      Value : Interfaces.C.unsigned;
+      Shift : Interfaces.C.Int
+   ) return Interfaces.C.unsigned;
+   pragma import (C,rotr_x,"_rotr");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\winnt.h>
    -- #include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\ucrt\stdlib.h>
    function lrotr(
@@ -51943,6 +52164,11 @@ package Win32 is
       Shift : Interfaces.C.Int
    ) return Interfaces.C.unsigned_long;
    pragma import (C,lrotr,"_lrotr");
+   function rotr64_x(
+      Value : Interfaces.C.Extensions.unsigned_long_long;
+      Shift : Interfaces.C.Int
+   ) return Interfaces.C.Extensions.unsigned_long_long;
+   pragma import (C,rotr64_x,"_rotr64");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\winnt.h>
    -- #include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\ucrt\stdlib.h>
    procedure srand(
@@ -51951,6 +52177,10 @@ package Win32 is
    pragma import (C,srand,"srand");
    function rand return Interfaces.C.Int;
    pragma import (C,rand,"rand");
+   -- abs_x_x(); -- inlined function not supported
+   -- abs_x_x_x(); -- inlined function not supported
+   -- div_x(); -- inlined function not supported
+   -- div_x_x(); -- inlined function not supported
    type LDOUBLE_x is record
       ld : Void;
    end record;
@@ -52363,7 +52593,7 @@ package Win32 is
    );
    pragma import (C,makepath,"_makepath");
    procedure splitpath(
-      FullPath : access Character;
+      FullPath_x : access Character;
       Drive : access Character;
       Dir : access Character;
       Filename : access Character;
@@ -52371,7 +52601,7 @@ package Win32 is
    );
    pragma import (C,splitpath,"_splitpath");
    function splitpath_s(
-      FullPath : access Character;
+      FullPath_x : access Character;
       Drive : access Character;
       DriveCount : size_t;
       Dir : access Character;
@@ -52427,6 +52657,33 @@ package Win32 is
       Buffer : access Character
    );
    pragma import (C,searchenv,"_searchenv");
+   procedure seterrormode_x(
+      Mode : Interfaces.C.Int
+   );
+   pragma import (C,seterrormode_x,"_seterrormode");
+   procedure beep_x(
+      Frequency : Interfaces.C.unsigned;
+      Duration : Interfaces.C.unsigned
+   );
+   pragma import (C,beep_x,"_beep");
+   procedure sleep_x(
+      Duration : Interfaces.C.unsigned_long
+   );
+   pragma import (C,sleep_x,"_sleep");
+   procedure swab_x(
+      Buf1 : access Character;
+      Buf2 : access Character;
+      SizeInBytes : Interfaces.C.Int
+   );
+   pragma import (C,swab_x,"swab");
+   function putenv_x(
+      EnvString : access Character
+   ) return Interfaces.C.Int;
+   pragma import (C,putenv_x,"putenv");
+   function onexit_x(
+      Func : onexit_t_x
+   ) return onexit_t_x;
+   pragma import (C,onexit_x,"onexit");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\combaseapi.h>
    type tagREGCLS is (
       REGCLS_SINGLEUSE,
@@ -52724,12 +52981,12 @@ package Win32 is
          This : access IMalloc_Interface;
          cb : SIZE_T
       ) is abstract;
-      procedure Realloc(
+      procedure Realloc_x(
          This : access IMalloc_Interface;
          pv : access Void;
          cb : SIZE_T
       ) is abstract;
-      procedure Free(
+      procedure Free_x(
          This : access IMalloc_Interface;
          pv : access Void
       ) is abstract;
@@ -53096,7 +53353,7 @@ package Win32 is
    type IRpcChannelBuffer2 is access IRpcChannelBuffer2_Interface'Class;
    type IRpcChannelBuffer2_Ptr is access IRpcChannelBuffer2;
    type IAsyncRpcChannelBuffer_Interface is interface and IRpcChannelBuffer2_Interface;
-      function Send(
+      function Send_x(
          This : access IAsyncRpcChannelBuffer_Interface;
          pMsg_x : access RPCOLEMESSAGE;
          pSync : access ISynchronize;
@@ -53116,7 +53373,7 @@ package Win32 is
    type IAsyncRpcChannelBuffer is access IAsyncRpcChannelBuffer_Interface'Class;
    type IAsyncRpcChannelBuffer_Ptr is access IAsyncRpcChannelBuffer;
    type IRpcChannelBuffer3_Interface is interface and IRpcChannelBuffer2_Interface;
-      function Send(
+      function Send_x(
          This : access IRpcChannelBuffer3_Interface;
          pMsg_x : access RPCOLEMESSAGE;
          pulStatus : access ULONG
@@ -53163,7 +53420,7 @@ package Win32 is
    type IRpcSyntaxNegotiate is access IRpcSyntaxNegotiate_Interface'Class;
    type IRpcSyntaxNegotiate_Ptr is access IRpcSyntaxNegotiate;
    type IRpcProxyBuffer_Interface is interface and IUnknown_Interface;
-      function Connect(
+      function Connect_x(
          This : access IRpcProxyBuffer_Interface;
          pRpcChannelBuffer : access IRpcChannelBuffer
       ) return HRESULT is abstract;
@@ -53171,7 +53428,7 @@ package Win32 is
    type IRpcProxyBuffer is access IRpcProxyBuffer_Interface'Class;
    type IRpcProxyBuffer_Ptr is access IRpcProxyBuffer;
    type IRpcStubBuffer_Interface is interface and IUnknown_Interface;
-      function Connect(
+      function Connect_x(
          This : access IRpcStubBuffer_Interface;
          pUnkServer : access Void
       ) return HRESULT is abstract;
@@ -53365,7 +53622,7 @@ package Win32 is
          pCapabilities : access DWORD
       ) return HRESULT is abstract;
       function ImpersonateClient(This : access IServerSecurity_Interface) return HRESULT is abstract;
-      function RevertToSelf(This : access IServerSecurity_Interface) return HRESULT is abstract;
+      function RevertToSelf_x(This : access IServerSecurity_Interface) return HRESULT is abstract;
       function IsImpersonating(This : access IServerSecurity_Interface) return BOOL is abstract;
    type IServerSecurity is access IServerSecurity_Interface'Class;
    type IServerSecurity_Ptr is access IServerSecurity;
@@ -53576,7 +53833,7 @@ package Win32 is
    type ISynchronizeContainer is access ISynchronizeContainer_Interface'Class;
    type ISynchronizeContainer_Ptr is access ISynchronizeContainer;
    type ISynchronizeMutex_Interface is interface and ISynchronize_Interface;
-      function ReleaseMutex(This : access ISynchronizeMutex_Interface) return HRESULT is abstract;
+      function ReleaseMutex_x(This : access ISynchronizeMutex_Interface) return HRESULT is abstract;
    type ISynchronizeMutex is access ISynchronizeMutex_Interface'Class;
    type ISynchronizeMutex_Ptr is access ISynchronizeMutex;
    type LPCANCELMETHODCALLS is access ICancelMethodCalls; -- CXType_Pointer - CXType_Typedef
@@ -54535,6 +54792,29 @@ package Win32 is
    type IInitializeSpy; -- Forward Declaration
    type IApartmentShutdown; -- Forward Declaration
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/unknwn.h>
+   function IClassFactory_CreateInstance_Proxy_x(
+      This : access IClassFactory;
+      pUnkOuter : access IUnknown;
+      riid : access constant IID;
+      ppvObject : access LPVOID
+   ) return HRESULT;
+   pragma import (C,IClassFactory_CreateInstance_Proxy_x,"IClassFactory_CreateInstance_Proxy");
+   function IClassFactory_CreateInstance_Stub_x(
+      This : access IClassFactory;
+      riid : access constant IID;
+      ppvObject : access LPUNKNOWN
+   ) return HRESULT;
+   pragma import (C,IClassFactory_CreateInstance_Stub_x,"IClassFactory_CreateInstance_Stub");
+   function IClassFactory_LockServer_Proxy_x(
+      This : access IClassFactory;
+      fLock : BOOL
+   ) return HRESULT;
+   pragma import (C,IClassFactory_LockServer_Proxy_x,"IClassFactory_LockServer_Proxy");
+   function IClassFactory_LockServer_Stub_x(
+      This : access IClassFactory;
+      fLock : BOOL
+   ) return HRESULT;
+   pragma import (C,IClassFactory_LockServer_Stub_x,"IClassFactory_LockServer_Stub");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/objidl.h>
    type LPMALLOCSPY is access IMallocSpy; -- CXType_Pointer - CXType_Typedef
    type IMallocSpy_Interface is interface and IUnknown_Interface;
@@ -54776,7 +55056,7 @@ package Win32 is
          This : access IRunningObjectTable_Interface;
          pmkObjectName : access IMoniker
       ) return HRESULT is abstract;
-      function GetObjectA(
+      function GetObjectA_x(
          This : access IRunningObjectTable_Interface;
          pmkObjectName : access IMoniker;
          ppunkObject : access LPVOID
@@ -56401,6 +56681,92 @@ package Win32 is
       param2 : access STGMEDIUM
    );
    pragma import (C,STGMEDIUM_UserFree64,"STGMEDIUM_UserFree64");
+   function IEnumUnknown_Next_Proxy_x(
+      This : access IEnumUnknown;
+      celt : ULONG;
+      rgelt : access LPUNKNOWN;
+      pceltFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumUnknown_Next_Proxy_x,"IEnumUnknown_Next_Proxy");
+   function IEnumUnknown_Next_Stub_x(
+      This : access IEnumUnknown;
+      celt : ULONG;
+      rgelt : access LPUNKNOWN;
+      pceltFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumUnknown_Next_Stub_x,"IEnumUnknown_Next_Stub");
+   function IEnumString_Next_Proxy_x(
+      This : access IEnumString;
+      celt : ULONG;
+      rgelt : access LPOLESTR;
+      pceltFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumString_Next_Proxy_x,"IEnumString_Next_Proxy");
+   function IEnumString_Next_Stub_x(
+      This : access IEnumString;
+      celt : ULONG;
+      rgelt : access LPOLESTR;
+      pceltFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumString_Next_Stub_x,"IEnumString_Next_Stub");
+   function ISequentialStream_Read_Proxy_x(
+      This : access ISequentialStream;
+      pv : access Void;
+      cb : ULONG;
+      pcbRead : access ULONG
+   ) return HRESULT;
+   pragma import (C,ISequentialStream_Read_Proxy_x,"ISequentialStream_Read_Proxy");
+   function ISequentialStream_Read_Stub_x(
+      This : access ISequentialStream;
+      pv : access byte;
+      cb : ULONG;
+      pcbRead : access ULONG
+   ) return HRESULT;
+   pragma import (C,ISequentialStream_Read_Stub_x,"ISequentialStream_Read_Stub");
+   function ISequentialStream_Write_Proxy_x(
+      This : access ISequentialStream;
+      pv : access Void;
+      cb : ULONG;
+      pcbWritten : access ULONG
+   ) return HRESULT;
+   pragma import (C,ISequentialStream_Write_Proxy_x,"ISequentialStream_Write_Proxy");
+   function ISequentialStream_Write_Stub_x(
+      This : access ISequentialStream;
+      pv : access constant byte;
+      cb : ULONG;
+      pcbWritten : access ULONG
+   ) return HRESULT;
+   pragma import (C,ISequentialStream_Write_Stub_x,"ISequentialStream_Write_Stub");
+   function IStream_Seek_Proxy_x(
+      This : access IStream;
+      dlibMove : LARGE_INTEGER;
+      dwOrigin : DWORD;
+      plibNewPosition : access ULARGE_INTEGER
+   ) return HRESULT;
+   pragma import (C,IStream_Seek_Proxy_x,"IStream_Seek_Proxy");
+   function IStream_Seek_Stub_x(
+      This : access IStream;
+      dlibMove : LARGE_INTEGER;
+      dwOrigin : DWORD;
+      plibNewPosition : access ULARGE_INTEGER
+   ) return HRESULT;
+   pragma import (C,IStream_Seek_Stub_x,"IStream_Seek_Stub");
+   function IStream_CopyTo_Proxy_x(
+      This : access IStream;
+      pstm : access IStream;
+      cb : ULARGE_INTEGER;
+      pcbRead : access ULARGE_INTEGER;
+      pcbWritten : access ULARGE_INTEGER
+   ) return HRESULT;
+   pragma import (C,IStream_CopyTo_Proxy_x,"IStream_CopyTo_Proxy");
+   function IStream_CopyTo_Stub_x(
+      This : access IStream;
+      pstm : access IStream;
+      cb : ULARGE_INTEGER;
+      pcbRead : access ULARGE_INTEGER;
+      pcbWritten : access ULARGE_INTEGER
+   ) return HRESULT;
+   pragma import (C,IStream_CopyTo_Stub_x,"IStream_CopyTo_Stub");
    function IBindCtx_SetBindOptions_Proxy(
       This : access IBindCtx;
       pbindopts : access BIND_OPTS
@@ -57657,7 +58023,7 @@ package Win32 is
    subtype BINDPTR is tagBINDPTR; -- CXType_Elaborated
    type LPBINDPTR is access tagBINDPTR; -- CXType_Pointer - CXType_Elaborated
    type ITypeComp_Interface is interface and IUnknown_Interface;
-      function Bind(
+      function Bind_x(
          This : access ITypeComp_Interface;
          szName : LPOLESTR;
          lHashVal : ULONG;
@@ -58469,7 +58835,7 @@ package Win32 is
          pBuffer : access BYTE;
          pcbRead : access ULONG
       ) return HRESULT is abstract;
-      function Free(
+      function Free_x(
          This : access ITypeMarshal_Interface;
          pvType : PVOID
       ) return HRESULT is abstract;
@@ -58606,7 +58972,7 @@ package Win32 is
          This : access ITypeLibRegistration_Interface;
          pGuid : access GUID
       ) return HRESULT is abstract;
-      function GetVersion(
+      function GetVersion_x(
          This : access ITypeLibRegistration_Interface;
          pVersion : access BSTR
       ) return HRESULT is abstract;
@@ -59405,6 +59771,17 @@ package Win32 is
    );
    pragma import (C,IEnumSTATPROPSETSTG_RemoteNext_Stub,"IEnumSTATPROPSETSTG_RemoteNext_Stub");
    type LPPROPERTYSTORAGE is access IPropertyStorage; -- CXType_Pointer - CXType_Typedef
+   function BSTR_UserSize_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize_x,"BSTR_UserSize");
+   procedure BSTR_UserFree_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree_x,"BSTR_UserFree");
    function LPSAFEARRAY_UserSize(
       param1 : access Interfaces.C.unsigned_long;
       param2 : Interfaces.C.unsigned_long;
@@ -59416,6 +59793,17 @@ package Win32 is
       param2 : access LPSAFEARRAY
    );
    pragma import (C,LPSAFEARRAY_UserFree,"LPSAFEARRAY_UserFree");
+   function BSTR_UserSize64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize64_x,"BSTR_UserSize64");
+   procedure BSTR_UserFree64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree64_x,"BSTR_UserFree64");
    function LPSAFEARRAY_UserSize64(
       param1 : access Interfaces.C.unsigned_long;
       param2 : Interfaces.C.unsigned_long;
@@ -59708,6 +60096,11 @@ package Win32 is
       rclsid : access constant IID
    ) return BOOL;
    pragma import (C,CoIsOle1Class,"CoIsOle1Class");
+   function CLSIDFromProgIDEx_x(
+      lpszProgID : LPCOLESTR;
+      lpclsid_x : LPCLSID
+   ) return HRESULT;
+   pragma import (C,CLSIDFromProgIDEx_x,"CLSIDFromProgIDEx");
    function CoFileTimeToDosDateTime(
       lpFileTime_x : access FILETIME;
       lpDosDate : LPWORD;
@@ -59720,6 +60113,10 @@ package Win32 is
       lpFileTime_x : access FILETIME
    ) return BOOL;
    pragma import (C,CoDosDateTimeToFileTime,"CoDosDateTimeToFileTime");
+   function CoFileTimeNow_x(
+      lpFileTime_x : access FILETIME
+   ) return HRESULT;
+   pragma import (C,CoFileTimeNow_x,"CoFileTimeNow");
    function CoRegisterMessageFilter(
       lpMessageFilter_x : LPMESSAGEFILTER;
       lplpMessageFilter : access LPMESSAGEFILTER
@@ -59863,7 +60260,7 @@ package Win32 is
       pprot : access LPRUNNINGOBJECTTABLE
    ) return HRESULT;
    pragma import (C,GetRunningObjectTable,"GetRunningObjectTable");
-   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\urlmon.h>
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/urlmon.h>
    type IPersistMoniker; -- Forward Declaration
    type IMonikerProp; -- Forward Declaration
    type IBindProtocol; -- Forward Declaration
@@ -60055,7 +60452,7 @@ package Win32 is
    type IParseDisplayName_Ptr is access IParseDisplayName;
    type LPOLECONTAINER is access IOleContainer; -- CXType_Pointer - CXType_Typedef
    type IOleContainer_Interface is interface and IParseDisplayName_Interface;
-      function EnumObjects(
+      function EnumObjects_x(
          This : access IOleContainer_Interface;
          grfFlags : DWORD;
          ppenum : access LPENUMUNKNOWN
@@ -60224,7 +60621,7 @@ package Win32 is
          fCreation : BOOL;
          dwReserved : DWORD
       ) return HRESULT is abstract;
-      function GetClipboardData(
+      function GetClipboardData_x(
          This : access IOleObject_Interface;
          dwReserved : DWORD;
          ppDataObject : access LPDATAOBJECT
@@ -60320,7 +60717,7 @@ package Win32 is
    type LPLINKSRCDESCRIPTOR is access tagOBJECTDESCRIPTOR; -- CXType_Pointer - CXType_Elaborated
    type LPOLEWINDOW is access IOleWindow; -- CXType_Pointer - CXType_Typedef
    type IOleWindow_Interface is interface and IUnknown_Interface;
-      function GetWindow(
+      function GetWindow_x(
          This : access IOleWindow_Interface;
          phwnd : access HWND
       ) return HRESULT is abstract;
@@ -60424,7 +60821,7 @@ package Win32 is
    for tagOLECONTF'Size use 32;
    subtype OLECONTF is tagOLECONTF; -- CXType_Elaborated
    type IOleItemContainer_Interface is interface and IOleContainer_Interface;
-      function GetObjectA(
+      function GetObjectA_x(
          This : access IOleItemContainer_Interface;
          pszItem : LPOLESTR;
          dwSpeedNeeded : DWORD;
@@ -60471,7 +60868,7 @@ package Win32 is
    type IOleInPlaceUIWindow_Ptr is access IOleInPlaceUIWindow;
    type LPOLEINPLACEACTIVEOBJECT is access IOleInPlaceActiveObject; -- CXType_Pointer - CXType_Typedef
    type IOleInPlaceActiveObject_Interface is interface and IOleWindow_Interface;
-      function TranslateAcceleratorA(
+      function TranslateAcceleratorA_x(
          This : access IOleInPlaceActiveObject_Interface;
          lpmsg_x : LPMSG
       ) return HRESULT is abstract;
@@ -60543,7 +60940,7 @@ package Win32 is
          hmenuShared : HMENU;
          lpMenuWidths : LPOLEMENUGROUPWIDTHS
       ) return HRESULT is abstract;
-      function SetMenu(
+      function SetMenu_x(
          This : access IOleInPlaceFrame_Interface;
          hmenuShared : HMENU;
          holemenu_x : HOLEMENU;
@@ -60561,7 +60958,7 @@ package Win32 is
          This : access IOleInPlaceFrame_Interface;
          fEnable : BOOL
       ) return HRESULT is abstract;
-      function TranslateAcceleratorA(
+      function TranslateAcceleratorA_x(
          This : access IOleInPlaceFrame_Interface;
          lpmsg_x : LPMSG;
          wID : WORD
@@ -60848,6 +61245,17 @@ package Win32 is
       pdwStubPhase : access DWORD
    );
    pragma import (C,IEnumOLEVERB_RemoteNext_Stub,"IEnumOLEVERB_RemoteNext_Stub");
+   function CLIPFORMAT_UserSize_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access CLIPFORMAT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,CLIPFORMAT_UserSize_x,"CLIPFORMAT_UserSize");
+   procedure CLIPFORMAT_UserFree_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access CLIPFORMAT
+   );
+   pragma import (C,CLIPFORMAT_UserFree_x,"CLIPFORMAT_UserFree");
    function HACCEL_UserSize(
       param1 : access Interfaces.C.unsigned_long;
       param2 : Interfaces.C.unsigned_long;
@@ -60859,6 +61267,17 @@ package Win32 is
       param2 : access HACCEL
    );
    pragma import (C,HACCEL_UserFree,"HACCEL_UserFree");
+   function HDC_UserSize_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HDC
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HDC_UserSize_x,"HDC_UserSize");
+   procedure HDC_UserFree_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HDC
+   );
+   pragma import (C,HDC_UserFree_x,"HDC_UserFree");
    function HGLOBAL_UserSize(
       param1 : access Interfaces.C.unsigned_long;
       param2 : Interfaces.C.unsigned_long;
@@ -60892,6 +61311,28 @@ package Win32 is
       param2 : access HWND
    );
    pragma import (C,HWND_UserFree,"HWND_UserFree");
+   function STGMEDIUM_UserSize_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access STGMEDIUM
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,STGMEDIUM_UserSize_x,"STGMEDIUM_UserSize");
+   procedure STGMEDIUM_UserFree_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access STGMEDIUM
+   );
+   pragma import (C,STGMEDIUM_UserFree_x,"STGMEDIUM_UserFree");
+   function CLIPFORMAT_UserSize64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access CLIPFORMAT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,CLIPFORMAT_UserSize64_x,"CLIPFORMAT_UserSize64");
+   procedure CLIPFORMAT_UserFree64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access CLIPFORMAT
+   );
+   pragma import (C,CLIPFORMAT_UserFree64_x,"CLIPFORMAT_UserFree64");
    function HACCEL_UserSize64(
       param1 : access Interfaces.C.unsigned_long;
       param2 : Interfaces.C.unsigned_long;
@@ -60903,6 +61344,17 @@ package Win32 is
       param2 : access HACCEL
    );
    pragma import (C,HACCEL_UserFree64,"HACCEL_UserFree64");
+   function HDC_UserSize64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HDC
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HDC_UserSize64_x,"HDC_UserSize64");
+   procedure HDC_UserFree64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HDC
+   );
+   pragma import (C,HDC_UserFree64_x,"HDC_UserFree64");
    function HGLOBAL_UserSize64(
       param1 : access Interfaces.C.unsigned_long;
       param2 : Interfaces.C.unsigned_long;
@@ -60936,6 +61388,17 @@ package Win32 is
       param2 : access HWND
    );
    pragma import (C,HWND_UserFree64,"HWND_UserFree64");
+   function STGMEDIUM_UserSize64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access STGMEDIUM
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,STGMEDIUM_UserSize64_x,"STGMEDIUM_UserSize64");
+   procedure STGMEDIUM_UserFree64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access STGMEDIUM
+   );
+   pragma import (C,STGMEDIUM_UserFree64_x,"STGMEDIUM_UserFree64");
    function IOleCache2_UpdateCache_Proxy(
       This : access IOleCache2;
       pDataObject : LPDATAOBJECT;
@@ -61477,7 +61940,7 @@ package Win32 is
          This : access IXMLDOMDocument_Interface;
          isAsync : VARIANT_BOOL
       ) return HRESULT is abstract;
-      function abort_x(This : access IXMLDOMDocument_Interface) return HRESULT is abstract;
+      function abort_x_x(This : access IXMLDOMDocument_Interface) return HRESULT is abstract;
       function loadXML(
          This : access IXMLDOMDocument_Interface;
          bstrXML : BSTR;
@@ -61856,11 +62319,11 @@ package Win32 is
          This : access IXMLHttpRequest_Interface;
          pbstrHeaders : access BSTR
       ) return HRESULT is abstract;
-      function send(
+      function send_x(
          This : access IXMLHttpRequest_Interface;
          varBody : VARIANT
       ) return HRESULT is abstract;
-      function abort_x(This : access IXMLHttpRequest_Interface) return HRESULT is abstract;
+      function abort_x_x(This : access IXMLHttpRequest_Interface) return HRESULT is abstract;
       function get_status(
          This : access IXMLHttpRequest_Interface;
          plStatus : access Interfaces.C.Long
@@ -62201,7 +62664,7 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLError is access IXMLError_Interface'Class;
    type IXMLError_Ptr is access IXMLError;
-   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\urlmon.h>
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/urlmon.h>
    function CreateURLMoniker(
       pMkCtx : LPMONIKER;
       szURL : LPCWSTR;
@@ -62503,7 +62966,7 @@ package Win32 is
    type IBindProtocol_Ptr is access IBindProtocol;
    type LPBINDING is access IBinding; -- CXType_Pointer - CXType_Typedef
    type IBinding_Interface is interface and IUnknown_Interface;
-      function abort_x(This : access IBinding_Interface) return HRESULT is abstract;
+      function abort_x_x(This : access IBinding_Interface) return HRESULT is abstract;
       function Suspend(This : access IBinding_Interface) return HRESULT is abstract;
       function Resume(This : access IBinding_Interface) return HRESULT is abstract;
       function SetPriority(
@@ -63166,7 +63629,7 @@ package Win32 is
    type IWinInetFileStream_Ptr is access IWinInetFileStream;
    type LPWINDOWFORBINDINGUI is access IWindowForBindingUI; -- CXType_Pointer - CXType_Typedef
    type IWindowForBindingUI_Interface is interface and IUnknown_Interface;
-      function GetWindow(
+      function GetWindow_x(
          This : access IWindowForBindingUI_Interface;
          rguidReason : access constant GUID;
          phwnd : access HWND
@@ -63326,7 +63789,7 @@ package Win32 is
          This : access IUri_Interface;
          pbstrPassword : access BSTR
       ) return HRESULT is abstract;
-      function GetPath(
+      function GetPath_x(
          This : access IUri_Interface;
          pbstrPath : access BSTR
       ) return HRESULT is abstract;
@@ -63350,7 +63813,7 @@ package Win32 is
          This : access IUri_Interface;
          pbstrUserInfo : access BSTR
       ) return HRESULT is abstract;
-      function GetUserNameA(
+      function GetUserNameA_x(
          This : access IUri_Interface;
          pbstrUserName : access BSTR
       ) return HRESULT is abstract;
@@ -63419,7 +63882,7 @@ package Win32 is
          dwReserved : DWORD_PTR;
          ppIUri : access IUri_Ptr
       ) return HRESULT is abstract;
-      function CreateUri(
+      function CreateUri_x(
          This : access IUriBuilder_Interface;
          dwCreateFlags : DWORD;
          dwAllowEncodingPropertyMask : DWORD;
@@ -63457,7 +63920,7 @@ package Win32 is
          pcchPassword : access DWORD;
          ppwzPassword : access LPCWSTR
       ) return HRESULT is abstract;
-      function GetPath(
+      function GetPath_x(
          This : access IUriBuilder_Interface;
          pcchPath : access DWORD;
          ppwzPath : access LPCWSTR
@@ -63477,7 +63940,7 @@ package Win32 is
          pcchSchemeName : access DWORD;
          ppwzSchemeName : access LPCWSTR
       ) return HRESULT is abstract;
-      function GetUserNameA(
+      function GetUserNameA_x(
          This : access IUriBuilder_Interface;
          pcchUserName : access DWORD;
          ppwzUserName : access LPCWSTR
@@ -63498,7 +63961,7 @@ package Win32 is
          This : access IUriBuilder_Interface;
          pwzNewValue : LPCWSTR
       ) return HRESULT is abstract;
-      function SetPortA(
+      function SetPortA_x(
          This : access IUriBuilder_Interface;
          fHasPort : BOOL;
          dwNewValue : DWORD
@@ -63964,7 +64427,7 @@ package Win32 is
          This : access IInternetProtocolRoot_Interface;
          pProtocolData : access PROTOCOLDATA
       ) return HRESULT is abstract;
-      function abort_x(
+      function abort_x_x(
          This : access IInternetProtocolRoot_Interface;
          hrReason : HRESULT;
          dwOptions : DWORD
@@ -64483,7 +64946,7 @@ package Win32 is
    ) return HRESULT;
    pragma import (C,CoInternetCreateZoneManager,"CoInternetCreateZoneManager");
    type IInternetSecurityMgrSite_Interface is interface and IUnknown_Interface;
-      function GetWindow(
+      function GetWindow_x(
          This : access IInternetSecurityMgrSite_Interface;
          phwnd : access HWND
       ) return HRESULT is abstract;
@@ -65011,7 +65474,7 @@ package Win32 is
          szCodeBase : access LPWSTR;
          dwMaxSize : LPDWORD
       ) return HRESULT is abstract;
-      function AsyncInstallDistributionUnit(
+      function AsyncInstallDistributionUnit_x(
          This : access ISoftDistExt_Interface;
          pbc : access IBindCtx;
          pvReserved : LPVOID;
@@ -65186,6 +65649,50 @@ package Win32 is
       ) return HRESULT is abstract;
    type IBindHttpSecurity is access IBindHttpSecurity_Interface'Class;
    type IBindHttpSecurity_Ptr is access IBindHttpSecurity;
+   function BSTR_UserSize_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize_x_x,"BSTR_UserSize");
+   procedure BSTR_UserFree_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree_x_x,"BSTR_UserFree");
+   function HWND_UserSize_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HWND
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HWND_UserSize_x,"HWND_UserSize");
+   procedure HWND_UserFree_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HWND
+   );
+   pragma import (C,HWND_UserFree_x,"HWND_UserFree");
+   function BSTR_UserSize64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize64_x_x,"BSTR_UserSize64");
+   procedure BSTR_UserFree64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree64_x_x,"BSTR_UserFree64");
+   function HWND_UserSize64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HWND
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HWND_UserSize64_x,"HWND_UserSize64");
+   procedure HWND_UserFree64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HWND
+   );
+   pragma import (C,HWND_UserFree64_x,"HWND_UserFree64");
    function IBinding_GetBindResult_Proxy(
       This : access IBinding;
       pclsidProtocol : access CLSID;
@@ -65342,6 +65849,20 @@ package Win32 is
       PIDMSI_STATUS_OTHER => 32767
    );
    for PIDMSI_STATUS_VALUE'Size use 32;
+   function PropVariantCopy_x(
+      pvarDest : access PROPVARIANT;
+      pvarSrc : access constant PROPVARIANT
+   ) return HRESULT;
+   pragma import (C,PropVariantCopy_x,"PropVariantCopy");
+   function PropVariantClear_x(
+      pvar : access PROPVARIANT
+   ) return HRESULT;
+   pragma import (C,PropVariantClear_x,"PropVariantClear");
+   function FreePropVariantArray_x(
+      cVariants : ULONG;
+      rgvars : access PROPVARIANT
+   ) return HRESULT;
+   pragma import (C,FreePropVariantArray_x,"FreePropVariantArray");
    -- PropVariantInit(); -- inlined function not supported
    type tagSERIALIZEDPROPERTYVALUE is record
       dwType : DWORD;
@@ -65355,6 +65876,78 @@ package Win32 is
       pma : access Void
    ) return BOOLEAN;
    pragma import (C,StgConvertPropertyToVariant,"StgConvertPropertyToVariant");
+   function BSTR_UserSize_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize_x_x_x,"BSTR_UserSize");
+   procedure BSTR_UserFree_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree_x_x_x,"BSTR_UserFree");
+   function LPSAFEARRAY_UserSize_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access LPSAFEARRAY
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,LPSAFEARRAY_UserSize_x,"LPSAFEARRAY_UserSize");
+   procedure LPSAFEARRAY_UserFree_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access LPSAFEARRAY
+   );
+   pragma import (C,LPSAFEARRAY_UserFree_x,"LPSAFEARRAY_UserFree");
+   function BSTR_UserSize64_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize64_x_x_x,"BSTR_UserSize64");
+   procedure BSTR_UserFree64_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree64_x_x_x,"BSTR_UserFree64");
+   function LPSAFEARRAY_UserSize64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access LPSAFEARRAY
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,LPSAFEARRAY_UserSize64_x,"LPSAFEARRAY_UserSize64");
+   procedure LPSAFEARRAY_UserFree64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access LPSAFEARRAY
+   );
+   pragma import (C,LPSAFEARRAY_UserFree64_x,"LPSAFEARRAY_UserFree64");
+   function IEnumSTATPROPSTG_Next_Proxy_x(
+      This : access IEnumSTATPROPSTG;
+      celt : ULONG;
+      rgelt : access STATPROPSTG;
+      pceltFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumSTATPROPSTG_Next_Proxy_x,"IEnumSTATPROPSTG_Next_Proxy");
+   function IEnumSTATPROPSTG_Next_Stub_x(
+      This : access IEnumSTATPROPSTG;
+      celt : ULONG;
+      rgelt : access STATPROPSTG;
+      pceltFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumSTATPROPSTG_Next_Stub_x,"IEnumSTATPROPSTG_Next_Stub");
+   function IEnumSTATPROPSETSTG_Next_Proxy_x(
+      This : access IEnumSTATPROPSETSTG;
+      celt : ULONG;
+      rgelt : access STATPROPSETSTG;
+      pceltFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumSTATPROPSETSTG_Next_Proxy_x,"IEnumSTATPROPSETSTG_Next_Proxy");
+   function IEnumSTATPROPSETSTG_Next_Stub_x(
+      This : access IEnumSTATPROPSETSTG;
+      celt : ULONG;
+      rgelt : access STATPROPSETSTG;
+      pceltFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumSTATPROPSETSTG_Next_Stub_x,"IEnumSTATPROPSETSTG_Next_Stub");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\objbase.h>
    function CreateStdProgressIndicator(
       hwndParent : HWND;
@@ -66801,6 +67394,16 @@ package Win32 is
       pdecOut : access DECIMAL
    ) return HRESULT;
    pragma import (C,VarDecFromUI8,"VarDecFromUI8");
+   function VarI4FromI8_x(
+      i64In : LONG64;
+      plOut : access LONG
+   ) return HRESULT;
+   pragma import (C,VarI4FromI8_x,"VarI4FromI8");
+   function VarI4FromUI8_x(
+      ui64In : ULONG64;
+      plOut : access LONG
+   ) return HRESULT;
+   pragma import (C,VarI4FromUI8_x,"VarI4FromUI8");
    type NUMPARSE is record
       cDig : INT;
       dwInFlags : ULONG;
@@ -66940,6 +67543,7 @@ package Win32 is
       dwFlags : ULONG
    ) return HRESULT;
    pragma import (C,VarCmp,"VarCmp");
+   -- VarCmp_x(); -- inlined function not supported
    function VarDecAdd(
       pdecLeft : LPDECIMAL;
       pdecRight : LPDECIMAL;
@@ -67425,6 +68029,10 @@ package Win32 is
    procedure OaEnablePerUserTLibRegistration;
    pragma import (C,OaEnablePerUserTLibRegistration,"OaEnablePerUserTLibRegistration");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/ole2.h>
+   function CreateDataAdviseHolder_x(
+      ppDAHolder : access LPDATAADVISEHOLDER
+   ) return HRESULT;
+   pragma import (C,CreateDataAdviseHolder_x,"CreateDataAdviseHolder");
    function OleBuildVersion return DWORD;
    pragma import (C,OleBuildVersion,"OleBuildVersion");
    function WriteFmtUserTypeStg(
@@ -71922,6 +72530,13 @@ package Win32 is
       FTA_AlwaysUseDirectInvoke => 4194304
    );
    for FILETYPEATTRIBUTEFLAGS'Size use 32;
+   -- operator|_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator|=_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator&_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator&=_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator~_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator^_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator^=_x_x_x_x_x_x(); -- inlined function not supported
    type IQueryAssociations_Interface is interface and IUnknown_Interface;
       function Init(
          This : access IQueryAssociations_Interface;
@@ -72527,6 +73142,7277 @@ package Win32 is
    pragma import (C,DllInstall,"DllInstall");
    function IsInternetESCEnabled return BOOL;
    pragma import (C,IsInternetESCEnabled,"IsInternetESCEnabled");
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\ComSvcs.h>
+   type ISecurityIdentityColl; -- Forward Declaration
+   type ISecurityCallersColl; -- Forward Declaration
+   type ISecurityCallContext; -- Forward Declaration
+   type IGetSecurityCallContext; -- Forward Declaration
+   type SecurityProperty; -- Forward Declaration
+   type ContextInfo; -- Forward Declaration
+   type ContextInfo2; -- Forward Declaration
+   type ObjectContext; -- Forward Declaration
+   type ITransactionContextEx; -- Forward Declaration
+   type ITransactionContext; -- Forward Declaration
+   type ICreateWithTransactionEx; -- Forward Declaration
+   type ICreateWithLocalTransaction; -- Forward Declaration
+   type ICreateWithTipTransactionEx; -- Forward Declaration
+   type IComLTxEvents; -- Forward Declaration
+   type IComUserEvent; -- Forward Declaration
+   type IComThreadEvents; -- Forward Declaration
+   type IComAppEvents; -- Forward Declaration
+   type IComInstanceEvents; -- Forward Declaration
+   type IComTransactionEvents; -- Forward Declaration
+   type IComMethodEvents; -- Forward Declaration
+   type IComObjectEvents; -- Forward Declaration
+   type IComResourceEvents; -- Forward Declaration
+   type IComSecurityEvents; -- Forward Declaration
+   type IComObjectPoolEvents; -- Forward Declaration
+   type IComObjectPoolEvents2; -- Forward Declaration
+   type IComObjectConstructionEvents; -- Forward Declaration
+   type IComActivityEvents; -- Forward Declaration
+   type IComIdentityEvents; -- Forward Declaration
+   type IComQCEvents; -- Forward Declaration
+   type IComExceptionEvents; -- Forward Declaration
+   type ILBEvents; -- Forward Declaration
+   type IComCRMEvents; -- Forward Declaration
+   type IComMethod2Events; -- Forward Declaration
+   type IComTrackingInfoEvents; -- Forward Declaration
+   type IComTrackingInfoCollection; -- Forward Declaration
+   type IComTrackingInfoObject; -- Forward Declaration
+   type IComTrackingInfoProperties; -- Forward Declaration
+   type IComApp2Events; -- Forward Declaration
+   type IComTransaction2Events; -- Forward Declaration
+   type IComInstance2Events; -- Forward Declaration
+   type IComObjectPool2Events; -- Forward Declaration
+   type IComObjectConstruction2Events; -- Forward Declaration
+   type ISystemAppEventData; -- Forward Declaration
+   type IMtsEvents; -- Forward Declaration
+   type IMtsEventInfo; -- Forward Declaration
+   type IMTSLocator; -- Forward Declaration
+   type IMtsGrp; -- Forward Declaration
+   type IMessageMover; -- Forward Declaration
+   type IEventServerTrace; -- Forward Declaration
+   type IGetAppTrackerData; -- Forward Declaration
+   type IDispenserManager; -- Forward Declaration
+   type IHolder; -- Forward Declaration
+   type IDispenserDriver; -- Forward Declaration
+   type ITransactionProxy; -- Forward Declaration
+   type IContextSecurityPerimeter; -- Forward Declaration
+   type ITxProxyHolder; -- Forward Declaration
+   type IObjectContext; -- Forward Declaration
+   type IObjectControl; -- Forward Declaration
+   type IEnumNames; -- Forward Declaration
+   type ISecurityProperty; -- Forward Declaration
+   type ObjectControl; -- Forward Declaration
+   type ISharedProperty; -- Forward Declaration
+   type ISharedPropertyGroup; -- Forward Declaration
+   type ISharedPropertyGroupManager; -- Forward Declaration
+   type IObjectConstruct; -- Forward Declaration
+   type IObjectConstructString; -- Forward Declaration
+   type IObjectContextActivity; -- Forward Declaration
+   type IObjectContextInfo; -- Forward Declaration
+   type IObjectContextInfo2; -- Forward Declaration
+   type ITransactionStatus; -- Forward Declaration
+   type IObjectContextTip; -- Forward Declaration
+   type IPlaybackControl; -- Forward Declaration
+   type IGetContextProperties; -- Forward Declaration
+   type IContextState; -- Forward Declaration
+   type IPoolManager; -- Forward Declaration
+   type ISelectCOMLBServer; -- Forward Declaration
+   type ICOMLBArguments; -- Forward Declaration
+   type ICrmLogControl; -- Forward Declaration
+   type ICrmCompensatorVariants; -- Forward Declaration
+   type ICrmCompensator; -- Forward Declaration
+   type ICrmMonitorLogRecords; -- Forward Declaration
+   type ICrmMonitorClerks; -- Forward Declaration
+   type ICrmMonitor; -- Forward Declaration
+   type ICrmFormatLogRecords; -- Forward Declaration
+   type IServiceIISIntrinsicsConfig; -- Forward Declaration
+   type IServiceComTIIntrinsicsConfig; -- Forward Declaration
+   type IServiceSxsConfig; -- Forward Declaration
+   type ICheckSxsConfig; -- Forward Declaration
+   type IServiceInheritanceConfig; -- Forward Declaration
+   type IServiceThreadPoolConfig; -- Forward Declaration
+   type IServiceTransactionConfigBase; -- Forward Declaration
+   type IServiceTransactionConfig; -- Forward Declaration
+   type IServiceSysTxnConfig; -- Forward Declaration
+   type IServiceSynchronizationConfig; -- Forward Declaration
+   type IServiceTrackerConfig; -- Forward Declaration
+   type IServicePartitionConfig; -- Forward Declaration
+   type IServiceCall; -- Forward Declaration
+   type IAsyncErrorNotify; -- Forward Declaration
+   type IServiceActivity; -- Forward Declaration
+   type IThreadPoolKnobs; -- Forward Declaration
+   type IComStaThreadPoolKnobs; -- Forward Declaration
+   type IComMtaThreadPoolKnobs; -- Forward Declaration
+   type IComStaThreadPoolKnobs2; -- Forward Declaration
+   type IProcessInitializer; -- Forward Declaration
+   type IServicePoolConfig; -- Forward Declaration
+   type IServicePool; -- Forward Declaration
+   type IManagedPooledObj; -- Forward Declaration
+   type IManagedPoolAction; -- Forward Declaration
+   type IManagedObjectInfo; -- Forward Declaration
+   type IAppDomainHelper; -- Forward Declaration
+   type IAssemblyLocator; -- Forward Declaration
+   type IManagedActivationEvents; -- Forward Declaration
+   type ISendMethodEvents; -- Forward Declaration
+   type ITransactionResourcePool; -- Forward Declaration
+   type IMTSCall; -- Forward Declaration
+   type IContextProperties; -- Forward Declaration
+   type IObjPool; -- Forward Declaration
+   type ITransactionProperty; -- Forward Declaration
+   type IMTSActivity; -- Forward Declaration
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/ocidl.h>
+   type IEnumConnections; -- Forward Declaration
+   type IEnumConnectionPoints; -- Forward Declaration
+   type IConnectionPointContainer; -- Forward Declaration
+   type IClassFactory2; -- Forward Declaration
+   type IProvideClassInfo; -- Forward Declaration
+   type IProvideClassInfo2; -- Forward Declaration
+   type IProvideMultipleClassInfo; -- Forward Declaration
+   type IOleControl; -- Forward Declaration
+   type IOleControlSite; -- Forward Declaration
+   type IPropertyPage; -- Forward Declaration
+   type IPropertyPage2; -- Forward Declaration
+   type IPropertyPageSite; -- Forward Declaration
+   type IPropertyNotifySink; -- Forward Declaration
+   type ISpecifyPropertyPages; -- Forward Declaration
+   type IPersistMemory; -- Forward Declaration
+   type IPersistStreamInit; -- Forward Declaration
+   type IPersistPropertyBag; -- Forward Declaration
+   type ISimpleFrameSite; -- Forward Declaration
+   type IFont; -- Forward Declaration
+   type IPicture; -- Forward Declaration
+   type IPicture2; -- Forward Declaration
+   type IFontEventsDisp; -- Forward Declaration
+   type IFontDisp; -- Forward Declaration
+   type IPictureDisp; -- Forward Declaration
+   type IOleInPlaceObjectWindowless; -- Forward Declaration
+   type IOleInPlaceSiteEx; -- Forward Declaration
+   type IOleInPlaceSiteWindowless; -- Forward Declaration
+   type IViewObjectEx; -- Forward Declaration
+   type IOleUndoUnit; -- Forward Declaration
+   type IOleParentUndoUnit; -- Forward Declaration
+   type IEnumOleUndoUnits; -- Forward Declaration
+   type IOleUndoManager; -- Forward Declaration
+   type IPointerInactive; -- Forward Declaration
+   type IObjectWithSite; -- Forward Declaration
+   type IPerPropertyBrowsing; -- Forward Declaration
+   type IPropertyBag2; -- Forward Declaration
+   type IPersistPropertyBag2; -- Forward Declaration
+   type IAdviseSinkEx; -- Forward Declaration
+   type IQuickActivate; -- Forward Declaration
+   type tagUASFLAGS is (
+      UAS_NORMAL,
+      UAS_BLOCKED,
+      UAS_NOPARENTENABLE,
+      UAS_MASK
+   );
+   for tagUASFLAGS use (
+      UAS_NORMAL => 0,
+      UAS_BLOCKED => 1,
+      UAS_NOPARENTENABLE => 2,
+      UAS_MASK => 3
+   );
+   for tagUASFLAGS'Size use 32;
+   subtype UASFLAGS is tagUASFLAGS; -- CXType_Elaborated
+   type tagREADYSTATE is (
+      READYSTATE_UNINITIALIZED,
+      READYSTATE_LOADING,
+      READYSTATE_LOADED,
+      READYSTATE_INTERACTIVE,
+      READYSTATE_COMPLETE
+   );
+   for tagREADYSTATE use (
+      READYSTATE_UNINITIALIZED => 0,
+      READYSTATE_LOADING => 1,
+      READYSTATE_LOADED => 2,
+      READYSTATE_INTERACTIVE => 3,
+      READYSTATE_COMPLETE => 4
+   );
+   for tagREADYSTATE'Size use 32;
+   subtype READYSTATE is tagREADYSTATE; -- CXType_Elaborated
+   type PENUMCONNECTIONS is access IEnumConnections; -- CXType_Pointer - CXType_Typedef
+   type LPENUMCONNECTIONS is access IEnumConnections; -- CXType_Pointer - CXType_Typedef
+   type tagCONNECTDATA is record
+      pUnk : access IUnknown;
+      dwCookie : DWORD;
+   end record;
+   subtype CONNECTDATA is tagCONNECTDATA; -- CXType_Elaborated
+   type PCONNECTDATA is access tagCONNECTDATA; -- CXType_Pointer - CXType_Elaborated
+   type LPCONNECTDATA is access tagCONNECTDATA; -- CXType_Pointer - CXType_Elaborated
+   type IEnumConnections_Interface is interface and IUnknown_Interface;
+      function Next(
+         This : access IEnumConnections_Interface;
+         cConnections : ULONG;
+         rgcd : LPCONNECTDATA;
+         pcFetched : access ULONG
+      ) return HRESULT is abstract;
+      function Skip(
+         This : access IEnumConnections_Interface;
+         cConnections : ULONG
+      ) return HRESULT is abstract;
+      function Reset(This : access IEnumConnections_Interface) return HRESULT is abstract;
+      function Clone(
+         This : access IEnumConnections_Interface;
+         ppEnum : access LPVOID
+      ) return HRESULT is abstract;
+   type IEnumConnections is access IEnumConnections_Interface'Class;
+   type IEnumConnections_Ptr is access IEnumConnections;
+   function IEnumConnections_RemoteNext_Proxy(
+      This : access IEnumConnections;
+      cConnections : ULONG;
+      rgcd : LPCONNECTDATA;
+      pcFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumConnections_RemoteNext_Proxy,"IEnumConnections_RemoteNext_Proxy");
+   procedure IEnumConnections_RemoteNext_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,IEnumConnections_RemoteNext_Stub,"IEnumConnections_RemoteNext_Stub");
+   type PCONNECTIONPOINT is access IConnectionPoint; -- CXType_Pointer - CXType_Typedef
+   type LPCONNECTIONPOINT is access IConnectionPoint; -- CXType_Pointer - CXType_Typedef
+   type IConnectionPointContainer_Ptr is access all IConnectionPointContainer; -- Auto Generated Dependancy
+   type IConnectionPoint_Interface is interface and IUnknown_Interface;
+      function GetConnectionInterface(
+         This : access IConnectionPoint_Interface;
+         pIID : access IID
+      ) return HRESULT is abstract;
+      function GetConnectionPointContainer(
+         This : access IConnectionPoint_Interface;
+         ppCPC : access IConnectionPointContainer_Ptr
+      ) return HRESULT is abstract;
+      function Advise(
+         This : access IConnectionPoint_Interface;
+         pUnkSink : access Void;
+         pdwCookie : access DWORD
+      ) return HRESULT is abstract;
+      function Unadvise(
+         This : access IConnectionPoint_Interface;
+         dwCookie : DWORD
+      ) return HRESULT is abstract;
+      function EnumConnections(
+         This : access IConnectionPoint_Interface;
+         ppEnum : access PENUMCONNECTIONS
+      ) return HRESULT is abstract;
+   type IConnectionPoint is access IConnectionPoint_Interface'Class;
+   type PENUMCONNECTIONPOINTS is access IEnumConnectionPoints; -- CXType_Pointer - CXType_Typedef
+   type LPENUMCONNECTIONPOINTS is access IEnumConnectionPoints; -- CXType_Pointer - CXType_Typedef
+   type IEnumConnectionPoints_Interface is interface and IUnknown_Interface;
+      function Next(
+         This : access IEnumConnectionPoints_Interface;
+         cConnections : ULONG;
+         ppCP : access LPCONNECTIONPOINT;
+         pcFetched : access ULONG
+      ) return HRESULT is abstract;
+      function Skip(
+         This : access IEnumConnectionPoints_Interface;
+         cConnections : ULONG
+      ) return HRESULT is abstract;
+      function Reset(This : access IEnumConnectionPoints_Interface) return HRESULT is abstract;
+      function Clone(
+         This : access IEnumConnectionPoints_Interface;
+         ppEnum : access LPVOID
+      ) return HRESULT is abstract;
+   type IEnumConnectionPoints is access IEnumConnectionPoints_Interface'Class;
+   type IEnumConnectionPoints_Ptr is access IEnumConnectionPoints;
+   function IEnumConnectionPoints_RemoteNext_Proxy(
+      This : access IEnumConnectionPoints;
+      cConnections : ULONG;
+      ppCP : access LPCONNECTIONPOINT;
+      pcFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumConnectionPoints_RemoteNext_Proxy,"IEnumConnectionPoints_RemoteNext_Proxy");
+   procedure IEnumConnectionPoints_RemoteNext_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,IEnumConnectionPoints_RemoteNext_Stub,"IEnumConnectionPoints_RemoteNext_Stub");
+   type PCONNECTIONPOINTCONTAINER is access IConnectionPointContainer; -- CXType_Pointer - CXType_Typedef
+   type LPCONNECTIONPOINTCONTAINER is access IConnectionPointContainer; -- CXType_Pointer - CXType_Typedef
+   type IConnectionPointContainer_Interface is interface and IUnknown_Interface;
+      function EnumConnectionPoints(
+         This : access IConnectionPointContainer_Interface;
+         ppEnum : access PENUMCONNECTIONPOINTS
+      ) return HRESULT is abstract;
+      function FindConnectionPoint(
+         This : access IConnectionPointContainer_Interface;
+         riid : access constant IID;
+         ppCP : access PCONNECTIONPOINT
+      ) return HRESULT is abstract;
+   type IConnectionPointContainer is access IConnectionPointContainer_Interface'Class;
+   type LPCLASSFACTORY2 is access IClassFactory2; -- CXType_Pointer - CXType_Typedef
+   type tagLICINFO is record
+      cbLicInfo : LONG;
+      fRuntimeKeyAvail : BOOL;
+      fLicVerified : BOOL;
+   end record;
+   subtype LICINFO is tagLICINFO; -- CXType_Elaborated
+   type LPLICINFO is access tagLICINFO; -- CXType_Pointer - CXType_Elaborated
+   type IClassFactory2_Interface is interface and IClassFactory_Interface;
+      function GetLicInfo(
+         This : access IClassFactory2_Interface;
+         pLicInfo : access LICINFO
+      ) return HRESULT is abstract;
+      function RequestLicKey(
+         This : access IClassFactory2_Interface;
+         dwReserved : DWORD;
+         pBstrKey : access BSTR
+      ) return HRESULT is abstract;
+      function CreateInstanceLic(
+         This : access IClassFactory2_Interface;
+         pUnkOuter : access Void;
+         pUnkReserved : access Void;
+         riid : access constant IID;
+         bstrKey : BSTR;
+         ppvObj : access PVOID
+      ) return HRESULT is abstract;
+   type IClassFactory2 is access IClassFactory2_Interface'Class;
+   type IClassFactory2_Ptr is access IClassFactory2;
+   function IClassFactory2_RemoteCreateInstanceLic_Proxy(
+      This : access IClassFactory2;
+      riid : access constant IID;
+      bstrKey : BSTR;
+      ppvObj : access LPUNKNOWN
+   ) return HRESULT;
+   pragma import (C,IClassFactory2_RemoteCreateInstanceLic_Proxy,"IClassFactory2_RemoteCreateInstanceLic_Proxy");
+   procedure IClassFactory2_RemoteCreateInstanceLic_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,IClassFactory2_RemoteCreateInstanceLic_Stub,"IClassFactory2_RemoteCreateInstanceLic_Stub");
+   type LPPROVIDECLASSINFO is access IProvideClassInfo; -- CXType_Pointer - CXType_Typedef
+   type IProvideClassInfo_Interface is interface and IUnknown_Interface;
+      function GetClassInfoA_x(
+         This : access IProvideClassInfo_Interface;
+         ppTI : access LPTYPEINFO
+      ) return HRESULT is abstract;
+   type IProvideClassInfo is access IProvideClassInfo_Interface'Class;
+   type IProvideClassInfo_Ptr is access IProvideClassInfo;
+   type LPPROVIDECLASSINFO2 is access IProvideClassInfo2; -- CXType_Pointer - CXType_Typedef
+   type tagGUIDKIND is (
+      GUIDKIND_DEFAULT_SOURCE_DISP_IID
+   );
+   for tagGUIDKIND use (
+      GUIDKIND_DEFAULT_SOURCE_DISP_IID => 1
+   );
+   for tagGUIDKIND'Size use 32;
+   subtype GUIDKIND is tagGUIDKIND; -- CXType_Elaborated
+   type IProvideClassInfo2_Interface is interface and IProvideClassInfo_Interface;
+      function GetGUID(
+         This : access IProvideClassInfo2_Interface;
+         dwGuidKind : DWORD;
+         pGUID : access GUID
+      ) return HRESULT is abstract;
+   type IProvideClassInfo2 is access IProvideClassInfo2_Interface'Class;
+   type IProvideClassInfo2_Ptr is access IProvideClassInfo2;
+   type LPPROVIDEMULTIPLECLASSINFO is access IProvideMultipleClassInfo; -- CXType_Pointer - CXType_Typedef
+   type IProvideMultipleClassInfo_Interface is interface and IProvideClassInfo2_Interface;
+      function GetMultiTypeInfoCount(
+         This : access IProvideMultipleClassInfo_Interface;
+         pcti : access ULONG
+      ) return HRESULT is abstract;
+      function GetInfoOfIndex(
+         This : access IProvideMultipleClassInfo_Interface;
+         iti : ULONG;
+         dwFlags : DWORD;
+         pptiCoClass : access LPTYPEINFO;
+         pdwTIFlags : access DWORD;
+         pcdispidReserved : access ULONG;
+         piidPrimary : access IID;
+         piidSource : access IID
+      ) return HRESULT is abstract;
+   type IProvideMultipleClassInfo is access IProvideMultipleClassInfo_Interface'Class;
+   type IProvideMultipleClassInfo_Ptr is access IProvideMultipleClassInfo;
+   type LPOLECONTROL is access IOleControl; -- CXType_Pointer - CXType_Typedef
+   type tagCONTROLINFO is record
+      cb : ULONG;
+      hAccel_x : HACCEL;
+      cAccel : USHORT;
+      dwFlags : DWORD;
+   end record;
+   subtype CONTROLINFO is tagCONTROLINFO; -- CXType_Elaborated
+   type LPCONTROLINFO is access tagCONTROLINFO; -- CXType_Pointer - CXType_Elaborated
+   type tagCTRLINFO is (
+      CTRLINFO_EATS_RETURN,
+      CTRLINFO_EATS_ESCAPE
+   );
+   for tagCTRLINFO use (
+      CTRLINFO_EATS_RETURN => 1,
+      CTRLINFO_EATS_ESCAPE => 2
+   );
+   for tagCTRLINFO'Size use 32;
+   subtype CTRLINFO is tagCTRLINFO; -- CXType_Elaborated
+   type IOleControl_Interface is interface and IUnknown_Interface;
+      function GetControlInfo(
+         This : access IOleControl_Interface;
+         pCI : access CONTROLINFO
+      ) return HRESULT is abstract;
+      function OnMnemonic(
+         This : access IOleControl_Interface;
+         pMsg_x : access MSG
+      ) return HRESULT is abstract;
+      function OnAmbientPropertyChange(
+         This : access IOleControl_Interface;
+         dispID_x : DISPID
+      ) return HRESULT is abstract;
+      function FreezeEvents(
+         This : access IOleControl_Interface;
+         bFreeze : BOOL
+      ) return HRESULT is abstract;
+   type IOleControl is access IOleControl_Interface'Class;
+   type IOleControl_Ptr is access IOleControl;
+   type LPOLECONTROLSITE is access IOleControlSite; -- CXType_Pointer - CXType_Typedef
+   type tagPOINTF is record
+      x : FLOAT;
+      y : FLOAT;
+   end record;
+   subtype POINTF is tagPOINTF; -- CXType_Elaborated
+   type LPPOINTF is access tagPOINTF; -- CXType_Pointer - CXType_Elaborated
+   type tagXFORMCOORDS is (
+      XFORMCOORDS_POSITION,
+      XFORMCOORDS_SIZE,
+      XFORMCOORDS_HIMETRICTOCONTAINER,
+      XFORMCOORDS_CONTAINERTOHIMETRIC,
+      XFORMCOORDS_EVENTCOMPAT
+   );
+   for tagXFORMCOORDS use (
+      XFORMCOORDS_POSITION => 1,
+      XFORMCOORDS_SIZE => 2,
+      XFORMCOORDS_HIMETRICTOCONTAINER => 4,
+      XFORMCOORDS_CONTAINERTOHIMETRIC => 8,
+      XFORMCOORDS_EVENTCOMPAT => 16
+   );
+   for tagXFORMCOORDS'Size use 32;
+   subtype XFORMCOORDS is tagXFORMCOORDS; -- CXType_Elaborated
+   type IOleControlSite_Interface is interface and IUnknown_Interface;
+      function OnControlInfoChanged(This : access IOleControlSite_Interface) return HRESULT is abstract;
+      function LockInPlaceActive(
+         This : access IOleControlSite_Interface;
+         fLock : BOOL
+      ) return HRESULT is abstract;
+      function GetExtendedControl(
+         This : access IOleControlSite_Interface;
+         ppDisp : access LPDISPATCH
+      ) return HRESULT is abstract;
+      function TransformCoords(
+         This : access IOleControlSite_Interface;
+         pPtlHimetric : access POINTL;
+         pPtfContainer : access POINTF;
+         dwFlags : DWORD
+      ) return HRESULT is abstract;
+      function TranslateAcceleratorA_x(
+         This : access IOleControlSite_Interface;
+         pMsg_x : access MSG;
+         grfModifiers : DWORD
+      ) return HRESULT is abstract;
+      function OnFocus(
+         This : access IOleControlSite_Interface;
+         fGotFocus : BOOL
+      ) return HRESULT is abstract;
+      function ShowPropertyFrame(This : access IOleControlSite_Interface) return HRESULT is abstract;
+   type IOleControlSite is access IOleControlSite_Interface'Class;
+   type IOleControlSite_Ptr is access IOleControlSite;
+   type LPPROPERTYPAGE is access IPropertyPage; -- CXType_Pointer - CXType_Typedef
+   type tagPROPPAGEINFO is record
+      cb : ULONG;
+      pszTitle : LPOLESTR;
+      size_x : SIZE;
+      pszDocString : LPOLESTR;
+      pszHelpFile : LPOLESTR;
+      dwHelpContext : DWORD;
+   end record;
+   subtype PROPPAGEINFO is tagPROPPAGEINFO; -- CXType_Elaborated
+   type LPPROPPAGEINFO is access tagPROPPAGEINFO; -- CXType_Pointer - CXType_Elaborated
+   type IPropertyPage_Interface is interface and IUnknown_Interface;
+      function SetPageSite(
+         This : access IPropertyPage_Interface;
+         pPageSite : access IPropertyPageSite
+      ) return HRESULT is abstract;
+      function Activate(
+         This : access IPropertyPage_Interface;
+         hWndParent : HWND;
+         pRect_x : LPCRECT;
+         bModal : BOOL
+      ) return HRESULT is abstract;
+      function Deactivate(This : access IPropertyPage_Interface) return HRESULT is abstract;
+      function GetPageInfo(
+         This : access IPropertyPage_Interface;
+         pPageInfo : access PROPPAGEINFO
+      ) return HRESULT is abstract;
+      function SetObjects(
+         This : access IPropertyPage_Interface;
+         cObjects : ULONG;
+         ppUnk : access LPVOID
+      ) return HRESULT is abstract;
+      function Show(
+         This : access IPropertyPage_Interface;
+         nCmdShow : UINT
+      ) return HRESULT is abstract;
+      function Move(
+         This : access IPropertyPage_Interface;
+         pRect_x : LPCRECT
+      ) return HRESULT is abstract;
+      function IsPageDirty(This : access IPropertyPage_Interface) return HRESULT is abstract;
+      function Apply(This : access IPropertyPage_Interface) return HRESULT is abstract;
+      function Help(
+         This : access IPropertyPage_Interface;
+         pszHelpDir : LPCOLESTR
+      ) return HRESULT is abstract;
+      function TranslateAcceleratorA_x(
+         This : access IPropertyPage_Interface;
+         pMsg_x : access MSG
+      ) return HRESULT is abstract;
+   type IPropertyPage is access IPropertyPage_Interface'Class;
+   type IPropertyPage_Ptr is access IPropertyPage;
+   type LPPROPERTYPAGE2 is access IPropertyPage2; -- CXType_Pointer - CXType_Typedef
+   type IPropertyPage2_Interface is interface and IPropertyPage_Interface;
+      function EditProperty(
+         This : access IPropertyPage2_Interface;
+         dispID_x : DISPID
+      ) return HRESULT is abstract;
+   type IPropertyPage2 is access IPropertyPage2_Interface'Class;
+   type IPropertyPage2_Ptr is access IPropertyPage2;
+   type LPPROPERTYPAGESITE is access IPropertyPageSite; -- CXType_Pointer - CXType_Typedef
+   type tagPROPPAGESTATUS is (
+      PROPPAGESTATUS_DIRTY,
+      PROPPAGESTATUS_VALIDATE,
+      PROPPAGESTATUS_CLEAN
+   );
+   for tagPROPPAGESTATUS use (
+      PROPPAGESTATUS_DIRTY => 1,
+      PROPPAGESTATUS_VALIDATE => 2,
+      PROPPAGESTATUS_CLEAN => 4
+   );
+   for tagPROPPAGESTATUS'Size use 32;
+   subtype PROPPAGESTATUS is tagPROPPAGESTATUS; -- CXType_Elaborated
+   type IPropertyPageSite_Interface is interface and IUnknown_Interface;
+      function OnStatusChange(
+         This : access IPropertyPageSite_Interface;
+         dwFlags : DWORD
+      ) return HRESULT is abstract;
+      function GetLocaleID(
+         This : access IPropertyPageSite_Interface;
+         pLocaleID : access LCID
+      ) return HRESULT is abstract;
+      function GetPageContainer(
+         This : access IPropertyPageSite_Interface;
+         ppUnk : access LPVOID
+      ) return HRESULT is abstract;
+      function TranslateAcceleratorA_x(
+         This : access IPropertyPageSite_Interface;
+         pMsg_x : access MSG
+      ) return HRESULT is abstract;
+   type IPropertyPageSite is access IPropertyPageSite_Interface'Class;
+   type IPropertyPageSite_Ptr is access IPropertyPageSite;
+   type LPPROPERTYNOTIFYSINK is access IPropertyNotifySink; -- CXType_Pointer - CXType_Typedef
+   type IPropertyNotifySink_Interface is interface and IUnknown_Interface;
+      function OnChanged(
+         This : access IPropertyNotifySink_Interface;
+         dispID_x : DISPID
+      ) return HRESULT is abstract;
+      function OnRequestEdit(
+         This : access IPropertyNotifySink_Interface;
+         dispID_x : DISPID
+      ) return HRESULT is abstract;
+   type IPropertyNotifySink is access IPropertyNotifySink_Interface'Class;
+   type IPropertyNotifySink_Ptr is access IPropertyNotifySink;
+   type LPSPECIFYPROPERTYPAGES is access ISpecifyPropertyPages; -- CXType_Pointer - CXType_Typedef
+   type tagCAUUID is record
+      cElems : ULONG;
+      pElems : access GUID;
+   end record;
+   subtype CAUUID is tagCAUUID; -- CXType_Elaborated
+   type LPCAUUID is access tagCAUUID; -- CXType_Pointer - CXType_Elaborated
+   type ISpecifyPropertyPages_Interface is interface and IUnknown_Interface;
+      function GetPages(
+         This : access ISpecifyPropertyPages_Interface;
+         pPages : access CAUUID
+      ) return HRESULT is abstract;
+   type ISpecifyPropertyPages is access ISpecifyPropertyPages_Interface'Class;
+   type ISpecifyPropertyPages_Ptr is access ISpecifyPropertyPages;
+   type LPPERSISTMEMORY is access IPersistMemory; -- CXType_Pointer - CXType_Typedef
+   type IPersistMemory_Interface is interface and IPersist_Interface;
+      function IsDirty(This : access IPersistMemory_Interface) return HRESULT is abstract;
+      function Load(
+         This : access IPersistMemory_Interface;
+         pMem : LPVOID;
+         cbSize : ULONG
+      ) return HRESULT is abstract;
+      function Save(
+         This : access IPersistMemory_Interface;
+         pMem : LPVOID;
+         fClearDirty : BOOL;
+         cbSize : ULONG
+      ) return HRESULT is abstract;
+      function GetSizeMax(
+         This : access IPersistMemory_Interface;
+         pCbSize : access ULONG
+      ) return HRESULT is abstract;
+      function InitNew(This : access IPersistMemory_Interface) return HRESULT is abstract;
+   type IPersistMemory is access IPersistMemory_Interface'Class;
+   type IPersistMemory_Ptr is access IPersistMemory;
+   function IPersistMemory_RemoteLoad_Proxy(
+      This : access IPersistMemory;
+      pMem : access BYTE;
+      cbSize : ULONG
+   ) return HRESULT;
+   pragma import (C,IPersistMemory_RemoteLoad_Proxy,"IPersistMemory_RemoteLoad_Proxy");
+   procedure IPersistMemory_RemoteLoad_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,IPersistMemory_RemoteLoad_Stub,"IPersistMemory_RemoteLoad_Stub");
+   function IPersistMemory_RemoteSave_Proxy(
+      This : access IPersistMemory;
+      pMem : access BYTE;
+      fClearDirty : BOOL;
+      cbSize : ULONG
+   ) return HRESULT;
+   pragma import (C,IPersistMemory_RemoteSave_Proxy,"IPersistMemory_RemoteSave_Proxy");
+   procedure IPersistMemory_RemoteSave_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,IPersistMemory_RemoteSave_Stub,"IPersistMemory_RemoteSave_Stub");
+   type LPPERSISTSTREAMINIT is access IPersistStreamInit; -- CXType_Pointer - CXType_Typedef
+   type IPersistStreamInit_Interface is interface and IPersist_Interface;
+      function IsDirty(This : access IPersistStreamInit_Interface) return HRESULT is abstract;
+      function Load(
+         This : access IPersistStreamInit_Interface;
+         pStm : LPSTREAM
+      ) return HRESULT is abstract;
+      function Save(
+         This : access IPersistStreamInit_Interface;
+         pStm : LPSTREAM;
+         fClearDirty : BOOL
+      ) return HRESULT is abstract;
+      function GetSizeMax(
+         This : access IPersistStreamInit_Interface;
+         pCbSize : access ULARGE_INTEGER
+      ) return HRESULT is abstract;
+      function InitNew(This : access IPersistStreamInit_Interface) return HRESULT is abstract;
+   type IPersistStreamInit is access IPersistStreamInit_Interface'Class;
+   type IPersistStreamInit_Ptr is access IPersistStreamInit;
+   type LPPERSISTPROPERTYBAG is access IPersistPropertyBag; -- CXType_Pointer - CXType_Typedef
+   type IPersistPropertyBag_Interface is interface and IPersist_Interface;
+      function InitNew(This : access IPersistPropertyBag_Interface) return HRESULT is abstract;
+      function Load(
+         This : access IPersistPropertyBag_Interface;
+         pPropBag : access IPropertyBag;
+         pErrorLog : access IErrorLog
+      ) return HRESULT is abstract;
+      function Save(
+         This : access IPersistPropertyBag_Interface;
+         pPropBag : access IPropertyBag;
+         fClearDirty : BOOL;
+         fSaveAllProperties : BOOL
+      ) return HRESULT is abstract;
+   type IPersistPropertyBag is access IPersistPropertyBag_Interface'Class;
+   type IPersistPropertyBag_Ptr is access IPersistPropertyBag;
+   type LPSIMPLEFRAMESITE is access ISimpleFrameSite; -- CXType_Pointer - CXType_Typedef
+   type ISimpleFrameSite_Interface is interface and IUnknown_Interface;
+      function PreMessageFilter(
+         This : access ISimpleFrameSite_Interface;
+         hWnd_x : HWND;
+         msg_x : UINT;
+         wp : WPARAM;
+         lp : LPARAM;
+         plResult : access LRESULT;
+         pdwCookie : access DWORD
+      ) return HRESULT is abstract;
+      function PostMessageFilter(
+         This : access ISimpleFrameSite_Interface;
+         hWnd_x : HWND;
+         msg_x : UINT;
+         wp : WPARAM;
+         lp : LPARAM;
+         plResult : access LRESULT;
+         dwCookie : DWORD
+      ) return HRESULT is abstract;
+   type ISimpleFrameSite is access ISimpleFrameSite_Interface'Class;
+   type ISimpleFrameSite_Ptr is access ISimpleFrameSite;
+   type LPFONT is access IFont; -- CXType_Pointer - CXType_Typedef
+   subtype TEXTMETRICOLE is TEXTMETRICW; -- CXType_Typedef
+   type LPTEXTMETRICOLE is access TEXTMETRICOLE; -- CXType_Pointer - CXType_Typedef
+   type IFont_Interface is interface and IUnknown_Interface;
+      function get_Name(
+         This : access IFont_Interface;
+         pName : access BSTR
+      ) return HRESULT is abstract;
+      function put_Name(
+         This : access IFont_Interface;
+         name : BSTR
+      ) return HRESULT is abstract;
+      function get_Size(
+         This : access IFont_Interface;
+         pSize_x : access CY
+      ) return HRESULT is abstract;
+      function put_Size(
+         This : access IFont_Interface;
+         size_x : CY
+      ) return HRESULT is abstract;
+      function get_Bold(
+         This : access IFont_Interface;
+         pBold : access BOOL
+      ) return HRESULT is abstract;
+      function put_Bold(
+         This : access IFont_Interface;
+         bold : BOOL
+      ) return HRESULT is abstract;
+      function get_Italic(
+         This : access IFont_Interface;
+         pItalic : access BOOL
+      ) return HRESULT is abstract;
+      function put_Italic(
+         This : access IFont_Interface;
+         italic : BOOL
+      ) return HRESULT is abstract;
+      function get_Underline(
+         This : access IFont_Interface;
+         pUnderline : access BOOL
+      ) return HRESULT is abstract;
+      function put_Underline(
+         This : access IFont_Interface;
+         underline : BOOL
+      ) return HRESULT is abstract;
+      function get_Strikethrough(
+         This : access IFont_Interface;
+         pStrikethrough : access BOOL
+      ) return HRESULT is abstract;
+      function put_Strikethrough(
+         This : access IFont_Interface;
+         strikethrough : BOOL
+      ) return HRESULT is abstract;
+      function get_Weight(
+         This : access IFont_Interface;
+         pWeight : access SHORT
+      ) return HRESULT is abstract;
+      function put_Weight(
+         This : access IFont_Interface;
+         weight : SHORT
+      ) return HRESULT is abstract;
+      function get_Charset(
+         This : access IFont_Interface;
+         pCharset : access SHORT
+      ) return HRESULT is abstract;
+      function put_Charset(
+         This : access IFont_Interface;
+         charset : SHORT
+      ) return HRESULT is abstract;
+      function get_hFont(
+         This : access IFont_Interface;
+         phFont : access HFONT
+      ) return HRESULT is abstract;
+      function Clone(
+         This : access IFont_Interface;
+         ppFont : access LPVOID
+      ) return HRESULT is abstract;
+      function IsEqual(
+         This : access IFont_Interface;
+         pFontOther : access Void
+      ) return HRESULT is abstract;
+      function SetRatio(
+         This : access IFont_Interface;
+         cyLogical : LONG;
+         cyHimetric : LONG
+      ) return HRESULT is abstract;
+      function QueryTextMetrics(
+         This : access IFont_Interface;
+         pTM : access TEXTMETRICOLE
+      ) return HRESULT is abstract;
+      function AddRefHfont(
+         This : access IFont_Interface;
+         hFont_x : HFONT
+      ) return HRESULT is abstract;
+      function ReleaseHfont(
+         This : access IFont_Interface;
+         hFont_x : HFONT
+      ) return HRESULT is abstract;
+      function SetHdc(
+         This : access IFont_Interface;
+         hDC_x : HDC
+      ) return HRESULT is abstract;
+   type IFont is access IFont_Interface'Class;
+   type IFont_Ptr is access IFont;
+   type LPPICTURE is access IPicture; -- CXType_Pointer - CXType_Typedef
+   type tagPictureAttributes is (
+      PICTURE_SCALABLE,
+      PICTURE_TRANSPARENT
+   );
+   for tagPictureAttributes use (
+      PICTURE_SCALABLE => 1,
+      PICTURE_TRANSPARENT => 2
+   );
+   for tagPictureAttributes'Size use 32;
+   subtype PICTUREATTRIBUTES is tagPictureAttributes; -- CXType_Elaborated
+   subtype OLE_HANDLE is UINT; -- CXType_Typedef
+   subtype OLE_XPOS_HIMETRIC is LONG; -- CXType_Typedef
+   subtype OLE_YPOS_HIMETRIC is LONG; -- CXType_Typedef
+   subtype OLE_XSIZE_HIMETRIC is LONG; -- CXType_Typedef
+   subtype OLE_YSIZE_HIMETRIC is LONG; -- CXType_Typedef
+   type IPicture_Interface is interface and IUnknown_Interface;
+      function get_Handle(
+         This : access IPicture_Interface;
+         pHandle_x : access OLE_HANDLE
+      ) return HRESULT is abstract;
+      function get_hPal(
+         This : access IPicture_Interface;
+         phPal : access OLE_HANDLE
+      ) return HRESULT is abstract;
+      function get_Type(
+         This : access IPicture_Interface;
+         pType : access SHORT
+      ) return HRESULT is abstract;
+      function get_Width(
+         This : access IPicture_Interface;
+         pWidth : access OLE_XSIZE_HIMETRIC
+      ) return HRESULT is abstract;
+      function get_Height(
+         This : access IPicture_Interface;
+         pHeight : access OLE_YSIZE_HIMETRIC
+      ) return HRESULT is abstract;
+      function Render(
+         This : access IPicture_Interface;
+         hDC_x : HDC;
+         x : LONG;
+         y : LONG;
+         cx : LONG;
+         cy_x : LONG;
+         xSrc : OLE_XPOS_HIMETRIC;
+         ySrc : OLE_YPOS_HIMETRIC;
+         cxSrc : OLE_XSIZE_HIMETRIC;
+         cySrc : OLE_YSIZE_HIMETRIC;
+         pRcWBounds : LPCRECT
+      ) return HRESULT is abstract;
+      function set_hPal(
+         This : access IPicture_Interface;
+         hPal : OLE_HANDLE
+      ) return HRESULT is abstract;
+      function get_CurDC(
+         This : access IPicture_Interface;
+         phDC : access HDC
+      ) return HRESULT is abstract;
+      function SelectPicture(
+         This : access IPicture_Interface;
+         hDCIn : HDC;
+         phDCOut : access HDC;
+         phBmpOut : access OLE_HANDLE
+      ) return HRESULT is abstract;
+      function get_KeepOriginalFormat(
+         This : access IPicture_Interface;
+         pKeep : access BOOL
+      ) return HRESULT is abstract;
+      function put_KeepOriginalFormat(
+         This : access IPicture_Interface;
+         keep : BOOL
+      ) return HRESULT is abstract;
+      function PictureChanged(This : access IPicture_Interface) return HRESULT is abstract;
+      function SaveAsFile(
+         This : access IPicture_Interface;
+         pStream : LPSTREAM;
+         fSaveMemCopy : BOOL;
+         pCbSize : access LONG
+      ) return HRESULT is abstract;
+      function get_Attributes(
+         This : access IPicture_Interface;
+         pDwAttr : access DWORD
+      ) return HRESULT is abstract;
+   type IPicture is access IPicture_Interface'Class;
+   type IPicture_Ptr is access IPicture;
+   type LPPICTURE2 is access IPicture2; -- CXType_Pointer - CXType_Typedef
+   subtype HHANDLE is UINT_PTR; -- CXType_Typedef
+   type IPicture2_Interface is interface and IUnknown_Interface;
+      function get_Handle(
+         This : access IPicture2_Interface;
+         pHandle_x : access HHANDLE
+      ) return HRESULT is abstract;
+      function get_hPal(
+         This : access IPicture2_Interface;
+         phPal : access HHANDLE
+      ) return HRESULT is abstract;
+      function get_Type(
+         This : access IPicture2_Interface;
+         pType : access SHORT
+      ) return HRESULT is abstract;
+      function get_Width(
+         This : access IPicture2_Interface;
+         pWidth : access OLE_XSIZE_HIMETRIC
+      ) return HRESULT is abstract;
+      function get_Height(
+         This : access IPicture2_Interface;
+         pHeight : access OLE_YSIZE_HIMETRIC
+      ) return HRESULT is abstract;
+      function Render(
+         This : access IPicture2_Interface;
+         hDC_x : HDC;
+         x : LONG;
+         y : LONG;
+         cx : LONG;
+         cy_x : LONG;
+         xSrc : OLE_XPOS_HIMETRIC;
+         ySrc : OLE_YPOS_HIMETRIC;
+         cxSrc : OLE_XSIZE_HIMETRIC;
+         cySrc : OLE_YSIZE_HIMETRIC;
+         pRcWBounds : LPCRECT
+      ) return HRESULT is abstract;
+      function set_hPal(
+         This : access IPicture2_Interface;
+         hPal : HHANDLE
+      ) return HRESULT is abstract;
+      function get_CurDC(
+         This : access IPicture2_Interface;
+         phDC : access HDC
+      ) return HRESULT is abstract;
+      function SelectPicture(
+         This : access IPicture2_Interface;
+         hDCIn : HDC;
+         phDCOut : access HDC;
+         phBmpOut : access HHANDLE
+      ) return HRESULT is abstract;
+      function get_KeepOriginalFormat(
+         This : access IPicture2_Interface;
+         pKeep : access BOOL
+      ) return HRESULT is abstract;
+      function put_KeepOriginalFormat(
+         This : access IPicture2_Interface;
+         keep : BOOL
+      ) return HRESULT is abstract;
+      function PictureChanged(This : access IPicture2_Interface) return HRESULT is abstract;
+      function SaveAsFile(
+         This : access IPicture2_Interface;
+         pStream : LPSTREAM;
+         fSaveMemCopy : BOOL;
+         pCbSize : access LONG
+      ) return HRESULT is abstract;
+      function get_Attributes(
+         This : access IPicture2_Interface;
+         pDwAttr : access DWORD
+      ) return HRESULT is abstract;
+   type IPicture2 is access IPicture2_Interface'Class;
+   type IPicture2_Ptr is access IPicture2;
+   type LPFONTEVENTS is access IFontEventsDisp; -- CXType_Pointer - CXType_Typedef
+   type LPFONTDISP is access IFontDisp; -- CXType_Pointer - CXType_Typedef
+   type LPPICTUREDISP is access IPictureDisp; -- CXType_Pointer - CXType_Typedef
+   type LPOLEINPLACEOBJECTWINDOWLESS is access IOleInPlaceObjectWindowless; -- CXType_Pointer - CXType_Typedef
+   type IOleInPlaceObjectWindowless_Interface is interface and IOleInPlaceObject_Interface;
+      function OnWindowMessage(
+         This : access IOleInPlaceObjectWindowless_Interface;
+         msg_x : UINT;
+         wParam_x : WPARAM;
+         lParam_x : LPARAM;
+         plResult : access LRESULT
+      ) return HRESULT is abstract;
+      function GetDropTarget(
+         This : access IOleInPlaceObjectWindowless_Interface;
+         ppDropTarget : access LPDROPTARGET
+      ) return HRESULT is abstract;
+   type IOleInPlaceObjectWindowless is access IOleInPlaceObjectWindowless_Interface'Class;
+   type IOleInPlaceObjectWindowless_Ptr is access IOleInPlaceObjectWindowless;
+   type LPOLEINPLACESITEEX is access IOleInPlaceSiteEx; -- CXType_Pointer - CXType_Typedef
+   type tagACTIVATEFLAGS is (
+      ACTIVATE_WINDOWLESS
+   );
+   for tagACTIVATEFLAGS use (
+      ACTIVATE_WINDOWLESS => 1
+   );
+   for tagACTIVATEFLAGS'Size use 32;
+   subtype ACTIVATEFLAGS is tagACTIVATEFLAGS; -- CXType_Elaborated
+   type IOleInPlaceSiteEx_Interface is interface and IOleInPlaceSite_Interface;
+      function OnInPlaceActivateEx(
+         This : access IOleInPlaceSiteEx_Interface;
+         pfNoRedraw : access BOOL;
+         dwFlags : DWORD
+      ) return HRESULT is abstract;
+      function OnInPlaceDeactivateEx(
+         This : access IOleInPlaceSiteEx_Interface;
+         fNoRedraw : BOOL
+      ) return HRESULT is abstract;
+      function RequestUIActivate(This : access IOleInPlaceSiteEx_Interface) return HRESULT is abstract;
+   type IOleInPlaceSiteEx is access IOleInPlaceSiteEx_Interface'Class;
+   type IOleInPlaceSiteEx_Ptr is access IOleInPlaceSiteEx;
+   type LPOLEINPLACESITEWINDOWLESS is access IOleInPlaceSiteWindowless; -- CXType_Pointer - CXType_Typedef
+   type tagOLEDCFLAGS is (
+      OLEDC_NODRAW,
+      OLEDC_PAINTBKGND,
+      OLEDC_OFFSCREEN
+   );
+   for tagOLEDCFLAGS use (
+      OLEDC_NODRAW => 1,
+      OLEDC_PAINTBKGND => 2,
+      OLEDC_OFFSCREEN => 4
+   );
+   for tagOLEDCFLAGS'Size use 32;
+   subtype OLEDCFLAGS is tagOLEDCFLAGS; -- CXType_Elaborated
+   type IOleInPlaceSiteWindowless_Interface is interface and IOleInPlaceSiteEx_Interface;
+      function CanWindowlessActivate(This : access IOleInPlaceSiteWindowless_Interface) return HRESULT is abstract;
+      function GetCapture_x(This : access IOleInPlaceSiteWindowless_Interface) return HRESULT is abstract;
+      function SetCapture_x(
+         This : access IOleInPlaceSiteWindowless_Interface;
+         fCapture : BOOL
+      ) return HRESULT is abstract;
+      function GetFocus_x(This : access IOleInPlaceSiteWindowless_Interface) return HRESULT is abstract;
+      function SetFocus_x(
+         This : access IOleInPlaceSiteWindowless_Interface;
+         fFocus : BOOL
+      ) return HRESULT is abstract;
+      function GetDC_x(
+         This : access IOleInPlaceSiteWindowless_Interface;
+         pRect_x : LPCRECT;
+         grfFlags : DWORD;
+         phDC : access HDC
+      ) return HRESULT is abstract;
+      function ReleaseDC_x(
+         This : access IOleInPlaceSiteWindowless_Interface;
+         hDC_x : HDC
+      ) return HRESULT is abstract;
+      function InvalidateRect_x(
+         This : access IOleInPlaceSiteWindowless_Interface;
+         pRect_x : LPCRECT;
+         fErase : BOOL
+      ) return HRESULT is abstract;
+      function InvalidateRgn_x(
+         This : access IOleInPlaceSiteWindowless_Interface;
+         hRGN_x : HRGN;
+         fErase : BOOL
+      ) return HRESULT is abstract;
+      function ScrollRect(
+         This : access IOleInPlaceSiteWindowless_Interface;
+         dx : INT;
+         dy : INT;
+         pRectScroll : LPCRECT;
+         pRectClip : LPCRECT
+      ) return HRESULT is abstract;
+      function AdjustRect(
+         This : access IOleInPlaceSiteWindowless_Interface;
+         prc : LPRECT
+      ) return HRESULT is abstract;
+      function OnDefWindowMessage(
+         This : access IOleInPlaceSiteWindowless_Interface;
+         msg_x : UINT;
+         wParam_x : WPARAM;
+         lParam_x : LPARAM;
+         plResult : access LRESULT
+      ) return HRESULT is abstract;
+   type IOleInPlaceSiteWindowless is access IOleInPlaceSiteWindowless_Interface'Class;
+   type IOleInPlaceSiteWindowless_Ptr is access IOleInPlaceSiteWindowless;
+   type LPVIEWOBJECTEX is access IViewObjectEx; -- CXType_Pointer - CXType_Typedef
+   type tagVIEWSTATUS is (
+      VIEWSTATUS_OPAQUE,
+      VIEWSTATUS_SOLIDBKGND,
+      VIEWSTATUS_DVASPECTOPAQUE,
+      VIEWSTATUS_DVASPECTTRANSPARENT,
+      VIEWSTATUS_SURFACE,
+      VIEWSTATUS_3DSURFACE
+   );
+   for tagVIEWSTATUS use (
+      VIEWSTATUS_OPAQUE => 1,
+      VIEWSTATUS_SOLIDBKGND => 2,
+      VIEWSTATUS_DVASPECTOPAQUE => 4,
+      VIEWSTATUS_DVASPECTTRANSPARENT => 8,
+      VIEWSTATUS_SURFACE => 16,
+      VIEWSTATUS_3DSURFACE => 32
+   );
+   for tagVIEWSTATUS'Size use 32;
+   subtype VIEWSTATUS is tagVIEWSTATUS; -- CXType_Elaborated
+   type tagHITRESULT is (
+      HITRESULT_OUTSIDE,
+      HITRESULT_TRANSPARENT,
+      HITRESULT_CLOSE,
+      HITRESULT_HIT
+   );
+   for tagHITRESULT use (
+      HITRESULT_OUTSIDE => 0,
+      HITRESULT_TRANSPARENT => 1,
+      HITRESULT_CLOSE => 2,
+      HITRESULT_HIT => 3
+   );
+   for tagHITRESULT'Size use 32;
+   subtype HITRESULT is tagHITRESULT; -- CXType_Elaborated
+   type tagDVASPECT2 is (
+      DVASPECT_OPAQUE,
+      DVASPECT_TRANSPARENT
+   );
+   for tagDVASPECT2 use (
+      DVASPECT_OPAQUE => 16,
+      DVASPECT_TRANSPARENT => 32
+   );
+   for tagDVASPECT2'Size use 32;
+   subtype DVASPECT2 is tagDVASPECT2; -- CXType_Elaborated
+   type tagExtentInfo is record
+      cb : ULONG;
+      dwExtentMode : DWORD;
+      sizelProposed : SIZEL;
+   end record;
+   subtype DVEXTENTINFO is tagExtentInfo; -- CXType_Elaborated
+   type tagExtentMode is (
+      DVEXTENT_CONTENT,
+      DVEXTENT_INTEGRAL
+   );
+   for tagExtentMode use (
+      DVEXTENT_CONTENT => 0,
+      DVEXTENT_INTEGRAL => 1
+   );
+   for tagExtentMode'Size use 32;
+   subtype DVEXTENTMODE is tagExtentMode; -- CXType_Elaborated
+   type tagAspectInfoFlag is (
+      DVASPECTINFOFLAG_CANOPTIMIZE
+   );
+   for tagAspectInfoFlag use (
+      DVASPECTINFOFLAG_CANOPTIMIZE => 1
+   );
+   for tagAspectInfoFlag'Size use 32;
+   subtype DVASPECTINFOFLAG is tagAspectInfoFlag; -- CXType_Elaborated
+   type tagAspectInfo is record
+      cb : ULONG;
+      dwFlags : DWORD;
+   end record;
+   subtype DVASPECTINFO is tagAspectInfo; -- CXType_Elaborated
+   type IViewObjectEx_Interface is interface and IViewObject2_Interface;
+      function GetRect(
+         This : access IViewObjectEx_Interface;
+         dwAspect : DWORD;
+         pRect_x : LPRECTL
+      ) return HRESULT is abstract;
+      function GetViewStatus(
+         This : access IViewObjectEx_Interface;
+         pdwStatus : access DWORD
+      ) return HRESULT is abstract;
+      function QueryHitPoint(
+         This : access IViewObjectEx_Interface;
+         dwAspect : DWORD;
+         pRectBounds : LPCRECT;
+         ptlLoc : POINT;
+         lCloseHint : LONG;
+         pHitResult : access DWORD
+      ) return HRESULT is abstract;
+      function QueryHitRect(
+         This : access IViewObjectEx_Interface;
+         dwAspect : DWORD;
+         pRectBounds : LPCRECT;
+         pRectLoc : LPCRECT;
+         lCloseHint : LONG;
+         pHitResult : access DWORD
+      ) return HRESULT is abstract;
+      function GetNaturalExtent(
+         This : access IViewObjectEx_Interface;
+         dwAspect : DWORD;
+         lindex : LONG;
+         ptd : access DVTARGETDEVICE;
+         hicTargetDev : HDC;
+         pExtentInfo : access DVEXTENTINFO;
+         pSizel_x : LPSIZEL
+      ) return HRESULT is abstract;
+   type IViewObjectEx is access IViewObjectEx_Interface'Class;
+   type IViewObjectEx_Ptr is access IViewObjectEx;
+   type LPOLEUNDOUNIT is access IOleUndoUnit; -- CXType_Pointer - CXType_Typedef
+   type IOleUndoUnit_Interface is interface and IUnknown_Interface;
+      function do_x(
+         This : access IOleUndoUnit_Interface;
+         pUndoManager : access IOleUndoManager
+      ) return HRESULT is abstract;
+      function GetDescription(
+         This : access IOleUndoUnit_Interface;
+         pBstr : access BSTR
+      ) return HRESULT is abstract;
+      function GetUnitType(
+         This : access IOleUndoUnit_Interface;
+         pClsid : access CLSID;
+         plID : access LONG
+      ) return HRESULT is abstract;
+      function OnNextAdd(This : access IOleUndoUnit_Interface) return HRESULT is abstract;
+   type IOleUndoUnit is access IOleUndoUnit_Interface'Class;
+   type IOleUndoUnit_Ptr is access IOleUndoUnit;
+   type LPOLEPARENTUNDOUNIT is access IOleParentUndoUnit; -- CXType_Pointer - CXType_Typedef
+   type IOleParentUndoUnit_Interface is interface and IOleUndoUnit_Interface;
+      function Open(
+         This : access IOleParentUndoUnit_Interface;
+         pPUU : access Void
+      ) return HRESULT is abstract;
+      function Close(
+         This : access IOleParentUndoUnit_Interface;
+         pPUU : access Void;
+         fCommit : BOOL
+      ) return HRESULT is abstract;
+      function Add(
+         This : access IOleParentUndoUnit_Interface;
+         pUU : access Void
+      ) return HRESULT is abstract;
+      function FindUnit(
+         This : access IOleParentUndoUnit_Interface;
+         pUU : access Void
+      ) return HRESULT is abstract;
+      function GetParentState(
+         This : access IOleParentUndoUnit_Interface;
+         pdwState : access DWORD
+      ) return HRESULT is abstract;
+   type IOleParentUndoUnit is access IOleParentUndoUnit_Interface'Class;
+   type IOleParentUndoUnit_Ptr is access IOleParentUndoUnit;
+   type LPENUMOLEUNDOUNITS is access IEnumOleUndoUnits; -- CXType_Pointer - CXType_Typedef
+   type IEnumOleUndoUnits_Interface is interface and IUnknown_Interface;
+      function Next(
+         This : access IEnumOleUndoUnits_Interface;
+         cElt : ULONG;
+         rgElt : access LPOLEUNDOUNIT;
+         pcEltFetched : access ULONG
+      ) return HRESULT is abstract;
+      function Skip(
+         This : access IEnumOleUndoUnits_Interface;
+         cElt : ULONG
+      ) return HRESULT is abstract;
+      function Reset(This : access IEnumOleUndoUnits_Interface) return HRESULT is abstract;
+      function Clone(
+         This : access IEnumOleUndoUnits_Interface;
+         ppEnum : access LPVOID
+      ) return HRESULT is abstract;
+   type IEnumOleUndoUnits is access IEnumOleUndoUnits_Interface'Class;
+   type IEnumOleUndoUnits_Ptr is access IEnumOleUndoUnits;
+   function IEnumOleUndoUnits_RemoteNext_Proxy(
+      This : access IEnumOleUndoUnits;
+      cElt : ULONG;
+      rgElt : access LPOLEUNDOUNIT;
+      pcEltFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumOleUndoUnits_RemoteNext_Proxy,"IEnumOleUndoUnits_RemoteNext_Proxy");
+   procedure IEnumOleUndoUnits_RemoteNext_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,IEnumOleUndoUnits_RemoteNext_Stub,"IEnumOleUndoUnits_RemoteNext_Stub");
+   type LPOLEUNDOMANAGER is access IOleUndoManager; -- CXType_Pointer - CXType_Typedef
+   type IOleUndoManager_Interface is interface and IUnknown_Interface;
+      function Open(
+         This : access IOleUndoManager_Interface;
+         pPUU : access IOleParentUndoUnit
+      ) return HRESULT is abstract;
+      function Close(
+         This : access IOleUndoManager_Interface;
+         pPUU : access IOleParentUndoUnit;
+         fCommit : BOOL
+      ) return HRESULT is abstract;
+      function Add(
+         This : access IOleUndoManager_Interface;
+         pUU : access IOleUndoUnit
+      ) return HRESULT is abstract;
+      function GetOpenParentState(
+         This : access IOleUndoManager_Interface;
+         pdwState : access DWORD
+      ) return HRESULT is abstract;
+      function DiscardFrom(
+         This : access IOleUndoManager_Interface;
+         pUU : access IOleUndoUnit
+      ) return HRESULT is abstract;
+      function UndoTo(
+         This : access IOleUndoManager_Interface;
+         pUU : access IOleUndoUnit
+      ) return HRESULT is abstract;
+      function RedoTo(
+         This : access IOleUndoManager_Interface;
+         pUU : access IOleUndoUnit
+      ) return HRESULT is abstract;
+      function EnumUndoable(
+         This : access IOleUndoManager_Interface;
+         ppEnum : access LPENUMOLEUNDOUNITS
+      ) return HRESULT is abstract;
+      function EnumRedoable(
+         This : access IOleUndoManager_Interface;
+         ppEnum : access LPENUMOLEUNDOUNITS
+      ) return HRESULT is abstract;
+      function GetLastUndoDescription(
+         This : access IOleUndoManager_Interface;
+         pBstr : access BSTR
+      ) return HRESULT is abstract;
+      function GetLastRedoDescription(
+         This : access IOleUndoManager_Interface;
+         pBstr : access BSTR
+      ) return HRESULT is abstract;
+      function Enable(
+         This : access IOleUndoManager_Interface;
+         fEnable : BOOL
+      ) return HRESULT is abstract;
+   type IOleUndoManager is access IOleUndoManager_Interface'Class;
+   type IOleUndoManager_Ptr is access IOleUndoManager;
+   type LPPOINTERINACTIVE is access IPointerInactive; -- CXType_Pointer - CXType_Typedef
+   type tagPOINTERINACTIVE is (
+      POINTERINACTIVE_ACTIVATEONENTRY,
+      POINTERINACTIVE_DEACTIVATEONLEAVE,
+      POINTERINACTIVE_ACTIVATEONDRAG
+   );
+   for tagPOINTERINACTIVE use (
+      POINTERINACTIVE_ACTIVATEONENTRY => 1,
+      POINTERINACTIVE_DEACTIVATEONLEAVE => 2,
+      POINTERINACTIVE_ACTIVATEONDRAG => 4
+   );
+   for tagPOINTERINACTIVE'Size use 32;
+   subtype POINTERINACTIVE is tagPOINTERINACTIVE; -- CXType_Elaborated
+   type IPointerInactive_Interface is interface and IUnknown_Interface;
+      function GetActivationPolicy(
+         This : access IPointerInactive_Interface;
+         pdwPolicy : access DWORD
+      ) return HRESULT is abstract;
+      function OnInactiveMouseMove(
+         This : access IPointerInactive_Interface;
+         pRectBounds : LPCRECT;
+         x : LONG;
+         y : LONG;
+         grfKeyState : DWORD
+      ) return HRESULT is abstract;
+      function OnInactiveSetCursor(
+         This : access IPointerInactive_Interface;
+         pRectBounds : LPCRECT;
+         x : LONG;
+         y : LONG;
+         dwMouseMsg : DWORD;
+         fSetAlways : BOOL
+      ) return HRESULT is abstract;
+   type IPointerInactive is access IPointerInactive_Interface'Class;
+   type IPointerInactive_Ptr is access IPointerInactive;
+   type LPOBJECTWITHSITE is access IObjectWithSite; -- CXType_Pointer - CXType_Typedef
+   type IObjectWithSite_Interface is interface and IUnknown_Interface;
+      function SetSite(
+         This : access IObjectWithSite_Interface;
+         pUnkSite : access Void
+      ) return HRESULT is abstract;
+      function GetSite(
+         This : access IObjectWithSite_Interface;
+         riid : access constant IID;
+         ppvSite : access LPVOID
+      ) return HRESULT is abstract;
+   type IObjectWithSite is access IObjectWithSite_Interface'Class;
+   type IObjectWithSite_Ptr is access IObjectWithSite;
+   type LPPERPROPERTYBROWSING is access IPerPropertyBrowsing; -- CXType_Pointer - CXType_Typedef
+   type tagCALPOLESTR is record
+      cElems : ULONG;
+      pElems : access LPOLESTR;
+   end record;
+   subtype CALPOLESTR is tagCALPOLESTR; -- CXType_Elaborated
+   type LPCALPOLESTR is access tagCALPOLESTR; -- CXType_Pointer - CXType_Elaborated
+   type tagCADWORD is record
+      cElems : ULONG;
+      pElems : access DWORD;
+   end record;
+   subtype CADWORD is tagCADWORD; -- CXType_Elaborated
+   type LPCADWORD is access tagCADWORD; -- CXType_Pointer - CXType_Elaborated
+   type IPerPropertyBrowsing_Interface is interface and IUnknown_Interface;
+      function GetDisplayString(
+         This : access IPerPropertyBrowsing_Interface;
+         dispID_x : DISPID;
+         pBstr : access BSTR
+      ) return HRESULT is abstract;
+      function MapPropertyToPage(
+         This : access IPerPropertyBrowsing_Interface;
+         dispID_x : DISPID;
+         pClsid : access CLSID
+      ) return HRESULT is abstract;
+      function GetPredefinedStrings(
+         This : access IPerPropertyBrowsing_Interface;
+         dispID_x : DISPID;
+         pCaStringsOut : access CALPOLESTR;
+         pCaCookiesOut : access CADWORD
+      ) return HRESULT is abstract;
+      function GetPredefinedValue(
+         This : access IPerPropertyBrowsing_Interface;
+         dispID_x : DISPID;
+         dwCookie : DWORD;
+         pVarOut : access VARIANT
+      ) return HRESULT is abstract;
+   type IPerPropertyBrowsing is access IPerPropertyBrowsing_Interface'Class;
+   type IPerPropertyBrowsing_Ptr is access IPerPropertyBrowsing;
+   type LPPROPERTYBAG2 is access IPropertyBag2; -- CXType_Pointer - CXType_Typedef
+   type tagPROPBAG2_TYPE is (
+      PROPBAG2_TYPE_UNDEFINED,
+      PROPBAG2_TYPE_DATA,
+      PROPBAG2_TYPE_URL,
+      PROPBAG2_TYPE_OBJECT,
+      PROPBAG2_TYPE_STREAM,
+      PROPBAG2_TYPE_STORAGE,
+      PROPBAG2_TYPE_MONIKER
+   );
+   for tagPROPBAG2_TYPE use (
+      PROPBAG2_TYPE_UNDEFINED => 0,
+      PROPBAG2_TYPE_DATA => 1,
+      PROPBAG2_TYPE_URL => 2,
+      PROPBAG2_TYPE_OBJECT => 3,
+      PROPBAG2_TYPE_STREAM => 4,
+      PROPBAG2_TYPE_STORAGE => 5,
+      PROPBAG2_TYPE_MONIKER => 6
+   );
+   for tagPROPBAG2_TYPE'Size use 32;
+   subtype PROPBAG2_TYPE is tagPROPBAG2_TYPE; -- CXType_Elaborated
+   type tagPROPBAG2 is record
+      dwType : DWORD;
+      vt : VARTYPE;
+      cfType : CLIPFORMAT;
+      dwHint : DWORD;
+      pstrName : LPOLESTR;
+      clsid_x : CLSID;
+   end record;
+   subtype PROPBAG2 is tagPROPBAG2; -- CXType_Elaborated
+   type IPropertyBag2_Interface is interface and IUnknown_Interface;
+      function Read(
+         This : access IPropertyBag2_Interface;
+         cProperties : ULONG;
+         pPropBag : access PROPBAG2;
+         pErrLog : access IErrorLog;
+         pvarValue : access VARIANT;
+         phrError : access HRESULT
+      ) return HRESULT is abstract;
+      function Write(
+         This : access IPropertyBag2_Interface;
+         cProperties : ULONG;
+         pPropBag : access PROPBAG2;
+         pvarValue : access VARIANT
+      ) return HRESULT is abstract;
+      function CountProperties(
+         This : access IPropertyBag2_Interface;
+         pcProperties : access ULONG
+      ) return HRESULT is abstract;
+      function GetPropertyInfo(
+         This : access IPropertyBag2_Interface;
+         iProperty : ULONG;
+         cProperties : ULONG;
+         pPropBag : access PROPBAG2;
+         pcProperties : access ULONG
+      ) return HRESULT is abstract;
+      function LoadObject(
+         This : access IPropertyBag2_Interface;
+         pstrName : LPCOLESTR;
+         dwHint : DWORD;
+         pUnkObject : access Void;
+         pErrLog : access IErrorLog
+      ) return HRESULT is abstract;
+   type IPropertyBag2 is access IPropertyBag2_Interface'Class;
+   type IPropertyBag2_Ptr is access IPropertyBag2;
+   type LPPERSISTPROPERTYBAG2 is access IPersistPropertyBag2; -- CXType_Pointer - CXType_Typedef
+   type IPersistPropertyBag2_Interface is interface and IPersist_Interface;
+      function InitNew(This : access IPersistPropertyBag2_Interface) return HRESULT is abstract;
+      function Load(
+         This : access IPersistPropertyBag2_Interface;
+         pPropBag : access IPropertyBag2;
+         pErrLog : access IErrorLog
+      ) return HRESULT is abstract;
+      function Save(
+         This : access IPersistPropertyBag2_Interface;
+         pPropBag : access IPropertyBag2;
+         fClearDirty : BOOL;
+         fSaveAllProperties : BOOL
+      ) return HRESULT is abstract;
+      function IsDirty(This : access IPersistPropertyBag2_Interface) return HRESULT is abstract;
+   type IPersistPropertyBag2 is access IPersistPropertyBag2_Interface'Class;
+   type IPersistPropertyBag2_Ptr is access IPersistPropertyBag2;
+   type LPADVISESINKEX is access IAdviseSinkEx; -- CXType_Pointer - CXType_Typedef
+   type IAdviseSinkEx_Interface is interface and IAdviseSink_Interface;
+      procedure OnViewStatusChange(
+         This : access IAdviseSinkEx_Interface;
+         dwViewStatus : DWORD
+      ) is abstract;
+   type IAdviseSinkEx is access IAdviseSinkEx_Interface'Class;
+   type IAdviseSinkEx_Ptr is access IAdviseSinkEx;
+   function IAdviseSinkEx_RemoteOnViewStatusChange_Proxy(
+      This : access IAdviseSinkEx;
+      dwViewStatus : DWORD
+   ) return HRESULT;
+   pragma import (C,IAdviseSinkEx_RemoteOnViewStatusChange_Proxy,"IAdviseSinkEx_RemoteOnViewStatusChange_Proxy");
+   procedure IAdviseSinkEx_RemoteOnViewStatusChange_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,IAdviseSinkEx_RemoteOnViewStatusChange_Stub,"IAdviseSinkEx_RemoteOnViewStatusChange_Stub");
+   type LPQUICKACTIVATE is access IQuickActivate; -- CXType_Pointer - CXType_Typedef
+   type tagQACONTAINERFLAGS is (
+      QACONTAINER_SHOWHATCHING,
+      QACONTAINER_SHOWGRABHANDLES,
+      QACONTAINER_USERMODE,
+      QACONTAINER_DISPLAYASDEFAULT,
+      QACONTAINER_UIDEAD,
+      QACONTAINER_AUTOCLIP,
+      QACONTAINER_MESSAGEREFLECT,
+      QACONTAINER_SUPPORTSMNEMONICS
+   );
+   for tagQACONTAINERFLAGS use (
+      QACONTAINER_SHOWHATCHING => 1,
+      QACONTAINER_SHOWGRABHANDLES => 2,
+      QACONTAINER_USERMODE => 4,
+      QACONTAINER_DISPLAYASDEFAULT => 8,
+      QACONTAINER_UIDEAD => 16,
+      QACONTAINER_AUTOCLIP => 32,
+      QACONTAINER_MESSAGEREFLECT => 64,
+      QACONTAINER_SUPPORTSMNEMONICS => 128
+   );
+   for tagQACONTAINERFLAGS'Size use 32;
+   subtype QACONTAINERFLAGS is tagQACONTAINERFLAGS; -- CXType_Elaborated
+   subtype OLE_COLOR is DWORD; -- CXType_Typedef
+   type tagQACONTAINER is record
+      cbSize : ULONG;
+      pClientSite : access IOleClientSite;
+      pAdviseSink : access IAdviseSinkEx;
+      pPropertyNotifySink : access IPropertyNotifySink;
+      pUnkEventSink : access IUnknown;
+      dwAmbientFlags : DWORD;
+      colorFore : OLE_COLOR;
+      colorBack : OLE_COLOR;
+      pFont : access IFont;
+      pUndoMgr : access IOleUndoManager;
+      dwAppearance : DWORD;
+      lcid_x : LONG;
+      hpal : HPALETTE;
+      pBindHost : access IBindHost;
+      pOleControlSite : access IOleControlSite;
+      pServiceProvider : access IServiceProvider;
+   end record;
+   subtype QACONTAINER is tagQACONTAINER; -- CXType_Elaborated
+   type tagQACONTROL is record
+      cbSize : ULONG;
+      dwMiscStatus : DWORD;
+      dwViewStatus : DWORD;
+      dwEventCookie : DWORD;
+      dwPropNotifyCookie : DWORD;
+      dwPointerActivationPolicy : DWORD;
+   end record;
+   subtype QACONTROL is tagQACONTROL; -- CXType_Elaborated
+   type IQuickActivate_Interface is interface and IUnknown_Interface;
+      function QuickActivate(
+         This : access IQuickActivate_Interface;
+         pQaContainer : access QACONTAINER;
+         pQaControl : access QACONTROL
+      ) return HRESULT is abstract;
+      function SetContentExtent(
+         This : access IQuickActivate_Interface;
+         pSizel_x : LPSIZEL
+      ) return HRESULT is abstract;
+      function GetContentExtent(
+         This : access IQuickActivate_Interface;
+         pSizel_x : LPSIZEL
+      ) return HRESULT is abstract;
+   type IQuickActivate is access IQuickActivate_Interface'Class;
+   type IQuickActivate_Ptr is access IQuickActivate;
+   function IQuickActivate_RemoteQuickActivate_Proxy(
+      This : access IQuickActivate;
+      pQaContainer : access QACONTAINER;
+      pQaControl : access QACONTROL
+   ) return HRESULT;
+   pragma import (C,IQuickActivate_RemoteQuickActivate_Proxy,"IQuickActivate_RemoteQuickActivate_Proxy");
+   procedure IQuickActivate_RemoteQuickActivate_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,IQuickActivate_RemoteQuickActivate_Stub,"IQuickActivate_RemoteQuickActivate_Stub");
+   function BSTR_UserSize_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize_x_x_x_x,"BSTR_UserSize");
+   procedure BSTR_UserFree_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree_x_x_x_x,"BSTR_UserFree");
+   function CLIPFORMAT_UserSize_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access CLIPFORMAT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,CLIPFORMAT_UserSize_x_x,"CLIPFORMAT_UserSize");
+   procedure CLIPFORMAT_UserFree_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access CLIPFORMAT
+   );
+   pragma import (C,CLIPFORMAT_UserFree_x_x,"CLIPFORMAT_UserFree");
+   function HACCEL_UserSize_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HACCEL
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HACCEL_UserSize_x,"HACCEL_UserSize");
+   procedure HACCEL_UserFree_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HACCEL
+   );
+   pragma import (C,HACCEL_UserFree_x,"HACCEL_UserFree");
+   function HDC_UserSize_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HDC
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HDC_UserSize_x_x,"HDC_UserSize");
+   procedure HDC_UserFree_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HDC
+   );
+   pragma import (C,HDC_UserFree_x_x,"HDC_UserFree");
+   function HFONT_UserSize(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HFONT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HFONT_UserSize,"HFONT_UserSize");
+   procedure HFONT_UserFree(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HFONT
+   );
+   pragma import (C,HFONT_UserFree,"HFONT_UserFree");
+   function HPALETTE_UserSize(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HPALETTE
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HPALETTE_UserSize,"HPALETTE_UserSize");
+   procedure HPALETTE_UserFree(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HPALETTE
+   );
+   pragma import (C,HPALETTE_UserFree,"HPALETTE_UserFree");
+   function HRGN_UserSize(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HRGN
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HRGN_UserSize,"HRGN_UserSize");
+   procedure HRGN_UserFree(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HRGN
+   );
+   pragma import (C,HRGN_UserFree,"HRGN_UserFree");
+   function HWND_UserSize_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HWND
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HWND_UserSize_x_x,"HWND_UserSize");
+   procedure HWND_UserFree_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HWND
+   );
+   pragma import (C,HWND_UserFree_x_x,"HWND_UserFree");
+   function VARIANT_UserSize_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access VARIANT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,VARIANT_UserSize_x,"VARIANT_UserSize");
+   procedure VARIANT_UserFree_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access VARIANT
+   );
+   pragma import (C,VARIANT_UserFree_x,"VARIANT_UserFree");
+   function BSTR_UserSize64_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize64_x_x_x_x,"BSTR_UserSize64");
+   procedure BSTR_UserFree64_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree64_x_x_x_x,"BSTR_UserFree64");
+   function CLIPFORMAT_UserSize64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access CLIPFORMAT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,CLIPFORMAT_UserSize64_x_x,"CLIPFORMAT_UserSize64");
+   procedure CLIPFORMAT_UserFree64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access CLIPFORMAT
+   );
+   pragma import (C,CLIPFORMAT_UserFree64_x_x,"CLIPFORMAT_UserFree64");
+   function HACCEL_UserSize64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HACCEL
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HACCEL_UserSize64_x,"HACCEL_UserSize64");
+   procedure HACCEL_UserFree64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HACCEL
+   );
+   pragma import (C,HACCEL_UserFree64_x,"HACCEL_UserFree64");
+   function HDC_UserSize64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HDC
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HDC_UserSize64_x_x,"HDC_UserSize64");
+   procedure HDC_UserFree64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HDC
+   );
+   pragma import (C,HDC_UserFree64_x_x,"HDC_UserFree64");
+   function HFONT_UserSize64(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HFONT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HFONT_UserSize64,"HFONT_UserSize64");
+   procedure HFONT_UserFree64(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HFONT
+   );
+   pragma import (C,HFONT_UserFree64,"HFONT_UserFree64");
+   function HPALETTE_UserSize64(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HPALETTE
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HPALETTE_UserSize64,"HPALETTE_UserSize64");
+   procedure HPALETTE_UserFree64(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HPALETTE
+   );
+   pragma import (C,HPALETTE_UserFree64,"HPALETTE_UserFree64");
+   function HRGN_UserSize64(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HRGN
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HRGN_UserSize64,"HRGN_UserSize64");
+   procedure HRGN_UserFree64(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HRGN
+   );
+   pragma import (C,HRGN_UserFree64,"HRGN_UserFree64");
+   function HWND_UserSize64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HWND
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HWND_UserSize64_x_x,"HWND_UserSize64");
+   procedure HWND_UserFree64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HWND
+   );
+   pragma import (C,HWND_UserFree64_x_x,"HWND_UserFree64");
+   function VARIANT_UserSize64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access VARIANT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,VARIANT_UserSize64_x,"VARIANT_UserSize64");
+   procedure VARIANT_UserFree64_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access VARIANT
+   );
+   pragma import (C,VARIANT_UserFree64_x,"VARIANT_UserFree64");
+   function IEnumConnections_Next_Proxy(
+      This : access IEnumConnections;
+      cConnections : ULONG;
+      rgcd : LPCONNECTDATA;
+      pcFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumConnections_Next_Proxy,"IEnumConnections_Next_Proxy");
+   function IEnumConnections_Next_Stub(
+      This : access IEnumConnections;
+      cConnections : ULONG;
+      rgcd : LPCONNECTDATA;
+      pcFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumConnections_Next_Stub,"IEnumConnections_Next_Stub");
+   function IEnumConnectionPoints_Next_Proxy(
+      This : access IEnumConnectionPoints;
+      cConnections : ULONG;
+      ppCP : access LPCONNECTIONPOINT;
+      pcFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumConnectionPoints_Next_Proxy,"IEnumConnectionPoints_Next_Proxy");
+   function IEnumConnectionPoints_Next_Stub(
+      This : access IEnumConnectionPoints;
+      cConnections : ULONG;
+      ppCP : access LPCONNECTIONPOINT;
+      pcFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumConnectionPoints_Next_Stub,"IEnumConnectionPoints_Next_Stub");
+   function IClassFactory2_CreateInstanceLic_Proxy(
+      This : access IClassFactory2;
+      pUnkOuter : access IUnknown;
+      pUnkReserved : access IUnknown;
+      riid : access constant IID;
+      bstrKey : BSTR;
+      ppvObj : access PVOID
+   ) return HRESULT;
+   pragma import (C,IClassFactory2_CreateInstanceLic_Proxy,"IClassFactory2_CreateInstanceLic_Proxy");
+   function IClassFactory2_CreateInstanceLic_Stub(
+      This : access IClassFactory2;
+      riid : access constant IID;
+      bstrKey : BSTR;
+      ppvObj : access LPUNKNOWN
+   ) return HRESULT;
+   pragma import (C,IClassFactory2_CreateInstanceLic_Stub,"IClassFactory2_CreateInstanceLic_Stub");
+   function IPersistMemory_Load_Proxy(
+      This : access IPersistMemory;
+      pMem : LPVOID;
+      cbSize : ULONG
+   ) return HRESULT;
+   pragma import (C,IPersistMemory_Load_Proxy,"IPersistMemory_Load_Proxy");
+   function IPersistMemory_Load_Stub(
+      This : access IPersistMemory;
+      pMem : access BYTE;
+      cbSize : ULONG
+   ) return HRESULT;
+   pragma import (C,IPersistMemory_Load_Stub,"IPersistMemory_Load_Stub");
+   function IPersistMemory_Save_Proxy(
+      This : access IPersistMemory;
+      pMem : LPVOID;
+      fClearDirty : BOOL;
+      cbSize : ULONG
+   ) return HRESULT;
+   pragma import (C,IPersistMemory_Save_Proxy,"IPersistMemory_Save_Proxy");
+   function IPersistMemory_Save_Stub(
+      This : access IPersistMemory;
+      pMem : access BYTE;
+      fClearDirty : BOOL;
+      cbSize : ULONG
+   ) return HRESULT;
+   pragma import (C,IPersistMemory_Save_Stub,"IPersistMemory_Save_Stub");
+   function IEnumOleUndoUnits_Next_Proxy(
+      This : access IEnumOleUndoUnits;
+      cElt : ULONG;
+      rgElt : access LPOLEUNDOUNIT;
+      pcEltFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumOleUndoUnits_Next_Proxy,"IEnumOleUndoUnits_Next_Proxy");
+   function IEnumOleUndoUnits_Next_Stub(
+      This : access IEnumOleUndoUnits;
+      cElt : ULONG;
+      rgElt : access LPOLEUNDOUNIT;
+      pcEltFetched : access ULONG
+   ) return HRESULT;
+   pragma import (C,IEnumOleUndoUnits_Next_Stub,"IEnumOleUndoUnits_Next_Stub");
+   procedure IAdviseSinkEx_OnViewStatusChange_Proxy(
+      This : access IAdviseSinkEx;
+      dwViewStatus : DWORD
+   );
+   pragma import (C,IAdviseSinkEx_OnViewStatusChange_Proxy,"IAdviseSinkEx_OnViewStatusChange_Proxy");
+   function IAdviseSinkEx_OnViewStatusChange_Stub(
+      This : access IAdviseSinkEx;
+      dwViewStatus : DWORD
+   ) return HRESULT;
+   pragma import (C,IAdviseSinkEx_OnViewStatusChange_Stub,"IAdviseSinkEx_OnViewStatusChange_Stub");
+   function IQuickActivate_QuickActivate_Proxy(
+      This : access IQuickActivate;
+      pQaContainer : access QACONTAINER;
+      pQaControl : access QACONTROL
+   ) return HRESULT;
+   pragma import (C,IQuickActivate_QuickActivate_Proxy,"IQuickActivate_QuickActivate_Proxy");
+   function IQuickActivate_QuickActivate_Stub(
+      This : access IQuickActivate;
+      pQaContainer : access QACONTAINER;
+      pQaControl : access QACONTROL
+   ) return HRESULT;
+   pragma import (C,IQuickActivate_QuickActivate_Stub,"IQuickActivate_QuickActivate_Stub");
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/comadmin.h>
+   type ICOMAdminCatalog; -- Forward Declaration
+   type ICOMAdminCatalog2; -- Forward Declaration
+   type ICatalogObject; -- Forward Declaration
+   type ICatalogCollection; -- Forward Declaration
+   type ICOMAdminCatalog_Interface is interface and IDispatch_Interface;
+      function GetCollection(
+         This : access ICOMAdminCatalog_Interface;
+         bstrCollName : BSTR;
+         ppCatalogCollection : access LPVOID
+      ) return HRESULT is abstract;
+      function Connect_x(
+         This : access ICOMAdminCatalog_Interface;
+         bstrCatalogServerName : BSTR;
+         ppCatalogCollection : access LPVOID
+      ) return HRESULT is abstract;
+      function get_MajorVersion(
+         This : access ICOMAdminCatalog_Interface;
+         plMajorVersion : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function get_MinorVersion(
+         This : access ICOMAdminCatalog_Interface;
+         plMinorVersion : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function GetCollectionByQuery(
+         This : access ICOMAdminCatalog_Interface;
+         bstrCollName : BSTR;
+         ppsaVarQuery : access LPSAFEARRAY;
+         ppCatalogCollection : access LPVOID
+      ) return HRESULT is abstract;
+      function ImportComponent(
+         This : access ICOMAdminCatalog_Interface;
+         bstrApplIDOrName : BSTR;
+         bstrCLSIDOrProgID : BSTR
+      ) return HRESULT is abstract;
+      function InstallComponent(
+         This : access ICOMAdminCatalog_Interface;
+         bstrApplIDOrName : BSTR;
+         bstrDLL : BSTR;
+         bstrTLB : BSTR;
+         bstrPSDLL : BSTR
+      ) return HRESULT is abstract;
+      function ShutdownApplication(
+         This : access ICOMAdminCatalog_Interface;
+         bstrApplIDOrName : BSTR
+      ) return HRESULT is abstract;
+      function ExportApplication(
+         This : access ICOMAdminCatalog_Interface;
+         bstrApplIDOrName : BSTR;
+         bstrApplicationFile : BSTR;
+         lOptions : Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function InstallApplication(
+         This : access ICOMAdminCatalog_Interface;
+         bstrApplicationFile : BSTR;
+         bstrDestinationDirectory : BSTR;
+         lOptions : Interfaces.C.Long;
+         bstrUserId : BSTR;
+         bstrPassword : BSTR;
+         bstrRSN : BSTR
+      ) return HRESULT is abstract;
+      function StopRouter(This : access ICOMAdminCatalog_Interface) return HRESULT is abstract;
+      function RefreshRouter(This : access ICOMAdminCatalog_Interface) return HRESULT is abstract;
+      function StartRouter(This : access ICOMAdminCatalog_Interface) return HRESULT is abstract;
+      function Reserved1(This : access ICOMAdminCatalog_Interface) return HRESULT is abstract;
+      function Reserved2(This : access ICOMAdminCatalog_Interface) return HRESULT is abstract;
+      function InstallMultipleComponents(
+         This : access ICOMAdminCatalog_Interface;
+         bstrApplIDOrName : BSTR;
+         ppsaVarFileNames : access LPSAFEARRAY;
+         ppsaVarCLSIDs : access LPSAFEARRAY
+      ) return HRESULT is abstract;
+      function GetMultipleComponentsInfo(
+         This : access ICOMAdminCatalog_Interface;
+         bstrApplIdOrName : BSTR;
+         ppsaVarFileNames : access LPSAFEARRAY;
+         ppsaVarCLSIDs : access LPSAFEARRAY;
+         ppsaVarClassNames : access LPSAFEARRAY;
+         ppsaVarFileFlags : access LPSAFEARRAY;
+         ppsaVarComponentFlags : access LPSAFEARRAY
+      ) return HRESULT is abstract;
+      function RefreshComponents(This : access ICOMAdminCatalog_Interface) return HRESULT is abstract;
+      function BackupREGDB(
+         This : access ICOMAdminCatalog_Interface;
+         bstrBackupFilePath : BSTR
+      ) return HRESULT is abstract;
+      function RestoreREGDB(
+         This : access ICOMAdminCatalog_Interface;
+         bstrBackupFilePath : BSTR
+      ) return HRESULT is abstract;
+      function QueryApplicationFile(
+         This : access ICOMAdminCatalog_Interface;
+         bstrApplicationFile : BSTR;
+         pbstrApplicationName : access BSTR;
+         pbstrApplicationDescription : access BSTR;
+         pbHasUsers : access VARIANT_BOOL;
+         pbIsProxy : access VARIANT_BOOL;
+         ppsaVarFileNames : access LPSAFEARRAY
+      ) return HRESULT is abstract;
+      function StartApplication(
+         This : access ICOMAdminCatalog_Interface;
+         bstrApplIdOrName : BSTR
+      ) return HRESULT is abstract;
+      function ServiceCheck(
+         This : access ICOMAdminCatalog_Interface;
+         lService : Interfaces.C.Long;
+         plStatus : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function InstallMultipleEventClasses(
+         This : access ICOMAdminCatalog_Interface;
+         bstrApplIdOrName : BSTR;
+         ppsaVarFileNames : access LPSAFEARRAY;
+         ppsaVarCLSIDS : access LPSAFEARRAY
+      ) return HRESULT is abstract;
+      function InstallEventClass(
+         This : access ICOMAdminCatalog_Interface;
+         bstrApplIdOrName : BSTR;
+         bstrDLL : BSTR;
+         bstrTLB : BSTR;
+         bstrPSDLL : BSTR
+      ) return HRESULT is abstract;
+      function GetEventClassesForIID(
+         This : access ICOMAdminCatalog_Interface;
+         bstrIID : BSTR;
+         ppsaVarCLSIDs : access LPSAFEARRAY;
+         ppsaVarProgIDs : access LPSAFEARRAY;
+         ppsaVarDescriptions : access LPSAFEARRAY
+      ) return HRESULT is abstract;
+   type ICOMAdminCatalog is access ICOMAdminCatalog_Interface'Class;
+   type ICOMAdminCatalog_Ptr is access ICOMAdminCatalog;
+   type COMAdminInUse is (
+      COMAdminNotInUse,
+      COMAdminInUseByCatalog,
+      COMAdminInUseByRegistryUnknown,
+      COMAdminInUseByRegistryProxyStub,
+      COMAdminInUseByRegistryTypeLib,
+      COMAdminInUseByRegistryClsid
+   );
+   for COMAdminInUse use (
+      COMAdminNotInUse => 0,
+      COMAdminInUseByCatalog => 1,
+      COMAdminInUseByRegistryUnknown => 2,
+      COMAdminInUseByRegistryProxyStub => 3,
+      COMAdminInUseByRegistryTypeLib => 4,
+      COMAdminInUseByRegistryClsid => 5
+   );
+   for COMAdminInUse'Size use 32;
+   type ICOMAdminCatalog2_Interface is interface and ICOMAdminCatalog_Interface;
+      function GetCollectionByQuery2(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrCollectionName : BSTR;
+         pVarQueryStrings : access VARIANT;
+         ppCatalogCollection : access LPVOID
+      ) return HRESULT is abstract;
+      function GetApplicationInstanceIDFromProcessID(
+         This : access ICOMAdminCatalog2_Interface;
+         lProcessID : Interfaces.C.Long;
+         pbstrApplicationInstanceID : access BSTR
+      ) return HRESULT is abstract;
+      function ShutdownApplicationInstances(
+         This : access ICOMAdminCatalog2_Interface;
+         pVarApplicationInstanceID : access VARIANT
+      ) return HRESULT is abstract;
+      function PauseApplicationInstances(
+         This : access ICOMAdminCatalog2_Interface;
+         pVarApplicationInstanceID : access VARIANT
+      ) return HRESULT is abstract;
+      function ResumeApplicationInstances(
+         This : access ICOMAdminCatalog2_Interface;
+         pVarApplicationInstanceID : access VARIANT
+      ) return HRESULT is abstract;
+      function RecycleApplicationInstances(
+         This : access ICOMAdminCatalog2_Interface;
+         pVarApplicationInstanceID : access VARIANT;
+         lReasonCode : Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function AreApplicationInstancesPaused(
+         This : access ICOMAdminCatalog2_Interface;
+         pVarApplicationInstanceID : access VARIANT;
+         pVarBoolPaused : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function DumpApplicationInstance(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrApplicationInstanceID : BSTR;
+         bstrDirectory : BSTR;
+         lMaxImages : Interfaces.C.Long;
+         pbstrDumpFile : access BSTR
+      ) return HRESULT is abstract;
+      function get_IsApplicationInstanceDumpSupported(
+         This : access ICOMAdminCatalog2_Interface;
+         pVarBoolDumpSupported : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function CreateServiceForApplication(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrApplicationIDOrName : BSTR;
+         bstrServiceName : BSTR;
+         bstrStartType : BSTR;
+         bstrErrorControl : BSTR;
+         bstrDependencies : BSTR;
+         bstrRunAs : BSTR;
+         bstrPassword : BSTR;
+         bDesktopOk : VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function DeleteServiceForApplication(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrApplicationIDOrName : BSTR
+      ) return HRESULT is abstract;
+      function GetPartitionID(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrApplicationIDOrName : BSTR;
+         pbstrPartitionID : access BSTR
+      ) return HRESULT is abstract;
+      function GetPartitionName(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrApplicationIDOrName : BSTR;
+         pbstrPartitionName : access BSTR
+      ) return HRESULT is abstract;
+      function put_CurrentPartition(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrPartitionIDOrName : BSTR
+      ) return HRESULT is abstract;
+      function get_CurrentPartitionID(
+         This : access ICOMAdminCatalog2_Interface;
+         pbstrPartitionID : access BSTR
+      ) return HRESULT is abstract;
+      function get_CurrentPartitionName(
+         This : access ICOMAdminCatalog2_Interface;
+         pbstrPartitionName : access BSTR
+      ) return HRESULT is abstract;
+      function get_GlobalPartitionID(
+         This : access ICOMAdminCatalog2_Interface;
+         pbstrGlobalPartitionID : access BSTR
+      ) return HRESULT is abstract;
+      function FlushPartitionCache(This : access ICOMAdminCatalog2_Interface) return HRESULT is abstract;
+      function CopyApplications(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrSourcePartitionIDOrName : BSTR;
+         pVarApplicationID : access VARIANT;
+         bstrDestinationPartitionIDOrName : BSTR
+      ) return HRESULT is abstract;
+      function CopyComponents(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrSourceApplicationIDOrName : BSTR;
+         pVarCLSIDOrProgID : access VARIANT;
+         bstrDestinationApplicationIDOrName : BSTR
+      ) return HRESULT is abstract;
+      function MoveComponents(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrSourceApplicationIDOrName : BSTR;
+         pVarCLSIDOrProgID : access VARIANT;
+         bstrDestinationApplicationIDOrName : BSTR
+      ) return HRESULT is abstract;
+      function AliasComponent(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrSrcApplicationIDOrName : BSTR;
+         bstrCLSIDOrProgID : BSTR;
+         bstrDestApplicationIDOrName : BSTR;
+         bstrNewProgId : BSTR;
+         bstrNewClsid : BSTR
+      ) return HRESULT is abstract;
+      function IsSafeToDelete(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrDllName : BSTR;
+         pCOMAdminInUse : access COMAdminInUse
+      ) return HRESULT is abstract;
+      function ImportUnconfiguredComponents(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrApplicationIDOrName : BSTR;
+         pVarCLSIDOrProgID : access VARIANT;
+         pVarComponentType : access VARIANT
+      ) return HRESULT is abstract;
+      function PromoteUnconfiguredComponents(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrApplicationIDOrName : BSTR;
+         pVarCLSIDOrProgID : access VARIANT;
+         pVarComponentType : access VARIANT
+      ) return HRESULT is abstract;
+      function ImportComponents(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrApplicationIDOrName : BSTR;
+         pVarCLSIDOrProgID : access VARIANT;
+         pVarComponentType : access VARIANT
+      ) return HRESULT is abstract;
+      function get_Is64BitCatalogServer(
+         This : access ICOMAdminCatalog2_Interface;
+         pbIs64Bit : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function ExportPartition(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrPartitionIDOrName : BSTR;
+         bstrPartitionFileName : BSTR;
+         lOptions : Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function InstallPartition(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrFileName : BSTR;
+         bstrDestDirectory : BSTR;
+         lOptions : Interfaces.C.Long;
+         bstrUserID : BSTR;
+         bstrPassword : BSTR;
+         bstrRSN : BSTR
+      ) return HRESULT is abstract;
+      function QueryApplicationFile2(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrApplicationFile : BSTR;
+         ppFilesForImport : access LPVOID
+      ) return HRESULT is abstract;
+      function GetComponentVersionCount(
+         This : access ICOMAdminCatalog2_Interface;
+         bstrCLSIDOrProgID : BSTR;
+         plVersionCount : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+   type ICOMAdminCatalog2 is access ICOMAdminCatalog2_Interface'Class;
+   type ICOMAdminCatalog2_Ptr is access ICOMAdminCatalog2;
+   type ICatalogObject_Interface is interface and IDispatch_Interface;
+      function get_Value(
+         This : access ICatalogObject_Interface;
+         bstrPropName : BSTR;
+         pvarRetVal : access VARIANT
+      ) return HRESULT is abstract;
+      function put_Value(
+         This : access ICatalogObject_Interface;
+         bstrPropName : BSTR;
+         val : VARIANT
+      ) return HRESULT is abstract;
+      function get_Key(
+         This : access ICatalogObject_Interface;
+         pvarRetVal : access VARIANT
+      ) return HRESULT is abstract;
+      function get_Name(
+         This : access ICatalogObject_Interface;
+         pvarRetVal : access VARIANT
+      ) return HRESULT is abstract;
+      function IsPropertyReadOnly(
+         This : access ICatalogObject_Interface;
+         bstrPropName : BSTR;
+         pbRetVal : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function get_Valid(
+         This : access ICatalogObject_Interface;
+         pbRetVal : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function IsPropertyWriteOnly(
+         This : access ICatalogObject_Interface;
+         bstrPropName : BSTR;
+         pbRetVal : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+   type ICatalogObject is access ICatalogObject_Interface'Class;
+   type ICatalogObject_Ptr is access ICatalogObject;
+   type ICatalogCollection_Interface is interface and IDispatch_Interface;
+      function get_NewEnum(
+         This : access ICatalogCollection_Interface;
+         ppEnumVariant : access LPVOID
+      ) return HRESULT is abstract;
+      function get_Item(
+         This : access ICatalogCollection_Interface;
+         lIndex : Interfaces.C.Long;
+         ppCatalogObject : access LPVOID
+      ) return HRESULT is abstract;
+      function get_Count(
+         This : access ICatalogCollection_Interface;
+         plObjectCount : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function Remove(
+         This : access ICatalogCollection_Interface;
+         lIndex : Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function Add(
+         This : access ICatalogCollection_Interface;
+         ppCatalogObject : access LPVOID
+      ) return HRESULT is abstract;
+      function Populate(This : access ICatalogCollection_Interface) return HRESULT is abstract;
+      function SaveChanges(
+         This : access ICatalogCollection_Interface;
+         pcChanges : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function GetCollection(
+         This : access ICatalogCollection_Interface;
+         bstrCollName : BSTR;
+         varObjectKey : VARIANT;
+         ppCatalogCollection : access LPVOID
+      ) return HRESULT is abstract;
+      function get_Name(
+         This : access ICatalogCollection_Interface;
+         pVarNamel : access VARIANT
+      ) return HRESULT is abstract;
+      function get_AddEnabled(
+         This : access ICatalogCollection_Interface;
+         pVarBool : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function get_RemoveEnabled(
+         This : access ICatalogCollection_Interface;
+         pVarBool : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function GetUtilInterface(
+         This : access ICatalogCollection_Interface;
+         ppIDispatch : access LPVOID
+      ) return HRESULT is abstract;
+      function get_DataStoreMajorVersion(
+         This : access ICatalogCollection_Interface;
+         plMajorVersion : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function get_DataStoreMinorVersion(
+         This : access ICatalogCollection_Interface;
+         plMinorVersionl : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function PopulateByKey(
+         This : access ICatalogCollection_Interface;
+         psaKeys : access SAFEARRAY
+      ) return HRESULT is abstract;
+      function PopulateByQuery(
+         This : access ICatalogCollection_Interface;
+         bstrQueryString : BSTR;
+         lQueryType : Interfaces.C.Long
+      ) return HRESULT is abstract;
+   type ICatalogCollection is access ICatalogCollection_Interface'Class;
+   type ICatalogCollection_Ptr is access ICatalogCollection;
+   type COMAdminComponentType is (
+      COMAdmin32BitComponent,
+      COMAdmin64BitComponent
+   );
+   for COMAdminComponentType use (
+      COMAdmin32BitComponent => 1,
+      COMAdmin64BitComponent => 2
+   );
+   for COMAdminComponentType'Size use 32;
+   type COMAdminApplicationInstallOptions is (
+      COMAdminInstallNoUsers,
+      COMAdminInstallUsers,
+      COMAdminInstallForceOverwriteOfFiles
+   );
+   for COMAdminApplicationInstallOptions use (
+      COMAdminInstallNoUsers => 0,
+      COMAdminInstallUsers => 1,
+      COMAdminInstallForceOverwriteOfFiles => 2
+   );
+   for COMAdminApplicationInstallOptions'Size use 32;
+   type COMAdminApplicationExportOptions is (
+      COMAdminExportNoUsers,
+      COMAdminExportUsers,
+      COMAdminExportApplicationProxy,
+      COMAdminExportForceOverwriteOfFiles,
+      COMAdminExportIn10Format
+   );
+   for COMAdminApplicationExportOptions use (
+      COMAdminExportNoUsers => 0,
+      COMAdminExportUsers => 1,
+      COMAdminExportApplicationProxy => 2,
+      COMAdminExportForceOverwriteOfFiles => 4,
+      COMAdminExportIn10Format => 16
+   );
+   for COMAdminApplicationExportOptions'Size use 32;
+   type COMAdminThreadingModels is (
+      COMAdminThreadingModelApartment,
+      COMAdminThreadingModelFree,
+      COMAdminThreadingModelMain,
+      COMAdminThreadingModelBoth,
+      COMAdminThreadingModelNeutral,
+      COMAdminThreadingModelNotSpecified
+   );
+   for COMAdminThreadingModels use (
+      COMAdminThreadingModelApartment => 0,
+      COMAdminThreadingModelFree => 1,
+      COMAdminThreadingModelMain => 2,
+      COMAdminThreadingModelBoth => 3,
+      COMAdminThreadingModelNeutral => 4,
+      COMAdminThreadingModelNotSpecified => 5
+   );
+   for COMAdminThreadingModels'Size use 32;
+   type COMAdminTransactionOptions is (
+      COMAdminTransactionIgnored,
+      COMAdminTransactionNone,
+      COMAdminTransactionSupported,
+      COMAdminTransactionRequired,
+      COMAdminTransactionRequiresNew
+   );
+   for COMAdminTransactionOptions use (
+      COMAdminTransactionIgnored => 0,
+      COMAdminTransactionNone => 1,
+      COMAdminTransactionSupported => 2,
+      COMAdminTransactionRequired => 3,
+      COMAdminTransactionRequiresNew => 4
+   );
+   for COMAdminTransactionOptions'Size use 32;
+   type COMAdminTxIsolationLevelOptions is (
+      COMAdminTxIsolationLevelAny,
+      COMAdminTxIsolationLevelReadUnCommitted,
+      COMAdminTxIsolationLevelReadCommitted,
+      COMAdminTxIsolationLevelRepeatableRead,
+      COMAdminTxIsolationLevelSerializable
+   );
+   for COMAdminTxIsolationLevelOptions use (
+      COMAdminTxIsolationLevelAny => 0,
+      COMAdminTxIsolationLevelReadUnCommitted => 1,
+      COMAdminTxIsolationLevelReadCommitted => 2,
+      COMAdminTxIsolationLevelRepeatableRead => 3,
+      COMAdminTxIsolationLevelSerializable => 4
+   );
+   for COMAdminTxIsolationLevelOptions'Size use 32;
+   type COMAdminSynchronizationOptions is (
+      COMAdminSynchronizationIgnored,
+      COMAdminSynchronizationNone,
+      COMAdminSynchronizationSupported,
+      COMAdminSynchronizationRequired,
+      COMAdminSynchronizationRequiresNew
+   );
+   for COMAdminSynchronizationOptions use (
+      COMAdminSynchronizationIgnored => 0,
+      COMAdminSynchronizationNone => 1,
+      COMAdminSynchronizationSupported => 2,
+      COMAdminSynchronizationRequired => 3,
+      COMAdminSynchronizationRequiresNew => 4
+   );
+   for COMAdminSynchronizationOptions'Size use 32;
+   type COMAdminActivationOptions is (
+      COMAdminActivationInproc,
+      COMAdminActivationLocal
+   );
+   for COMAdminActivationOptions use (
+      COMAdminActivationInproc => 0,
+      COMAdminActivationLocal => 1
+   );
+   for COMAdminActivationOptions'Size use 32;
+   type COMAdminAccessChecksLevelOptions is (
+      COMAdminAccessChecksApplicationLevel,
+      COMAdminAccessChecksApplicationComponentLevel
+   );
+   for COMAdminAccessChecksLevelOptions use (
+      COMAdminAccessChecksApplicationLevel => 0,
+      COMAdminAccessChecksApplicationComponentLevel => 1
+   );
+   for COMAdminAccessChecksLevelOptions'Size use 32;
+   type COMAdminAuthenticationLevelOptions is (
+      COMAdminAuthenticationDefault,
+      COMAdminAuthenticationNone,
+      COMAdminAuthenticationConnect,
+      COMAdminAuthenticationCall,
+      COMAdminAuthenticationPacket,
+      COMAdminAuthenticationIntegrity,
+      COMAdminAuthenticationPrivacy
+   );
+   for COMAdminAuthenticationLevelOptions use (
+      COMAdminAuthenticationDefault => 0,
+      COMAdminAuthenticationNone => 1,
+      COMAdminAuthenticationConnect => 2,
+      COMAdminAuthenticationCall => 3,
+      COMAdminAuthenticationPacket => 4,
+      COMAdminAuthenticationIntegrity => 5,
+      COMAdminAuthenticationPrivacy => 6
+   );
+   for COMAdminAuthenticationLevelOptions'Size use 32;
+   type COMAdminImpersonationLevelOptions is (
+      COMAdminImpersonationAnonymous,
+      COMAdminImpersonationIdentify,
+      COMAdminImpersonationImpersonate,
+      COMAdminImpersonationDelegate
+   );
+   for COMAdminImpersonationLevelOptions use (
+      COMAdminImpersonationAnonymous => 1,
+      COMAdminImpersonationIdentify => 2,
+      COMAdminImpersonationImpersonate => 3,
+      COMAdminImpersonationDelegate => 4
+   );
+   for COMAdminImpersonationLevelOptions'Size use 32;
+   type COMAdminAuthenticationCapabilitiesOptions is (
+      COMAdminAuthenticationCapabilitiesNone,
+      COMAdminAuthenticationCapabilitiesSecureReference,
+      COMAdminAuthenticationCapabilitiesStaticCloaking,
+      COMAdminAuthenticationCapabilitiesDynamicCloaking
+   );
+   for COMAdminAuthenticationCapabilitiesOptions use (
+      COMAdminAuthenticationCapabilitiesNone => 0,
+      COMAdminAuthenticationCapabilitiesSecureReference => 2,
+      COMAdminAuthenticationCapabilitiesStaticCloaking => 32,
+      COMAdminAuthenticationCapabilitiesDynamicCloaking => 64
+   );
+   for COMAdminAuthenticationCapabilitiesOptions'Size use 32;
+   type COMAdminOS is (
+      COMAdminOSNotInitialized,
+      COMAdminOSWindows3_1,
+      COMAdminOSWindows9x,
+      COMAdminOSWindows2000,
+      COMAdminOSWindows2000AdvancedServer,
+      COMAdminOSWindows2000Unknown,
+      COMAdminOSUnknown,
+      COMAdminOSWindowsXPPersonal,
+      COMAdminOSWindowsXPProfessional,
+      COMAdminOSWindowsNETStandardServer,
+      COMAdminOSWindowsNETEnterpriseServer,
+      COMAdminOSWindowsNETDatacenterServer,
+      COMAdminOSWindowsNETWebServer,
+      COMAdminOSWindowsLonghornPersonal,
+      COMAdminOSWindowsLonghornProfessional,
+      COMAdminOSWindowsLonghornStandardServer,
+      COMAdminOSWindowsLonghornEnterpriseServer,
+      COMAdminOSWindowsLonghornDatacenterServer,
+      COMAdminOSWindowsLonghornWebServer,
+      COMAdminOSWindows7Personal,
+      COMAdminOSWindows7Professional,
+      COMAdminOSWindows7StandardServer,
+      COMAdminOSWindows7EnterpriseServer,
+      COMAdminOSWindows7DatacenterServer,
+      COMAdminOSWindows7WebServer,
+      COMAdminOSWindows8Personal,
+      COMAdminOSWindows8Professional,
+      COMAdminOSWindows8StandardServer,
+      COMAdminOSWindows8EnterpriseServer,
+      COMAdminOSWindows8DatacenterServer,
+      COMAdminOSWindows8WebServer,
+      COMAdminOSWindowsBluePersonal,
+      COMAdminOSWindowsBlueProfessional,
+      COMAdminOSWindowsBlueStandardServer,
+      COMAdminOSWindowsBlueEnterpriseServer,
+      COMAdminOSWindowsBlueDatacenterServer,
+      COMAdminOSWindowsBlueWebServer
+   );
+   for COMAdminOS use (
+      COMAdminOSNotInitialized => 0,
+      COMAdminOSWindows3_1 => 1,
+      COMAdminOSWindows9x => 2,
+      COMAdminOSWindows2000 => 3,
+      COMAdminOSWindows2000AdvancedServer => 4,
+      COMAdminOSWindows2000Unknown => 5,
+      COMAdminOSUnknown => 6,
+      COMAdminOSWindowsXPPersonal => 11,
+      COMAdminOSWindowsXPProfessional => 12,
+      COMAdminOSWindowsNETStandardServer => 13,
+      COMAdminOSWindowsNETEnterpriseServer => 14,
+      COMAdminOSWindowsNETDatacenterServer => 15,
+      COMAdminOSWindowsNETWebServer => 16,
+      COMAdminOSWindowsLonghornPersonal => 17,
+      COMAdminOSWindowsLonghornProfessional => 18,
+      COMAdminOSWindowsLonghornStandardServer => 19,
+      COMAdminOSWindowsLonghornEnterpriseServer => 20,
+      COMAdminOSWindowsLonghornDatacenterServer => 21,
+      COMAdminOSWindowsLonghornWebServer => 22,
+      COMAdminOSWindows7Personal => 23,
+      COMAdminOSWindows7Professional => 24,
+      COMAdminOSWindows7StandardServer => 25,
+      COMAdminOSWindows7EnterpriseServer => 26,
+      COMAdminOSWindows7DatacenterServer => 27,
+      COMAdminOSWindows7WebServer => 28,
+      COMAdminOSWindows8Personal => 29,
+      COMAdminOSWindows8Professional => 30,
+      COMAdminOSWindows8StandardServer => 31,
+      COMAdminOSWindows8EnterpriseServer => 32,
+      COMAdminOSWindows8DatacenterServer => 33,
+      COMAdminOSWindows8WebServer => 34,
+      COMAdminOSWindowsBluePersonal => 35,
+      COMAdminOSWindowsBlueProfessional => 36,
+      COMAdminOSWindowsBlueStandardServer => 37,
+      COMAdminOSWindowsBlueEnterpriseServer => 38,
+      COMAdminOSWindowsBlueDatacenterServer => 39,
+      COMAdminOSWindowsBlueWebServer => 40
+   );
+   for COMAdminOS'Size use 32;
+   type COMAdminServiceOptions is (
+      COMAdminServiceLoadBalanceRouter
+   );
+   for COMAdminServiceOptions use (
+      COMAdminServiceLoadBalanceRouter => 1
+   );
+   for COMAdminServiceOptions'Size use 32;
+   type COMAdminServiceStatusOptions is (
+      COMAdminServiceStopped,
+      COMAdminServiceStartPending,
+      COMAdminServiceStopPending,
+      COMAdminServiceRunning,
+      COMAdminServiceContinuePending,
+      COMAdminServicePausePending,
+      COMAdminServicePaused,
+      COMAdminServiceUnknownState
+   );
+   for COMAdminServiceStatusOptions use (
+      COMAdminServiceStopped => 0,
+      COMAdminServiceStartPending => 1,
+      COMAdminServiceStopPending => 2,
+      COMAdminServiceRunning => 3,
+      COMAdminServiceContinuePending => 4,
+      COMAdminServicePausePending => 5,
+      COMAdminServicePaused => 6,
+      COMAdminServiceUnknownState => 7
+   );
+   for COMAdminServiceStatusOptions'Size use 32;
+   type COMAdminQCMessageAuthenticateOptions is (
+      COMAdminQCMessageAuthenticateSecureApps,
+      COMAdminQCMessageAuthenticateOff,
+      COMAdminQCMessageAuthenticateOn
+   );
+   for COMAdminQCMessageAuthenticateOptions use (
+      COMAdminQCMessageAuthenticateSecureApps => 0,
+      COMAdminQCMessageAuthenticateOff => 1,
+      COMAdminQCMessageAuthenticateOn => 2
+   );
+   for COMAdminQCMessageAuthenticateOptions'Size use 32;
+   type COMAdminFileFlags is (
+      COMAdminFileFlagLoadable,
+      COMAdminFileFlagCOM,
+      COMAdminFileFlagContainsPS,
+      COMAdminFileFlagContainsComp,
+      COMAdminFileFlagContainsTLB,
+      COMAdminFileFlagSelfReg,
+      COMAdminFileFlagSelfUnReg,
+      COMAdminFileFlagUnloadableDLL,
+      COMAdminFileFlagDoesNotExist,
+      COMAdminFileFlagAlreadyInstalled,
+      COMAdminFileFlagBadTLB,
+      COMAdminFileFlagGetClassObjFailed,
+      COMAdminFileFlagClassNotAvailable,
+      COMAdminFileFlagRegistrar,
+      COMAdminFileFlagNoRegistrar,
+      COMAdminFileFlagDLLRegsvrFailed,
+      COMAdminFileFlagRegTLBFailed,
+      COMAdminFileFlagRegistrarFailed,
+      COMAdminFileFlagError
+   );
+   for COMAdminFileFlags use (
+      COMAdminFileFlagLoadable => 1,
+      COMAdminFileFlagCOM => 2,
+      COMAdminFileFlagContainsPS => 4,
+      COMAdminFileFlagContainsComp => 8,
+      COMAdminFileFlagContainsTLB => 16,
+      COMAdminFileFlagSelfReg => 32,
+      COMAdminFileFlagSelfUnReg => 64,
+      COMAdminFileFlagUnloadableDLL => 128,
+      COMAdminFileFlagDoesNotExist => 256,
+      COMAdminFileFlagAlreadyInstalled => 512,
+      COMAdminFileFlagBadTLB => 1024,
+      COMAdminFileFlagGetClassObjFailed => 2048,
+      COMAdminFileFlagClassNotAvailable => 4096,
+      COMAdminFileFlagRegistrar => 8192,
+      COMAdminFileFlagNoRegistrar => 16384,
+      COMAdminFileFlagDLLRegsvrFailed => 32768,
+      COMAdminFileFlagRegTLBFailed => 65536,
+      COMAdminFileFlagRegistrarFailed => 131072,
+      COMAdminFileFlagError => 262144
+   );
+   for COMAdminFileFlags'Size use 32;
+   type COMAdminComponentFlags is (
+      COMAdminCompFlagTypeInfoFound,
+      COMAdminCompFlagCOMPlusPropertiesFound,
+      COMAdminCompFlagProxyFound,
+      COMAdminCompFlagInterfacesFound,
+      COMAdminCompFlagAlreadyInstalled,
+      COMAdminCompFlagNotInApplication
+   );
+   for COMAdminComponentFlags use (
+      COMAdminCompFlagTypeInfoFound => 1,
+      COMAdminCompFlagCOMPlusPropertiesFound => 2,
+      COMAdminCompFlagProxyFound => 4,
+      COMAdminCompFlagInterfacesFound => 8,
+      COMAdminCompFlagAlreadyInstalled => 16,
+      COMAdminCompFlagNotInApplication => 32
+   );
+   for COMAdminComponentFlags'Size use 32;
+   type COMAdminErrorCodes is (
+      COMAdminErrObjectErrors,
+      COMAdminErrObjectInvalid,
+      COMAdminErrKeyMissing,
+      COMAdminErrAlreadyInstalled,
+      COMAdminErrAppFileWriteFail,
+      COMAdminErrAppFileReadFail,
+      COMAdminErrAppFileVersion,
+      COMAdminErrBadPath,
+      COMAdminErrApplicationExists,
+      COMAdminErrRoleExists,
+      COMAdminErrCantCopyFile,
+      COMAdminErrNoUser,
+      COMAdminErrInvalidUserids,
+      COMAdminErrNoRegistryCLSID,
+      COMAdminErrBadRegistryProgID,
+      COMAdminErrAuthenticationLevel,
+      COMAdminErrUserPasswdNotValid,
+      COMAdminErrCLSIDOrIIDMismatch,
+      COMAdminErrRemoteInterface,
+      COMAdminErrDllRegisterServer,
+      COMAdminErrNoServerShare,
+      COMAdminErrDllLoadFailed,
+      COMAdminErrBadRegistryLibID,
+      COMAdminErrAppDirNotFound,
+      COMAdminErrRegistrarFailed,
+      COMAdminErrCompFileDoesNotExist,
+      COMAdminErrCompFileLoadDLLFail,
+      COMAdminErrCompFileGetClassObj,
+      COMAdminErrCompFileClassNotAvail,
+      COMAdminErrCompFileBadTLB,
+      COMAdminErrCompFileNotInstallable,
+      COMAdminErrNotChangeable,
+      COMAdminErrNotDeletable,
+      COMAdminErrSession,
+      COMAdminErrCompMoveLocked,
+      COMAdminErrCompMoveBadDest,
+      COMAdminErrRegisterTLB,
+      COMAdminErrSystemApp,
+      COMAdminErrCompFileNoRegistrar,
+      COMAdminErrCoReqCompInstalled,
+      COMAdminErrServiceNotInstalled,
+      COMAdminErrPropertySaveFailed,
+      COMAdminErrObjectExists,
+      COMAdminErrComponentExists,
+      COMAdminErrRegFileCorrupt,
+      COMAdminErrPropertyOverflow,
+      COMAdminErrNotInRegistry,
+      COMAdminErrObjectNotPoolable,
+      COMAdminErrApplidMatchesClsid,
+      COMAdminErrRoleDoesNotExist,
+      COMAdminErrStartAppNeedsComponents,
+      COMAdminErrRequiresDifferentPlatform,
+      COMAdminErrCanNotExportAppProxy,
+      COMAdminErrCanNotStartApp,
+      COMAdminErrCanNotExportSystemApp,
+      COMAdminErrCanNotSubscribeToComponent,
+      COMAdminErrEventClassCannotBeSubscriber,
+      COMAdminErrLibAppProxyIncompatible,
+      COMAdminErrBasePartitionOnly,
+      COMAdminErrStartAppDisabled,
+      COMAdminErrDuplicatePartitionName,
+      COMAdminErrPartitionInUse,
+      COMAdminErrImportedComponentsNotAllowed,
+      COMAdminErrRegdbNotInitialized,
+      COMAdminErrRegdbNotOpen,
+      COMAdminErrRegdbSystemErr,
+      COMAdminErrRegdbAlreadyRunning,
+      COMAdminErrMigVersionNotSupported,
+      COMAdminErrMigSchemaNotFound,
+      COMAdminErrCatBitnessMismatch,
+      COMAdminErrCatUnacceptableBitness,
+      COMAdminErrCatWrongAppBitnessBitness,
+      COMAdminErrCatPauseResumeNotSupported,
+      COMAdminErrCatServerFault,
+      COMAdminErrQueuingServiceNotAvailable,
+      COMAdminErrObjectParentMissing,
+      COMAdminErrObjectDoesNotExist,
+      COMAdminErrAppNotRunning,
+      COMAdminErrInvalidPartition,
+      COMAdminErrCantRecycleLibraryApps,
+      COMAdminErrCantRecycleServiceApps,
+      COMAdminErrProcessAlreadyRecycled,
+      COMAdminErrPausedProcessMayNotBeRecycled,
+      COMAdminErrPartitionMsiOnly,
+      COMAdminErrCompMoveSource,
+      COMAdminErrCompMoveDest,
+      COMAdminErrCompMovePrivate,
+      COMAdminErrCannotCopyEventClass
+   );
+   for COMAdminErrorCodes use (
+      COMAdminErrObjectErrors => -2146368511,
+      COMAdminErrObjectInvalid => -2146368510,
+      COMAdminErrKeyMissing => -2146368509,
+      COMAdminErrAlreadyInstalled => -2146368508,
+      COMAdminErrAppFileWriteFail => -2146368505,
+      COMAdminErrAppFileReadFail => -2146368504,
+      COMAdminErrAppFileVersion => -2146368503,
+      COMAdminErrBadPath => -2146368502,
+      COMAdminErrApplicationExists => -2146368501,
+      COMAdminErrRoleExists => -2146368500,
+      COMAdminErrCantCopyFile => -2146368499,
+      COMAdminErrNoUser => -2146368497,
+      COMAdminErrInvalidUserids => -2146368496,
+      COMAdminErrNoRegistryCLSID => -2146368495,
+      COMAdminErrBadRegistryProgID => -2146368494,
+      COMAdminErrAuthenticationLevel => -2146368493,
+      COMAdminErrUserPasswdNotValid => -2146368492,
+      COMAdminErrCLSIDOrIIDMismatch => -2146368488,
+      COMAdminErrRemoteInterface => -2146368487,
+      COMAdminErrDllRegisterServer => -2146368486,
+      COMAdminErrNoServerShare => -2146368485,
+      COMAdminErrDllLoadFailed => -2146368483,
+      COMAdminErrBadRegistryLibID => -2146368482,
+      COMAdminErrAppDirNotFound => -2146368481,
+      COMAdminErrRegistrarFailed => -2146368477,
+      COMAdminErrCompFileDoesNotExist => -2146368476,
+      COMAdminErrCompFileLoadDLLFail => -2146368475,
+      COMAdminErrCompFileGetClassObj => -2146368474,
+      COMAdminErrCompFileClassNotAvail => -2146368473,
+      COMAdminErrCompFileBadTLB => -2146368472,
+      COMAdminErrCompFileNotInstallable => -2146368471,
+      COMAdminErrNotChangeable => -2146368470,
+      COMAdminErrNotDeletable => -2146368469,
+      COMAdminErrSession => -2146368468,
+      COMAdminErrCompMoveLocked => -2146368467,
+      COMAdminErrCompMoveBadDest => -2146368466,
+      COMAdminErrRegisterTLB => -2146368464,
+      COMAdminErrSystemApp => -2146368461,
+      COMAdminErrCompFileNoRegistrar => -2146368460,
+      COMAdminErrCoReqCompInstalled => -2146368459,
+      COMAdminErrServiceNotInstalled => -2146368458,
+      COMAdminErrPropertySaveFailed => -2146368457,
+      COMAdminErrObjectExists => -2146368456,
+      COMAdminErrComponentExists => -2146368455,
+      COMAdminErrRegFileCorrupt => -2146368453,
+      COMAdminErrPropertyOverflow => -2146368452,
+      COMAdminErrNotInRegistry => -2146368450,
+      COMAdminErrObjectNotPoolable => -2146368449,
+      COMAdminErrApplidMatchesClsid => -2146368442,
+      COMAdminErrRoleDoesNotExist => -2146368441,
+      COMAdminErrStartAppNeedsComponents => -2146368440,
+      COMAdminErrRequiresDifferentPlatform => -2146368439,
+      COMAdminErrCanNotExportAppProxy => -2146368438,
+      COMAdminErrCanNotStartApp => -2146368437,
+      COMAdminErrCanNotExportSystemApp => -2146368436,
+      COMAdminErrCanNotSubscribeToComponent => -2146368435,
+      COMAdminErrEventClassCannotBeSubscriber => -2146368434,
+      COMAdminErrLibAppProxyIncompatible => -2146368433,
+      COMAdminErrBasePartitionOnly => -2146368432,
+      COMAdminErrStartAppDisabled => -2146368431,
+      COMAdminErrDuplicatePartitionName => -2146368425,
+      COMAdminErrPartitionInUse => -2146368423,
+      COMAdminErrImportedComponentsNotAllowed => -2146368421,
+      COMAdminErrRegdbNotInitialized => -2146368398,
+      COMAdminErrRegdbNotOpen => -2146368397,
+      COMAdminErrRegdbSystemErr => -2146368396,
+      COMAdminErrRegdbAlreadyRunning => -2146368395,
+      COMAdminErrMigVersionNotSupported => -2146368384,
+      COMAdminErrMigSchemaNotFound => -2146368383,
+      COMAdminErrCatBitnessMismatch => -2146368382,
+      COMAdminErrCatUnacceptableBitness => -2146368381,
+      COMAdminErrCatWrongAppBitnessBitness => -2146368380,
+      COMAdminErrCatPauseResumeNotSupported => -2146368379,
+      COMAdminErrCatServerFault => -2146368378,
+      COMAdminErrQueuingServiceNotAvailable => -2146367998,
+      COMAdminErrObjectParentMissing => -2146367480,
+      COMAdminErrObjectDoesNotExist => -2146367479,
+      COMAdminErrAppNotRunning => -2146367478,
+      COMAdminErrInvalidPartition => -2146367477,
+      COMAdminErrCantRecycleLibraryApps => -2146367473,
+      COMAdminErrCantRecycleServiceApps => -2146367471,
+      COMAdminErrProcessAlreadyRecycled => -2146367470,
+      COMAdminErrPausedProcessMayNotBeRecycled => -2146367469,
+      COMAdminErrPartitionMsiOnly => -2146367463,
+      COMAdminErrCompMoveSource => -2146367460,
+      COMAdminErrCompMoveDest => -2146367459,
+      COMAdminErrCompMovePrivate => -2146367458,
+      COMAdminErrCannotCopyEventClass => -2146367456
+   );
+   for COMAdminErrorCodes'Size use 32;
+   function BSTR_UserSize_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize_x_x_x_x_x,"BSTR_UserSize");
+   procedure BSTR_UserFree_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree_x_x_x_x_x,"BSTR_UserFree");
+   function LPSAFEARRAY_UserSize_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access LPSAFEARRAY
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,LPSAFEARRAY_UserSize_x_x,"LPSAFEARRAY_UserSize");
+   procedure LPSAFEARRAY_UserFree_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access LPSAFEARRAY
+   );
+   pragma import (C,LPSAFEARRAY_UserFree_x_x,"LPSAFEARRAY_UserFree");
+   function VARIANT_UserSize_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access VARIANT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,VARIANT_UserSize_x_x,"VARIANT_UserSize");
+   procedure VARIANT_UserFree_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access VARIANT
+   );
+   pragma import (C,VARIANT_UserFree_x_x,"VARIANT_UserFree");
+   function BSTR_UserSize64_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize64_x_x_x_x_x,"BSTR_UserSize64");
+   procedure BSTR_UserFree64_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree64_x_x_x_x_x,"BSTR_UserFree64");
+   function LPSAFEARRAY_UserSize64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access LPSAFEARRAY
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,LPSAFEARRAY_UserSize64_x_x,"LPSAFEARRAY_UserSize64");
+   procedure LPSAFEARRAY_UserFree64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access LPSAFEARRAY
+   );
+   pragma import (C,LPSAFEARRAY_UserFree64_x_x,"LPSAFEARRAY_UserFree64");
+   function VARIANT_UserSize64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access VARIANT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,VARIANT_UserSize64_x_x,"VARIANT_UserSize64");
+   procedure VARIANT_UserFree64_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access VARIANT
+   );
+   pragma import (C,VARIANT_UserFree64_x_x,"VARIANT_UserFree64");
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/transact.h>
+   type ITransaction; -- Forward Declaration
+   type ITransactionCloner; -- Forward Declaration
+   type ITransaction2; -- Forward Declaration
+   type ITransactionDispenser; -- Forward Declaration
+   type ITransactionOptions; -- Forward Declaration
+   type ITransactionOutcomeEvents; -- Forward Declaration
+   type ITmNodeName; -- Forward Declaration
+   type IKernelTransaction; -- Forward Declaration
+   type BOID is record
+      rgb : Void;
+   end record;
+   type TX_MISC_CONSTANTS is (
+      MAX_TRAN_DESC
+   );
+   for TX_MISC_CONSTANTS use (
+      MAX_TRAN_DESC => 40
+   );
+   for TX_MISC_CONSTANTS'Size use 32;
+   subtype XACTUOW is BOID; -- CXType_Typedef
+   subtype ISOLEVEL is LONG; -- CXType_Typedef
+   type ISOLATIONLEVEL is (
+      ISOLATIONLEVEL_UNSPECIFIED,
+      ISOLATIONLEVEL_CHAOS,
+      ISOLATIONLEVEL_READUNCOMMITTED,
+      ISOLATIONLEVEL_CURSORSTABILITY,
+      ISOLATIONLEVEL_REPEATABLEREAD,
+      ISOLATIONLEVEL_SERIALIZABLE
+   );
+   for ISOLATIONLEVEL use (
+      ISOLATIONLEVEL_UNSPECIFIED => -1,
+      ISOLATIONLEVEL_CHAOS => 16,
+      ISOLATIONLEVEL_READUNCOMMITTED => 256,
+      ISOLATIONLEVEL_CURSORSTABILITY => 4096,
+      ISOLATIONLEVEL_REPEATABLEREAD => 65536,
+      ISOLATIONLEVEL_SERIALIZABLE => 1048576
+   );
+   for ISOLATIONLEVEL'Size use 32;
+   type XACTTRANSINFO is record
+      uow_x : XACTUOW;
+      isoLevel_x : ISOLEVEL;
+      isoFlags : ULONG;
+      grfTCSupported : DWORD;
+      grfRMSupported : DWORD;
+      grfTCSupportedRetaining : DWORD;
+      grfRMSupportedRetaining : DWORD;
+   end record;
+   type XACTSTATS is record
+      cOpen : ULONG;
+      cCommitting : ULONG;
+      cCommitted : ULONG;
+      cAborting : ULONG;
+      cAborted : ULONG;
+      cInDoubt : ULONG;
+      cHeuristicDecision : ULONG;
+      timeTransactionsUp : FILETIME;
+   end record;
+   type ISOFLAG is (
+      ISOFLAG_RETAIN_COMMIT_DC,
+      ISOFLAG_RETAIN_COMMIT,
+      ISOFLAG_RETAIN_COMMIT_NO,
+      ISOFLAG_RETAIN_ABORT_DC,
+      ISOFLAG_RETAIN_DONTCARE,
+      ISOFLAG_RETAIN_ABORT,
+      ISOFLAG_RETAIN_BOTH,
+      ISOFLAG_RETAIN_ABORT_NO,
+      ISOFLAG_RETAIN_NONE,
+      ISOFLAG_OPTIMISTIC,
+      ISOFLAG_READONLY
+   );
+   for ISOFLAG use (
+      ISOFLAG_RETAIN_COMMIT_DC => 1,
+      ISOFLAG_RETAIN_COMMIT => 2,
+      ISOFLAG_RETAIN_COMMIT_NO => 3,
+      ISOFLAG_RETAIN_ABORT_DC => 4,
+      ISOFLAG_RETAIN_DONTCARE => 5,
+      ISOFLAG_RETAIN_ABORT => 8,
+      ISOFLAG_RETAIN_BOTH => 10,
+      ISOFLAG_RETAIN_ABORT_NO => 12,
+      ISOFLAG_RETAIN_NONE => 15,
+      ISOFLAG_OPTIMISTIC => 16,
+      ISOFLAG_READONLY => 32
+   );
+   for ISOFLAG'Size use 32;
+   type XACTTC is (
+      XACTTC_NONE,
+      XACTTC_SYNC_PHASEONE,
+      XACTTC_SYNC_PHASETWO,
+      XACTTC_ASYNC_PHASEONE
+   );
+   for XACTTC use (
+      XACTTC_NONE => 0,
+      XACTTC_SYNC_PHASEONE => 1,
+      XACTTC_SYNC_PHASETWO => 2,
+      XACTTC_ASYNC_PHASEONE => 4
+   );
+   for XACTTC'Size use 32;
+   type XACTRM is (
+      XACTRM_OPTIMISTICLASTWINS,
+      XACTRM_NOREADONLYPREPARES
+   );
+   for XACTRM use (
+      XACTRM_OPTIMISTICLASTWINS => 1,
+      XACTRM_NOREADONLYPREPARES => 2
+   );
+   for XACTRM'Size use 32;
+   type XACTCONST is (
+      XACTCONST_TIMEOUTINFINITE
+   );
+   for XACTCONST use (
+      XACTCONST_TIMEOUTINFINITE => 0
+   );
+   for XACTCONST'Size use 32;
+   type XACTHEURISTIC is (
+      XACTHEURISTIC_ABORT,
+      XACTHEURISTIC_COMMIT,
+      XACTHEURISTIC_DAMAGE,
+      XACTHEURISTIC_DANGER
+   );
+   for XACTHEURISTIC use (
+      XACTHEURISTIC_ABORT => 1,
+      XACTHEURISTIC_COMMIT => 2,
+      XACTHEURISTIC_DAMAGE => 3,
+      XACTHEURISTIC_DANGER => 4
+   );
+   for XACTHEURISTIC'Size use 32;
+   type XACTSTAT is (
+      XACTSTAT_NONE,
+      XACTSTAT_OPENNORMAL,
+      XACTSTAT_OPENREFUSED,
+      XACTSTAT_OPEN,
+      XACTSTAT_PREPARING,
+      XACTSTAT_PREPARED,
+      XACTSTAT_PREPARERETAINING,
+      XACTSTAT_PREPARERETAINED,
+      XACTSTAT_COMMITTING,
+      XACTSTAT_COMMITRETAINING,
+      XACTSTAT_ABORTING,
+      XACTSTAT_ABORTED,
+      XACTSTAT_COMMITTED,
+      XACTSTAT_HEURISTIC_ABORT,
+      XACTSTAT_HEURISTIC_COMMIT,
+      XACTSTAT_HEURISTIC_DAMAGE,
+      XACTSTAT_HEURISTIC_DANGER,
+      XACTSTAT_FORCED_ABORT,
+      XACTSTAT_FORCED_COMMIT,
+      XACTSTAT_INDOUBT,
+      XACTSTAT_CLOSED,
+      XACTSTAT_NOTPREPARED,
+      XACTSTAT_ALL
+   );
+   for XACTSTAT use (
+      XACTSTAT_NONE => 0,
+      XACTSTAT_OPENNORMAL => 1,
+      XACTSTAT_OPENREFUSED => 2,
+      XACTSTAT_OPEN => 3,
+      XACTSTAT_PREPARING => 4,
+      XACTSTAT_PREPARED => 8,
+      XACTSTAT_PREPARERETAINING => 16,
+      XACTSTAT_PREPARERETAINED => 32,
+      XACTSTAT_COMMITTING => 64,
+      XACTSTAT_COMMITRETAINING => 128,
+      XACTSTAT_ABORTING => 256,
+      XACTSTAT_ABORTED => 512,
+      XACTSTAT_COMMITTED => 1024,
+      XACTSTAT_HEURISTIC_ABORT => 2048,
+      XACTSTAT_HEURISTIC_COMMIT => 4096,
+      XACTSTAT_HEURISTIC_DAMAGE => 8192,
+      XACTSTAT_HEURISTIC_DANGER => 16384,
+      XACTSTAT_FORCED_ABORT => 32768,
+      XACTSTAT_FORCED_COMMIT => 65536,
+      XACTSTAT_INDOUBT => 131072,
+      XACTSTAT_CLOSED => 262144,
+      XACTSTAT_NOTPREPARED => 524227,
+      XACTSTAT_ALL => 524287
+   );
+   for XACTSTAT'Size use 32;
+   type XACTOPT is record
+      ulTimeout : ULONG;
+      szDescription : Void;
+   end record;
+   type ITransaction_Interface is interface and IUnknown_Interface;
+      function Commit(
+         This : access ITransaction_Interface;
+         fRetaining : BOOL;
+         grfTC : DWORD;
+         grfRM : DWORD
+      ) return HRESULT is abstract;
+      function abort_x_x(
+         This : access ITransaction_Interface;
+         pboidReason : access BOID;
+         fRetaining : BOOL;
+         fAsync : BOOL
+      ) return HRESULT is abstract;
+      function GetTransactionInfo(
+         This : access ITransaction_Interface;
+         pinfo : access XACTTRANSINFO
+      ) return HRESULT is abstract;
+   type ITransaction is access ITransaction_Interface'Class;
+   type ITransaction_Ptr is access ITransaction;
+   type ITransactionCloner_Interface is interface and ITransaction_Interface;
+      function CloneWithCommitDisabled(
+         This : access ITransactionCloner_Interface;
+         ppITransaction : access LPVOID
+      ) return HRESULT is abstract;
+   type ITransactionCloner is access ITransactionCloner_Interface'Class;
+   type ITransactionCloner_Ptr is access ITransactionCloner;
+   type ITransaction2_Interface is interface and ITransactionCloner_Interface;
+      function GetTransactionInfo2(
+         This : access ITransaction2_Interface;
+         pinfo : access XACTTRANSINFO
+      ) return HRESULT is abstract;
+   type ITransaction2 is access ITransaction2_Interface'Class;
+   type ITransaction2_Ptr is access ITransaction2;
+   type ITransactionOptions_Ptr is access all ITransactionOptions; -- Auto Generated Dependancy
+   type ITransactionDispenser_Interface is interface and IUnknown_Interface;
+      function GetOptionsObject(
+         This : access ITransactionDispenser_Interface;
+         ppOptions : access ITransactionOptions_Ptr
+      ) return HRESULT is abstract;
+      function BeginTransaction(
+         This : access ITransactionDispenser_Interface;
+         punkOuter : access Void;
+         isoLevel_x : ISOLEVEL;
+         isoFlags : ULONG;
+         pOptions : access ITransactionOptions;
+         ppTransaction : access ITransaction_Ptr
+      ) return HRESULT is abstract;
+   type ITransactionDispenser is access ITransactionDispenser_Interface'Class;
+   type ITransactionDispenser_Ptr is access ITransactionDispenser;
+   type ITransactionOptions_Interface is interface and IUnknown_Interface;
+      function SetOptions(
+         This : access ITransactionOptions_Interface;
+         pOptions : access XACTOPT
+      ) return HRESULT is abstract;
+      function GetOptions(
+         This : access ITransactionOptions_Interface;
+         pOptions : access XACTOPT
+      ) return HRESULT is abstract;
+   type ITransactionOptions is access ITransactionOptions_Interface'Class;
+   type ITransactionOutcomeEvents_Interface is interface and IUnknown_Interface;
+      function Committed(
+         This : access ITransactionOutcomeEvents_Interface;
+         fRetaining : BOOL;
+         pNewUOW : access XACTUOW;
+         hr : HRESULT
+      ) return HRESULT is abstract;
+      function Aborted(
+         This : access ITransactionOutcomeEvents_Interface;
+         pboidReason : access BOID;
+         fRetaining : BOOL;
+         pNewUOW : access XACTUOW;
+         hr : HRESULT
+      ) return HRESULT is abstract;
+      function HeuristicDecision(
+         This : access ITransactionOutcomeEvents_Interface;
+         dwDecision : DWORD;
+         pboidReason : access BOID;
+         hr : HRESULT
+      ) return HRESULT is abstract;
+      function Indoubt(This : access ITransactionOutcomeEvents_Interface) return HRESULT is abstract;
+   type ITransactionOutcomeEvents is access ITransactionOutcomeEvents_Interface'Class;
+   type ITransactionOutcomeEvents_Ptr is access ITransactionOutcomeEvents;
+   type ITmNodeName_Interface is interface and IUnknown_Interface;
+      function GetNodeNameSize(
+         This : access ITmNodeName_Interface;
+         pcbNodeNameSize : access ULONG
+      ) return HRESULT is abstract;
+      function GetNodeName(
+         This : access ITmNodeName_Interface;
+         cbNodeNameBufferSize : ULONG;
+         pNodeNameBuffer : LPWSTR
+      ) return HRESULT is abstract;
+   type ITmNodeName is access ITmNodeName_Interface'Class;
+   type ITmNodeName_Ptr is access ITmNodeName;
+   type IKernelTransaction_Interface is interface and IUnknown_Interface;
+      function GetHandle(
+         This : access IKernelTransaction_Interface;
+         pHandle_x : access HANDLE
+      ) return HRESULT is abstract;
+   type IKernelTransaction is access IKernelTransaction_Interface'Class;
+   type IKernelTransaction_Ptr is access IKernelTransaction;
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/txdtc.h>
+   type IXATransLookup; -- Forward Declaration
+   type IXATransLookup2; -- Forward Declaration
+   type IResourceManagerSink; -- Forward Declaration
+   type IResourceManager; -- Forward Declaration
+   type ILastResourceManager; -- Forward Declaration
+   type IResourceManager2; -- Forward Declaration
+   type IResourceManagerRejoinable; -- Forward Declaration
+   type IXAConfig; -- Forward Declaration
+   type IRMHelper; -- Forward Declaration
+   type IXAObtainRMInfo; -- Forward Declaration
+   type IResourceManagerFactory; -- Forward Declaration
+   type IResourceManagerFactory2; -- Forward Declaration
+   type IPrepareInfo; -- Forward Declaration
+   type IPrepareInfo2; -- Forward Declaration
+   type IGetDispenser; -- Forward Declaration
+   type ITransactionVoterBallotAsync2; -- Forward Declaration
+   type ITransactionVoterNotifyAsync2; -- Forward Declaration
+   type ITransactionVoterFactory2; -- Forward Declaration
+   type ITransactionPhase0EnlistmentAsync; -- Forward Declaration
+   type ITransactionPhase0NotifyAsync; -- Forward Declaration
+   type ITransactionPhase0Factory; -- Forward Declaration
+   type ITransactionTransmitter; -- Forward Declaration
+   type ITransactionTransmitterFactory; -- Forward Declaration
+   type ITransactionReceiver; -- Forward Declaration
+   type ITransactionReceiverFactory; -- Forward Declaration
+   type IDtcLuConfigure; -- Forward Declaration
+   type IDtcLuRecovery; -- Forward Declaration
+   type IDtcLuRecoveryFactory; -- Forward Declaration
+   type IDtcLuRecoveryInitiatedByDtcTransWork; -- Forward Declaration
+   type IDtcLuRecoveryInitiatedByDtcStatusWork; -- Forward Declaration
+   type IDtcLuRecoveryInitiatedByDtc; -- Forward Declaration
+   type IDtcLuRecoveryInitiatedByLuWork; -- Forward Declaration
+   type IDtcLuRecoveryInitiatedByLu; -- Forward Declaration
+   type IDtcLuRmEnlistment; -- Forward Declaration
+   type IDtcLuRmEnlistmentSink; -- Forward Declaration
+   type IDtcLuRmEnlistmentFactory; -- Forward Declaration
+   type IDtcLuSubordinateDtc; -- Forward Declaration
+   type IDtcLuSubordinateDtcSink; -- Forward Declaration
+   type IDtcLuSubordinateDtcFactory; -- Forward Declaration
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/txcoord.h>
+   type ITransactionResourceAsync; -- Forward Declaration
+   type ITransactionLastResourceAsync; -- Forward Declaration
+   type ITransactionResource; -- Forward Declaration
+   type ITransactionEnlistmentAsync; -- Forward Declaration
+   type ITransactionLastEnlistmentAsync; -- Forward Declaration
+   type ITransactionExportFactory; -- Forward Declaration
+   type ITransactionImportWhereabouts; -- Forward Declaration
+   type ITransactionExport; -- Forward Declaration
+   type ITransactionImport; -- Forward Declaration
+   type ITipTransaction; -- Forward Declaration
+   type ITipHelper; -- Forward Declaration
+   type ITipPullSink; -- Forward Declaration
+   type IDtcNetworkAccessConfig; -- Forward Declaration
+   type IDtcNetworkAccessConfig2; -- Forward Declaration
+   type IDtcNetworkAccessConfig3; -- Forward Declaration
+   type ITransactionResourceAsync_Interface is interface and IUnknown_Interface;
+      function PrepareRequest(
+         This : access ITransactionResourceAsync_Interface;
+         fRetaining : BOOL;
+         grfRM : DWORD;
+         fWantMoniker : BOOL;
+         fSinglePhase : BOOL
+      ) return HRESULT is abstract;
+      function CommitRequest(
+         This : access ITransactionResourceAsync_Interface;
+         grfRM : DWORD;
+         pNewUOW : access XACTUOW
+      ) return HRESULT is abstract;
+      function AbortRequest(
+         This : access ITransactionResourceAsync_Interface;
+         pboidReason : access BOID;
+         fRetaining : BOOL;
+         pNewUOW : access XACTUOW
+      ) return HRESULT is abstract;
+      function TMDown(This : access ITransactionResourceAsync_Interface) return HRESULT is abstract;
+   type ITransactionResourceAsync is access ITransactionResourceAsync_Interface'Class;
+   type ITransactionResourceAsync_Ptr is access ITransactionResourceAsync;
+   type ITransactionLastResourceAsync_Interface is interface and IUnknown_Interface;
+      function DelegateCommit(
+         This : access ITransactionLastResourceAsync_Interface;
+         grfRM : DWORD
+      ) return HRESULT is abstract;
+      function ForgetRequest(
+         This : access ITransactionLastResourceAsync_Interface;
+         pNewUOW : access XACTUOW
+      ) return HRESULT is abstract;
+   type ITransactionLastResourceAsync is access ITransactionLastResourceAsync_Interface'Class;
+   type ITransactionLastResourceAsync_Ptr is access ITransactionLastResourceAsync;
+   type ITransactionResource_Interface is interface and IUnknown_Interface;
+      function PrepareRequest(
+         This : access ITransactionResource_Interface;
+         fRetaining : BOOL;
+         grfRM : DWORD;
+         fWantMoniker : BOOL;
+         fSinglePhase : BOOL
+      ) return HRESULT is abstract;
+      function CommitRequest(
+         This : access ITransactionResource_Interface;
+         grfRM : DWORD;
+         pNewUOW : access XACTUOW
+      ) return HRESULT is abstract;
+      function AbortRequest(
+         This : access ITransactionResource_Interface;
+         pboidReason : access BOID;
+         fRetaining : BOOL;
+         pNewUOW : access XACTUOW
+      ) return HRESULT is abstract;
+      function TMDown(This : access ITransactionResource_Interface) return HRESULT is abstract;
+   type ITransactionResource is access ITransactionResource_Interface'Class;
+   type ITransactionResource_Ptr is access ITransactionResource;
+   type ITransactionEnlistmentAsync_Interface is interface and IUnknown_Interface;
+      function PrepareRequestDone(
+         This : access ITransactionEnlistmentAsync_Interface;
+         hr : HRESULT;
+         pmk : access IMoniker;
+         pboidReason : access BOID
+      ) return HRESULT is abstract;
+      function CommitRequestDone(
+         This : access ITransactionEnlistmentAsync_Interface;
+         hr : HRESULT
+      ) return HRESULT is abstract;
+      function AbortRequestDone(
+         This : access ITransactionEnlistmentAsync_Interface;
+         hr : HRESULT
+      ) return HRESULT is abstract;
+   type ITransactionEnlistmentAsync is access ITransactionEnlistmentAsync_Interface'Class;
+   type ITransactionEnlistmentAsync_Ptr is access ITransactionEnlistmentAsync;
+   type ITransactionLastEnlistmentAsync_Interface is interface and IUnknown_Interface;
+      function TransactionOutcome(
+         This : access ITransactionLastEnlistmentAsync_Interface;
+         XactStat_x : XACTSTAT;
+         pboidReason : access BOID
+      ) return HRESULT is abstract;
+   type ITransactionLastEnlistmentAsync is access ITransactionLastEnlistmentAsync_Interface'Class;
+   type ITransactionLastEnlistmentAsync_Ptr is access ITransactionLastEnlistmentAsync;
+   type ITransactionExport_Ptr is access all ITransactionExport; -- Auto Generated Dependancy
+   type ITransactionExportFactory_Interface is interface and IUnknown_Interface;
+      function GetRemoteClassId(
+         This : access ITransactionExportFactory_Interface;
+         pclsid : access CLSID
+      ) return HRESULT is abstract;
+      function Create(
+         This : access ITransactionExportFactory_Interface;
+         cbWhereabouts : ULONG;
+         rgbWhereabouts : access byte;
+         ppExport : access ITransactionExport_Ptr
+      ) return HRESULT is abstract;
+   type ITransactionExportFactory is access ITransactionExportFactory_Interface'Class;
+   type ITransactionExportFactory_Ptr is access ITransactionExportFactory;
+   type ITransactionImportWhereabouts_Interface is interface and IUnknown_Interface;
+      function GetWhereaboutsSize(
+         This : access ITransactionImportWhereabouts_Interface;
+         pcbWhereabouts : access ULONG
+      ) return HRESULT is abstract;
+      function GetWhereabouts(
+         This : access ITransactionImportWhereabouts_Interface;
+         cbWhereabouts : ULONG;
+         rgbWhereabouts : access byte;
+         pcbUsed : access ULONG
+      ) return HRESULT is abstract;
+   type ITransactionImportWhereabouts is access ITransactionImportWhereabouts_Interface'Class;
+   type ITransactionImportWhereabouts_Ptr is access ITransactionImportWhereabouts;
+   function ITransactionImportWhereabouts_RemoteGetWhereabouts_Proxy(
+      This : access ITransactionImportWhereabouts;
+      pcbUsed : access ULONG;
+      cbWhereabouts : ULONG;
+      rgbWhereabouts : access byte
+   ) return HRESULT;
+   pragma import (C,ITransactionImportWhereabouts_RemoteGetWhereabouts_Proxy,"ITransactionImportWhereabouts_RemoteGetWhereabouts_Proxy");
+   procedure ITransactionImportWhereabouts_RemoteGetWhereabouts_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,ITransactionImportWhereabouts_RemoteGetWhereabouts_Stub,"ITransactionImportWhereabouts_RemoteGetWhereabouts_Stub");
+   type ITransactionExport_Interface is interface and IUnknown_Interface;
+      function Export(
+         This : access ITransactionExport_Interface;
+         punkTransaction : access Void;
+         pcbTransactionCookie : access ULONG
+      ) return HRESULT is abstract;
+      function GetTransactionCookie(
+         This : access ITransactionExport_Interface;
+         punkTransaction : access Void;
+         cbTransactionCookie : ULONG;
+         rgbTransactionCookie : access byte;
+         pcbUsed : access ULONG
+      ) return HRESULT is abstract;
+   type ITransactionExport is access ITransactionExport_Interface'Class;
+   function ITransactionExport_RemoteGetTransactionCookie_Proxy(
+      This : access ITransactionExport;
+      punkTransaction : access IUnknown;
+      pcbUsed : access ULONG;
+      cbTransactionCookie : ULONG;
+      rgbTransactionCookie : access byte
+   ) return HRESULT;
+   pragma import (C,ITransactionExport_RemoteGetTransactionCookie_Proxy,"ITransactionExport_RemoteGetTransactionCookie_Proxy");
+   procedure ITransactionExport_RemoteGetTransactionCookie_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,ITransactionExport_RemoteGetTransactionCookie_Stub,"ITransactionExport_RemoteGetTransactionCookie_Stub");
+   type ITransactionImport_Interface is interface and IUnknown_Interface;
+      function Import(
+         This : access ITransactionImport_Interface;
+         cbTransactionCookie : ULONG;
+         rgbTransactionCookie : access byte;
+         piid : access IID;
+         ppvTransaction : access LPVOID
+      ) return HRESULT is abstract;
+   type ITransactionImport is access ITransactionImport_Interface'Class;
+   type ITransactionImport_Ptr is access ITransactionImport;
+   type ITipTransaction_Interface is interface and IUnknown_Interface;
+      function Push(
+         This : access ITipTransaction_Interface;
+         i_pszRemoteTmUrl : access Character;
+         o_ppszRemoteTxUrl : access LPSTR
+      ) return HRESULT is abstract;
+      function GetTransactionUrl(
+         This : access ITipTransaction_Interface;
+         o_ppszLocalTxUrl : access LPSTR
+      ) return HRESULT is abstract;
+   type ITipTransaction is access ITipTransaction_Interface'Class;
+   type ITipTransaction_Ptr is access ITipTransaction;
+   type ITipHelper_Interface is interface and IUnknown_Interface;
+      function Pull(
+         This : access ITipHelper_Interface;
+         i_pszTxUrl : access Character;
+         o_ppITransaction : access ITransaction_Ptr
+      ) return HRESULT is abstract;
+      function PullAsync(
+         This : access ITipHelper_Interface;
+         i_pszTxUrl : access Character;
+         i_pTipPullSink : access ITipPullSink;
+         o_ppITransaction : access ITransaction_Ptr
+      ) return HRESULT is abstract;
+      function GetLocalTmUrl(
+         This : access ITipHelper_Interface;
+         o_ppszLocalTmUrl : access va_list
+      ) return HRESULT is abstract;
+   type ITipHelper is access ITipHelper_Interface'Class;
+   type ITipHelper_Ptr is access ITipHelper;
+   type ITipPullSink_Interface is interface and IUnknown_Interface;
+      function PullComplete(
+         This : access ITipPullSink_Interface;
+         i_hrPull : HRESULT
+      ) return HRESULT is abstract;
+   type ITipPullSink is access ITipPullSink_Interface'Class;
+   type ITipPullSink_Ptr is access ITipPullSink;
+   type IDtcNetworkAccessConfig_Interface is interface and IUnknown_Interface;
+      function GetAnyNetworkAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         pbAnyNetworkAccess : access BOOL
+      ) return HRESULT is abstract;
+      function SetAnyNetworkAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         bAnyNetworkAccess : BOOL
+      ) return HRESULT is abstract;
+      function GetNetworkAdministrationAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         pbNetworkAdministrationAccess : access BOOL
+      ) return HRESULT is abstract;
+      function SetNetworkAdministrationAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         bNetworkAdministrationAccess : BOOL
+      ) return HRESULT is abstract;
+      function GetNetworkTransactionAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         pbNetworkTransactionAccess : access BOOL
+      ) return HRESULT is abstract;
+      function SetNetworkTransactionAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         bNetworkTransactionAccess : BOOL
+      ) return HRESULT is abstract;
+      function GetNetworkClientAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         pbNetworkClientAccess : access BOOL
+      ) return HRESULT is abstract;
+      function SetNetworkClientAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         bNetworkClientAccess : BOOL
+      ) return HRESULT is abstract;
+      function GetNetworkTIPAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         pbNetworkTIPAccess : access BOOL
+      ) return HRESULT is abstract;
+      function SetNetworkTIPAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         bNetworkTIPAccess : BOOL
+      ) return HRESULT is abstract;
+      function GetXAAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         pbXAAccess : access BOOL
+      ) return HRESULT is abstract;
+      function SetXAAccess(
+         This : access IDtcNetworkAccessConfig_Interface;
+         bXAAccess : BOOL
+      ) return HRESULT is abstract;
+      function RestartDtcService(This : access IDtcNetworkAccessConfig_Interface) return HRESULT is abstract;
+   type IDtcNetworkAccessConfig is access IDtcNetworkAccessConfig_Interface'Class;
+   type IDtcNetworkAccessConfig_Ptr is access IDtcNetworkAccessConfig;
+   type AUTHENTICATION_LEVEL is (
+      NO_AUTHENTICATION_REQUIRED,
+      INCOMING_AUTHENTICATION_REQUIRED,
+      MUTUAL_AUTHENTICATION_REQUIRED
+   );
+   for AUTHENTICATION_LEVEL use (
+      NO_AUTHENTICATION_REQUIRED => 0,
+      INCOMING_AUTHENTICATION_REQUIRED => 1,
+      MUTUAL_AUTHENTICATION_REQUIRED => 2
+   );
+   for AUTHENTICATION_LEVEL'Size use 32;
+   type IDtcNetworkAccessConfig2_Interface is interface and IDtcNetworkAccessConfig_Interface;
+      function GetNetworkInboundAccess(
+         This : access IDtcNetworkAccessConfig2_Interface;
+         pbInbound : access BOOL
+      ) return HRESULT is abstract;
+      function GetNetworkOutboundAccess(
+         This : access IDtcNetworkAccessConfig2_Interface;
+         pbOutbound : access BOOL
+      ) return HRESULT is abstract;
+      function SetNetworkInboundAccess(
+         This : access IDtcNetworkAccessConfig2_Interface;
+         bInbound : BOOL
+      ) return HRESULT is abstract;
+      function SetNetworkOutboundAccess(
+         This : access IDtcNetworkAccessConfig2_Interface;
+         bOutbound : BOOL
+      ) return HRESULT is abstract;
+      function GetAuthenticationLevel(
+         This : access IDtcNetworkAccessConfig2_Interface;
+         pAuthLevel : access AUTHENTICATION_LEVEL
+      ) return HRESULT is abstract;
+      function SetAuthenticationLevel(
+         This : access IDtcNetworkAccessConfig2_Interface;
+         AuthLevel : AUTHENTICATION_LEVEL
+      ) return HRESULT is abstract;
+   type IDtcNetworkAccessConfig2 is access IDtcNetworkAccessConfig2_Interface'Class;
+   type IDtcNetworkAccessConfig2_Ptr is access IDtcNetworkAccessConfig2;
+   type IDtcNetworkAccessConfig3_Interface is interface and IDtcNetworkAccessConfig2_Interface;
+      function GetLUAccess(
+         This : access IDtcNetworkAccessConfig3_Interface;
+         pbLUAccess : access BOOL
+      ) return HRESULT is abstract;
+      function SetLUAccess(
+         This : access IDtcNetworkAccessConfig3_Interface;
+         bLUAccess : BOOL
+      ) return HRESULT is abstract;
+   type IDtcNetworkAccessConfig3 is access IDtcNetworkAccessConfig3_Interface'Class;
+   type IDtcNetworkAccessConfig3_Ptr is access IDtcNetworkAccessConfig3;
+   function ITransactionImportWhereabouts_GetWhereabouts_Proxy(
+      This : access ITransactionImportWhereabouts;
+      cbWhereabouts : ULONG;
+      rgbWhereabouts : access byte;
+      pcbUsed : access ULONG
+   ) return HRESULT;
+   pragma import (C,ITransactionImportWhereabouts_GetWhereabouts_Proxy,"ITransactionImportWhereabouts_GetWhereabouts_Proxy");
+   function ITransactionImportWhereabouts_GetWhereabouts_Stub(
+      This : access ITransactionImportWhereabouts;
+      pcbUsed : access ULONG;
+      cbWhereabouts : ULONG;
+      rgbWhereabouts : access byte
+   ) return HRESULT;
+   pragma import (C,ITransactionImportWhereabouts_GetWhereabouts_Stub,"ITransactionImportWhereabouts_GetWhereabouts_Stub");
+   function ITransactionExport_GetTransactionCookie_Proxy(
+      This : access ITransactionExport;
+      punkTransaction : access IUnknown;
+      cbTransactionCookie : ULONG;
+      rgbTransactionCookie : access byte;
+      pcbUsed : access ULONG
+   ) return HRESULT;
+   pragma import (C,ITransactionExport_GetTransactionCookie_Proxy,"ITransactionExport_GetTransactionCookie_Proxy");
+   function ITransactionExport_GetTransactionCookie_Stub(
+      This : access ITransactionExport;
+      punkTransaction : access IUnknown;
+      pcbUsed : access ULONG;
+      cbTransactionCookie : ULONG;
+      rgbTransactionCookie : access byte
+   ) return HRESULT;
+   pragma import (C,ITransactionExport_GetTransactionCookie_Stub,"ITransactionExport_GetTransactionCookie_Stub");
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/txdtc.h>
+   type XACT_DTC_CONSTANTS is (
+      XACT_E_CONNECTION_REQUEST_DENIED,
+      XACT_E_TOOMANY_ENLISTMENTS,
+      XACT_E_DUPLICATE_GUID,
+      XACT_E_NOTSINGLEPHASE,
+      XACT_E_RECOVERYALREADYDONE,
+      XACT_E_PROTOCOL,
+      XACT_E_RM_FAILURE,
+      XACT_E_RECOVERY_FAILED,
+      XACT_E_LU_NOT_FOUND,
+      XACT_E_DUPLICATE_LU,
+      XACT_E_LU_NOT_CONNECTED,
+      XACT_E_DUPLICATE_TRANSID,
+      XACT_E_LU_BUSY,
+      XACT_E_LU_NO_RECOVERY_PROCESS,
+      XACT_E_LU_DOWN,
+      XACT_E_LU_RECOVERING,
+      XACT_E_LU_RECOVERY_MISMATCH,
+      XACT_E_RM_UNAVAILABLE,
+      XACT_E_LRMRECOVERYALREADYDONE,
+      XACT_E_NOLASTRESOURCEINTERFACE,
+      dwUSER_MS_SQLSERVER,
+      XACT_S_NONOTIFY,
+      XACT_OK_NONOTIFY
+   );
+   for XACT_DTC_CONSTANTS use (
+      XACT_E_CONNECTION_REQUEST_DENIED => -2147168000,
+      XACT_E_TOOMANY_ENLISTMENTS => -2147167999,
+      XACT_E_DUPLICATE_GUID => -2147167998,
+      XACT_E_NOTSINGLEPHASE => -2147167997,
+      XACT_E_RECOVERYALREADYDONE => -2147167996,
+      XACT_E_PROTOCOL => -2147167995,
+      XACT_E_RM_FAILURE => -2147167994,
+      XACT_E_RECOVERY_FAILED => -2147167993,
+      XACT_E_LU_NOT_FOUND => -2147167992,
+      XACT_E_DUPLICATE_LU => -2147167991,
+      XACT_E_LU_NOT_CONNECTED => -2147167990,
+      XACT_E_DUPLICATE_TRANSID => -2147167989,
+      XACT_E_LU_BUSY => -2147167988,
+      XACT_E_LU_NO_RECOVERY_PROCESS => -2147167987,
+      XACT_E_LU_DOWN => -2147167986,
+      XACT_E_LU_RECOVERING => -2147167985,
+      XACT_E_LU_RECOVERY_MISMATCH => -2147167984,
+      XACT_E_RM_UNAVAILABLE => -2147167983,
+      XACT_E_LRMRECOVERYALREADYDONE => -2147167982,
+      XACT_E_NOLASTRESOURCEINTERFACE => -2147167981,
+      dwUSER_MS_SQLSERVER => 65535,
+      XACT_S_NONOTIFY => 315648,
+      XACT_OK_NONOTIFY => 315649
+   );
+   for XACT_DTC_CONSTANTS'Size use 32;
+   type xid_t is record
+      formatID : Interfaces.C.Long;
+      gtrid_length : Interfaces.C.Long;
+      bqual_length : Interfaces.C.Long;
+      data : Void;
+   end record;
+   subtype XID is xid_t; -- CXType_Elaborated
+   type xa_switch_t is record
+      name : Void;
+      flags : Interfaces.C.Long;
+      version : Interfaces.C.Long;
+      xa_open_entry : access System.Address;
+      xa_close_entry : access System.Address;
+      xa_start_entry : access System.Address;
+      xa_end_entry : access System.Address;
+      xa_rollback_entry : access System.Address;
+      xa_prepare_entry : access System.Address;
+      xa_commit_entry : access System.Address;
+      xa_recover_entry : access System.Address;
+      xa_forget_entry : access System.Address;
+      xa_complete_entry : access System.Address;
+   end record;
+   type IXATransLookup_Interface is interface and IUnknown_Interface;
+      function Lookup(
+         This : access IXATransLookup_Interface;
+         ppTransaction : access ITransaction_Ptr
+      ) return HRESULT is abstract;
+   type IXATransLookup is access IXATransLookup_Interface'Class;
+   type IXATransLookup_Ptr is access IXATransLookup;
+   type IXATransLookup2_Interface is interface and IUnknown_Interface;
+      function Lookup(
+         This : access IXATransLookup2_Interface;
+         pXID : access XID;
+         ppTransaction : access ITransaction_Ptr
+      ) return HRESULT is abstract;
+   type IXATransLookup2 is access IXATransLookup2_Interface'Class;
+   type IXATransLookup2_Ptr is access IXATransLookup2;
+   type IResourceManagerSink_Interface is interface and IUnknown_Interface;
+      function TMDown(This : access IResourceManagerSink_Interface) return HRESULT is abstract;
+   type IResourceManagerSink is access IResourceManagerSink_Interface'Class;
+   type IResourceManagerSink_Ptr is access IResourceManagerSink;
+   type IResourceManager_Interface is interface and IUnknown_Interface;
+      function Enlist(
+         This : access IResourceManager_Interface;
+         pTransaction : access ITransaction;
+         pRes : access ITransactionResourceAsync;
+         pUOW_x : access XACTUOW;
+         pisoLevel : access LONG;
+         ppEnlist : access ITransactionEnlistmentAsync_Ptr
+      ) return HRESULT is abstract;
+      function Reenlist(
+         This : access IResourceManager_Interface;
+         pPrepInfo : access byte;
+         cbPrepInfo : ULONG;
+         lTimeout : DWORD;
+         pXactStat : access XACTSTAT
+      ) return HRESULT is abstract;
+      function ReenlistmentComplete(This : access IResourceManager_Interface) return HRESULT is abstract;
+      function GetDistributedTransactionManager(
+         This : access IResourceManager_Interface;
+         iid_x : access constant IID;
+         ppvObject : access LPVOID
+      ) return HRESULT is abstract;
+   type IResourceManager is access IResourceManager_Interface'Class;
+   type IResourceManager_Ptr is access IResourceManager;
+   type ILastResourceManager_Interface is interface and IUnknown_Interface;
+      function TransactionCommitted(
+         This : access ILastResourceManager_Interface;
+         pPrepInfo : access byte;
+         cbPrepInfo : ULONG
+      ) return HRESULT is abstract;
+      function RecoveryDone(This : access ILastResourceManager_Interface) return HRESULT is abstract;
+   type ILastResourceManager is access ILastResourceManager_Interface'Class;
+   type ILastResourceManager_Ptr is access ILastResourceManager;
+   type IResourceManager2_Interface is interface and IResourceManager_Interface;
+      function Enlist2(
+         This : access IResourceManager2_Interface;
+         pTransaction : access ITransaction;
+         pResAsync : access ITransactionResourceAsync;
+         pUOW_x : access XACTUOW;
+         pisoLevel : access LONG;
+         pXid : access XID;
+         ppEnlist : access ITransactionEnlistmentAsync_Ptr
+      ) return HRESULT is abstract;
+      function Reenlist2(
+         This : access IResourceManager2_Interface;
+         pXid : access XID;
+         dwTimeout : DWORD;
+         pXactStat : access XACTSTAT
+      ) return HRESULT is abstract;
+   type IResourceManager2 is access IResourceManager2_Interface'Class;
+   type IResourceManager2_Ptr is access IResourceManager2;
+   type IResourceManagerRejoinable_Interface is interface and IResourceManager2_Interface;
+      function Rejoin(
+         This : access IResourceManagerRejoinable_Interface;
+         pPrepInfo : access byte;
+         cbPrepInfo : ULONG;
+         lTimeout : DWORD;
+         pXactStat : access XACTSTAT
+      ) return HRESULT is abstract;
+   type IResourceManagerRejoinable is access IResourceManagerRejoinable_Interface'Class;
+   type IResourceManagerRejoinable_Ptr is access IResourceManagerRejoinable;
+   type IXAConfig_Interface is interface and IUnknown_Interface;
+      function Initialize(
+         This : access IXAConfig_Interface;
+         clsidHelperDll : GUID
+      ) return HRESULT is abstract;
+      function terminate_x(This : access IXAConfig_Interface) return HRESULT is abstract;
+   type IXAConfig is access IXAConfig_Interface'Class;
+   type IXAConfig_Ptr is access IXAConfig;
+   type IRMHelper_Interface is interface and IUnknown_Interface;
+      function RMCount(
+         This : access IRMHelper_Interface;
+         dwcTotalNumberOfRMs : DWORD
+      ) return HRESULT is abstract;
+      function RMInfo(
+         This : access IRMHelper_Interface;
+         pXa_Switch : access xa_switch_t;
+         fCDeclCallingConv : BOOL;
+         pszOpenString : access Character;
+         pszCloseString : access Character;
+         guidRMRecovery : GUID
+      ) return HRESULT is abstract;
+   type IRMHelper is access IRMHelper_Interface'Class;
+   type IRMHelper_Ptr is access IRMHelper;
+   type IXAObtainRMInfo_Interface is interface and IUnknown_Interface;
+      function ObtainRMInfo(
+         This : access IXAObtainRMInfo_Interface;
+         pIRMHelper : access IRMHelper
+      ) return HRESULT is abstract;
+   type IXAObtainRMInfo is access IXAObtainRMInfo_Interface'Class;
+   type IXAObtainRMInfo_Ptr is access IXAObtainRMInfo;
+   type IResourceManagerFactory_Interface is interface and IUnknown_Interface;
+      function Create(
+         This : access IResourceManagerFactory_Interface;
+         pguidRM : access GUID;
+         pszRMName : access CHAR;
+         pIResMgrSink : access IResourceManagerSink;
+         ppResMgr : access IResourceManager_Ptr
+      ) return HRESULT is abstract;
+   type IResourceManagerFactory is access IResourceManagerFactory_Interface'Class;
+   type IResourceManagerFactory_Ptr is access IResourceManagerFactory;
+   type IResourceManagerFactory2_Interface is interface and IResourceManagerFactory_Interface;
+      function CreateEx(
+         This : access IResourceManagerFactory2_Interface;
+         pguidRM : access GUID;
+         pszRMName : access CHAR;
+         pIResMgrSink : access IResourceManagerSink;
+         riidRequested : access constant IID;
+         ppvResMgr : access LPVOID
+      ) return HRESULT is abstract;
+   type IResourceManagerFactory2 is access IResourceManagerFactory2_Interface'Class;
+   type IResourceManagerFactory2_Ptr is access IResourceManagerFactory2;
+   type IPrepareInfo_Interface is interface and IUnknown_Interface;
+      function GetPrepareInfoSize(
+         This : access IPrepareInfo_Interface;
+         pcbPrepInfo : access ULONG
+      ) return HRESULT is abstract;
+      function GetPrepareInfo(
+         This : access IPrepareInfo_Interface;
+         pPrepInfo : access byte
+      ) return HRESULT is abstract;
+   type IPrepareInfo is access IPrepareInfo_Interface'Class;
+   type IPrepareInfo_Ptr is access IPrepareInfo;
+   type IPrepareInfo2_Interface is interface and IUnknown_Interface;
+      function GetPrepareInfoSize(
+         This : access IPrepareInfo2_Interface;
+         pcbPrepInfo : access ULONG
+      ) return HRESULT is abstract;
+      function GetPrepareInfo(
+         This : access IPrepareInfo2_Interface;
+         cbPrepareInfo : ULONG;
+         pPrepInfo : access byte
+      ) return HRESULT is abstract;
+   type IPrepareInfo2 is access IPrepareInfo2_Interface'Class;
+   type IPrepareInfo2_Ptr is access IPrepareInfo2;
+   type IGetDispenser_Interface is interface and IUnknown_Interface;
+      function GetDispenser(
+         This : access IGetDispenser_Interface;
+         iid_x : access constant IID;
+         ppvObject : access LPVOID
+      ) return HRESULT is abstract;
+   type IGetDispenser is access IGetDispenser_Interface'Class;
+   type IGetDispenser_Ptr is access IGetDispenser;
+   type ITransactionVoterBallotAsync2_Interface is interface and IUnknown_Interface;
+      function VoteRequestDone(
+         This : access ITransactionVoterBallotAsync2_Interface;
+         hr : HRESULT;
+         pboidReason : access BOID
+      ) return HRESULT is abstract;
+   type ITransactionVoterBallotAsync2 is access ITransactionVoterBallotAsync2_Interface'Class;
+   type ITransactionVoterBallotAsync2_Ptr is access ITransactionVoterBallotAsync2;
+   type ITransactionVoterNotifyAsync2_Interface is interface and ITransactionOutcomeEvents_Interface;
+      function VoteRequest(This : access ITransactionVoterNotifyAsync2_Interface) return HRESULT is abstract;
+   type ITransactionVoterNotifyAsync2 is access ITransactionVoterNotifyAsync2_Interface'Class;
+   type ITransactionVoterNotifyAsync2_Ptr is access ITransactionVoterNotifyAsync2;
+   type ITransactionVoterFactory2_Interface is interface and IUnknown_Interface;
+      function Create(
+         This : access ITransactionVoterFactory2_Interface;
+         pTransaction : access ITransaction;
+         pVoterNotify : access ITransactionVoterNotifyAsync2;
+         ppVoterBallot : access ITransactionVoterBallotAsync2_Ptr
+      ) return HRESULT is abstract;
+   type ITransactionVoterFactory2 is access ITransactionVoterFactory2_Interface'Class;
+   type ITransactionVoterFactory2_Ptr is access ITransactionVoterFactory2;
+   type ITransactionPhase0EnlistmentAsync_Interface is interface and IUnknown_Interface;
+      function Enable(This : access ITransactionPhase0EnlistmentAsync_Interface) return HRESULT is abstract;
+      function WaitForEnlistment(This : access ITransactionPhase0EnlistmentAsync_Interface) return HRESULT is abstract;
+      function Phase0Done(This : access ITransactionPhase0EnlistmentAsync_Interface) return HRESULT is abstract;
+      function Unenlist(This : access ITransactionPhase0EnlistmentAsync_Interface) return HRESULT is abstract;
+      function GetTransaction(
+         This : access ITransactionPhase0EnlistmentAsync_Interface;
+         ppITransaction : access ITransaction_Ptr
+      ) return HRESULT is abstract;
+   type ITransactionPhase0EnlistmentAsync is access ITransactionPhase0EnlistmentAsync_Interface'Class;
+   type ITransactionPhase0EnlistmentAsync_Ptr is access ITransactionPhase0EnlistmentAsync;
+   type ITransactionPhase0NotifyAsync_Interface is interface and IUnknown_Interface;
+      function Phase0Request(
+         This : access ITransactionPhase0NotifyAsync_Interface;
+         fAbortingHint : BOOL
+      ) return HRESULT is abstract;
+      function EnlistCompleted(
+         This : access ITransactionPhase0NotifyAsync_Interface;
+         status : HRESULT
+      ) return HRESULT is abstract;
+   type ITransactionPhase0NotifyAsync is access ITransactionPhase0NotifyAsync_Interface'Class;
+   type ITransactionPhase0NotifyAsync_Ptr is access ITransactionPhase0NotifyAsync;
+   type ITransactionPhase0Factory_Interface is interface and IUnknown_Interface;
+      function Create(
+         This : access ITransactionPhase0Factory_Interface;
+         pPhase0Notify : access ITransactionPhase0NotifyAsync;
+         ppPhase0Enlistment : access ITransactionPhase0EnlistmentAsync_Ptr
+      ) return HRESULT is abstract;
+   type ITransactionPhase0Factory is access ITransactionPhase0Factory_Interface'Class;
+   type ITransactionPhase0Factory_Ptr is access ITransactionPhase0Factory;
+   type ITransactionTransmitter_Interface is interface and IUnknown_Interface;
+      function Set(
+         This : access ITransactionTransmitter_Interface;
+         pTransaction : access ITransaction
+      ) return HRESULT is abstract;
+      function GetPropagationTokenSize(
+         This : access ITransactionTransmitter_Interface;
+         pcbToken : access ULONG
+      ) return HRESULT is abstract;
+      function MarshalPropagationToken(
+         This : access ITransactionTransmitter_Interface;
+         cbToken : ULONG;
+         rgbToken : access byte;
+         pcbUsed : access ULONG
+      ) return HRESULT is abstract;
+      function UnmarshalReturnToken(
+         This : access ITransactionTransmitter_Interface;
+         cbReturnToken : ULONG;
+         rgbReturnToken : access byte
+      ) return HRESULT is abstract;
+      function Reset(This : access ITransactionTransmitter_Interface) return HRESULT is abstract;
+   type ITransactionTransmitter is access ITransactionTransmitter_Interface'Class;
+   type ITransactionTransmitter_Ptr is access ITransactionTransmitter;
+   type ITransactionTransmitterFactory_Interface is interface and IUnknown_Interface;
+      function Create(
+         This : access ITransactionTransmitterFactory_Interface;
+         ppTransmitter : access ITransactionTransmitter_Ptr
+      ) return HRESULT is abstract;
+   type ITransactionTransmitterFactory is access ITransactionTransmitterFactory_Interface'Class;
+   type ITransactionTransmitterFactory_Ptr is access ITransactionTransmitterFactory;
+   type ITransactionReceiver_Interface is interface and IUnknown_Interface;
+      function UnmarshalPropagationToken(
+         This : access ITransactionReceiver_Interface;
+         cbToken : ULONG;
+         rgbToken : access byte;
+         ppTransaction : access ITransaction_Ptr
+      ) return HRESULT is abstract;
+      function GetReturnTokenSize(
+         This : access ITransactionReceiver_Interface;
+         pcbReturnToken : access ULONG
+      ) return HRESULT is abstract;
+      function MarshalReturnToken(
+         This : access ITransactionReceiver_Interface;
+         cbReturnToken : ULONG;
+         rgbReturnToken : access byte;
+         pcbUsed : access ULONG
+      ) return HRESULT is abstract;
+      function Reset(This : access ITransactionReceiver_Interface) return HRESULT is abstract;
+   type ITransactionReceiver is access ITransactionReceiver_Interface'Class;
+   type ITransactionReceiver_Ptr is access ITransactionReceiver;
+   type ITransactionReceiverFactory_Interface is interface and IUnknown_Interface;
+      function Create(
+         This : access ITransactionReceiverFactory_Interface;
+         ppReceiver : access ITransactionReceiver_Ptr
+      ) return HRESULT is abstract;
+   type ITransactionReceiverFactory is access ITransactionReceiverFactory_Interface'Class;
+   type ITransactionReceiverFactory_Ptr is access ITransactionReceiverFactory;
+   type ProxyConfigParams_x is record
+      wcThreadsMax : WORD;
+   end record;
+   subtype PROXY_CONFIG_PARAMS is ProxyConfigParams_x; -- CXType_Elaborated
+   type IDtcLuConfigure_Interface is interface and IUnknown_Interface;
+      function Add(
+         This : access IDtcLuConfigure_Interface;
+         pucLuPair : access byte;
+         cbLuPair : DWORD
+      ) return HRESULT is abstract;
+      function Delete(
+         This : access IDtcLuConfigure_Interface;
+         pucLuPair : access byte;
+         cbLuPair : DWORD
+      ) return HRESULT is abstract;
+   type IDtcLuConfigure is access IDtcLuConfigure_Interface'Class;
+   type IDtcLuConfigure_Ptr is access IDtcLuConfigure;
+   type IDtcLuRecovery_Ptr is access all IDtcLuRecovery; -- Auto Generated Dependancy
+   type IDtcLuRecoveryFactory_Interface is interface and IUnknown_Interface;
+      function Create(
+         This : access IDtcLuRecoveryFactory_Interface;
+         pucLuPair : access byte;
+         cbLuPair : DWORD;
+         ppRecovery : access IDtcLuRecovery_Ptr
+      ) return HRESULT is abstract;
+   type IDtcLuRecoveryFactory is access IDtcLuRecoveryFactory_Interface'Class;
+   type IDtcLuRecoveryFactory_Ptr is access IDtcLuRecoveryFactory;
+   type DtcLu_LocalRecovery_Work_x is (
+      DTCINITIATEDRECOVERYWORK_CHECKLUSTATUS,
+      DTCINITIATEDRECOVERYWORK_TRANS,
+      DTCINITIATEDRECOVERYWORK_TMDOWN
+   );
+   for DtcLu_LocalRecovery_Work_x use (
+      DTCINITIATEDRECOVERYWORK_CHECKLUSTATUS => 1,
+      DTCINITIATEDRECOVERYWORK_TRANS => 2,
+      DTCINITIATEDRECOVERYWORK_TMDOWN => 3
+   );
+   for DtcLu_LocalRecovery_Work_x'Size use 32;
+   subtype DTCINITIATEDRECOVERYWORK is DtcLu_LocalRecovery_Work_x; -- CXType_Elaborated
+   type DtcLu_Xln_x is (
+      DTCLUXLN_COLD,
+      DTCLUXLN_WARM
+   );
+   for DtcLu_Xln_x use (
+      DTCLUXLN_COLD => 1,
+      DTCLUXLN_WARM => 2
+   );
+   for DtcLu_Xln_x'Size use 32;
+   subtype DTCLUXLN is DtcLu_Xln_x; -- CXType_Elaborated
+   type DtcLu_Xln_Confirmation_x is (
+      DTCLUXLNCONFIRMATION_CONFIRM,
+      DTCLUXLNCONFIRMATION_LOGNAMEMISMATCH,
+      DTCLUXLNCONFIRMATION_COLDWARMMISMATCH,
+      DTCLUXLNCONFIRMATION_OBSOLETE
+   );
+   for DtcLu_Xln_Confirmation_x use (
+      DTCLUXLNCONFIRMATION_CONFIRM => 1,
+      DTCLUXLNCONFIRMATION_LOGNAMEMISMATCH => 2,
+      DTCLUXLNCONFIRMATION_COLDWARMMISMATCH => 3,
+      DTCLUXLNCONFIRMATION_OBSOLETE => 4
+   );
+   for DtcLu_Xln_Confirmation_x'Size use 32;
+   subtype DTCLUXLNCONFIRMATION is DtcLu_Xln_Confirmation_x; -- CXType_Elaborated
+   type DtcLu_Xln_Response_x is (
+      DTCLUXLNRESPONSE_OK_SENDOURXLNBACK,
+      DTCLUXLNRESPONSE_OK_SENDCONFIRMATION,
+      DTCLUXLNRESPONSE_LOGNAMEMISMATCH,
+      DTCLUXLNRESPONSE_COLDWARMMISMATCH
+   );
+   for DtcLu_Xln_Response_x use (
+      DTCLUXLNRESPONSE_OK_SENDOURXLNBACK => 1,
+      DTCLUXLNRESPONSE_OK_SENDCONFIRMATION => 2,
+      DTCLUXLNRESPONSE_LOGNAMEMISMATCH => 3,
+      DTCLUXLNRESPONSE_COLDWARMMISMATCH => 4
+   );
+   for DtcLu_Xln_Response_x'Size use 32;
+   subtype DTCLUXLNRESPONSE is DtcLu_Xln_Response_x; -- CXType_Elaborated
+   type DtcLu_Xln_Error_x is (
+      DTCLUXLNERROR_PROTOCOL,
+      DTCLUXLNERROR_LOGNAMEMISMATCH,
+      DTCLUXLNERROR_COLDWARMMISMATCH
+   );
+   for DtcLu_Xln_Error_x use (
+      DTCLUXLNERROR_PROTOCOL => 1,
+      DTCLUXLNERROR_LOGNAMEMISMATCH => 2,
+      DTCLUXLNERROR_COLDWARMMISMATCH => 3
+   );
+   for DtcLu_Xln_Error_x'Size use 32;
+   subtype DTCLUXLNERROR is DtcLu_Xln_Error_x; -- CXType_Elaborated
+   type DtcLu_CompareState_x is (
+      DTCLUCOMPARESTATE_COMMITTED,
+      DTCLUCOMPARESTATE_HEURISTICCOMMITTED,
+      DTCLUCOMPARESTATE_HEURISTICMIXED,
+      DTCLUCOMPARESTATE_HEURISTICRESET,
+      DTCLUCOMPARESTATE_INDOUBT,
+      DTCLUCOMPARESTATE_RESET
+   );
+   for DtcLu_CompareState_x use (
+      DTCLUCOMPARESTATE_COMMITTED => 1,
+      DTCLUCOMPARESTATE_HEURISTICCOMMITTED => 2,
+      DTCLUCOMPARESTATE_HEURISTICMIXED => 3,
+      DTCLUCOMPARESTATE_HEURISTICRESET => 4,
+      DTCLUCOMPARESTATE_INDOUBT => 5,
+      DTCLUCOMPARESTATE_RESET => 6
+   );
+   for DtcLu_CompareState_x'Size use 32;
+   subtype DTCLUCOMPARESTATE is DtcLu_CompareState_x; -- CXType_Elaborated
+   type DtcLu_CompareStates_Confirmation_x is (
+      DTCLUCOMPARESTATESCONFIRMATION_CONFIRM,
+      DTCLUCOMPARESTATESCONFIRMATION_PROTOCOL
+   );
+   for DtcLu_CompareStates_Confirmation_x use (
+      DTCLUCOMPARESTATESCONFIRMATION_CONFIRM => 1,
+      DTCLUCOMPARESTATESCONFIRMATION_PROTOCOL => 2
+   );
+   for DtcLu_CompareStates_Confirmation_x'Size use 32;
+   subtype DTCLUCOMPARESTATESCONFIRMATION is DtcLu_CompareStates_Confirmation_x; -- CXType_Elaborated
+   type DtcLu_CompareStates_Error_x is (
+      DTCLUCOMPARESTATESERROR_PROTOCOL
+   );
+   for DtcLu_CompareStates_Error_x use (
+      DTCLUCOMPARESTATESERROR_PROTOCOL => 1
+   );
+   for DtcLu_CompareStates_Error_x'Size use 32;
+   subtype DTCLUCOMPARESTATESERROR is DtcLu_CompareStates_Error_x; -- CXType_Elaborated
+   type DtcLu_CompareStates_Response_x is (
+      DTCLUCOMPARESTATESRESPONSE_OK,
+      DTCLUCOMPARESTATESRESPONSE_PROTOCOL
+   );
+   for DtcLu_CompareStates_Response_x use (
+      DTCLUCOMPARESTATESRESPONSE_OK => 1,
+      DTCLUCOMPARESTATESRESPONSE_PROTOCOL => 2
+   );
+   for DtcLu_CompareStates_Response_x'Size use 32;
+   subtype DTCLUCOMPARESTATESRESPONSE is DtcLu_CompareStates_Response_x; -- CXType_Elaborated
+   type IDtcLuRecoveryInitiatedByDtcTransWork_Interface is interface and IUnknown_Interface;
+      function GetLogNameSizes(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         pcbOurLogName : access DWORD;
+         pcbRemoteLogName : access DWORD
+      ) return HRESULT is abstract;
+      function GetOurXln(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         pXln : access DTCLUXLN;
+         pOurLogName : access Interfaces.C.unsigned_char;
+         pRemoteLogName : access Interfaces.C.unsigned_char;
+         pdwProtocol : access DWORD
+      ) return HRESULT is abstract;
+      function HandleConfirmationFromOurXln(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         Confirmation : DTCLUXLNCONFIRMATION
+      ) return HRESULT is abstract;
+      function HandleTheirXlnResponse(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         Xln : DTCLUXLN;
+         pRemoteLogName : access Interfaces.C.unsigned_char;
+         cbRemoteLogName : DWORD;
+         dwProtocol : DWORD;
+         pConfirmation : access DTCLUXLNCONFIRMATION
+      ) return HRESULT is abstract;
+      function HandleErrorFromOurXln(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         Error : DTCLUXLNERROR
+      ) return HRESULT is abstract;
+      function CheckForCompareStates(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         fCompareStates : access BOOL
+      ) return HRESULT is abstract;
+      function GetOurTransIdSize(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         pcbOurTransId : access DWORD
+      ) return HRESULT is abstract;
+      function GetOurCompareStates(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         pOurTransId : access Interfaces.C.unsigned_char;
+         pCompareState : access DTCLUCOMPARESTATE
+      ) return HRESULT is abstract;
+      function HandleTheirCompareStatesResponse(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         CompareState : DTCLUCOMPARESTATE;
+         pConfirmation : access DTCLUCOMPARESTATESCONFIRMATION
+      ) return HRESULT is abstract;
+      function HandleErrorFromOurCompareStates(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         Error : DTCLUCOMPARESTATESERROR
+      ) return HRESULT is abstract;
+      function ConversationLost(This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface) return HRESULT is abstract;
+      function GetRecoverySeqNum(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         plRecoverySeqNum : access LONG
+      ) return HRESULT is abstract;
+      function ObsoleteRecoverySeqNum(
+         This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
+         lNewRecoverySeqNum : LONG
+      ) return HRESULT is abstract;
+   type IDtcLuRecoveryInitiatedByDtcTransWork is access IDtcLuRecoveryInitiatedByDtcTransWork_Interface'Class;
+   type IDtcLuRecoveryInitiatedByDtcTransWork_Ptr is access IDtcLuRecoveryInitiatedByDtcTransWork;
+   type IDtcLuRecoveryInitiatedByDtcStatusWork_Interface is interface and IUnknown_Interface;
+      function HandleCheckLuStatus(
+         This : access IDtcLuRecoveryInitiatedByDtcStatusWork_Interface;
+         lRecoverySeqNum : LONG
+      ) return HRESULT is abstract;
+   type IDtcLuRecoveryInitiatedByDtcStatusWork is access IDtcLuRecoveryInitiatedByDtcStatusWork_Interface'Class;
+   type IDtcLuRecoveryInitiatedByDtcStatusWork_Ptr is access IDtcLuRecoveryInitiatedByDtcStatusWork;
+   type IDtcLuRecoveryInitiatedByDtc_Interface is interface and IUnknown_Interface;
+      function GetWork(
+         This : access IDtcLuRecoveryInitiatedByDtc_Interface;
+         pWork : access DTCINITIATEDRECOVERYWORK;
+         ppv : access LPVOID
+      ) return HRESULT is abstract;
+   type IDtcLuRecoveryInitiatedByDtc is access IDtcLuRecoveryInitiatedByDtc_Interface'Class;
+   type IDtcLuRecoveryInitiatedByDtc_Ptr is access IDtcLuRecoveryInitiatedByDtc;
+   type IDtcLuRecoveryInitiatedByLuWork_Interface is interface and IUnknown_Interface;
+      function HandleTheirXln(
+         This : access IDtcLuRecoveryInitiatedByLuWork_Interface;
+         lRecoverySeqNum : LONG;
+         Xln : DTCLUXLN;
+         pRemoteLogName : access Interfaces.C.unsigned_char;
+         cbRemoteLogName : DWORD;
+         pOurLogName : access Interfaces.C.unsigned_char;
+         cbOurLogName : DWORD;
+         dwProtocol : DWORD;
+         pResponse : access DTCLUXLNRESPONSE
+      ) return HRESULT is abstract;
+      function GetOurLogNameSize(
+         This : access IDtcLuRecoveryInitiatedByLuWork_Interface;
+         pcbOurLogName : access DWORD
+      ) return HRESULT is abstract;
+      function GetOurXln(
+         This : access IDtcLuRecoveryInitiatedByLuWork_Interface;
+         pXln : access DTCLUXLN;
+         pOurLogName : access Interfaces.C.unsigned_char;
+         pdwProtocol : access DWORD
+      ) return HRESULT is abstract;
+      function HandleConfirmationOfOurXln(
+         This : access IDtcLuRecoveryInitiatedByLuWork_Interface;
+         Confirmation : DTCLUXLNCONFIRMATION
+      ) return HRESULT is abstract;
+      function HandleTheirCompareStates(
+         This : access IDtcLuRecoveryInitiatedByLuWork_Interface;
+         pRemoteTransId : access Interfaces.C.unsigned_char;
+         cbRemoteTransId : DWORD;
+         CompareState : DTCLUCOMPARESTATE;
+         pResponse : access DTCLUCOMPARESTATESRESPONSE;
+         pCompareState : access DTCLUCOMPARESTATE
+      ) return HRESULT is abstract;
+      function HandleConfirmationOfOurCompareStates(
+         This : access IDtcLuRecoveryInitiatedByLuWork_Interface;
+         Confirmation : DTCLUCOMPARESTATESCONFIRMATION
+      ) return HRESULT is abstract;
+      function HandleErrorFromOurCompareStates(
+         This : access IDtcLuRecoveryInitiatedByLuWork_Interface;
+         Error : DTCLUCOMPARESTATESERROR
+      ) return HRESULT is abstract;
+      function ConversationLost(This : access IDtcLuRecoveryInitiatedByLuWork_Interface) return HRESULT is abstract;
+   type IDtcLuRecoveryInitiatedByLuWork is access IDtcLuRecoveryInitiatedByLuWork_Interface'Class;
+   type IDtcLuRecoveryInitiatedByLuWork_Ptr is access IDtcLuRecoveryInitiatedByLuWork;
+   type IDtcLuRecoveryInitiatedByLu_Interface is interface and IUnknown_Interface;
+      function GetObjectToHandleWorkFromLu(
+         This : access IDtcLuRecoveryInitiatedByLu_Interface;
+         ppWork : access IDtcLuRecoveryInitiatedByLuWork_Ptr
+      ) return HRESULT is abstract;
+   type IDtcLuRecoveryInitiatedByLu is access IDtcLuRecoveryInitiatedByLu_Interface'Class;
+   type IDtcLuRecoveryInitiatedByLu_Ptr is access IDtcLuRecoveryInitiatedByLu;
+   type IDtcLuRmEnlistment_Interface is interface and IUnknown_Interface;
+      function Unplug(
+         This : access IDtcLuRmEnlistment_Interface;
+         fConversationLost : BOOL
+      ) return HRESULT is abstract;
+      function BackedOut(This : access IDtcLuRmEnlistment_Interface) return HRESULT is abstract;
+      function BackOut(This : access IDtcLuRmEnlistment_Interface) return HRESULT is abstract;
+      function Committed(This : access IDtcLuRmEnlistment_Interface) return HRESULT is abstract;
+      function Forget(This : access IDtcLuRmEnlistment_Interface) return HRESULT is abstract;
+      function RequestCommit(This : access IDtcLuRmEnlistment_Interface) return HRESULT is abstract;
+   type IDtcLuRmEnlistment is access IDtcLuRmEnlistment_Interface'Class;
+   type IDtcLuRmEnlistment_Ptr is access IDtcLuRmEnlistment;
+   type IDtcLuRmEnlistmentSink_Interface is interface and IUnknown_Interface;
+      function AckUnplug(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
+      function TmDown(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
+      function SessionLost(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
+      function BackedOut(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
+      function BackOut(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
+      function Committed(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
+      function Forget(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
+      function Prepare(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
+      function RequestCommit(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
+   type IDtcLuRmEnlistmentSink is access IDtcLuRmEnlistmentSink_Interface'Class;
+   type IDtcLuRmEnlistmentSink_Ptr is access IDtcLuRmEnlistmentSink;
+   type IDtcLuRmEnlistmentFactory_Interface is interface and IUnknown_Interface;
+      function Create(
+         This : access IDtcLuRmEnlistmentFactory_Interface;
+         pucLuPair : access Interfaces.C.unsigned_char;
+         cbLuPair : DWORD;
+         pITransaction : access ITransaction;
+         pTransId : access Interfaces.C.unsigned_char;
+         cbTransId : DWORD;
+         pRmEnlistmentSink : access IDtcLuRmEnlistmentSink;
+         ppRmEnlistment : access IDtcLuRmEnlistment_Ptr
+      ) return HRESULT is abstract;
+   type IDtcLuRmEnlistmentFactory is access IDtcLuRmEnlistmentFactory_Interface'Class;
+   type IDtcLuRmEnlistmentFactory_Ptr is access IDtcLuRmEnlistmentFactory;
+   type IDtcLuSubordinateDtc_Interface is interface and IUnknown_Interface;
+      function Unplug(
+         This : access IDtcLuSubordinateDtc_Interface;
+         fConversationLost : BOOL
+      ) return HRESULT is abstract;
+      function BackedOut(This : access IDtcLuSubordinateDtc_Interface) return HRESULT is abstract;
+      function BackOut(This : access IDtcLuSubordinateDtc_Interface) return HRESULT is abstract;
+      function Committed(This : access IDtcLuSubordinateDtc_Interface) return HRESULT is abstract;
+      function Forget(This : access IDtcLuSubordinateDtc_Interface) return HRESULT is abstract;
+      function Prepare(This : access IDtcLuSubordinateDtc_Interface) return HRESULT is abstract;
+      function RequestCommit(This : access IDtcLuSubordinateDtc_Interface) return HRESULT is abstract;
+   type IDtcLuSubordinateDtc is access IDtcLuSubordinateDtc_Interface'Class;
+   type IDtcLuSubordinateDtc_Ptr is access IDtcLuSubordinateDtc;
+   type IDtcLuSubordinateDtcSink_Interface is interface and IUnknown_Interface;
+      function AckUnplug(This : access IDtcLuSubordinateDtcSink_Interface) return HRESULT is abstract;
+      function TmDown(This : access IDtcLuSubordinateDtcSink_Interface) return HRESULT is abstract;
+      function SessionLost(This : access IDtcLuSubordinateDtcSink_Interface) return HRESULT is abstract;
+      function BackedOut(This : access IDtcLuSubordinateDtcSink_Interface) return HRESULT is abstract;
+      function BackOut(This : access IDtcLuSubordinateDtcSink_Interface) return HRESULT is abstract;
+      function Committed(This : access IDtcLuSubordinateDtcSink_Interface) return HRESULT is abstract;
+      function Forget(This : access IDtcLuSubordinateDtcSink_Interface) return HRESULT is abstract;
+      function RequestCommit(This : access IDtcLuSubordinateDtcSink_Interface) return HRESULT is abstract;
+   type IDtcLuSubordinateDtcSink is access IDtcLuSubordinateDtcSink_Interface'Class;
+   type IDtcLuSubordinateDtcSink_Ptr is access IDtcLuSubordinateDtcSink;
+   type IDtcLuSubordinateDtcFactory_Interface is interface and IUnknown_Interface;
+      function Create(
+         This : access IDtcLuSubordinateDtcFactory_Interface;
+         pucLuPair : access Interfaces.C.unsigned_char;
+         cbLuPair : DWORD;
+         punkTransactionOuter : access Void;
+         isoLevel_x : ISOLEVEL;
+         isoFlags : ULONG;
+         pOptions : access ITransactionOptions;
+         ppTransaction : access ITransaction_Ptr;
+         pTransId : access Interfaces.C.unsigned_char;
+         cbTransId : DWORD;
+         pSubordinateDtcSink : access IDtcLuSubordinateDtcSink;
+         ppSubordinateDtc : access IDtcLuSubordinateDtc_Ptr
+      ) return HRESULT is abstract;
+   type IDtcLuSubordinateDtcFactory is access IDtcLuSubordinateDtcFactory_Interface'Class;
+   type IDtcLuSubordinateDtcFactory_Ptr is access IDtcLuSubordinateDtcFactory;
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\ComSvcs.h>
+   type ISecurityIdentityColl_Interface is interface and IDispatch_Interface;
+      function get_Count(
+         This : access ISecurityIdentityColl_Interface;
+         plCount : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function get_Item(
+         This : access ISecurityIdentityColl_Interface;
+         name : BSTR;
+         pItem : access VARIANT
+      ) return HRESULT is abstract;
+      function get_NewEnum(
+         This : access ISecurityIdentityColl_Interface;
+         ppEnum : access LPVOID
+      ) return HRESULT is abstract;
+   type ISecurityIdentityColl is access ISecurityIdentityColl_Interface'Class;
+   type ISecurityIdentityColl_Ptr is access ISecurityIdentityColl;
+   type ISecurityCallersColl_Interface is interface and IDispatch_Interface;
+      function get_Count(
+         This : access ISecurityCallersColl_Interface;
+         plCount : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function get_Item(
+         This : access ISecurityCallersColl_Interface;
+         lIndex : Interfaces.C.Long;
+         pObj : access ISecurityIdentityColl_Ptr
+      ) return HRESULT is abstract;
+      function get_NewEnum(
+         This : access ISecurityCallersColl_Interface;
+         ppEnum : access LPVOID
+      ) return HRESULT is abstract;
+   type ISecurityCallersColl is access ISecurityCallersColl_Interface'Class;
+   type ISecurityCallersColl_Ptr is access ISecurityCallersColl;
+   type ISecurityCallContext_Interface is interface and IDispatch_Interface;
+      function get_Count(
+         This : access ISecurityCallContext_Interface;
+         plCount : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function get_Item(
+         This : access ISecurityCallContext_Interface;
+         name : BSTR;
+         pItem : access VARIANT
+      ) return HRESULT is abstract;
+      function get_NewEnum(
+         This : access ISecurityCallContext_Interface;
+         ppEnum : access LPVOID
+      ) return HRESULT is abstract;
+      function IsCallerInRole(
+         This : access ISecurityCallContext_Interface;
+         bstrRole : BSTR;
+         pfInRole : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function IsSecurityEnabled(
+         This : access ISecurityCallContext_Interface;
+         pfIsEnabled : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function IsUserInRole(
+         This : access ISecurityCallContext_Interface;
+         pUser : access VARIANT;
+         bstrRole : BSTR;
+         pfInRole : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+   type ISecurityCallContext is access ISecurityCallContext_Interface'Class;
+   type ISecurityCallContext_Ptr is access ISecurityCallContext;
+   type IGetSecurityCallContext_Interface is interface and IDispatch_Interface;
+      function GetSecurityCallContext(
+         This : access IGetSecurityCallContext_Interface;
+         ppObject : access ISecurityCallContext_Ptr
+      ) return HRESULT is abstract;
+   type IGetSecurityCallContext is access IGetSecurityCallContext_Interface'Class;
+   type IGetSecurityCallContext_Ptr is access IGetSecurityCallContext;
+   type SecurityProperty_Interface is interface and IDispatch_Interface;
+      function GetDirectCallerName(
+         This : access SecurityProperty_Interface;
+         bstrUserName : access BSTR
+      ) return HRESULT is abstract;
+      function GetDirectCreatorName(
+         This : access SecurityProperty_Interface;
+         bstrUserName : access BSTR
+      ) return HRESULT is abstract;
+      function GetOriginalCallerName(
+         This : access SecurityProperty_Interface;
+         bstrUserName : access BSTR
+      ) return HRESULT is abstract;
+      function GetOriginalCreatorName(
+         This : access SecurityProperty_Interface;
+         bstrUserName : access BSTR
+      ) return HRESULT is abstract;
+   type SecurityProperty is access SecurityProperty_Interface'Class;
+   type SecurityProperty_Ptr is access SecurityProperty;
+   type ContextInfo_Interface is interface and IDispatch_Interface;
+      function IsInTransaction(
+         This : access ContextInfo_Interface;
+         pbIsInTx : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function GetTransaction(
+         This : access ContextInfo_Interface;
+         ppTx : access LPVOID
+      ) return HRESULT is abstract;
+      function GetTransactionId(
+         This : access ContextInfo_Interface;
+         pbstrTxId : access BSTR
+      ) return HRESULT is abstract;
+      function GetActivityId(
+         This : access ContextInfo_Interface;
+         pbstrActivityId : access BSTR
+      ) return HRESULT is abstract;
+      function GetContextId(
+         This : access ContextInfo_Interface;
+         pbstrCtxId : access BSTR
+      ) return HRESULT is abstract;
+   type ContextInfo is access ContextInfo_Interface'Class;
+   type ContextInfo_Ptr is access ContextInfo;
+   type ContextInfo2_Interface is interface and ContextInfo_Interface;
+      function GetPartitionId(
+         This : access ContextInfo2_Interface;
+         MIDL_ContextInfo20000 : access BSTR
+      ) return HRESULT is abstract;
+      function GetApplicationId(
+         This : access ContextInfo2_Interface;
+         MIDL_ContextInfo20001 : access BSTR
+      ) return HRESULT is abstract;
+      function GetApplicationInstanceId(
+         This : access ContextInfo2_Interface;
+         MIDL_ContextInfo20002 : access BSTR
+      ) return HRESULT is abstract;
+   type ContextInfo2 is access ContextInfo2_Interface'Class;
+   type ContextInfo2_Ptr is access ContextInfo2;
+   type ObjectContext_Interface is interface and IDispatch_Interface;
+      function CreateInstance(
+         This : access ObjectContext_Interface;
+         bstrProgID : BSTR;
+         pObject : access VARIANT
+      ) return HRESULT is abstract;
+      function SetComplete(This : access ObjectContext_Interface) return HRESULT is abstract;
+      function SetAbort(This : access ObjectContext_Interface) return HRESULT is abstract;
+      function EnableCommit(This : access ObjectContext_Interface) return HRESULT is abstract;
+      function DisableCommit(This : access ObjectContext_Interface) return HRESULT is abstract;
+      function IsInTransaction(
+         This : access ObjectContext_Interface;
+         pbIsInTx : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function IsSecurityEnabled(
+         This : access ObjectContext_Interface;
+         pbIsEnabled : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function IsCallerInRole(
+         This : access ObjectContext_Interface;
+         bstrRole : BSTR;
+         pbInRole : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function get_Count(
+         This : access ObjectContext_Interface;
+         plCount : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function get_Item(
+         This : access ObjectContext_Interface;
+         name : BSTR;
+         pItem : access VARIANT
+      ) return HRESULT is abstract;
+      function get_NewEnum(
+         This : access ObjectContext_Interface;
+         ppEnum : access LPVOID
+      ) return HRESULT is abstract;
+      function get_Security(
+         This : access ObjectContext_Interface;
+         ppSecurityProperty : access SecurityProperty_Ptr
+      ) return HRESULT is abstract;
+      function get_ContextInfo(
+         This : access ObjectContext_Interface;
+         ppContextInfo : access ContextInfo_Ptr
+      ) return HRESULT is abstract;
+   type ObjectContext is access ObjectContext_Interface'Class;
+   type ObjectContext_Ptr is access ObjectContext;
+   type ITransactionContextEx_Interface is interface and IUnknown_Interface;
+      function CreateInstance(
+         This : access ITransactionContextEx_Interface;
+         rclsid : access constant IID;
+         riid : access constant IID;
+         pObject : access LPVOID
+      ) return HRESULT is abstract;
+      function Commit(This : access ITransactionContextEx_Interface) return HRESULT is abstract;
+      function abort_x_x(This : access ITransactionContextEx_Interface) return HRESULT is abstract;
+   type ITransactionContextEx is access ITransactionContextEx_Interface'Class;
+   type ITransactionContextEx_Ptr is access ITransactionContextEx;
+   type ITransactionContext_Interface is interface and IDispatch_Interface;
+      function CreateInstance(
+         This : access ITransactionContext_Interface;
+         pszProgId : BSTR;
+         pObject : access VARIANT
+      ) return HRESULT is abstract;
+      function Commit(This : access ITransactionContext_Interface) return HRESULT is abstract;
+      function abort_x_x(This : access ITransactionContext_Interface) return HRESULT is abstract;
+   type ITransactionContext is access ITransactionContext_Interface'Class;
+   type ITransactionContext_Ptr is access ITransactionContext;
+   type ICreateWithTransactionEx_Interface is interface and IUnknown_Interface;
+      function CreateInstance(
+         This : access ICreateWithTransactionEx_Interface;
+         pTransaction : access ITransaction;
+         rclsid : access constant IID;
+         riid : access constant IID;
+         pObject : access LPVOID
+      ) return HRESULT is abstract;
+   type ICreateWithTransactionEx is access ICreateWithTransactionEx_Interface'Class;
+   type ICreateWithTransactionEx_Ptr is access ICreateWithTransactionEx;
+   type ICreateWithLocalTransaction_Interface is interface and IUnknown_Interface;
+      function CreateInstanceWithSysTx(
+         This : access ICreateWithLocalTransaction_Interface;
+         pTransaction : access Void;
+         rclsid : access constant IID;
+         riid : access constant IID;
+         pObject : access LPVOID
+      ) return HRESULT is abstract;
+   type ICreateWithLocalTransaction is access ICreateWithLocalTransaction_Interface'Class;
+   type ICreateWithLocalTransaction_Ptr is access ICreateWithLocalTransaction;
+   type ICreateWithTipTransactionEx_Interface is interface and IUnknown_Interface;
+      function CreateInstance(
+         This : access ICreateWithTipTransactionEx_Interface;
+         bstrTipUrl : BSTR;
+         rclsid : access constant IID;
+         riid : access constant IID;
+         pObject : access LPVOID
+      ) return HRESULT is abstract;
+   type ICreateWithTipTransactionEx is access ICreateWithTipTransactionEx_Interface'Class;
+   type ICreateWithTipTransactionEx_Ptr is access ICreateWithTipTransactionEx;
+   subtype MTS_OBJID is Interfaces.C.Extensions.unsigned_long_long; -- CXType_ULongLong
+   subtype MTS_RESID is Interfaces.C.Extensions.unsigned_long_long; -- CXType_ULongLong
+   type MIDL_MIDL_itf_autosvcs_0000_0013_0001_x is record
+      cbSize : DWORD;
+      dwPid : DWORD;
+      lTime : LONGLONG;
+      lMicroTime : LONG;
+      perfCount : LONGLONG;
+      guidApp : GUID;
+      sMachineName : LPOLESTR;
+   end record;
+   subtype COMSVCSEVENTINFO is MIDL_MIDL_itf_autosvcs_0000_0013_0001_x; -- CXType_Elaborated
+   type IComLTxEvents_Interface is interface and IUnknown_Interface;
+      function OnLtxTransactionStart(
+         This : access IComLTxEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidLtx : GUID;
+         tsid : GUID;
+         fRoot : BOOL;
+         nIsolationLevel : Interfaces.C.Int
+      ) return HRESULT is abstract;
+      function OnLtxTransactionPrepare(
+         This : access IComLTxEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidLtx : GUID;
+         fVote : BOOL
+      ) return HRESULT is abstract;
+      function OnLtxTransactionAbort(
+         This : access IComLTxEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidLtx : GUID
+      ) return HRESULT is abstract;
+      function OnLtxTransactionCommit(
+         This : access IComLTxEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidLtx : GUID
+      ) return HRESULT is abstract;
+      function OnLtxTransactionPromote(
+         This : access IComLTxEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidLtx : GUID;
+         txnId : GUID
+      ) return HRESULT is abstract;
+   type IComLTxEvents is access IComLTxEvents_Interface'Class;
+   type IComLTxEvents_Ptr is access IComLTxEvents;
+   type IComUserEvent_Interface is interface and IUnknown_Interface;
+      function OnUserEvent(
+         This : access IComUserEvent_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         pvarEvent : access VARIANT
+      ) return HRESULT is abstract;
+   type IComUserEvent is access IComUserEvent_Interface'Class;
+   type IComUserEvent_Ptr is access IComUserEvent;
+   type IComThreadEvents_Interface is interface and IUnknown_Interface;
+      function OnThreadStart(
+         This : access IComThreadEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ThreadID_x : ULONG64;
+         dwThread : DWORD;
+         dwTheadCnt : DWORD
+      ) return HRESULT is abstract;
+      function OnThreadTerminate(
+         This : access IComThreadEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ThreadID_x : ULONG64;
+         dwThread : DWORD;
+         dwTheadCnt : DWORD
+      ) return HRESULT is abstract;
+      function OnThreadBindToApartment(
+         This : access IComThreadEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ThreadID_x : ULONG64;
+         AptID : ULONG64;
+         dwActCnt : DWORD;
+         dwLowCnt : DWORD
+      ) return HRESULT is abstract;
+      function OnThreadUnBind(
+         This : access IComThreadEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ThreadID_x : ULONG64;
+         AptID : ULONG64;
+         dwActCnt : DWORD
+      ) return HRESULT is abstract;
+      function OnThreadWorkEnque(
+         This : access IComThreadEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ThreadID_x : ULONG64;
+         MsgWorkID : ULONG64;
+         QueueLen : DWORD
+      ) return HRESULT is abstract;
+      function OnThreadWorkPrivate(
+         This : access IComThreadEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ThreadID_x : ULONG64;
+         MsgWorkID : ULONG64
+      ) return HRESULT is abstract;
+      function OnThreadWorkPublic(
+         This : access IComThreadEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ThreadID_x : ULONG64;
+         MsgWorkID : ULONG64;
+         QueueLen : DWORD
+      ) return HRESULT is abstract;
+      function OnThreadWorkRedirect(
+         This : access IComThreadEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ThreadID_x : ULONG64;
+         MsgWorkID : ULONG64;
+         QueueLen : DWORD;
+         ThreadNum : ULONG64
+      ) return HRESULT is abstract;
+      function OnThreadWorkReject(
+         This : access IComThreadEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ThreadID_x : ULONG64;
+         MsgWorkID : ULONG64;
+         QueueLen : DWORD
+      ) return HRESULT is abstract;
+      function OnThreadAssignApartment(
+         This : access IComThreadEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID;
+         AptID : ULONG64
+      ) return HRESULT is abstract;
+      function OnThreadUnassignApartment(
+         This : access IComThreadEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         AptID : ULONG64
+      ) return HRESULT is abstract;
+   type IComThreadEvents is access IComThreadEvents_Interface'Class;
+   type IComThreadEvents_Ptr is access IComThreadEvents;
+   type IComAppEvents_Interface is interface and IUnknown_Interface;
+      function OnAppActivation(
+         This : access IComAppEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidApp : GUID
+      ) return HRESULT is abstract;
+      function OnAppShutdown(
+         This : access IComAppEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidApp : GUID
+      ) return HRESULT is abstract;
+      function OnAppForceShutdown(
+         This : access IComAppEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidApp : GUID
+      ) return HRESULT is abstract;
+   type IComAppEvents is access IComAppEvents_Interface'Class;
+   type IComAppEvents_Ptr is access IComAppEvents;
+   type IComInstanceEvents_Interface is interface and IUnknown_Interface;
+      function OnObjectCreate(
+         This : access IComInstanceEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID;
+         clsid_x : access constant IID;
+         tsid : access constant GUID;
+         CtxtID : ULONG64;
+         ObjectID_x : ULONG64
+      ) return HRESULT is abstract;
+      function OnObjectDestroy(
+         This : access IComInstanceEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         CtxtID : ULONG64
+      ) return HRESULT is abstract;
+   type IComInstanceEvents is access IComInstanceEvents_Interface'Class;
+   type IComInstanceEvents_Ptr is access IComInstanceEvents;
+   type IComTransactionEvents_Interface is interface and IUnknown_Interface;
+      function OnTransactionStart(
+         This : access IComTransactionEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidTx : access constant GUID;
+         tsid : access constant GUID;
+         fRoot : BOOL
+      ) return HRESULT is abstract;
+      function OnTransactionPrepare(
+         This : access IComTransactionEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidTx : access constant GUID;
+         fVoteYes : BOOL
+      ) return HRESULT is abstract;
+      function OnTransactionAbort(
+         This : access IComTransactionEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidTx : access constant GUID
+      ) return HRESULT is abstract;
+      function OnTransactionCommit(
+         This : access IComTransactionEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidTx : access constant GUID
+      ) return HRESULT is abstract;
+   type IComTransactionEvents is access IComTransactionEvents_Interface'Class;
+   type IComTransactionEvents_Ptr is access IComTransactionEvents;
+   type IComMethodEvents_Interface is interface and IUnknown_Interface;
+      function OnMethodCall(
+         This : access IComMethodEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         oid : ULONG64;
+         guidCid : access constant IID;
+         guidRid : access constant IID;
+         iMeth : ULONG
+      ) return HRESULT is abstract;
+      function OnMethodReturn(
+         This : access IComMethodEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         oid : ULONG64;
+         guidCid : access constant IID;
+         guidRid : access constant IID;
+         iMeth : ULONG;
+         hresult_x : HRESULT
+      ) return HRESULT is abstract;
+      function OnMethodException(
+         This : access IComMethodEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         oid : ULONG64;
+         guidCid : access constant IID;
+         guidRid : access constant IID;
+         iMeth : ULONG
+      ) return HRESULT is abstract;
+   type IComMethodEvents is access IComMethodEvents_Interface'Class;
+   type IComMethodEvents_Ptr is access IComMethodEvents;
+   type IComObjectEvents_Interface is interface and IUnknown_Interface;
+      function OnObjectActivate(
+         This : access IComObjectEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         CtxtID : ULONG64;
+         ObjectID_x : ULONG64
+      ) return HRESULT is abstract;
+      function OnObjectDeactivate(
+         This : access IComObjectEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         CtxtID : ULONG64;
+         ObjectID_x : ULONG64
+      ) return HRESULT is abstract;
+      function OnDisableCommit(
+         This : access IComObjectEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         CtxtID : ULONG64
+      ) return HRESULT is abstract;
+      function OnEnableCommit(
+         This : access IComObjectEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         CtxtID : ULONG64
+      ) return HRESULT is abstract;
+      function OnSetComplete(
+         This : access IComObjectEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         CtxtID : ULONG64
+      ) return HRESULT is abstract;
+      function OnSetAbort(
+         This : access IComObjectEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         CtxtID : ULONG64
+      ) return HRESULT is abstract;
+   type IComObjectEvents is access IComObjectEvents_Interface'Class;
+   type IComObjectEvents_Ptr is access IComObjectEvents;
+   type IComResourceEvents_Interface is interface and IUnknown_Interface;
+      function OnResourceCreate(
+         This : access IComResourceEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ObjectID_x : ULONG64;
+         pszType : LPCOLESTR;
+         resId : ULONG64;
+         enlisted : BOOL
+      ) return HRESULT is abstract;
+      function OnResourceAllocate(
+         This : access IComResourceEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ObjectID_x : ULONG64;
+         pszType : LPCOLESTR;
+         resId : ULONG64;
+         enlisted : BOOL;
+         NumRated : DWORD;
+         Rating : DWORD
+      ) return HRESULT is abstract;
+      function OnResourceRecycle(
+         This : access IComResourceEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ObjectID_x : ULONG64;
+         pszType : LPCOLESTR;
+         resId : ULONG64
+      ) return HRESULT is abstract;
+      function OnResourceDestroy(
+         This : access IComResourceEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ObjectID_x : ULONG64;
+         hr : HRESULT;
+         pszType : LPCOLESTR;
+         resId : ULONG64
+      ) return HRESULT is abstract;
+      function OnResourceTrack(
+         This : access IComResourceEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ObjectID_x : ULONG64;
+         pszType : LPCOLESTR;
+         resId : ULONG64;
+         enlisted : BOOL
+      ) return HRESULT is abstract;
+   type IComResourceEvents is access IComResourceEvents_Interface'Class;
+   type IComResourceEvents_Ptr is access IComResourceEvents;
+   type IComSecurityEvents_Interface is interface and IUnknown_Interface;
+      function OnAuthenticate(
+         This : access IComSecurityEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID;
+         ObjectID_x : ULONG64;
+         guidIID : access constant GUID;
+         iMeth : ULONG;
+         cbByteOrig : ULONG;
+         pSidOriginalUser : access BYTE;
+         cbByteCur : ULONG;
+         pSidCurrentUser : access BYTE;
+         bCurrentUserInpersonatingInProc : BOOL
+      ) return HRESULT is abstract;
+      function OnAuthenticateFail(
+         This : access IComSecurityEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID;
+         ObjectID_x : ULONG64;
+         guidIID : access constant GUID;
+         iMeth : ULONG;
+         cbByteOrig : ULONG;
+         pSidOriginalUser : access BYTE;
+         cbByteCur : ULONG;
+         pSidCurrentUser : access BYTE;
+         bCurrentUserInpersonatingInProc : BOOL
+      ) return HRESULT is abstract;
+   type IComSecurityEvents is access IComSecurityEvents_Interface'Class;
+   type IComSecurityEvents_Ptr is access IComSecurityEvents;
+   type IComObjectPoolEvents_Interface is interface and IUnknown_Interface;
+      function OnObjPoolPutObject(
+         This : access IComObjectPoolEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidObject : access constant GUID;
+         nReason : Interfaces.C.Int;
+         dwAvailable : DWORD;
+         oid : ULONG64
+      ) return HRESULT is abstract;
+      function OnObjPoolGetObject(
+         This : access IComObjectPoolEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID;
+         guidObject : access constant GUID;
+         dwAvailable : DWORD;
+         oid : ULONG64
+      ) return HRESULT is abstract;
+      function OnObjPoolRecycleToTx(
+         This : access IComObjectPoolEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID;
+         guidObject : access constant GUID;
+         guidTx : access constant GUID;
+         objid : ULONG64
+      ) return HRESULT is abstract;
+      function OnObjPoolGetFromTx(
+         This : access IComObjectPoolEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID;
+         guidObject : access constant GUID;
+         guidTx : access constant GUID;
+         objid : ULONG64
+      ) return HRESULT is abstract;
+   type IComObjectPoolEvents is access IComObjectPoolEvents_Interface'Class;
+   type IComObjectPoolEvents_Ptr is access IComObjectPoolEvents;
+   type IComObjectPoolEvents2_Interface is interface and IUnknown_Interface;
+      function OnObjPoolCreateObject(
+         This : access IComObjectPoolEvents2_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidObject : access constant GUID;
+         dwObjsCreated : DWORD;
+         oid : ULONG64
+      ) return HRESULT is abstract;
+      function OnObjPoolDestroyObject(
+         This : access IComObjectPoolEvents2_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidObject : access constant GUID;
+         dwObjsCreated : DWORD;
+         oid : ULONG64
+      ) return HRESULT is abstract;
+      function OnObjPoolCreateDecision(
+         This : access IComObjectPoolEvents2_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         dwThreadsWaiting : DWORD;
+         dwAvail : DWORD;
+         dwCreated : DWORD;
+         dwMin : DWORD;
+         dwMax : DWORD
+      ) return HRESULT is abstract;
+      function OnObjPoolTimeout(
+         This : access IComObjectPoolEvents2_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidObject : access constant GUID;
+         guidActivity : access constant GUID;
+         dwTimeout : DWORD
+      ) return HRESULT is abstract;
+      function OnObjPoolCreatePool(
+         This : access IComObjectPoolEvents2_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidObject : access constant GUID;
+         dwMin : DWORD;
+         dwMax : DWORD;
+         dwTimeout : DWORD
+      ) return HRESULT is abstract;
+   type IComObjectPoolEvents2 is access IComObjectPoolEvents2_Interface'Class;
+   type IComObjectPoolEvents2_Ptr is access IComObjectPoolEvents2;
+   type IComObjectConstructionEvents_Interface is interface and IUnknown_Interface;
+      function OnObjectConstruct(
+         This : access IComObjectConstructionEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidObject : access constant GUID;
+         sConstructString : LPCOLESTR;
+         oid : ULONG64
+      ) return HRESULT is abstract;
+   type IComObjectConstructionEvents is access IComObjectConstructionEvents_Interface'Class;
+   type IComObjectConstructionEvents_Ptr is access IComObjectConstructionEvents;
+   type IComActivityEvents_Interface is interface and IUnknown_Interface;
+      function OnActivityCreate(
+         This : access IComActivityEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID
+      ) return HRESULT is abstract;
+      function OnActivityDestroy(
+         This : access IComActivityEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID
+      ) return HRESULT is abstract;
+      function OnActivityEnter(
+         This : access IComActivityEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidCurrent : access constant GUID;
+         guidEntered : access constant GUID;
+         dwThread : DWORD
+      ) return HRESULT is abstract;
+      function OnActivityTimeout(
+         This : access IComActivityEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidCurrent : access constant GUID;
+         guidEntered : access constant GUID;
+         dwThread : DWORD;
+         dwTimeout : DWORD
+      ) return HRESULT is abstract;
+      function OnActivityReenter(
+         This : access IComActivityEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidCurrent : access constant GUID;
+         dwThread : DWORD;
+         dwCallDepth : DWORD
+      ) return HRESULT is abstract;
+      function OnActivityLeave(
+         This : access IComActivityEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidCurrent : access constant GUID;
+         guidLeft : access constant GUID
+      ) return HRESULT is abstract;
+      function OnActivityLeaveSame(
+         This : access IComActivityEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidCurrent : access constant GUID;
+         dwCallDepth : DWORD
+      ) return HRESULT is abstract;
+   type IComActivityEvents is access IComActivityEvents_Interface'Class;
+   type IComActivityEvents_Ptr is access IComActivityEvents;
+   type IComIdentityEvents_Interface is interface and IUnknown_Interface;
+      function OnIISRequestInfo(
+         This : access IComIdentityEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         ObjId : ULONG64;
+         pszClientIP : LPCOLESTR;
+         pszServerIP : LPCOLESTR;
+         pszURL : LPCOLESTR
+      ) return HRESULT is abstract;
+   type IComIdentityEvents is access IComIdentityEvents_Interface'Class;
+   type IComIdentityEvents_Ptr is access IComIdentityEvents;
+   type IComQCEvents_Interface is interface and IUnknown_Interface;
+      function OnQCRecord(
+         This : access IComQCEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         objid : ULONG64;
+         szQueue : Void;
+         guidMsgId : access constant GUID;
+         guidWorkFlowId : access constant GUID;
+         msmqhr : HRESULT
+      ) return HRESULT is abstract;
+      function OnQCQueueOpen(
+         This : access IComQCEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         szQueue : Void;
+         QueueID : ULONG64;
+         hr : HRESULT
+      ) return HRESULT is abstract;
+      function OnQCReceive(
+         This : access IComQCEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         QueueID : ULONG64;
+         guidMsgId : access constant GUID;
+         guidWorkFlowId : access constant GUID;
+         hr : HRESULT
+      ) return HRESULT is abstract;
+      function OnQCReceiveFail(
+         This : access IComQCEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         QueueID : ULONG64;
+         msmqhr : HRESULT
+      ) return HRESULT is abstract;
+      function OnQCMoveToReTryQueue(
+         This : access IComQCEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidMsgId : access constant GUID;
+         guidWorkFlowId : access constant GUID;
+         RetryIndex : ULONG
+      ) return HRESULT is abstract;
+      function OnQCMoveToDeadQueue(
+         This : access IComQCEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidMsgId : access constant GUID;
+         guidWorkFlowId : access constant GUID
+      ) return HRESULT is abstract;
+      function OnQCPlayback(
+         This : access IComQCEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         objid : ULONG64;
+         guidMsgId : access constant GUID;
+         guidWorkFlowId : access constant GUID;
+         hr : HRESULT
+      ) return HRESULT is abstract;
+   type IComQCEvents is access IComQCEvents_Interface'Class;
+   type IComQCEvents_Ptr is access IComQCEvents;
+   type IComExceptionEvents_Interface is interface and IUnknown_Interface;
+      function OnExceptionUser(
+         This : access IComExceptionEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         code : ULONG;
+         address : ULONG64;
+         pszStackTrace : LPCOLESTR
+      ) return HRESULT is abstract;
+   type IComExceptionEvents is access IComExceptionEvents_Interface'Class;
+   type IComExceptionEvents_Ptr is access IComExceptionEvents;
+   type ILBEvents_Interface is interface and IUnknown_Interface;
+      function TargetUp(
+         This : access ILBEvents_Interface;
+         bstrServerName : BSTR;
+         bstrClsidEng : BSTR
+      ) return HRESULT is abstract;
+      function TargetDown(
+         This : access ILBEvents_Interface;
+         bstrServerName : BSTR;
+         bstrClsidEng : BSTR
+      ) return HRESULT is abstract;
+      function EngineDefined(
+         This : access ILBEvents_Interface;
+         bstrPropName : BSTR;
+         varPropValue : access VARIANT;
+         bstrClsidEng : BSTR
+      ) return HRESULT is abstract;
+   type ILBEvents is access ILBEvents_Interface'Class;
+   type ILBEvents_Ptr is access ILBEvents;
+   type IComCRMEvents_Interface is interface and IUnknown_Interface;
+      function OnCRMRecoveryStart(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidApp : GUID
+      ) return HRESULT is abstract;
+      function OnCRMRecoveryDone(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidApp : GUID
+      ) return HRESULT is abstract;
+      function OnCRMCheckpoint(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidApp : GUID
+      ) return HRESULT is abstract;
+      function OnCRMBegin(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID;
+         guidActivity : GUID;
+         guidTx : GUID;
+         szProgIdCompensator : Void;
+         szDescription : Void
+      ) return HRESULT is abstract;
+      function OnCRMPrepare(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID
+      ) return HRESULT is abstract;
+      function OnCRMCommit(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID
+      ) return HRESULT is abstract;
+      function OnCRMAbort(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID
+      ) return HRESULT is abstract;
+      function OnCRMIndoubt(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID
+      ) return HRESULT is abstract;
+      function OnCRMDone(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID
+      ) return HRESULT is abstract;
+      function OnCRMRelease(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID
+      ) return HRESULT is abstract;
+      function OnCRMAnalyze(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID;
+         dwCrmRecordType : DWORD;
+         dwRecordSize : DWORD
+      ) return HRESULT is abstract;
+      function OnCRMWrite(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID;
+         fVariants : BOOL;
+         dwRecordSize : DWORD
+      ) return HRESULT is abstract;
+      function OnCRMForget(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID
+      ) return HRESULT is abstract;
+      function OnCRMForce(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID
+      ) return HRESULT is abstract;
+      function OnCRMDeliver(
+         This : access IComCRMEvents_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidClerkCLSID : GUID;
+         fVariants : BOOL;
+         dwRecordSize : DWORD
+      ) return HRESULT is abstract;
+   type IComCRMEvents is access IComCRMEvents_Interface'Class;
+   type IComCRMEvents_Ptr is access IComCRMEvents;
+   type IComMethod2Events_Interface is interface and IUnknown_Interface;
+      function OnMethodCall2(
+         This : access IComMethod2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         oid : ULONG64;
+         guidCid : access constant IID;
+         guidRid : access constant IID;
+         dwThread : DWORD;
+         iMeth : ULONG
+      ) return HRESULT is abstract;
+      function OnMethodReturn2(
+         This : access IComMethod2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         oid : ULONG64;
+         guidCid : access constant IID;
+         guidRid : access constant IID;
+         dwThread : DWORD;
+         iMeth : ULONG;
+         hresult_x : HRESULT
+      ) return HRESULT is abstract;
+      function OnMethodException2(
+         This : access IComMethod2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         oid : ULONG64;
+         guidCid : access constant IID;
+         guidRid : access constant IID;
+         dwThread : DWORD;
+         iMeth : ULONG
+      ) return HRESULT is abstract;
+   type IComMethod2Events is access IComMethod2Events_Interface'Class;
+   type IComMethod2Events_Ptr is access IComMethod2Events;
+   type IComTrackingInfoEvents_Interface is interface and IUnknown_Interface;
+      function OnNewTrackingInfo(
+         This : access IComTrackingInfoEvents_Interface;
+         pToplevelCollection : access Void
+      ) return HRESULT is abstract;
+   type IComTrackingInfoEvents is access IComTrackingInfoEvents_Interface'Class;
+   type IComTrackingInfoEvents_Ptr is access IComTrackingInfoEvents;
+   type MIDL_MIDL_itf_autosvcs_0000_0034_0001_x is (
+      TRKCOLL_PROCESSES,
+      TRKCOLL_APPLICATIONS,
+      TRKCOLL_COMPONENTS
+   );
+   for MIDL_MIDL_itf_autosvcs_0000_0034_0001_x use (
+      TRKCOLL_PROCESSES => 0,
+      TRKCOLL_APPLICATIONS => 1,
+      TRKCOLL_COMPONENTS => 2
+   );
+   for MIDL_MIDL_itf_autosvcs_0000_0034_0001_x'Size use 32;
+   subtype TRACKING_COLL_TYPE is MIDL_MIDL_itf_autosvcs_0000_0034_0001_x; -- CXType_Elaborated
+   type IComTrackingInfoCollection_Interface is interface and IUnknown_Interface;
+      function Type_Function(
+         This : access IComTrackingInfoCollection_Interface;
+         pType : access TRACKING_COLL_TYPE
+      ) return HRESULT is abstract;
+      function Count(
+         This : access IComTrackingInfoCollection_Interface;
+         pCount : access ULONG
+      ) return HRESULT is abstract;
+      function Item(
+         This : access IComTrackingInfoCollection_Interface;
+         ulIndex : ULONG;
+         riid : access constant IID;
+         ppv : access LPVOID
+      ) return HRESULT is abstract;
+   type IComTrackingInfoCollection is access IComTrackingInfoCollection_Interface'Class;
+   type IComTrackingInfoCollection_Ptr is access IComTrackingInfoCollection;
+   type IComTrackingInfoObject_Interface is interface and IUnknown_Interface;
+      function GetValue(
+         This : access IComTrackingInfoObject_Interface;
+         szPropertyName : LPOLESTR;
+         pvarOut : access VARIANT
+      ) return HRESULT is abstract;
+   type IComTrackingInfoObject is access IComTrackingInfoObject_Interface'Class;
+   type IComTrackingInfoObject_Ptr is access IComTrackingInfoObject;
+   type IComTrackingInfoProperties_Interface is interface and IUnknown_Interface;
+      function PropCount(
+         This : access IComTrackingInfoProperties_Interface;
+         pCount : access ULONG
+      ) return HRESULT is abstract;
+      function GetPropName(
+         This : access IComTrackingInfoProperties_Interface;
+         ulIndex : ULONG;
+         ppszPropName : access LPOLESTR
+      ) return HRESULT is abstract;
+   type IComTrackingInfoProperties is access IComTrackingInfoProperties_Interface'Class;
+   type IComTrackingInfoProperties_Ptr is access IComTrackingInfoProperties;
+   type IComApp2Events_Interface is interface and IUnknown_Interface;
+      function OnAppActivation2(
+         This : access IComApp2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidApp : GUID;
+         guidProcess : GUID
+      ) return HRESULT is abstract;
+      function OnAppShutdown2(
+         This : access IComApp2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidApp : GUID
+      ) return HRESULT is abstract;
+      function OnAppForceShutdown2(
+         This : access IComApp2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidApp : GUID
+      ) return HRESULT is abstract;
+      function OnAppPaused2(
+         This : access IComApp2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidApp : GUID;
+         bPaused : BOOL
+      ) return HRESULT is abstract;
+      function OnAppRecycle2(
+         This : access IComApp2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidApp : GUID;
+         guidProcess : GUID;
+         lReason : Interfaces.C.Long
+      ) return HRESULT is abstract;
+   type IComApp2Events is access IComApp2Events_Interface'Class;
+   type IComApp2Events_Ptr is access IComApp2Events;
+   type IComTransaction2Events_Interface is interface and IUnknown_Interface;
+      function OnTransactionStart2(
+         This : access IComTransaction2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidTx : access constant GUID;
+         tsid : access constant GUID;
+         fRoot : BOOL;
+         nIsolationLevel : Interfaces.C.Int
+      ) return HRESULT is abstract;
+      function OnTransactionPrepare2(
+         This : access IComTransaction2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidTx : access constant GUID;
+         fVoteYes : BOOL
+      ) return HRESULT is abstract;
+      function OnTransactionAbort2(
+         This : access IComTransaction2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidTx : access constant GUID
+      ) return HRESULT is abstract;
+      function OnTransactionCommit2(
+         This : access IComTransaction2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidTx : access constant GUID
+      ) return HRESULT is abstract;
+   type IComTransaction2Events is access IComTransaction2Events_Interface'Class;
+   type IComTransaction2Events_Ptr is access IComTransaction2Events;
+   type IComInstance2Events_Interface is interface and IUnknown_Interface;
+      function OnObjectCreate2(
+         This : access IComInstance2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID;
+         clsid_x : access constant IID;
+         tsid : access constant GUID;
+         CtxtID : ULONG64;
+         ObjectID_x : ULONG64;
+         guidPartition : access constant GUID
+      ) return HRESULT is abstract;
+      function OnObjectDestroy2(
+         This : access IComInstance2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         CtxtID : ULONG64
+      ) return HRESULT is abstract;
+   type IComInstance2Events is access IComInstance2Events_Interface'Class;
+   type IComInstance2Events_Ptr is access IComInstance2Events;
+   type IComObjectPool2Events_Interface is interface and IUnknown_Interface;
+      function OnObjPoolPutObject2(
+         This : access IComObjectPool2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidObject : access constant GUID;
+         nReason : Interfaces.C.Int;
+         dwAvailable : DWORD;
+         oid : ULONG64
+      ) return HRESULT is abstract;
+      function OnObjPoolGetObject2(
+         This : access IComObjectPool2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID;
+         guidObject : access constant GUID;
+         dwAvailable : DWORD;
+         oid : ULONG64;
+         guidPartition : access constant GUID
+      ) return HRESULT is abstract;
+      function OnObjPoolRecycleToTx2(
+         This : access IComObjectPool2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID;
+         guidObject : access constant GUID;
+         guidTx : access constant GUID;
+         objid : ULONG64
+      ) return HRESULT is abstract;
+      function OnObjPoolGetFromTx2(
+         This : access IComObjectPool2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidActivity : access constant GUID;
+         guidObject : access constant GUID;
+         guidTx : access constant GUID;
+         objid : ULONG64;
+         guidPartition : access constant GUID
+      ) return HRESULT is abstract;
+   type IComObjectPool2Events is access IComObjectPool2Events_Interface'Class;
+   type IComObjectPool2Events_Ptr is access IComObjectPool2Events;
+   type IComObjectConstruction2Events_Interface is interface and IUnknown_Interface;
+      function OnObjectConstruct2(
+         This : access IComObjectConstruction2Events_Interface;
+         pInfo : access COMSVCSEVENTINFO;
+         guidObject : access constant GUID;
+         sConstructString : LPCOLESTR;
+         oid : ULONG64;
+         guidPartition : access constant GUID
+      ) return HRESULT is abstract;
+   type IComObjectConstruction2Events is access IComObjectConstruction2Events_Interface'Class;
+   type IComObjectConstruction2Events_Ptr is access IComObjectConstruction2Events;
+   type ISystemAppEventData_Interface is interface and IUnknown_Interface;
+      function Startup(This : access ISystemAppEventData_Interface) return HRESULT is abstract;
+      function OnDataChanged(
+         This : access ISystemAppEventData_Interface;
+         dwPID : DWORD;
+         dwMask : DWORD;
+         dwNumberSinks : DWORD;
+         bstrDwMethodMask : BSTR;
+         dwReason : DWORD;
+         u64TraceHandle : ULONG64
+      ) return HRESULT is abstract;
+   type ISystemAppEventData is access ISystemAppEventData_Interface'Class;
+   type ISystemAppEventData_Ptr is access ISystemAppEventData;
+   type IMtsEvents_Interface is interface and IDispatch_Interface;
+      function get_PackageName(
+         This : access IMtsEvents_Interface;
+         pVal : access BSTR
+      ) return HRESULT is abstract;
+      function get_PackageGuid(
+         This : access IMtsEvents_Interface;
+         pVal : access BSTR
+      ) return HRESULT is abstract;
+      function PostEvent(
+         This : access IMtsEvents_Interface;
+         vEvent : access VARIANT
+      ) return HRESULT is abstract;
+      function get_FireEvents(
+         This : access IMtsEvents_Interface;
+         pVal : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function GetProcessID_x(
+         This : access IMtsEvents_Interface;
+         id : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+   type IMtsEvents is access IMtsEvents_Interface'Class;
+   type IMtsEvents_Ptr is access IMtsEvents;
+   type IMtsEventInfo_Interface is interface and IDispatch_Interface;
+      function get_Names(
+         This : access IMtsEventInfo_Interface;
+         pUnk : access LPVOID
+      ) return HRESULT is abstract;
+      function get_DisplayName(
+         This : access IMtsEventInfo_Interface;
+         sDisplayName : access BSTR
+      ) return HRESULT is abstract;
+      function get_EventID(
+         This : access IMtsEventInfo_Interface;
+         sGuidEventID : access BSTR
+      ) return HRESULT is abstract;
+      function get_Count(
+         This : access IMtsEventInfo_Interface;
+         lCount : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function get_Value(
+         This : access IMtsEventInfo_Interface;
+         sKey : BSTR;
+         pVal : access VARIANT
+      ) return HRESULT is abstract;
+   type IMtsEventInfo is access IMtsEventInfo_Interface'Class;
+   type IMtsEventInfo_Ptr is access IMtsEventInfo;
+   type IMTSLocator_Interface is interface and IDispatch_Interface;
+      function GetEventDispatcher(
+         This : access IMTSLocator_Interface;
+         pUnk : access LPVOID
+      ) return HRESULT is abstract;
+   type IMTSLocator is access IMTSLocator_Interface'Class;
+   type IMTSLocator_Ptr is access IMTSLocator;
+   type IMtsGrp_Interface is interface and IDispatch_Interface;
+      function get_Count(
+         This : access IMtsGrp_Interface;
+         pVal : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function Item(
+         This : access IMtsGrp_Interface;
+         lIndex : Interfaces.C.Long;
+         ppUnkDispatcher : access LPVOID
+      ) return HRESULT is abstract;
+      function Refresh(This : access IMtsGrp_Interface) return HRESULT is abstract;
+   type IMtsGrp is access IMtsGrp_Interface'Class;
+   type IMtsGrp_Ptr is access IMtsGrp;
+   type IMessageMover_Interface is interface and IDispatch_Interface;
+      function get_SourcePath(
+         This : access IMessageMover_Interface;
+         pVal : access BSTR
+      ) return HRESULT is abstract;
+      function put_SourcePath(
+         This : access IMessageMover_Interface;
+         newVal : BSTR
+      ) return HRESULT is abstract;
+      function get_DestPath(
+         This : access IMessageMover_Interface;
+         pVal : access BSTR
+      ) return HRESULT is abstract;
+      function put_DestPath(
+         This : access IMessageMover_Interface;
+         newVal : BSTR
+      ) return HRESULT is abstract;
+      function get_CommitBatchSize(
+         This : access IMessageMover_Interface;
+         pVal : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function put_CommitBatchSize(
+         This : access IMessageMover_Interface;
+         newVal : Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function MoveMessages(
+         This : access IMessageMover_Interface;
+         plMessagesMoved : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+   type IMessageMover is access IMessageMover_Interface'Class;
+   type IMessageMover_Ptr is access IMessageMover;
+   type IEventServerTrace_Interface is interface and IDispatch_Interface;
+      function StartTraceGuid(
+         This : access IEventServerTrace_Interface;
+         bstrguidEvent : BSTR;
+         bstrguidFilter : BSTR;
+         lPidFilter : LONG
+      ) return HRESULT is abstract;
+      function StopTraceGuid(
+         This : access IEventServerTrace_Interface;
+         bstrguidEvent : BSTR;
+         bstrguidFilter : BSTR;
+         lPidFilter : LONG
+      ) return HRESULT is abstract;
+      function EnumTraceGuid(
+         This : access IEventServerTrace_Interface;
+         plCntGuids : access LONG;
+         pbstrGuidList : access BSTR
+      ) return HRESULT is abstract;
+   type IEventServerTrace is access IEventServerTrace_Interface'Class;
+   type IEventServerTrace_Ptr is access IEventServerTrace;
+   type RECYCLE_INFO_x is record
+      guidCombaseProcessIdentifier : GUID;
+      ProcessStartTime : LONGLONG;
+      dwRecycleLifetimeLimit : DWORD;
+      dwRecycleMemoryLimit : DWORD;
+      dwRecycleExpirationTimeout : DWORD;
+   end record;
+   subtype RECYCLE_INFO is RECYCLE_INFO_x; -- CXType_Elaborated
+   type tagDUMPTYPE is (
+      DUMPTYPE_FULL,
+      DUMPTYPE_MINI,
+      DUMPTYPE_NONE
+   );
+   for tagDUMPTYPE use (
+      DUMPTYPE_FULL => 0,
+      DUMPTYPE_MINI => 1,
+      DUMPTYPE_NONE => 2
+   );
+   for tagDUMPTYPE'Size use 32;
+   subtype DUMPTYPE is tagDUMPTYPE; -- CXType_Elaborated
+   type HANG_INFO_x is record
+      fAppHangMonitorEnabled : BOOL;
+      fTerminateOnHang : BOOL;
+      DumpType_x : DUMPTYPE;
+      dwHangTimeout : DWORD;
+      dwDumpCount : DWORD;
+      dwInfoMsgCount : DWORD;
+   end record;
+   subtype HANG_INFO is HANG_INFO_x; -- CXType_Elaborated
+   type tagCOMPLUS_APPTYPE is (
+      APPTYPE_UNKNOWN,
+      APPTYPE_LIBRARY,
+      APPTYPE_SERVER,
+      APPTYPE_SWC
+   );
+   for tagCOMPLUS_APPTYPE use (
+      APPTYPE_UNKNOWN => -1,
+      APPTYPE_LIBRARY => 0,
+      APPTYPE_SERVER => 1,
+      APPTYPE_SWC => 2
+   );
+   for tagCOMPLUS_APPTYPE'Size use 32;
+   subtype COMPLUS_APPTYPE is tagCOMPLUS_APPTYPE; -- CXType_Elaborated
+   type CAppStatistics is record
+      m_cTotalCalls : DWORD;
+      m_cTotalInstances : DWORD;
+      m_cTotalClasses : DWORD;
+      m_cCallsPerSecond : DWORD;
+   end record;
+   subtype APPSTATISTICS is CAppStatistics; -- CXType_Elaborated
+   type CAppData is record
+      m_idApp : DWORD;
+      m_szAppGuid : Void;
+      m_dwAppProcessId : DWORD;
+      m_AppStatistics : APPSTATISTICS;
+   end record;
+   subtype APPDATA is CAppData; -- CXType_Elaborated
+   type CCLSIDData is record
+      m_clsid : CLSID;
+      m_cReferences : DWORD;
+      m_cBound : DWORD;
+      m_cPooled : DWORD;
+      m_cInCall : DWORD;
+      m_dwRespTime : DWORD;
+      m_cCallsCompleted : DWORD;
+      m_cCallsFailed : DWORD;
+   end record;
+   subtype CLSIDDATA is CCLSIDData; -- CXType_Elaborated
+   type CCLSIDData2 is record
+      m_clsid : CLSID;
+      m_appid : GUID;
+      m_partid : GUID;
+      m_pwszAppName : access WCHAR;
+      m_pwszCtxName : access WCHAR;
+      m_eAppType : COMPLUS_APPTYPE;
+      m_cReferences : DWORD;
+      m_cBound : DWORD;
+      m_cPooled : DWORD;
+      m_cInCall : DWORD;
+      m_dwRespTime : DWORD;
+      m_cCallsCompleted : DWORD;
+      m_cCallsFailed : DWORD;
+   end record;
+   subtype CLSIDDATA2 is CCLSIDData2; -- CXType_Elaborated
+   type GetAppTrackerDataFlags_x is (
+      GATD_INCLUDE_PROCESS_EXE_NAME,
+      GATD_INCLUDE_LIBRARY_APPS,
+      GATD_INCLUDE_SWC,
+      GATD_INCLUDE_CLASS_NAME,
+      GATD_INCLUDE_APPLICATION_NAME
+   );
+   for GetAppTrackerDataFlags_x use (
+      GATD_INCLUDE_PROCESS_EXE_NAME => 1,
+      GATD_INCLUDE_LIBRARY_APPS => 2,
+      GATD_INCLUDE_SWC => 4,
+      GATD_INCLUDE_CLASS_NAME => 8,
+      GATD_INCLUDE_APPLICATION_NAME => 16
+   );
+   for GetAppTrackerDataFlags_x'Size use 32;
+   subtype GetAppTrackerDataFlags is GetAppTrackerDataFlags_x; -- CXType_Elaborated
+   type ApplicationProcessSummary_x is record
+      PartitionIdPrimaryApplication : GUID;
+      ApplicationIdPrimaryApplication : GUID;
+      ApplicationInstanceId : GUID;
+      ProcessId : DWORD;
+      type_x : COMPLUS_APPTYPE;
+      ProcessExeName : LPWSTR;
+      IsService : BOOL;
+      IsPaused : BOOL;
+      IsRecycled : BOOL;
+   end record;
+   subtype ApplicationProcessSummary is ApplicationProcessSummary_x; -- CXType_Elaborated
+   type ApplicationProcessStatistics_x is record
+      NumCallsOutstanding : ULONG;
+      NumTrackedComponents : ULONG;
+      NumComponentInstances : ULONG;
+      AvgCallsPerSecond : ULONG;
+      Reserved1 : ULONG;
+      Reserved2 : ULONG;
+      Reserved3 : ULONG;
+      Reserved4 : ULONG;
+   end record;
+   subtype ApplicationProcessStatistics is ApplicationProcessStatistics_x; -- CXType_Elaborated
+   type ApplicationProcessRecycleInfo_x is record
+      IsRecyclable : BOOL;
+      IsRecycled : BOOL;
+      TimeRecycled : FILETIME;
+      TimeToTerminate : FILETIME;
+      RecycleReasonCode : Interfaces.C.Long;
+      IsPendingRecycle : BOOL;
+      HasAutomaticLifetimeRecycling : BOOL;
+      TimeForAutomaticRecycling : FILETIME;
+      MemoryLimitInKB : ULONG;
+      MemoryUsageInKBLastCheck : ULONG;
+      ActivationLimit : ULONG;
+      NumActivationsLastReported : ULONG;
+      CallLimit : ULONG;
+      NumCallsLastReported : ULONG;
+   end record;
+   subtype ApplicationProcessRecycleInfo is ApplicationProcessRecycleInfo_x; -- CXType_Elaborated
+   type ApplicationSummary_x is record
+      ApplicationInstanceId : GUID;
+      PartitionId : GUID;
+      ApplicationId : GUID;
+      type_x : COMPLUS_APPTYPE;
+      ApplicationName : LPWSTR;
+      NumTrackedComponents : ULONG;
+      NumComponentInstances : ULONG;
+   end record;
+   subtype ApplicationSummary is ApplicationSummary_x; -- CXType_Elaborated
+   type ComponentSummary_x is record
+      ApplicationInstanceId : GUID;
+      PartitionId : GUID;
+      ApplicationId : GUID;
+      Clsid_x : CLSID;
+      ClassName : LPWSTR;
+      ApplicationName : LPWSTR;
+   end record;
+   subtype ComponentSummary is ComponentSummary_x; -- CXType_Elaborated
+   type ComponentStatistics_x is record
+      NumInstances : ULONG;
+      NumBoundReferences : ULONG;
+      NumPooledObjects : ULONG;
+      NumObjectsInCall : ULONG;
+      AvgResponseTimeInMs : ULONG;
+      NumCallsCompletedRecent : ULONG;
+      NumCallsFailedRecent : ULONG;
+      NumCallsCompletedTotal : ULONG;
+      NumCallsFailedTotal : ULONG;
+      Reserved1 : ULONG;
+      Reserved2 : ULONG;
+      Reserved3 : ULONG;
+      Reserved4 : ULONG;
+   end record;
+   subtype ComponentStatistics is ComponentStatistics_x; -- CXType_Elaborated
+   type ComponentHangMonitorInfo_x is record
+      IsMonitored : BOOL;
+      TerminateOnHang : BOOL;
+      AvgCallThresholdInMs : ULONG;
+   end record;
+   subtype ComponentHangMonitorInfo is ComponentHangMonitorInfo_x; -- CXType_Elaborated
+   type ApplicationProcessSummary_Ptr is access all ApplicationProcessSummary; -- Auto Generated Dependancy
+   type ApplicationSummary_Ptr is access all ApplicationSummary; -- Auto Generated Dependancy
+   type ComponentSummary_Ptr is access all ComponentSummary; -- Auto Generated Dependancy
+   type IGetAppTrackerData_Interface is interface and IUnknown_Interface;
+      function GetApplicationProcesses(
+         This : access IGetAppTrackerData_Interface;
+         PartitionId : access constant GUID;
+         ApplicationId : access constant GUID;
+         Flags : DWORD;
+         NumApplicationProcesses : access ULONG;
+         ApplicationProcesses : access ApplicationProcessSummary_Ptr
+      ) return HRESULT is abstract;
+      function GetApplicationProcessDetails(
+         This : access IGetAppTrackerData_Interface;
+         ApplicationInstanceId : access constant GUID;
+         ProcessId : DWORD;
+         Flags : DWORD;
+         Summary : access ApplicationProcessSummary;
+         Statistics : access ApplicationProcessStatistics;
+         RecycleInfo : access ApplicationProcessRecycleInfo;
+         AnyComponentsHangMonitored : access BOOL
+      ) return HRESULT is abstract;
+      function GetApplicationsInProcess(
+         This : access IGetAppTrackerData_Interface;
+         ApplicationInstanceId : access constant GUID;
+         ProcessId : DWORD;
+         PartitionId : access constant GUID;
+         Flags : DWORD;
+         NumApplicationsInProcess : access ULONG;
+         Applications : access ApplicationSummary_Ptr
+      ) return HRESULT is abstract;
+      function GetComponentsInProcess(
+         This : access IGetAppTrackerData_Interface;
+         ApplicationInstanceId : access constant GUID;
+         ProcessId : DWORD;
+         PartitionId : access constant GUID;
+         ApplicationId : access constant GUID;
+         Flags : DWORD;
+         NumComponentsInProcess : access ULONG;
+         Components : access ComponentSummary_Ptr
+      ) return HRESULT is abstract;
+      function GetComponentDetails(
+         This : access IGetAppTrackerData_Interface;
+         ApplicationInstanceId : access constant GUID;
+         ProcessId : DWORD;
+         Clsid_x : access constant IID;
+         Flags : DWORD;
+         Summary : access ComponentSummary;
+         Statistics : access ComponentStatistics;
+         HangMonitorInfo : access ComponentHangMonitorInfo
+      ) return HRESULT is abstract;
+      function GetTrackerDataAsCollectionObject(
+         This : access IGetAppTrackerData_Interface;
+         TopLevelCollection : access LPVOID
+      ) return HRESULT is abstract;
+      function GetSuggestedPollingInterval(
+         This : access IGetAppTrackerData_Interface;
+         PollingIntervalInSeconds : access DWORD
+      ) return HRESULT is abstract;
+   type IGetAppTrackerData is access IGetAppTrackerData_Interface'Class;
+   type IGetAppTrackerData_Ptr is access IGetAppTrackerData;
+   function IGetAppTrackerData_RemoteGetApplicationProcessDetails_Proxy(
+      This : access IGetAppTrackerData;
+      ApplicationInstanceId : access constant GUID;
+      ProcessId : DWORD;
+      Flags : DWORD;
+      Summary : access ApplicationProcessSummary;
+      Statistics : access ApplicationProcessStatistics;
+      RecycleInfo : access ApplicationProcessRecycleInfo;
+      AnyComponentsHangMonitored : access BOOL
+   ) return HRESULT;
+   pragma import (C,IGetAppTrackerData_RemoteGetApplicationProcessDetails_Proxy,"IGetAppTrackerData_RemoteGetApplicationProcessDetails_Proxy");
+   procedure IGetAppTrackerData_RemoteGetApplicationProcessDetails_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,IGetAppTrackerData_RemoteGetApplicationProcessDetails_Stub,"IGetAppTrackerData_RemoteGetApplicationProcessDetails_Stub");
+   function IGetAppTrackerData_RemoteGetComponentDetails_Proxy(
+      This : access IGetAppTrackerData;
+      ApplicationInstanceId : access constant GUID;
+      ProcessId : DWORD;
+      Clsid_x : access constant IID;
+      Flags : DWORD;
+      Summary : access ComponentSummary;
+      Statistics : access ComponentStatistics;
+      HangMonitorInfo : access ComponentHangMonitorInfo
+   ) return HRESULT;
+   pragma import (C,IGetAppTrackerData_RemoteGetComponentDetails_Proxy,"IGetAppTrackerData_RemoteGetComponentDetails_Proxy");
+   procedure IGetAppTrackerData_RemoteGetComponentDetails_Stub(
+      This : access IRpcStubBuffer;
+      pRpcChannelBuffer : access IRpcChannelBuffer;
+      pRpcMessage : PRPC_MESSAGE;
+      pdwStubPhase : access DWORD
+   );
+   pragma import (C,IGetAppTrackerData_RemoteGetComponentDetails_Stub,"IGetAppTrackerData_RemoteGetComponentDetails_Stub");
+   subtype RESTYPID is DWORD_PTR; -- CXType_Typedef
+   subtype RESID is DWORD_PTR; -- CXType_Typedef
+   subtype SRESID is LPOLESTR; -- CXType_Typedef
+   subtype constSRESID is LPCOLESTR; -- CXType_Typedef
+   subtype RESOURCERATING is DWORD; -- CXType_Typedef
+   subtype TIMEINSECS is Interfaces.C.Long; -- CXType_Long
+   subtype INSTID is DWORD_PTR; -- CXType_Typedef
+   subtype TRANSID is DWORD_PTR; -- CXType_Typedef
+   type IHolder_Ptr is access all IHolder; -- Auto Generated Dependancy
+   type IDispenserManager_Interface is interface and IUnknown_Interface;
+      function RegisterDispenser(
+         This : access IDispenserManager_Interface;
+         MIDL_IDispenserManager0000 : access IDispenserDriver;
+         szDispenserName : LPCOLESTR;
+         MIDL_IDispenserManager0001 : access IHolder_Ptr
+      ) return HRESULT is abstract;
+      function GetContext(
+         This : access IDispenserManager_Interface;
+         MIDL_IDispenserManager0002 : access INSTID;
+         MIDL_IDispenserManager0003 : access TRANSID
+      ) return HRESULT is abstract;
+   type IDispenserManager is access IDispenserManager_Interface'Class;
+   type IDispenserManager_Ptr is access IDispenserManager;
+   type IHolder_Interface is interface and IUnknown_Interface;
+      function AllocResource(
+         This : access IHolder_Interface;
+         MIDL_IHolder0000 : RESTYPID;
+         MIDL_IHolder0001 : access RESID
+      ) return HRESULT is abstract;
+      function FreeResource_x(
+         This : access IHolder_Interface;
+         MIDL_IHolder0002 : RESID
+      ) return HRESULT is abstract;
+      function TrackResource(
+         This : access IHolder_Interface;
+         MIDL_IHolder0003 : RESID
+      ) return HRESULT is abstract;
+      function TrackResourceS(
+         This : access IHolder_Interface;
+         MIDL_IHolder0004 : constSRESID
+      ) return HRESULT is abstract;
+      function UntrackResource(
+         This : access IHolder_Interface;
+         MIDL_IHolder0005 : RESID;
+         MIDL_IHolder0006 : BOOL
+      ) return HRESULT is abstract;
+      function UntrackResourceS(
+         This : access IHolder_Interface;
+         MIDL_IHolder0007 : constSRESID;
+         MIDL_IHolder0008 : BOOL
+      ) return HRESULT is abstract;
+      function Close(This : access IHolder_Interface) return HRESULT is abstract;
+      function RequestDestroyResource(
+         This : access IHolder_Interface;
+         MIDL_IHolder0009 : RESID
+      ) return HRESULT is abstract;
+   type IHolder is access IHolder_Interface'Class;
+   type IDispenserDriver_Interface is interface and IUnknown_Interface;
+      function CreateResource(
+         This : access IDispenserDriver_Interface;
+         ResTypId_x : RESTYPID;
+         pResId : access RESID;
+         pSecsFreeBeforeDestroy : access TIMEINSECS
+      ) return HRESULT is abstract;
+      function RateResource(
+         This : access IDispenserDriver_Interface;
+         ResTypId_x : RESTYPID;
+         ResId_x : RESID;
+         fRequiresTransactionEnlistment : BOOL;
+         pRating : access RESOURCERATING
+      ) return HRESULT is abstract;
+      function EnlistResource(
+         This : access IDispenserDriver_Interface;
+         ResId_x : RESID;
+         TransId_x : TRANSID
+      ) return HRESULT is abstract;
+      function ResetResource(
+         This : access IDispenserDriver_Interface;
+         ResId_x : RESID
+      ) return HRESULT is abstract;
+      function DestroyResource(
+         This : access IDispenserDriver_Interface;
+         ResId_x : RESID
+      ) return HRESULT is abstract;
+      function DestroyResourceS(
+         This : access IDispenserDriver_Interface;
+         ResId_x : constSRESID
+      ) return HRESULT is abstract;
+   type IDispenserDriver is access IDispenserDriver_Interface'Class;
+   type IDispenserDriver_Ptr is access IDispenserDriver;
+   type ITransactionProxy_Interface is interface and IUnknown_Interface;
+      function Commit(
+         This : access ITransactionProxy_Interface;
+         guid_x : GUID
+      ) return HRESULT is abstract;
+      function abort_x_x(This : access ITransactionProxy_Interface) return HRESULT is abstract;
+      function Promote(
+         This : access ITransactionProxy_Interface;
+         pTransaction : access ITransaction_Ptr
+      ) return HRESULT is abstract;
+      function CreateVoter(
+         This : access ITransactionProxy_Interface;
+         pTxAsync : access ITransactionVoterNotifyAsync2;
+         ppBallot : access ITransactionVoterBallotAsync2_Ptr
+      ) return HRESULT is abstract;
+      function GetIsolationLevel(
+         This : access ITransactionProxy_Interface;
+         MIDL_ITransactionProxy0000 : access ISOLEVEL
+      ) return HRESULT is abstract;
+      function GetIdentifier(
+         This : access ITransactionProxy_Interface;
+         pbstrIdentifier : access GUID
+      ) return HRESULT is abstract;
+      function IsReusable(
+         This : access ITransactionProxy_Interface;
+         pfIsReusable : access BOOL
+      ) return HRESULT is abstract;
+   type ITransactionProxy is access ITransactionProxy_Interface'Class;
+   type ITransactionProxy_Ptr is access ITransactionProxy;
+   type IContextSecurityPerimeter_Interface is interface and IUnknown_Interface;
+      function GetPerimeterFlag(
+         This : access IContextSecurityPerimeter_Interface;
+         pFlag : access BOOL
+      ) return HRESULT is abstract;
+      function SetPerimeterFlag(
+         This : access IContextSecurityPerimeter_Interface;
+         fFlag : BOOL
+      ) return HRESULT is abstract;
+   type IContextSecurityPerimeter is access IContextSecurityPerimeter_Interface'Class;
+   type IContextSecurityPerimeter_Ptr is access IContextSecurityPerimeter;
+   type ITxProxyHolder_Interface is interface and IUnknown_Interface;
+      procedure GetIdentifier(
+         This : access ITxProxyHolder_Interface;
+         pGuidLtx : access GUID
+      ) is abstract;
+   type ITxProxyHolder is access ITxProxyHolder_Interface'Class;
+   type ITxProxyHolder_Ptr is access ITxProxyHolder;
+   type IObjectContext_Interface is interface and IUnknown_Interface;
+      function CreateInstance(
+         This : access IObjectContext_Interface;
+         rclsid : access constant IID;
+         riid : access constant IID;
+         ppv : access LPVOID
+      ) return HRESULT is abstract;
+      function SetComplete(This : access IObjectContext_Interface) return HRESULT is abstract;
+      function SetAbort(This : access IObjectContext_Interface) return HRESULT is abstract;
+      function EnableCommit(This : access IObjectContext_Interface) return HRESULT is abstract;
+      function DisableCommit(This : access IObjectContext_Interface) return HRESULT is abstract;
+      function IsInTransaction(This : access IObjectContext_Interface) return BOOL is abstract;
+      function IsSecurityEnabled(This : access IObjectContext_Interface) return BOOL is abstract;
+      function IsCallerInRole(
+         This : access IObjectContext_Interface;
+         bstrRole : BSTR;
+         pfIsInRole : access BOOL
+      ) return HRESULT is abstract;
+   type IObjectContext is access IObjectContext_Interface'Class;
+   type IObjectContext_Ptr is access IObjectContext;
+   type IObjectControl_Interface is interface and IUnknown_Interface;
+      function Activate(This : access IObjectControl_Interface) return HRESULT is abstract;
+      procedure Deactivate(This : access IObjectControl_Interface) is abstract;
+      function CanBePooled(This : access IObjectControl_Interface) return BOOL is abstract;
+   type IObjectControl is access IObjectControl_Interface'Class;
+   type IObjectControl_Ptr is access IObjectControl;
+   type IEnumNames_Interface is interface and IUnknown_Interface;
+      function Next(
+         This : access IEnumNames_Interface;
+         celt : Interfaces.C.unsigned_long;
+         rgname : access BSTR;
+         pceltFetched : access Interfaces.C.unsigned_long
+      ) return HRESULT is abstract;
+      function Skip(
+         This : access IEnumNames_Interface;
+         celt : Interfaces.C.unsigned_long
+      ) return HRESULT is abstract;
+      function Reset(This : access IEnumNames_Interface) return HRESULT is abstract;
+      function Clone(
+         This : access IEnumNames_Interface;
+         ppenum : access LPVOID
+      ) return HRESULT is abstract;
+   type IEnumNames is access IEnumNames_Interface'Class;
+   type IEnumNames_Ptr is access IEnumNames;
+   type ISecurityProperty_Interface is interface and IUnknown_Interface;
+      function GetDirectCreatorSID(
+         This : access ISecurityProperty_Interface;
+         pSID_x : access PSID
+      ) return HRESULT is abstract;
+      function GetOriginalCreatorSID(
+         This : access ISecurityProperty_Interface;
+         pSID_x : access PSID
+      ) return HRESULT is abstract;
+      function GetDirectCallerSID(
+         This : access ISecurityProperty_Interface;
+         pSID_x : access PSID
+      ) return HRESULT is abstract;
+      function GetOriginalCallerSID(
+         This : access ISecurityProperty_Interface;
+         pSID_x : access PSID
+      ) return HRESULT is abstract;
+      function ReleaseSID(
+         This : access ISecurityProperty_Interface;
+         pSID_x : PSID
+      ) return HRESULT is abstract;
+   type ISecurityProperty is access ISecurityProperty_Interface'Class;
+   type ISecurityProperty_Ptr is access ISecurityProperty;
+   type ObjectControl_Interface is interface and IUnknown_Interface;
+      function Activate(This : access ObjectControl_Interface) return HRESULT is abstract;
+      function Deactivate(This : access ObjectControl_Interface) return HRESULT is abstract;
+      function CanBePooled(
+         This : access ObjectControl_Interface;
+         pbPoolable : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+   type ObjectControl is access ObjectControl_Interface'Class;
+   type ObjectControl_Ptr is access ObjectControl;
+   type ISharedProperty_Interface is interface and IDispatch_Interface;
+      function get_Value(
+         This : access ISharedProperty_Interface;
+         pVal : access VARIANT
+      ) return HRESULT is abstract;
+      function put_Value(
+         This : access ISharedProperty_Interface;
+         val : VARIANT
+      ) return HRESULT is abstract;
+   type ISharedProperty is access ISharedProperty_Interface'Class;
+   type ISharedProperty_Ptr is access ISharedProperty;
+   type ISharedPropertyGroup_Interface is interface and IDispatch_Interface;
+      function CreatePropertyByPosition(
+         This : access ISharedPropertyGroup_Interface;
+         Index : Interfaces.C.Int;
+         fExists : access VARIANT_BOOL;
+         ppProp : access ISharedProperty_Ptr
+      ) return HRESULT is abstract;
+      function get_PropertyByPosition(
+         This : access ISharedPropertyGroup_Interface;
+         Index : Interfaces.C.Int;
+         ppProperty : access ISharedProperty_Ptr
+      ) return HRESULT is abstract;
+      function CreateProperty(
+         This : access ISharedPropertyGroup_Interface;
+         Name : BSTR;
+         fExists : access VARIANT_BOOL;
+         ppProp : access ISharedProperty_Ptr
+      ) return HRESULT is abstract;
+      function get_Property(
+         This : access ISharedPropertyGroup_Interface;
+         Name : BSTR;
+         ppProperty : access ISharedProperty_Ptr
+      ) return HRESULT is abstract;
+   type ISharedPropertyGroup is access ISharedPropertyGroup_Interface'Class;
+   type ISharedPropertyGroup_Ptr is access ISharedPropertyGroup;
+   type ISharedPropertyGroupManager_Interface is interface and IDispatch_Interface;
+      function CreatePropertyGroup(
+         This : access ISharedPropertyGroupManager_Interface;
+         Name : BSTR;
+         dwIsoMode : access LONG;
+         dwRelMode : access LONG;
+         fExists : access VARIANT_BOOL;
+         ppGroup : access ISharedPropertyGroup_Ptr
+      ) return HRESULT is abstract;
+      function get_Group(
+         This : access ISharedPropertyGroupManager_Interface;
+         Name : BSTR;
+         ppGroup : access ISharedPropertyGroup_Ptr
+      ) return HRESULT is abstract;
+      function get_NewEnum(
+         This : access ISharedPropertyGroupManager_Interface;
+         retval : access LPVOID
+      ) return HRESULT is abstract;
+   type ISharedPropertyGroupManager is access ISharedPropertyGroupManager_Interface'Class;
+   type ISharedPropertyGroupManager_Ptr is access ISharedPropertyGroupManager;
+   type IObjectConstruct_Interface is interface and IUnknown_Interface;
+      function Construct(
+         This : access IObjectConstruct_Interface;
+         pCtorObj : access IDispatch
+      ) return HRESULT is abstract;
+   type IObjectConstruct is access IObjectConstruct_Interface'Class;
+   type IObjectConstruct_Ptr is access IObjectConstruct;
+   type IObjectConstructString_Interface is interface and IDispatch_Interface;
+      function get_ConstructString(
+         This : access IObjectConstructString_Interface;
+         pVal : access BSTR
+      ) return HRESULT is abstract;
+   type IObjectConstructString is access IObjectConstructString_Interface'Class;
+   type IObjectConstructString_Ptr is access IObjectConstructString;
+   type IObjectContextActivity_Interface is interface and IUnknown_Interface;
+      function GetActivityId(
+         This : access IObjectContextActivity_Interface;
+         pGUID : access GUID
+      ) return HRESULT is abstract;
+   type IObjectContextActivity is access IObjectContextActivity_Interface'Class;
+   type IObjectContextActivity_Ptr is access IObjectContextActivity;
+   type IObjectContextInfo_Interface is interface and IUnknown_Interface;
+      function IsInTransaction(This : access IObjectContextInfo_Interface) return BOOL is abstract;
+      function GetTransaction(
+         This : access IObjectContextInfo_Interface;
+         pptrans : access LPVOID
+      ) return HRESULT is abstract;
+      function GetTransactionId(
+         This : access IObjectContextInfo_Interface;
+         pGuid : access GUID
+      ) return HRESULT is abstract;
+      function GetActivityId(
+         This : access IObjectContextInfo_Interface;
+         pGUID : access GUID
+      ) return HRESULT is abstract;
+      function GetContextId(
+         This : access IObjectContextInfo_Interface;
+         pGuid : access GUID
+      ) return HRESULT is abstract;
+   type IObjectContextInfo is access IObjectContextInfo_Interface'Class;
+   type IObjectContextInfo_Ptr is access IObjectContextInfo;
+   type IObjectContextInfo2_Interface is interface and IObjectContextInfo_Interface;
+      function GetPartitionId(
+         This : access IObjectContextInfo2_Interface;
+         pGuid : access GUID
+      ) return HRESULT is abstract;
+      function GetApplicationId(
+         This : access IObjectContextInfo2_Interface;
+         pGuid : access GUID
+      ) return HRESULT is abstract;
+      function GetApplicationInstanceId(
+         This : access IObjectContextInfo2_Interface;
+         pGuid : access GUID
+      ) return HRESULT is abstract;
+   type IObjectContextInfo2 is access IObjectContextInfo2_Interface'Class;
+   type IObjectContextInfo2_Ptr is access IObjectContextInfo2;
+   type ITransactionStatus_Interface is interface and IUnknown_Interface;
+      function SetTransactionStatus(
+         This : access ITransactionStatus_Interface;
+         hrStatus : HRESULT
+      ) return HRESULT is abstract;
+      function GetTransactionStatus(
+         This : access ITransactionStatus_Interface;
+         pHrStatus : access HRESULT
+      ) return HRESULT is abstract;
+   type ITransactionStatus is access ITransactionStatus_Interface'Class;
+   type ITransactionStatus_Ptr is access ITransactionStatus;
+   type IObjectContextTip_Interface is interface and IUnknown_Interface;
+      function GetTipUrl(
+         This : access IObjectContextTip_Interface;
+         pTipUrl : access BSTR
+      ) return HRESULT is abstract;
+   type IObjectContextTip is access IObjectContextTip_Interface'Class;
+   type IObjectContextTip_Ptr is access IObjectContextTip;
+   type IPlaybackControl_Interface is interface and IUnknown_Interface;
+      function FinalClientRetry(This : access IPlaybackControl_Interface) return HRESULT is abstract;
+      function FinalServerRetry(This : access IPlaybackControl_Interface) return HRESULT is abstract;
+   type IPlaybackControl is access IPlaybackControl_Interface'Class;
+   type IPlaybackControl_Ptr is access IPlaybackControl;
+   type IGetContextProperties_Interface is interface and IUnknown_Interface;
+      function Count(
+         This : access IGetContextProperties_Interface;
+         plCount : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function GetProperty(
+         This : access IGetContextProperties_Interface;
+         name : BSTR;
+         pProperty : access VARIANT
+      ) return HRESULT is abstract;
+      function EnumNames(
+         This : access IGetContextProperties_Interface;
+         ppenum : access IEnumNames_Ptr
+      ) return HRESULT is abstract;
+   type IGetContextProperties is access IGetContextProperties_Interface'Class;
+   type IGetContextProperties_Ptr is access IGetContextProperties;
+   type tagTransactionVote is (
+      TxCommit,
+      TxAbort
+   );
+   for tagTransactionVote use (
+      TxCommit => 0,
+      TxAbort => 1
+   );
+   for tagTransactionVote'Size use 32;
+   subtype TransactionVote is tagTransactionVote; -- CXType_Elaborated
+   type IContextState_Interface is interface and IUnknown_Interface;
+      function SetDeactivateOnReturn(
+         This : access IContextState_Interface;
+         bDeactivate : VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function GetDeactivateOnReturn(
+         This : access IContextState_Interface;
+         pbDeactivate : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function SetMyTransactionVote(
+         This : access IContextState_Interface;
+         txVote : TransactionVote
+      ) return HRESULT is abstract;
+      function GetMyTransactionVote(
+         This : access IContextState_Interface;
+         ptxVote : access TransactionVote
+      ) return HRESULT is abstract;
+   type IContextState is access IContextState_Interface'Class;
+   type IContextState_Ptr is access IContextState;
+   type IPoolManager_Interface is interface and IDispatch_Interface;
+      function ShutdownPool(
+         This : access IPoolManager_Interface;
+         CLSIDOrProgID : BSTR
+      ) return HRESULT is abstract;
+   type IPoolManager is access IPoolManager_Interface'Class;
+   type IPoolManager_Ptr is access IPoolManager;
+   type ISelectCOMLBServer_Interface is interface and IUnknown_Interface;
+      function Init(This : access ISelectCOMLBServer_Interface) return HRESULT is abstract;
+      function GetLBServer(
+         This : access ISelectCOMLBServer_Interface;
+         pUnk : access Void
+      ) return HRESULT is abstract;
+   type ISelectCOMLBServer is access ISelectCOMLBServer_Interface'Class;
+   type ISelectCOMLBServer_Ptr is access ISelectCOMLBServer;
+   type ICOMLBArguments_Interface is interface and IUnknown_Interface;
+      function GetCLSID(
+         This : access ICOMLBArguments_Interface;
+         pCLSID : access CLSID
+      ) return HRESULT is abstract;
+      function SetCLSID(
+         This : access ICOMLBArguments_Interface;
+         pCLSID : access CLSID
+      ) return HRESULT is abstract;
+      function GetMachineName(
+         This : access ICOMLBArguments_Interface;
+         cchSvr : ULONG;
+         szServerName : Void
+      ) return HRESULT is abstract;
+      function SetMachineName(
+         This : access ICOMLBArguments_Interface;
+         cchSvr : ULONG;
+         szServerName : Void
+      ) return HRESULT is abstract;
+   type ICOMLBArguments is access ICOMLBArguments_Interface'Class;
+   type ICOMLBArguments_Ptr is access ICOMLBArguments;
+   function CoCreateActivity(
+      pIUnknown : access IUnknown;
+      riid : access constant IID;
+      ppObj : access LPVOID
+   ) return HRESULT;
+   pragma import (C,CoCreateActivity,"CoCreateActivity");
+   function CoEnterServiceDomain(
+      pConfigObject : access IUnknown
+   ) return HRESULT;
+   pragma import (C,CoEnterServiceDomain,"CoEnterServiceDomain");
+   procedure CoLeaveServiceDomain(
+      pUnkStatus : access IUnknown
+   );
+   pragma import (C,CoLeaveServiceDomain,"CoLeaveServiceDomain");
+   function GetManagedExtensions(
+      dwExts : access DWORD
+   ) return HRESULT;
+   pragma import (C,GetManagedExtensions,"GetManagedExtensions");
+   procedure SafeRef(
+      rid : access constant IID;
+      pUnk : access IUnknown
+   );
+   pragma import (C,SafeRef,"SafeRef");
+   function RecycleSurrogate(
+      lReasonCode : Interfaces.C.Long
+   ) return HRESULT;
+   pragma import (C,RecycleSurrogate,"RecycleSurrogate");
+   type ICrmLogControl_Interface is interface and IUnknown_Interface;
+      function get_TransactionUOW(
+         This : access ICrmLogControl_Interface;
+         pVal : access BSTR
+      ) return HRESULT is abstract;
+      function RegisterCompensator(
+         This : access ICrmLogControl_Interface;
+         lpcwstrProgIdCompensator : LPCWSTR;
+         lpcwstrDescription : LPCWSTR;
+         lCrmRegFlags : LONG
+      ) return HRESULT is abstract;
+      function WriteLogRecordVariants(
+         This : access ICrmLogControl_Interface;
+         pLogRecord : access VARIANT
+      ) return HRESULT is abstract;
+      function ForceLog(This : access ICrmLogControl_Interface) return HRESULT is abstract;
+      function ForgetLogRecord(This : access ICrmLogControl_Interface) return HRESULT is abstract;
+      function ForceTransactionToAbort(This : access ICrmLogControl_Interface) return HRESULT is abstract;
+      function WriteLogRecord(
+         This : access ICrmLogControl_Interface;
+         rgBlob : Void;
+         cBlob : ULONG
+      ) return HRESULT is abstract;
+   type ICrmLogControl is access ICrmLogControl_Interface'Class;
+   type ICrmLogControl_Ptr is access ICrmLogControl;
+   type ICrmCompensatorVariants_Interface is interface and IUnknown_Interface;
+      function SetLogControlVariants(
+         This : access ICrmCompensatorVariants_Interface;
+         pLogControl : access ICrmLogControl
+      ) return HRESULT is abstract;
+      function BeginPrepareVariants(This : access ICrmCompensatorVariants_Interface) return HRESULT is abstract;
+      function PrepareRecordVariants(
+         This : access ICrmCompensatorVariants_Interface;
+         pLogRecord : access VARIANT;
+         pbForget : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function EndPrepareVariants(
+         This : access ICrmCompensatorVariants_Interface;
+         pbOkToPrepare : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function BeginCommitVariants(
+         This : access ICrmCompensatorVariants_Interface;
+         bRecovery : VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function CommitRecordVariants(
+         This : access ICrmCompensatorVariants_Interface;
+         pLogRecord : access VARIANT;
+         pbForget : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function EndCommitVariants(This : access ICrmCompensatorVariants_Interface) return HRESULT is abstract;
+      function BeginAbortVariants(
+         This : access ICrmCompensatorVariants_Interface;
+         bRecovery : VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function AbortRecordVariants(
+         This : access ICrmCompensatorVariants_Interface;
+         pLogRecord : access VARIANT;
+         pbForget : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function EndAbortVariants(This : access ICrmCompensatorVariants_Interface) return HRESULT is abstract;
+   type ICrmCompensatorVariants is access ICrmCompensatorVariants_Interface'Class;
+   type ICrmCompensatorVariants_Ptr is access ICrmCompensatorVariants;
+   type tagCrmLogRecordRead is record
+      dwCrmFlags : DWORD;
+      dwSequenceNumber : DWORD;
+      blobUserData : BLOB;
+   end record;
+   subtype CrmLogRecordRead is tagCrmLogRecordRead; -- CXType_Elaborated
+   type ICrmCompensator_Interface is interface and IUnknown_Interface;
+      function SetLogControl(
+         This : access ICrmCompensator_Interface;
+         pLogControl : access ICrmLogControl
+      ) return HRESULT is abstract;
+      function BeginPrepare(This : access ICrmCompensator_Interface) return HRESULT is abstract;
+      function PrepareRecord(
+         This : access ICrmCompensator_Interface;
+         crmLogRec : CrmLogRecordRead;
+         pfForget : access BOOL
+      ) return HRESULT is abstract;
+      function EndPrepare(
+         This : access ICrmCompensator_Interface;
+         pfOkToPrepare : access BOOL
+      ) return HRESULT is abstract;
+      function BeginCommit(
+         This : access ICrmCompensator_Interface;
+         fRecovery : BOOL
+      ) return HRESULT is abstract;
+      function CommitRecord(
+         This : access ICrmCompensator_Interface;
+         crmLogRec : CrmLogRecordRead;
+         pfForget : access BOOL
+      ) return HRESULT is abstract;
+      function EndCommit(This : access ICrmCompensator_Interface) return HRESULT is abstract;
+      function BeginAbort(
+         This : access ICrmCompensator_Interface;
+         fRecovery : BOOL
+      ) return HRESULT is abstract;
+      function AbortRecord(
+         This : access ICrmCompensator_Interface;
+         crmLogRec : CrmLogRecordRead;
+         pfForget : access BOOL
+      ) return HRESULT is abstract;
+      function EndAbort(This : access ICrmCompensator_Interface) return HRESULT is abstract;
+   type ICrmCompensator is access ICrmCompensator_Interface'Class;
+   type ICrmCompensator_Ptr is access ICrmCompensator;
+   type tagCrmTransactionState is (
+      TxState_Active,
+      TxState_Committed,
+      TxState_Aborted,
+      TxState_Indoubt
+   );
+   for tagCrmTransactionState use (
+      TxState_Active => 0,
+      TxState_Committed => 1,
+      TxState_Aborted => 2,
+      TxState_Indoubt => 3
+   );
+   for tagCrmTransactionState'Size use 32;
+   subtype CrmTransactionState is tagCrmTransactionState; -- CXType_Elaborated
+   type ICrmMonitorLogRecords_Interface is interface and IUnknown_Interface;
+      function get_Count(
+         This : access ICrmMonitorLogRecords_Interface;
+         pVal : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function get_TransactionState(
+         This : access ICrmMonitorLogRecords_Interface;
+         pVal : access CrmTransactionState
+      ) return HRESULT is abstract;
+      function get_StructuredRecords(
+         This : access ICrmMonitorLogRecords_Interface;
+         pVal : access VARIANT_BOOL
+      ) return HRESULT is abstract;
+      function GetLogRecord(
+         This : access ICrmMonitorLogRecords_Interface;
+         dwIndex : DWORD;
+         pCrmLogRec : access CrmLogRecordRead
+      ) return HRESULT is abstract;
+      function GetLogRecordVariants(
+         This : access ICrmMonitorLogRecords_Interface;
+         IndexNumber : VARIANT;
+         pLogRecord : LPVARIANT
+      ) return HRESULT is abstract;
+   type ICrmMonitorLogRecords is access ICrmMonitorLogRecords_Interface'Class;
+   type ICrmMonitorLogRecords_Ptr is access ICrmMonitorLogRecords;
+   type ICrmMonitorClerks_Interface is interface and IDispatch_Interface;
+      function Item(
+         This : access ICrmMonitorClerks_Interface;
+         Index : VARIANT;
+         pItem : LPVARIANT
+      ) return HRESULT is abstract;
+      function get_NewEnum(
+         This : access ICrmMonitorClerks_Interface;
+         pVal : access LPUNKNOWN
+      ) return HRESULT is abstract;
+      function get_Count(
+         This : access ICrmMonitorClerks_Interface;
+         pVal : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function ProgIdCompensator(
+         This : access ICrmMonitorClerks_Interface;
+         Index : VARIANT;
+         pItem : LPVARIANT
+      ) return HRESULT is abstract;
+      function Description(
+         This : access ICrmMonitorClerks_Interface;
+         Index : VARIANT;
+         pItem : LPVARIANT
+      ) return HRESULT is abstract;
+      function TransactionUOW(
+         This : access ICrmMonitorClerks_Interface;
+         Index : VARIANT;
+         pItem : LPVARIANT
+      ) return HRESULT is abstract;
+      function ActivityId(
+         This : access ICrmMonitorClerks_Interface;
+         Index : VARIANT;
+         pItem : LPVARIANT
+      ) return HRESULT is abstract;
+   type ICrmMonitorClerks is access ICrmMonitorClerks_Interface'Class;
+   type ICrmMonitorClerks_Ptr is access ICrmMonitorClerks;
+   type ICrmMonitor_Interface is interface and IUnknown_Interface;
+      function GetClerks(
+         This : access ICrmMonitor_Interface;
+         pClerks : access ICrmMonitorClerks_Ptr
+      ) return HRESULT is abstract;
+      function HoldClerk(
+         This : access ICrmMonitor_Interface;
+         Index : VARIANT;
+         pItem : LPVARIANT
+      ) return HRESULT is abstract;
+   type ICrmMonitor is access ICrmMonitor_Interface'Class;
+   type ICrmMonitor_Ptr is access ICrmMonitor;
+   type ICrmFormatLogRecords_Interface is interface and IUnknown_Interface;
+      function GetColumnCount(
+         This : access ICrmFormatLogRecords_Interface;
+         plColumnCount : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function GetColumnHeaders(
+         This : access ICrmFormatLogRecords_Interface;
+         pHeaders : LPVARIANT
+      ) return HRESULT is abstract;
+      function GetColumn(
+         This : access ICrmFormatLogRecords_Interface;
+         CrmLogRec : CrmLogRecordRead;
+         pFormattedLogRecord : LPVARIANT
+      ) return HRESULT is abstract;
+      function GetColumnVariants(
+         This : access ICrmFormatLogRecords_Interface;
+         LogRecord : VARIANT;
+         pFormattedLogRecord : LPVARIANT
+      ) return HRESULT is abstract;
+   type ICrmFormatLogRecords is access ICrmFormatLogRecords_Interface'Class;
+   type ICrmFormatLogRecords_Ptr is access ICrmFormatLogRecords;
+   type tagCSC_InheritanceConfig is (
+      CSC_Inherit,
+      CSC_Ignore
+   );
+   for tagCSC_InheritanceConfig use (
+      CSC_Inherit => 0,
+      CSC_Ignore => 1
+   );
+   for tagCSC_InheritanceConfig'Size use 32;
+   subtype CSC_InheritanceConfig is tagCSC_InheritanceConfig; -- CXType_Elaborated
+   type tagCSC_ThreadPool is (
+      CSC_ThreadPoolNone,
+      CSC_ThreadPoolInherit,
+      CSC_STAThreadPool,
+      CSC_MTAThreadPool
+   );
+   for tagCSC_ThreadPool use (
+      CSC_ThreadPoolNone => 0,
+      CSC_ThreadPoolInherit => 1,
+      CSC_STAThreadPool => 2,
+      CSC_MTAThreadPool => 3
+   );
+   for tagCSC_ThreadPool'Size use 32;
+   subtype CSC_ThreadPool is tagCSC_ThreadPool; -- CXType_Elaborated
+   type tagCSC_Binding is (
+      CSC_NoBinding,
+      CSC_BindToPoolThread
+   );
+   for tagCSC_Binding use (
+      CSC_NoBinding => 0,
+      CSC_BindToPoolThread => 1
+   );
+   for tagCSC_Binding'Size use 32;
+   subtype CSC_Binding is tagCSC_Binding; -- CXType_Elaborated
+   type tagCSC_TransactionConfig is (
+      CSC_NoTransaction,
+      CSC_IfContainerIsTransactional,
+      CSC_CreateTransactionIfNecessary,
+      CSC_NewTransaction
+   );
+   for tagCSC_TransactionConfig use (
+      CSC_NoTransaction => 0,
+      CSC_IfContainerIsTransactional => 1,
+      CSC_CreateTransactionIfNecessary => 2,
+      CSC_NewTransaction => 3
+   );
+   for tagCSC_TransactionConfig'Size use 32;
+   subtype CSC_TransactionConfig is tagCSC_TransactionConfig; -- CXType_Elaborated
+   type tagCSC_SynchronizationConfig is (
+      CSC_NoSynchronization,
+      CSC_IfContainerIsSynchronized,
+      CSC_NewSynchronizationIfNecessary,
+      CSC_NewSynchronization
+   );
+   for tagCSC_SynchronizationConfig use (
+      CSC_NoSynchronization => 0,
+      CSC_IfContainerIsSynchronized => 1,
+      CSC_NewSynchronizationIfNecessary => 2,
+      CSC_NewSynchronization => 3
+   );
+   for tagCSC_SynchronizationConfig'Size use 32;
+   subtype CSC_SynchronizationConfig is tagCSC_SynchronizationConfig; -- CXType_Elaborated
+   type tagCSC_TrackerConfig is (
+      CSC_DontUseTracker,
+      CSC_UseTracker
+   );
+   for tagCSC_TrackerConfig use (
+      CSC_DontUseTracker => 0,
+      CSC_UseTracker => 1
+   );
+   for tagCSC_TrackerConfig'Size use 32;
+   subtype CSC_TrackerConfig is tagCSC_TrackerConfig; -- CXType_Elaborated
+   type tagCSC_PartitionConfig is (
+      CSC_NoPartition,
+      CSC_InheritPartition,
+      CSC_NewPartition
+   );
+   for tagCSC_PartitionConfig use (
+      CSC_NoPartition => 0,
+      CSC_InheritPartition => 1,
+      CSC_NewPartition => 2
+   );
+   for tagCSC_PartitionConfig'Size use 32;
+   subtype CSC_PartitionConfig is tagCSC_PartitionConfig; -- CXType_Elaborated
+   type tagCSC_IISIntrinsicsConfig is (
+      CSC_NoIISIntrinsics,
+      CSC_InheritIISIntrinsics
+   );
+   for tagCSC_IISIntrinsicsConfig use (
+      CSC_NoIISIntrinsics => 0,
+      CSC_InheritIISIntrinsics => 1
+   );
+   for tagCSC_IISIntrinsicsConfig'Size use 32;
+   subtype CSC_IISIntrinsicsConfig is tagCSC_IISIntrinsicsConfig; -- CXType_Elaborated
+   type tagCSC_COMTIIntrinsicsConfig is (
+      CSC_NoCOMTIIntrinsics,
+      CSC_InheritCOMTIIntrinsics
+   );
+   for tagCSC_COMTIIntrinsicsConfig use (
+      CSC_NoCOMTIIntrinsics => 0,
+      CSC_InheritCOMTIIntrinsics => 1
+   );
+   for tagCSC_COMTIIntrinsicsConfig'Size use 32;
+   subtype CSC_COMTIIntrinsicsConfig is tagCSC_COMTIIntrinsicsConfig; -- CXType_Elaborated
+   type tagCSC_SxsConfig is (
+      CSC_NoSxs,
+      CSC_InheritSxs,
+      CSC_NewSxs
+   );
+   for tagCSC_SxsConfig use (
+      CSC_NoSxs => 0,
+      CSC_InheritSxs => 1,
+      CSC_NewSxs => 2
+   );
+   for tagCSC_SxsConfig'Size use 32;
+   subtype CSC_SxsConfig is tagCSC_SxsConfig; -- CXType_Elaborated
+   type IServiceIISIntrinsicsConfig_Interface is interface and IUnknown_Interface;
+      function IISIntrinsicsConfig(
+         This : access IServiceIISIntrinsicsConfig_Interface;
+         iisIntrinsicsConfig : CSC_IISIntrinsicsConfig
+      ) return HRESULT is abstract;
+   type IServiceIISIntrinsicsConfig is access IServiceIISIntrinsicsConfig_Interface'Class;
+   type IServiceIISIntrinsicsConfig_Ptr is access IServiceIISIntrinsicsConfig;
+   type IServiceComTIIntrinsicsConfig_Interface is interface and IUnknown_Interface;
+      function ComTIIntrinsicsConfig(
+         This : access IServiceComTIIntrinsicsConfig_Interface;
+         comtiIntrinsicsConfig : CSC_COMTIIntrinsicsConfig
+      ) return HRESULT is abstract;
+   type IServiceComTIIntrinsicsConfig is access IServiceComTIIntrinsicsConfig_Interface'Class;
+   type IServiceComTIIntrinsicsConfig_Ptr is access IServiceComTIIntrinsicsConfig;
+   type IServiceSxsConfig_Interface is interface and IUnknown_Interface;
+      function SxsConfig(
+         This : access IServiceSxsConfig_Interface;
+         scsConfig : CSC_SxsConfig
+      ) return HRESULT is abstract;
+      function SxsName(
+         This : access IServiceSxsConfig_Interface;
+         szSxsName : LPCWSTR
+      ) return HRESULT is abstract;
+      function SxsDirectory(
+         This : access IServiceSxsConfig_Interface;
+         szSxsDirectory : LPCWSTR
+      ) return HRESULT is abstract;
+   type IServiceSxsConfig is access IServiceSxsConfig_Interface'Class;
+   type IServiceSxsConfig_Ptr is access IServiceSxsConfig;
+   type ICheckSxsConfig_Interface is interface and IUnknown_Interface;
+      function IsSameSxsConfig(
+         This : access ICheckSxsConfig_Interface;
+         wszSxsName : LPCWSTR;
+         wszSxsDirectory : LPCWSTR;
+         wszSxsAppName : LPCWSTR
+      ) return HRESULT is abstract;
+   type ICheckSxsConfig is access ICheckSxsConfig_Interface'Class;
+   type ICheckSxsConfig_Ptr is access ICheckSxsConfig;
+   type IServiceInheritanceConfig_Interface is interface and IUnknown_Interface;
+      function ContainingContextTreatment(
+         This : access IServiceInheritanceConfig_Interface;
+         inheritanceConfig : CSC_InheritanceConfig
+      ) return HRESULT is abstract;
+   type IServiceInheritanceConfig is access IServiceInheritanceConfig_Interface'Class;
+   type IServiceInheritanceConfig_Ptr is access IServiceInheritanceConfig;
+   type IServiceThreadPoolConfig_Interface is interface and IUnknown_Interface;
+      function SelectThreadPool(
+         This : access IServiceThreadPoolConfig_Interface;
+         threadPool : CSC_ThreadPool
+      ) return HRESULT is abstract;
+      function SetBindingInfo(
+         This : access IServiceThreadPoolConfig_Interface;
+         binding : CSC_Binding
+      ) return HRESULT is abstract;
+   type IServiceThreadPoolConfig is access IServiceThreadPoolConfig_Interface'Class;
+   type IServiceThreadPoolConfig_Ptr is access IServiceThreadPoolConfig;
+   type IServiceTransactionConfigBase_Interface is interface and IUnknown_Interface;
+      function ConfigureTransaction(
+         This : access IServiceTransactionConfigBase_Interface;
+         transactionConfig : CSC_TransactionConfig
+      ) return HRESULT is abstract;
+      function IsolationLevel_x(
+         This : access IServiceTransactionConfigBase_Interface;
+         option : COMAdminTxIsolationLevelOptions
+      ) return HRESULT is abstract;
+      function TransactionTimeout(
+         This : access IServiceTransactionConfigBase_Interface;
+         ulTimeoutSec : ULONG
+      ) return HRESULT is abstract;
+      function BringYourOwnTransaction(
+         This : access IServiceTransactionConfigBase_Interface;
+         szTipURL : LPCWSTR
+      ) return HRESULT is abstract;
+      function NewTransactionDescription(
+         This : access IServiceTransactionConfigBase_Interface;
+         szTxDesc : LPCWSTR
+      ) return HRESULT is abstract;
+   type IServiceTransactionConfigBase is access IServiceTransactionConfigBase_Interface'Class;
+   type IServiceTransactionConfigBase_Ptr is access IServiceTransactionConfigBase;
+   type IServiceTransactionConfig_Interface is interface and IServiceTransactionConfigBase_Interface;
+      function ConfigureBYOT(
+         This : access IServiceTransactionConfig_Interface;
+         pITxByot : access ITransaction
+      ) return HRESULT is abstract;
+   type IServiceTransactionConfig is access IServiceTransactionConfig_Interface'Class;
+   type IServiceTransactionConfig_Ptr is access IServiceTransactionConfig;
+   type IServiceSysTxnConfig_Interface is interface and IServiceTransactionConfig_Interface;
+      function ConfigureBYOTSysTxn(
+         This : access IServiceSysTxnConfig_Interface;
+         pTxProxy : access ITransactionProxy
+      ) return HRESULT is abstract;
+   type IServiceSysTxnConfig is access IServiceSysTxnConfig_Interface'Class;
+   type IServiceSysTxnConfig_Ptr is access IServiceSysTxnConfig;
+   type IServiceSynchronizationConfig_Interface is interface and IUnknown_Interface;
+      function ConfigureSynchronization(
+         This : access IServiceSynchronizationConfig_Interface;
+         synchConfig : CSC_SynchronizationConfig
+      ) return HRESULT is abstract;
+   type IServiceSynchronizationConfig is access IServiceSynchronizationConfig_Interface'Class;
+   type IServiceSynchronizationConfig_Ptr is access IServiceSynchronizationConfig;
+   type IServiceTrackerConfig_Interface is interface and IUnknown_Interface;
+      function TrackerConfig(
+         This : access IServiceTrackerConfig_Interface;
+         trackerConfig : CSC_TrackerConfig;
+         szTrackerAppName : LPCWSTR;
+         szTrackerCtxName : LPCWSTR
+      ) return HRESULT is abstract;
+   type IServiceTrackerConfig is access IServiceTrackerConfig_Interface'Class;
+   type IServiceTrackerConfig_Ptr is access IServiceTrackerConfig;
+   type IServicePartitionConfig_Interface is interface and IUnknown_Interface;
+      function PartitionConfig(
+         This : access IServicePartitionConfig_Interface;
+         partitionConfig : CSC_PartitionConfig
+      ) return HRESULT is abstract;
+      function PartitionID(
+         This : access IServicePartitionConfig_Interface;
+         guidPartitionID : access constant GUID
+      ) return HRESULT is abstract;
+   type IServicePartitionConfig is access IServicePartitionConfig_Interface'Class;
+   type IServicePartitionConfig_Ptr is access IServicePartitionConfig;
+   type IServiceCall_Interface is interface and IUnknown_Interface;
+      function OnCall(This : access IServiceCall_Interface) return HRESULT is abstract;
+   type IServiceCall is access IServiceCall_Interface'Class;
+   type IServiceCall_Ptr is access IServiceCall;
+   type IAsyncErrorNotify_Interface is interface and IUnknown_Interface;
+      function OnError(
+         This : access IAsyncErrorNotify_Interface;
+         hr : HRESULT
+      ) return HRESULT is abstract;
+   type IAsyncErrorNotify is access IAsyncErrorNotify_Interface'Class;
+   type IAsyncErrorNotify_Ptr is access IAsyncErrorNotify;
+   type IServiceActivity_Interface is interface and IUnknown_Interface;
+      function SynchronousCall(
+         This : access IServiceActivity_Interface;
+         pIServiceCall : access IServiceCall
+      ) return HRESULT is abstract;
+      function AsynchronousCall(
+         This : access IServiceActivity_Interface;
+         pIServiceCall : access IServiceCall
+      ) return HRESULT is abstract;
+      function BindToCurrentThread(This : access IServiceActivity_Interface) return HRESULT is abstract;
+      function UnbindFromThread(This : access IServiceActivity_Interface) return HRESULT is abstract;
+   type IServiceActivity is access IServiceActivity_Interface'Class;
+   type IServiceActivity_Ptr is access IServiceActivity;
+   type IThreadPoolKnobs_Interface is interface and IUnknown_Interface;
+      function GetMaxThreads(
+         This : access IThreadPoolKnobs_Interface;
+         plcMaxThreads : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function GetCurrentThreads(
+         This : access IThreadPoolKnobs_Interface;
+         plcCurrentThreads : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function SetMaxThreads(
+         This : access IThreadPoolKnobs_Interface;
+         lcMaxThreads : Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function GetDeleteDelay(
+         This : access IThreadPoolKnobs_Interface;
+         pmsecDeleteDelay : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function SetDeleteDelay(
+         This : access IThreadPoolKnobs_Interface;
+         msecDeleteDelay : Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function GetMaxQueuedRequests(
+         This : access IThreadPoolKnobs_Interface;
+         plcMaxQueuedRequests : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function GetCurrentQueuedRequests(
+         This : access IThreadPoolKnobs_Interface;
+         plcCurrentQueuedRequests : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function SetMaxQueuedRequests(
+         This : access IThreadPoolKnobs_Interface;
+         lcMaxQueuedRequests : Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function SetMinThreads(
+         This : access IThreadPoolKnobs_Interface;
+         lcMinThreads : Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function SetQueueDepth(
+         This : access IThreadPoolKnobs_Interface;
+         lcQueueDepth : Interfaces.C.Long
+      ) return HRESULT is abstract;
+   type IThreadPoolKnobs is access IThreadPoolKnobs_Interface'Class;
+   type IThreadPoolKnobs_Ptr is access IThreadPoolKnobs;
+   type IComStaThreadPoolKnobs_Interface is interface and IUnknown_Interface;
+      function SetMinThreadCount(
+         This : access IComStaThreadPoolKnobs_Interface;
+         minThreads : DWORD
+      ) return HRESULT is abstract;
+      function GetMinThreadCount(
+         This : access IComStaThreadPoolKnobs_Interface;
+         minThreads : access DWORD
+      ) return HRESULT is abstract;
+      function SetMaxThreadCount(
+         This : access IComStaThreadPoolKnobs_Interface;
+         maxThreads : DWORD
+      ) return HRESULT is abstract;
+      function GetMaxThreadCount(
+         This : access IComStaThreadPoolKnobs_Interface;
+         maxThreads : access DWORD
+      ) return HRESULT is abstract;
+      function SetActivityPerThread(
+         This : access IComStaThreadPoolKnobs_Interface;
+         activitiesPerThread : DWORD
+      ) return HRESULT is abstract;
+      function GetActivityPerThread(
+         This : access IComStaThreadPoolKnobs_Interface;
+         activitiesPerThread : access DWORD
+      ) return HRESULT is abstract;
+      function SetActivityRatio(
+         This : access IComStaThreadPoolKnobs_Interface;
+         activityRatio : DOUBLE
+      ) return HRESULT is abstract;
+      function GetActivityRatio(
+         This : access IComStaThreadPoolKnobs_Interface;
+         activityRatio : access DOUBLE
+      ) return HRESULT is abstract;
+      function GetThreadCount(
+         This : access IComStaThreadPoolKnobs_Interface;
+         pdwThreads : access DWORD
+      ) return HRESULT is abstract;
+      function GetQueueDepth(
+         This : access IComStaThreadPoolKnobs_Interface;
+         pdwQDepth : access DWORD
+      ) return HRESULT is abstract;
+      function SetQueueDepth(
+         This : access IComStaThreadPoolKnobs_Interface;
+         dwQDepth : Interfaces.C.Long
+      ) return HRESULT is abstract;
+   type IComStaThreadPoolKnobs is access IComStaThreadPoolKnobs_Interface'Class;
+   type IComStaThreadPoolKnobs_Ptr is access IComStaThreadPoolKnobs;
+   type IComMtaThreadPoolKnobs_Interface is interface and IUnknown_Interface;
+      function MTASetMaxThreadCount(
+         This : access IComMtaThreadPoolKnobs_Interface;
+         dwMaxThreads : DWORD
+      ) return HRESULT is abstract;
+      function MTAGetMaxThreadCount(
+         This : access IComMtaThreadPoolKnobs_Interface;
+         pdwMaxThreads : access DWORD
+      ) return HRESULT is abstract;
+      function MTASetThrottleValue(
+         This : access IComMtaThreadPoolKnobs_Interface;
+         dwThrottle : DWORD
+      ) return HRESULT is abstract;
+      function MTAGetThrottleValue(
+         This : access IComMtaThreadPoolKnobs_Interface;
+         pdwThrottle : access DWORD
+      ) return HRESULT is abstract;
+   type IComMtaThreadPoolKnobs is access IComMtaThreadPoolKnobs_Interface'Class;
+   type IComMtaThreadPoolKnobs_Ptr is access IComMtaThreadPoolKnobs;
+   type IComStaThreadPoolKnobs2_Interface is interface and IComStaThreadPoolKnobs_Interface;
+      function GetMaxCPULoad(
+         This : access IComStaThreadPoolKnobs2_Interface;
+         pdwLoad : access DWORD
+      ) return HRESULT is abstract;
+      function SetMaxCPULoad(
+         This : access IComStaThreadPoolKnobs2_Interface;
+         pdwLoad : Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function GetCPUMetricEnabled(
+         This : access IComStaThreadPoolKnobs2_Interface;
+         pbMetricEnabled : access BOOL
+      ) return HRESULT is abstract;
+      function SetCPUMetricEnabled(
+         This : access IComStaThreadPoolKnobs2_Interface;
+         bMetricEnabled : BOOL
+      ) return HRESULT is abstract;
+      function GetCreateThreadsAggressively(
+         This : access IComStaThreadPoolKnobs2_Interface;
+         pbMetricEnabled : access BOOL
+      ) return HRESULT is abstract;
+      function SetCreateThreadsAggressively(
+         This : access IComStaThreadPoolKnobs2_Interface;
+         bMetricEnabled : BOOL
+      ) return HRESULT is abstract;
+      function GetMaxCSR(
+         This : access IComStaThreadPoolKnobs2_Interface;
+         pdwCSR : access DWORD
+      ) return HRESULT is abstract;
+      function SetMaxCSR(
+         This : access IComStaThreadPoolKnobs2_Interface;
+         dwCSR : Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function GetWaitTimeForThreadCleanup(
+         This : access IComStaThreadPoolKnobs2_Interface;
+         pdwThreadCleanupWaitTime : access DWORD
+      ) return HRESULT is abstract;
+      function SetWaitTimeForThreadCleanup(
+         This : access IComStaThreadPoolKnobs2_Interface;
+         dwThreadCleanupWaitTime : Interfaces.C.Long
+      ) return HRESULT is abstract;
+   type IComStaThreadPoolKnobs2 is access IComStaThreadPoolKnobs2_Interface'Class;
+   type IComStaThreadPoolKnobs2_Ptr is access IComStaThreadPoolKnobs2;
+   type IProcessInitializer_Interface is interface and IUnknown_Interface;
+      function Startup(
+         This : access IProcessInitializer_Interface;
+         punkProcessControl : access Void
+      ) return HRESULT is abstract;
+      function Shutdown_x(This : access IProcessInitializer_Interface) return HRESULT is abstract;
+   type IProcessInitializer is access IProcessInitializer_Interface'Class;
+   type IProcessInitializer_Ptr is access IProcessInitializer;
+   type IServicePoolConfig_Interface is interface and IUnknown_Interface;
+      function put_MaxPoolSize(
+         This : access IServicePoolConfig_Interface;
+         dwMaxPool : DWORD
+      ) return HRESULT is abstract;
+      function get_MaxPoolSize(
+         This : access IServicePoolConfig_Interface;
+         pdwMaxPool : access DWORD
+      ) return HRESULT is abstract;
+      function put_MinPoolSize(
+         This : access IServicePoolConfig_Interface;
+         dwMinPool : DWORD
+      ) return HRESULT is abstract;
+      function get_MinPoolSize(
+         This : access IServicePoolConfig_Interface;
+         pdwMinPool : access DWORD
+      ) return HRESULT is abstract;
+      function put_CreationTimeout(
+         This : access IServicePoolConfig_Interface;
+         dwCreationTimeout : DWORD
+      ) return HRESULT is abstract;
+      function get_CreationTimeout(
+         This : access IServicePoolConfig_Interface;
+         pdwCreationTimeout : access DWORD
+      ) return HRESULT is abstract;
+      function put_TransactionAffinity(
+         This : access IServicePoolConfig_Interface;
+         fTxAffinity : BOOL
+      ) return HRESULT is abstract;
+      function get_TransactionAffinity(
+         This : access IServicePoolConfig_Interface;
+         pfTxAffinity : access BOOL
+      ) return HRESULT is abstract;
+      function put_ClassFactory(
+         This : access IServicePoolConfig_Interface;
+         pFactory : access IClassFactory
+      ) return HRESULT is abstract;
+      function get_ClassFactory(
+         This : access IServicePoolConfig_Interface;
+         pFactory : access LPCLASSFACTORY
+      ) return HRESULT is abstract;
+   type IServicePoolConfig is access IServicePoolConfig_Interface'Class;
+   type IServicePoolConfig_Ptr is access IServicePoolConfig;
+   type IServicePool_Interface is interface and IUnknown_Interface;
+      function Initialize(
+         This : access IServicePool_Interface;
+         pPoolConfig : access Void
+      ) return HRESULT is abstract;
+      function GetObjectA_x(
+         This : access IServicePool_Interface;
+         riid : access constant IID;
+         ppv : access LPVOID
+      ) return HRESULT is abstract;
+      function Shutdown_x(This : access IServicePool_Interface) return HRESULT is abstract;
+   type IServicePool is access IServicePool_Interface'Class;
+   type IServicePool_Ptr is access IServicePool;
+   type IManagedPooledObj_Interface is interface and IUnknown_Interface;
+      function SetHeld(
+         This : access IManagedPooledObj_Interface;
+         m_bHeld : BOOL
+      ) return HRESULT is abstract;
+   type IManagedPooledObj is access IManagedPooledObj_Interface'Class;
+   type IManagedPooledObj_Ptr is access IManagedPooledObj;
+   type IManagedPoolAction_Interface is interface and IUnknown_Interface;
+      function LastRelease(This : access IManagedPoolAction_Interface) return HRESULT is abstract;
+   type IManagedPoolAction is access IManagedPoolAction_Interface'Class;
+   type IManagedPoolAction_Ptr is access IManagedPoolAction;
+   type IManagedObjectInfo_Interface is interface and IUnknown_Interface;
+      function GetIUnknown(
+         This : access IManagedObjectInfo_Interface;
+         pUnk : access LPVOID
+      ) return HRESULT is abstract;
+      function GetIObjectControl(
+         This : access IManagedObjectInfo_Interface;
+         pCtrl : access IObjectControl_Ptr
+      ) return HRESULT is abstract;
+      function SetInPool(
+         This : access IManagedObjectInfo_Interface;
+         bInPool : BOOL;
+         pPooledObj : access IManagedPooledObj
+      ) return HRESULT is abstract;
+      function SetWrapperStrength(
+         This : access IManagedObjectInfo_Interface;
+         bStrong : BOOL
+      ) return HRESULT is abstract;
+   type IManagedObjectInfo is access IManagedObjectInfo_Interface'Class;
+   type IManagedObjectInfo_Ptr is access IManagedObjectInfo;
+   type IAppDomainHelper_Interface is interface and IDispatch_Interface;
+      function Initialize(
+         This : access IAppDomainHelper_Interface;
+         pUnkAD : access Void;
+         MIDL_IAppDomainHelper0000 : System.Address;
+         pPool : access Void
+      ) return HRESULT is abstract;
+      function DoCallback(
+         This : access IAppDomainHelper_Interface;
+         pUnkAD : access Void;
+         MIDL_IAppDomainHelper0001 : System.Address;
+         pPool : access Void
+      ) return HRESULT is abstract;
+   type IAppDomainHelper is access IAppDomainHelper_Interface'Class;
+   type IAppDomainHelper_Ptr is access IAppDomainHelper;
+   type IAssemblyLocator_Interface is interface and IDispatch_Interface;
+      function GetModules(
+         This : access IAssemblyLocator_Interface;
+         applicationDir : BSTR;
+         applicationName : BSTR;
+         assemblyName : BSTR;
+         pModules : access LPSAFEARRAY
+      ) return HRESULT is abstract;
+   type IAssemblyLocator is access IAssemblyLocator_Interface'Class;
+   type IAssemblyLocator_Ptr is access IAssemblyLocator;
+   type IManagedActivationEvents_Interface is interface and IUnknown_Interface;
+      function CreateManagedStub(
+         This : access IManagedActivationEvents_Interface;
+         pInfo : access IManagedObjectInfo;
+         fDist : BOOL
+      ) return HRESULT is abstract;
+      function DestroyManagedStub(
+         This : access IManagedActivationEvents_Interface;
+         pInfo : access IManagedObjectInfo
+      ) return HRESULT is abstract;
+   type IManagedActivationEvents is access IManagedActivationEvents_Interface'Class;
+   type IManagedActivationEvents_Ptr is access IManagedActivationEvents;
+   type ISendMethodEvents_Interface is interface and IUnknown_Interface;
+      function SendMethodCall(
+         This : access ISendMethodEvents_Interface;
+         pIdentity : access Void;
+         riid : access constant IID;
+         dwMeth : DWORD
+      ) return HRESULT is abstract;
+      function SendMethodReturn(
+         This : access ISendMethodEvents_Interface;
+         pIdentity : access Void;
+         riid : access constant IID;
+         dwMeth : DWORD;
+         hrCall : HRESULT;
+         hrServer : HRESULT
+      ) return HRESULT is abstract;
+   type ISendMethodEvents is access ISendMethodEvents_Interface'Class;
+   type ISendMethodEvents_Ptr is access ISendMethodEvents;
+   type ITransactionResourcePool_Interface is interface and IUnknown_Interface;
+      function PutResource(
+         This : access ITransactionResourcePool_Interface;
+         pPool : access IObjPool;
+         pUnk : access Void
+      ) return HRESULT is abstract;
+      function GetResource(
+         This : access ITransactionResourcePool_Interface;
+         pPool : access IObjPool;
+         ppUnk : access LPVOID
+      ) return HRESULT is abstract;
+   type ITransactionResourcePool is access ITransactionResourcePool_Interface'Class;
+   type ITransactionResourcePool_Ptr is access ITransactionResourcePool;
+   function MTSCreateActivity(
+      riid : access constant IID;
+      ppobj : access LPVOID
+   ) return HRESULT;
+   pragma import (C,MTSCreateActivity,"MTSCreateActivity");
+   type IMTSCall_Interface is interface and IUnknown_Interface;
+      function OnCall(This : access IMTSCall_Interface) return HRESULT is abstract;
+   type IMTSCall is access IMTSCall_Interface'Class;
+   type IMTSCall_Ptr is access IMTSCall;
+   type IContextProperties_Interface is interface and IUnknown_Interface;
+      function Count(
+         This : access IContextProperties_Interface;
+         plCount : access Interfaces.C.Long
+      ) return HRESULT is abstract;
+      function GetProperty(
+         This : access IContextProperties_Interface;
+         name : BSTR;
+         pProperty : access VARIANT
+      ) return HRESULT is abstract;
+      function EnumNames(
+         This : access IContextProperties_Interface;
+         ppenum : access IEnumNames_Ptr
+      ) return HRESULT is abstract;
+      function SetProperty(
+         This : access IContextProperties_Interface;
+         name : BSTR;
+         property : VARIANT
+      ) return HRESULT is abstract;
+      function RemoveProperty(
+         This : access IContextProperties_Interface;
+         name : BSTR
+      ) return HRESULT is abstract;
+   type IContextProperties is access IContextProperties_Interface'Class;
+   type IContextProperties_Ptr is access IContextProperties;
+   type IObjPool_Interface is interface and IUnknown_Interface;
+      procedure Reserved1(This : access IObjPool_Interface) is abstract;
+      procedure Reserved2(This : access IObjPool_Interface) is abstract;
+      procedure Reserved3(This : access IObjPool_Interface) is abstract;
+      procedure Reserved4(This : access IObjPool_Interface) is abstract;
+      procedure PutEndTx(
+         This : access IObjPool_Interface;
+         pObj : access Void
+      ) is abstract;
+      procedure Reserved5(This : access IObjPool_Interface) is abstract;
+      procedure Reserved6(This : access IObjPool_Interface) is abstract;
+   type IObjPool is access IObjPool_Interface'Class;
+   type IObjPool_Ptr is access IObjPool;
+   type ITransactionProperty_Interface is interface and IUnknown_Interface;
+      procedure Reserved1(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved2(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved3(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved4(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved5(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved6(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved7(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved8(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved9(This : access ITransactionProperty_Interface) is abstract;
+      function GetTransactionResourcePool(
+         This : access ITransactionProperty_Interface;
+         ppTxPool : access ITransactionResourcePool_Ptr
+      ) return HRESULT is abstract;
+      procedure Reserved10(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved11(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved12(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved13(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved14(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved15(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved16(This : access ITransactionProperty_Interface) is abstract;
+      procedure Reserved17(This : access ITransactionProperty_Interface) is abstract;
+   type ITransactionProperty is access ITransactionProperty_Interface'Class;
+   type ITransactionProperty_Ptr is access ITransactionProperty;
+   type IMTSActivity_Interface is interface and IUnknown_Interface;
+      function SynchronousCall(
+         This : access IMTSActivity_Interface;
+         pCall : access IMTSCall
+      ) return HRESULT is abstract;
+      function AsyncCall(
+         This : access IMTSActivity_Interface;
+         pCall : access IMTSCall
+      ) return HRESULT is abstract;
+      procedure Reserved1(This : access IMTSActivity_Interface) is abstract;
+      function BindToCurrentThread(This : access IMTSActivity_Interface) return HRESULT is abstract;
+      function UnbindFromThread(This : access IMTSActivity_Interface) return HRESULT is abstract;
+   type IMTSActivity is access IMTSActivity_Interface'Class;
+   type IMTSActivity_Ptr is access IMTSActivity;
+   type MIDL_MIDL_itf_autosvcs_0001_0150_0001_x is (
+      mtsErrCtxAborted,
+      mtsErrCtxAborting,
+      mtsErrCtxNoContext,
+      mtsErrCtxNotRegistered,
+      mtsErrCtxSynchTimeout,
+      mtsErrCtxOldReference,
+      mtsErrCtxRoleNotFound,
+      mtsErrCtxNoSecurity,
+      mtsErrCtxWrongThread,
+      mtsErrCtxTMNotAvailable,
+      comQCErrApplicationNotQueued,
+      comQCErrNoQueueableInterfaces,
+      comQCErrQueuingServiceNotAvailable,
+      comQCErrQueueTransactMismatch,
+      comqcErrRecorderMarshalled,
+      comqcErrOutParam,
+      comqcErrRecorderNotTrusted,
+      comqcErrPSLoad,
+      comqcErrMarshaledObjSameTxn,
+      comqcErrInvalidMessage,
+      comqcErrMsmqSidUnavailable,
+      comqcErrWrongMsgExtension,
+      comqcErrMsmqServiceUnavailable,
+      comqcErrMsgNotAuthenticated,
+      comqcErrMsmqConnectorUsed,
+      comqcErrBadMarshaledObject
+   );
+   for MIDL_MIDL_itf_autosvcs_0001_0150_0001_x use (
+      mtsErrCtxAborted => -2147164158,
+      mtsErrCtxAborting => -2147164157,
+      mtsErrCtxNoContext => -2147164156,
+      mtsErrCtxNotRegistered => -2147164155,
+      mtsErrCtxSynchTimeout => -2147164154,
+      mtsErrCtxOldReference => -2147164153,
+      mtsErrCtxRoleNotFound => -2147164148,
+      mtsErrCtxNoSecurity => -2147164147,
+      mtsErrCtxWrongThread => -2147164146,
+      mtsErrCtxTMNotAvailable => -2147164145,
+      comQCErrApplicationNotQueued => -2146368000,
+      comQCErrNoQueueableInterfaces => -2146367999,
+      comQCErrQueuingServiceNotAvailable => -2146367998,
+      comQCErrQueueTransactMismatch => -2146367997,
+      comqcErrRecorderMarshalled => -2146367996,
+      comqcErrOutParam => -2146367995,
+      comqcErrRecorderNotTrusted => -2146367994,
+      comqcErrPSLoad => -2146367993,
+      comqcErrMarshaledObjSameTxn => -2146367992,
+      comqcErrInvalidMessage => -2146367920,
+      comqcErrMsmqSidUnavailable => -2146367919,
+      comqcErrWrongMsgExtension => -2146367918,
+      comqcErrMsmqServiceUnavailable => -2146367917,
+      comqcErrMsgNotAuthenticated => -2146367916,
+      comqcErrMsmqConnectorUsed => -2146367915,
+      comqcErrBadMarshaledObject => -2146367914
+   );
+   for MIDL_MIDL_itf_autosvcs_0001_0150_0001_x'Size use 32;
+   subtype Error_Constants is MIDL_MIDL_itf_autosvcs_0001_0150_0001_x; -- CXType_Elaborated
+   type MIDL_MIDL_itf_autosvcs_0001_0159_0001_x is (
+      LockSetGet,
+      LockMethod
+   );
+   for MIDL_MIDL_itf_autosvcs_0001_0159_0001_x use (
+      LockSetGet => 0,
+      LockMethod => 1
+   );
+   for MIDL_MIDL_itf_autosvcs_0001_0159_0001_x'Size use 32;
+   subtype LockModes is MIDL_MIDL_itf_autosvcs_0001_0159_0001_x; -- CXType_Elaborated
+   type MIDL_MIDL_itf_autosvcs_0001_0159_0002_x is (
+      Standard,
+      Process
+   );
+   for MIDL_MIDL_itf_autosvcs_0001_0159_0002_x use (
+      Standard => 0,
+      Process => 1
+   );
+   for MIDL_MIDL_itf_autosvcs_0001_0159_0002_x'Size use 32;
+   subtype ReleaseModes is MIDL_MIDL_itf_autosvcs_0001_0159_0002_x; -- CXType_Elaborated
+   type tagCRMFLAGS is (
+      CRMFLAG_FORGETTARGET,
+      CRMFLAG_WRITTENDURINGPREPARE,
+      CRMFLAG_WRITTENDURINGCOMMIT,
+      CRMFLAG_WRITTENDURINGABORT,
+      CRMFLAG_WRITTENDURINGRECOVERY,
+      CRMFLAG_WRITTENDURINGREPLAY,
+      CRMFLAG_REPLAYINPROGRESS
+   );
+   for tagCRMFLAGS use (
+      CRMFLAG_FORGETTARGET => 1,
+      CRMFLAG_WRITTENDURINGPREPARE => 2,
+      CRMFLAG_WRITTENDURINGCOMMIT => 4,
+      CRMFLAG_WRITTENDURINGABORT => 8,
+      CRMFLAG_WRITTENDURINGRECOVERY => 16,
+      CRMFLAG_WRITTENDURINGREPLAY => 32,
+      CRMFLAG_REPLAYINPROGRESS => 64
+   );
+   for tagCRMFLAGS'Size use 32;
+   subtype CRMFLAGS is tagCRMFLAGS; -- CXType_Elaborated
+   type tagCRMREGFLAGS is (
+      CRMREGFLAG_PREPAREPHASE,
+      CRMREGFLAG_COMMITPHASE,
+      CRMREGFLAG_ABORTPHASE,
+      CRMREGFLAG_ALLPHASES,
+      CRMREGFLAG_FAILIFINDOUBTSREMAIN
+   );
+   for tagCRMREGFLAGS use (
+      CRMREGFLAG_PREPAREPHASE => 1,
+      CRMREGFLAG_COMMITPHASE => 2,
+      CRMREGFLAG_ABORTPHASE => 4,
+      CRMREGFLAG_ALLPHASES => 7,
+      CRMREGFLAG_FAILIFINDOUBTSREMAIN => 16
+   );
+   for tagCRMREGFLAGS'Size use 32;
+   subtype CRMREGFLAGS is tagCRMREGFLAGS; -- CXType_Elaborated
+   function BSTR_UserSize_x_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize_x_x_x_x_x_x,"BSTR_UserSize");
+   procedure BSTR_UserFree_x_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree_x_x_x_x_x_x,"BSTR_UserFree");
+   function LPSAFEARRAY_UserSize_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access LPSAFEARRAY
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,LPSAFEARRAY_UserSize_x_x_x,"LPSAFEARRAY_UserSize");
+   procedure LPSAFEARRAY_UserFree_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access LPSAFEARRAY
+   );
+   pragma import (C,LPSAFEARRAY_UserFree_x_x_x,"LPSAFEARRAY_UserFree");
+   function VARIANT_UserSize_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access VARIANT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,VARIANT_UserSize_x_x_x,"VARIANT_UserSize");
+   procedure VARIANT_UserFree_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access VARIANT
+   );
+   pragma import (C,VARIANT_UserFree_x_x_x,"VARIANT_UserFree");
+   function BSTR_UserSize64_x_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize64_x_x_x_x_x_x,"BSTR_UserSize64");
+   procedure BSTR_UserFree64_x_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree64_x_x_x_x_x_x,"BSTR_UserFree64");
+   function LPSAFEARRAY_UserSize64_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access LPSAFEARRAY
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,LPSAFEARRAY_UserSize64_x_x_x,"LPSAFEARRAY_UserSize64");
+   procedure LPSAFEARRAY_UserFree64_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access LPSAFEARRAY
+   );
+   pragma import (C,LPSAFEARRAY_UserFree64_x_x_x,"LPSAFEARRAY_UserFree64");
+   function VARIANT_UserSize64_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access VARIANT
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,VARIANT_UserSize64_x_x_x,"VARIANT_UserSize64");
+   procedure VARIANT_UserFree64_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access VARIANT
+   );
+   pragma import (C,VARIANT_UserFree64_x_x_x,"VARIANT_UserFree64");
+   function IGetAppTrackerData_GetApplicationProcessDetails_Proxy(
+      This : access IGetAppTrackerData;
+      ApplicationInstanceId : access constant GUID;
+      ProcessId : DWORD;
+      Flags : DWORD;
+      Summary : access ApplicationProcessSummary;
+      Statistics : access ApplicationProcessStatistics;
+      RecycleInfo : access ApplicationProcessRecycleInfo;
+      AnyComponentsHangMonitored : access BOOL
+   ) return HRESULT;
+   pragma import (C,IGetAppTrackerData_GetApplicationProcessDetails_Proxy,"IGetAppTrackerData_GetApplicationProcessDetails_Proxy");
+   function IGetAppTrackerData_GetApplicationProcessDetails_Stub(
+      This : access IGetAppTrackerData;
+      ApplicationInstanceId : access constant GUID;
+      ProcessId : DWORD;
+      Flags : DWORD;
+      Summary : access ApplicationProcessSummary;
+      Statistics : access ApplicationProcessStatistics;
+      RecycleInfo : access ApplicationProcessRecycleInfo;
+      AnyComponentsHangMonitored : access BOOL
+   ) return HRESULT;
+   pragma import (C,IGetAppTrackerData_GetApplicationProcessDetails_Stub,"IGetAppTrackerData_GetApplicationProcessDetails_Stub");
+   function IGetAppTrackerData_GetComponentDetails_Proxy(
+      This : access IGetAppTrackerData;
+      ApplicationInstanceId : access constant GUID;
+      ProcessId : DWORD;
+      Clsid_x : access constant IID;
+      Flags : DWORD;
+      Summary : access ComponentSummary;
+      Statistics : access ComponentStatistics;
+      HangMonitorInfo : access ComponentHangMonitorInfo
+   ) return HRESULT;
+   pragma import (C,IGetAppTrackerData_GetComponentDetails_Proxy,"IGetAppTrackerData_GetComponentDetails_Proxy");
+   function IGetAppTrackerData_GetComponentDetails_Stub(
+      This : access IGetAppTrackerData;
+      ApplicationInstanceId : access constant GUID;
+      ProcessId : DWORD;
+      Clsid_x : access constant IID;
+      Flags : DWORD;
+      Summary : access ComponentSummary;
+      Statistics : access ComponentStatistics;
+      HangMonitorInfo : access ComponentHangMonitorInfo
+   ) return HRESULT;
+   pragma import (C,IGetAppTrackerData_GetComponentDetails_Stub,"IGetAppTrackerData_GetComponentDetails_Stub");
    
    -----------------------------------------------------------------------------
    -- Opaque types
@@ -72565,7 +80451,10 @@ package Win32 is
    type IXMLDOMEntityReference is null record;
    type XMLDOMDocumentEvents is null record;
    type SC_NOTIFICATION_REGISTRATION_x is null record;
-   type IConnectionPoint is null record;
+   type IFontEventsDisp is null record;
+   type IFontDisp is null record;
+   type IPictureDisp is null record;
+   type IDtcLuRecovery is null record;
    
    -----------------------------------------------------------------------------
    
