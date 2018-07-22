@@ -54791,7 +54791,7 @@ package Win32 is
    type ISurrogateService; -- Forward Declaration
    type IInitializeSpy; -- Forward Declaration
    type IApartmentShutdown; -- Forward Declaration
-   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/unknwn.h>
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\unknwn.h>
    function IClassFactory_CreateInstance_Proxy_x(
       This : access IClassFactory;
       pUnkOuter : access IUnknown;
@@ -80413,6 +80413,148 @@ package Win32 is
       HangMonitorInfo : access ComponentHangMonitorInfo
    ) return HRESULT;
    pragma import (C,IGetAppTrackerData_GetComponentDetails_Stub,"IGetAppTrackerData_GetComponentDetails_Stub");
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt/inspectable.h>
+   type IInspectable; -- Forward Declaration
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt\hstring.h>
+   type HSTRING_x is record
+      unused : Interfaces.C.Int;
+   end record;
+   type HSTRING is access HSTRING_x; -- CXType_Pointer - CXType_Typedef
+   type HSTRING_HEADER is record
+      Reserved : Void;
+   end record;
+   type HSTRING_BUFFER_x is record
+      unused : Interfaces.C.Int;
+   end record;
+   type HSTRING_BUFFER is access HSTRING_BUFFER_x; -- CXType_Pointer - CXType_Elaborated
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt/inspectable.h>
+   type LPINSPECTABLE is access IInspectable; -- CXType_Pointer - CXType_Typedef
+   type TrustLevel is (
+      BaseTrust,
+      PartialTrust,
+      FullTrust
+   );
+   for TrustLevel use (
+      BaseTrust => 0,
+      PartialTrust => 1,
+      FullTrust => 2
+   );
+   for TrustLevel'Size use 32;
+   type IInspectable_Interface is interface and IUnknown_Interface;
+      function GetIids(
+         This : access IInspectable_Interface;
+         iidCount : access ULONG;
+         iids : access LPIID
+      ) return HRESULT is abstract;
+      function GetRuntimeClassName(
+         This : access IInspectable_Interface;
+         className : access HSTRING
+      ) return HRESULT is abstract;
+      function GetTrustLevel(
+         This : access IInspectable_Interface;
+         trustLevel_x : access TrustLevel
+      ) return HRESULT is abstract;
+   type IInspectable is access IInspectable_Interface'Class;
+   type IInspectable_Ptr is access IInspectable;
+   function HSTRING_UserSize(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HSTRING
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HSTRING_UserSize,"HSTRING_UserSize");
+   procedure HSTRING_UserFree(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HSTRING
+   );
+   pragma import (C,HSTRING_UserFree,"HSTRING_UserFree");
+   function HSTRING_UserSize64(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access HSTRING
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,HSTRING_UserSize64,"HSTRING_UserSize64");
+   procedure HSTRING_UserFree64(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access HSTRING
+   );
+   pragma import (C,HSTRING_UserFree64,"HSTRING_UserFree64");
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt\activation.h>
+   type IActivationFactory; -- Forward Declaration
+   type PACTIVATIONFACTORY is access IActivationFactory; -- CXType_Pointer - CXType_Typedef
+   type IActivationFactory_Interface is interface and IInspectable_Interface;
+      function ActivateInstance(
+         This : access IActivationFactory_Interface;
+         instance : access LPVOID
+      ) return HRESULT is abstract;
+   type IActivationFactory is access IActivationFactory_Interface'Class;
+   type IActivationFactory_Ptr is access IActivationFactory;
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt\roapi.h>
+   type RO_INIT_TYPE is (
+      RO_INIT_SINGLETHREADED,
+      RO_INIT_MULTITHREADED
+   );
+   for RO_INIT_TYPE use (
+      RO_INIT_SINGLETHREADED => 0,
+      RO_INIT_MULTITHREADED => 1
+   );
+   for RO_INIT_TYPE'Size use 32;
+   type RO_REGISTRATION_COOKIE_Record is null record;
+   type RO_REGISTRATION_COOKIE is access RO_REGISTRATION_COOKIE_Record; -- CXType_Pointer - CXType_Elaborated
+   subtype PFNGETACTIVATIONFACTORY is System.Address; -- [FIXME - CXType_Pointer - CXType_Unexposed] HRESULT (HSTRING, IActivationFactory **)
+   function RoInitialize(
+      initType : RO_INIT_TYPE
+   ) return HRESULT;
+   pragma import (C,RoInitialize,"RoInitialize");
+   procedure RoUninitialize;
+   pragma import (C,RoUninitialize,"RoUninitialize");
+   function RoActivateInstance(
+      activatableClassId : HSTRING;
+      instance : access LPINSPECTABLE
+   ) return HRESULT;
+   pragma import (C,RoActivateInstance,"RoActivateInstance");
+   function RoRegisterActivationFactories(
+      activatableClassIds : access HSTRING;
+      activationFactoryCallbacks : access PFNGETACTIVATIONFACTORY;
+      count : UINT32;
+      cookie : access RO_REGISTRATION_COOKIE
+   ) return HRESULT;
+   pragma import (C,RoRegisterActivationFactories,"RoRegisterActivationFactories");
+   procedure RoRevokeActivationFactories(
+      cookie : RO_REGISTRATION_COOKIE
+   );
+   pragma import (C,RoRevokeActivationFactories,"RoRevokeActivationFactories");
+   function RoGetActivationFactory(
+      activatableClassId : HSTRING;
+      iid_x : access constant IID;
+      factory : access LPVOID
+   ) return HRESULT;
+   pragma import (C,RoGetActivationFactory,"RoGetActivationFactory");
+   type APARTMENT_SHUTDOWN_REGISTRATION_COOKIE_x is record
+      unused : Interfaces.C.Int;
+   end record;
+   type APARTMENT_SHUTDOWN_REGISTRATION_COOKIE is access APARTMENT_SHUTDOWN_REGISTRATION_COOKIE_x; -- CXType_Pointer - CXType_Elaborated
+   function RoRegisterForApartmentShutdown(
+      callbackObject : access IApartmentShutdown;
+      apartmentIdentifier : access UINT64;
+      regCookie : access APARTMENT_SHUTDOWN_REGISTRATION_COOKIE
+   ) return HRESULT;
+   pragma import (C,RoRegisterForApartmentShutdown,"RoRegisterForApartmentShutdown");
+   function RoUnregisterForApartmentShutdown(
+      regCookie : APARTMENT_SHUTDOWN_REGISTRATION_COOKIE
+   ) return HRESULT;
+   pragma import (C,RoUnregisterForApartmentShutdown,"RoUnregisterForApartmentShutdown");
+   function RoGetApartmentIdentifier(
+      apartmentIdentifier : access UINT64
+   ) return HRESULT;
+   pragma import (C,RoGetApartmentIdentifier,"RoGetApartmentIdentifier");
+   -- Initialize(); -- inlined function not supported
+   -- Uninitialize(); -- inlined function not supported
+   -- RegisterActivationFactories(); -- inlined function not supported
+   -- RevokeActivationFactories(); -- inlined function not supported
+   -- Initialize_x(); -- inlined function not supported
+   -- Uninitialize_x(); -- inlined function not supported
+   -- RegisterActivationFactories_x(); -- inlined function not supported
+   -- RevokeActivationFactories_x(); -- inlined function not supported
    
    -----------------------------------------------------------------------------
    -- Opaque types
