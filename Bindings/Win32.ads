@@ -69799,6 +69799,2734 @@ package Win32 is
    pragma import (C,ImmDisableTextFrameService,"ImmDisableTextFrameService");
    function ImmDisableLegacyIME return BOOL;
    pragma import (C,ImmDisableLegacyIME,"ImmDisableLegacyIME");
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\shtypes.h>
+   type SHITEMID_x is record
+      cb : USHORT;
+      abID : Void;
+   end record;
+   subtype SHITEMID is SHITEMID_x; -- CXType_Elaborated
+   type LPSHITEMID is access SHITEMID; -- CXType_Pointer - CXType_Typedef
+   type LPCSHITEMID is access constant SHITEMID; -- CXType_Pointer - CXType_Typedef
+   type ITEMIDLIST_x is record
+      mkid : SHITEMID;
+   end record;
+   subtype ITEMIDLIST is ITEMIDLIST_x; -- CXType_Elaborated
+   subtype ITEMIDLIST_RELATIVE is ITEMIDLIST; -- CXType_Typedef
+   subtype ITEMID_CHILD is ITEMIDLIST; -- CXType_Typedef
+   subtype ITEMIDLIST_ABSOLUTE is ITEMIDLIST; -- CXType_Typedef
+   type wirePIDL is access BYTE_BLOB; -- CXType_Pointer - CXType_Typedef
+   type LPITEMIDLIST is access ITEMIDLIST; -- CXType_Pointer - CXType_Typedef
+   type LPCITEMIDLIST is access constant ITEMIDLIST; -- CXType_Pointer - CXType_Typedef
+   type tagSTRRET_TYPE is (
+      STRRET_WSTR,
+      STRRET_OFFSET,
+      STRRET_CSTR
+   );
+   for tagSTRRET_TYPE use (
+      STRRET_WSTR => 0,
+      STRRET_OFFSET => 1,
+      STRRET_CSTR => 2
+   );
+   for tagSTRRET_TYPE'Size use 32;
+   subtype STRRET_TYPE is tagSTRRET_TYPE; -- CXType_Elaborated
+   type STRRET_x is record
+      uType : UINT;
+   end record;
+   subtype STRRET is STRRET_x; -- CXType_Elaborated
+   type LPSTRRET is access STRRET; -- CXType_Pointer - CXType_Typedef
+   type SHELLDETAILS_x is record
+      fmt : Interfaces.C.Int;
+      cxChar : Interfaces.C.Int;
+      str : STRRET;
+   end record;
+   subtype SHELLDETAILS is SHELLDETAILS_x; -- CXType_Elaborated
+   type LPSHELLDETAILS is access SHELLDETAILS_x; -- CXType_Pointer - CXType_Elaborated
+   type tagPERCEIVED is (
+      PERCEIVED_TYPE_FIRST,
+      PERCEIVED_TYPE_UNSPECIFIED,
+      PERCEIVED_TYPE_FOLDER,
+      PERCEIVED_TYPE_UNKNOWN,
+      PERCEIVED_TYPE_TEXT,
+      PERCEIVED_TYPE_IMAGE,
+      PERCEIVED_TYPE_AUDIO,
+      PERCEIVED_TYPE_VIDEO,
+      PERCEIVED_TYPE_COMPRESSED,
+      PERCEIVED_TYPE_DOCUMENT,
+      PERCEIVED_TYPE_SYSTEM,
+      PERCEIVED_TYPE_APPLICATION,
+      PERCEIVED_TYPE_GAMEMEDIA,
+      PERCEIVED_TYPE_CONTACTS
+   );
+   for tagPERCEIVED use (
+      PERCEIVED_TYPE_FIRST => -3,
+      PERCEIVED_TYPE_UNSPECIFIED => -2,
+      PERCEIVED_TYPE_FOLDER => -1,
+      PERCEIVED_TYPE_UNKNOWN => 0,
+      PERCEIVED_TYPE_TEXT => 1,
+      PERCEIVED_TYPE_IMAGE => 2,
+      PERCEIVED_TYPE_AUDIO => 3,
+      PERCEIVED_TYPE_VIDEO => 4,
+      PERCEIVED_TYPE_COMPRESSED => 5,
+      PERCEIVED_TYPE_DOCUMENT => 6,
+      PERCEIVED_TYPE_SYSTEM => 7,
+      PERCEIVED_TYPE_APPLICATION => 8,
+      PERCEIVED_TYPE_GAMEMEDIA => 9,
+      PERCEIVED_TYPE_CONTACTS => 10
+   );
+   for tagPERCEIVED'Size use 32;
+   subtype PERCEIVED is tagPERCEIVED; -- CXType_Elaborated
+   subtype PERCEIVEDFLAG is DWORD; -- CXType_Typedef
+   type COMDLG_FILTERSPEC_x is record
+      pszName : LPCWSTR;
+      pszSpec : LPCWSTR;
+   end record;
+   subtype COMDLG_FILTERSPEC is COMDLG_FILTERSPEC_x; -- CXType_Elaborated
+   subtype KNOWNFOLDERID is GUID; -- CXType_Typedef
+   subtype KF_REDIRECT_FLAGS is DWORD; -- CXType_Typedef
+   subtype FOLDERTYPEID is GUID; -- CXType_Typedef
+   subtype TASKOWNERID is GUID; -- CXType_Typedef
+   subtype ELEMENTID is GUID; -- CXType_Typedef
+   type tagSHCOLSTATE is (
+      SHCOLSTATE_DEFAULT,
+      SHCOLSTATE_TYPE_STR,
+      SHCOLSTATE_TYPE_INT,
+      SHCOLSTATE_TYPE_DATE,
+      SHCOLSTATE_TYPEMASK,
+      SHCOLSTATE_ONBYDEFAULT,
+      SHCOLSTATE_SLOW,
+      SHCOLSTATE_EXTENDED,
+      SHCOLSTATE_SECONDARYUI,
+      SHCOLSTATE_HIDDEN,
+      SHCOLSTATE_PREFER_VARCMP,
+      SHCOLSTATE_PREFER_FMTCMP,
+      SHCOLSTATE_NOSORTBYFOLDERNESS,
+      SHCOLSTATE_FIXED_WIDTH,
+      SHCOLSTATE_NODPISCALE,
+      SHCOLSTATE_FIXED_RATIO,
+      SHCOLSTATE_DISPLAYMASK,
+      SHCOLSTATE_VIEWONLY,
+      SHCOLSTATE_BATCHREAD,
+      SHCOLSTATE_NO_GROUPBY
+   );
+   for tagSHCOLSTATE use (
+      SHCOLSTATE_DEFAULT => 0,
+      SHCOLSTATE_TYPE_STR => 1,
+      SHCOLSTATE_TYPE_INT => 2,
+      SHCOLSTATE_TYPE_DATE => 3,
+      SHCOLSTATE_TYPEMASK => 15,
+      SHCOLSTATE_ONBYDEFAULT => 16,
+      SHCOLSTATE_SLOW => 32,
+      SHCOLSTATE_EXTENDED => 64,
+      SHCOLSTATE_SECONDARYUI => 128,
+      SHCOLSTATE_HIDDEN => 256,
+      SHCOLSTATE_PREFER_VARCMP => 512,
+      SHCOLSTATE_PREFER_FMTCMP => 1024,
+      SHCOLSTATE_NOSORTBYFOLDERNESS => 2048,
+      SHCOLSTATE_FIXED_WIDTH => 4096,
+      SHCOLSTATE_NODPISCALE => 8192,
+      SHCOLSTATE_FIXED_RATIO => 16384,
+      SHCOLSTATE_DISPLAYMASK => 61440,
+      SHCOLSTATE_VIEWONLY => 65536,
+      SHCOLSTATE_BATCHREAD => 131072,
+      SHCOLSTATE_NO_GROUPBY => 262144
+   );
+   for tagSHCOLSTATE'Size use 32;
+   subtype SHCOLSTATE is tagSHCOLSTATE; -- CXType_Elaborated
+   subtype SHCOLSTATEF is DWORD; -- CXType_Typedef
+   subtype SHCOLUMNID is PROPERTYKEY; -- CXType_Typedef
+   type LPCSHCOLUMNID is access constant SHCOLUMNID; -- CXType_Pointer - CXType_Typedef
+   type DEVICE_SCALE_FACTOR is (
+      DEVICE_SCALE_FACTOR_INVALID,
+      SCALE_100_PERCENT,
+      SCALE_120_PERCENT,
+      SCALE_125_PERCENT,
+      SCALE_140_PERCENT,
+      SCALE_150_PERCENT,
+      SCALE_160_PERCENT,
+      SCALE_175_PERCENT,
+      SCALE_180_PERCENT,
+      SCALE_200_PERCENT,
+      SCALE_225_PERCENT,
+      SCALE_250_PERCENT,
+      SCALE_300_PERCENT,
+      SCALE_350_PERCENT,
+      SCALE_400_PERCENT,
+      SCALE_450_PERCENT,
+      SCALE_500_PERCENT
+   );
+   for DEVICE_SCALE_FACTOR use (
+      DEVICE_SCALE_FACTOR_INVALID => 0,
+      SCALE_100_PERCENT => 100,
+      SCALE_120_PERCENT => 120,
+      SCALE_125_PERCENT => 125,
+      SCALE_140_PERCENT => 140,
+      SCALE_150_PERCENT => 150,
+      SCALE_160_PERCENT => 160,
+      SCALE_175_PERCENT => 175,
+      SCALE_180_PERCENT => 180,
+      SCALE_200_PERCENT => 200,
+      SCALE_225_PERCENT => 225,
+      SCALE_250_PERCENT => 250,
+      SCALE_300_PERCENT => 300,
+      SCALE_350_PERCENT => 350,
+      SCALE_400_PERCENT => 400,
+      SCALE_450_PERCENT => 450,
+      SCALE_500_PERCENT => 500
+   );
+   for DEVICE_SCALE_FACTOR'Size use 32;
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\shlwapi.h>
+   function StrChrA(
+      pszStart : PCSTR;
+      wMatch : WORD
+   ) return PSTR;
+   pragma import (C,StrChrA,"StrChrA");
+   function StrChrW(
+      pszStart : PCWSTR;
+      wMatch : WCHAR
+   ) return PWSTR;
+   pragma import (C,StrChrW,"StrChrW");
+   function StrChrIA(
+      pszStart : PCSTR;
+      wMatch : WORD
+   ) return PSTR;
+   pragma import (C,StrChrIA,"StrChrIA");
+   function StrChrIW(
+      pszStart : PCWSTR;
+      wMatch : WCHAR
+   ) return PWSTR;
+   pragma import (C,StrChrIW,"StrChrIW");
+   function StrChrNW(
+      pszStart : PCWSTR;
+      wMatch : WCHAR;
+      cchMax : UINT
+   ) return PWSTR;
+   pragma import (C,StrChrNW,"StrChrNW");
+   function StrChrNIW(
+      pszStart : PCWSTR;
+      wMatch : WCHAR;
+      cchMax : UINT
+   ) return PWSTR;
+   pragma import (C,StrChrNIW,"StrChrNIW");
+   function StrCmpNA(
+      psz1 : PCSTR;
+      psz2 : PCSTR;
+      nChar : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpNA,"StrCmpNA");
+   function StrCmpNW(
+      psz1 : PCWSTR;
+      psz2 : PCWSTR;
+      nChar : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpNW,"StrCmpNW");
+   function StrCmpNIA(
+      psz1 : PCSTR;
+      psz2 : PCSTR;
+      nChar : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpNIA,"StrCmpNIA");
+   function StrCmpNIW(
+      psz1 : PCWSTR;
+      psz2 : PCWSTR;
+      nChar : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpNIW,"StrCmpNIW");
+   function StrCSpnA(
+      pszStr : PCSTR;
+      pszSet : PCSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCSpnA,"StrCSpnA");
+   function StrCSpnW(
+      pszStr : PCWSTR;
+      pszSet : PCWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCSpnW,"StrCSpnW");
+   function StrCSpnIA(
+      pszStr : PCSTR;
+      pszSet : PCSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCSpnIA,"StrCSpnIA");
+   function StrCSpnIW(
+      pszStr : PCWSTR;
+      pszSet : PCWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCSpnIW,"StrCSpnIW");
+   function StrDupA(
+      pszSrch : PCSTR
+   ) return PSTR;
+   pragma import (C,StrDupA,"StrDupA");
+   function StrDupW(
+      pszSrch : PCWSTR
+   ) return PWSTR;
+   pragma import (C,StrDupW,"StrDupW");
+   type tagSFBS_FLAGS is (
+      SFBS_FLAGS_ROUND_TO_NEAREST_DISPLAYED_DIGIT,
+      SFBS_FLAGS_TRUNCATE_UNDISPLAYED_DECIMAL_DIGITS
+   );
+   for tagSFBS_FLAGS use (
+      SFBS_FLAGS_ROUND_TO_NEAREST_DISPLAYED_DIGIT => 1,
+      SFBS_FLAGS_TRUNCATE_UNDISPLAYED_DECIMAL_DIGITS => 2
+   );
+   for tagSFBS_FLAGS'Size use 32;
+   subtype SFBS_FLAGS is Interfaces.C.Int; -- CXType_Int
+   function StrFormatByteSizeEx(
+      ull : ULONGLONG;
+      flags : SFBS_FLAGS;
+      pszBuf : PWSTR;
+      cchBuf : UINT
+   ) return HRESULT;
+   pragma import (C,StrFormatByteSizeEx,"StrFormatByteSizeEx");
+   function StrFormatByteSizeA(
+      dw : DWORD;
+      pszBuf : PSTR;
+      cchBuf : UINT
+   ) return PSTR;
+   pragma import (C,StrFormatByteSizeA,"StrFormatByteSizeA");
+   function StrFormatByteSize64A(
+      qdw : LONGLONG;
+      pszBuf : PSTR;
+      cchBuf : UINT
+   ) return PSTR;
+   pragma import (C,StrFormatByteSize64A,"StrFormatByteSize64A");
+   function StrFormatByteSizeW(
+      qdw : LONGLONG;
+      pszBuf : PWSTR;
+      cchBuf : UINT
+   ) return PWSTR;
+   pragma import (C,StrFormatByteSizeW,"StrFormatByteSizeW");
+   function StrFormatKBSizeW(
+      qdw : LONGLONG;
+      pszBuf : PWSTR;
+      cchBuf : UINT
+   ) return PWSTR;
+   pragma import (C,StrFormatKBSizeW,"StrFormatKBSizeW");
+   function StrFormatKBSizeA(
+      qdw : LONGLONG;
+      pszBuf : PSTR;
+      cchBuf : UINT
+   ) return PSTR;
+   pragma import (C,StrFormatKBSizeA,"StrFormatKBSizeA");
+   function StrFromTimeIntervalA(
+      pszOut : PSTR;
+      cchMax : UINT;
+      dwTimeMS : DWORD;
+      digits_x : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,StrFromTimeIntervalA,"StrFromTimeIntervalA");
+   function StrFromTimeIntervalW(
+      pszOut : PWSTR;
+      cchMax : UINT;
+      dwTimeMS : DWORD;
+      digits_x : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,StrFromTimeIntervalW,"StrFromTimeIntervalW");
+   function StrIsIntlEqualA(
+      fCaseSens : BOOL;
+      pszString1 : PCSTR;
+      pszString2 : PCSTR;
+      nChar : Interfaces.C.Int
+   ) return BOOL;
+   pragma import (C,StrIsIntlEqualA,"StrIsIntlEqualA");
+   function StrIsIntlEqualW(
+      fCaseSens : BOOL;
+      pszString1 : PCWSTR;
+      pszString2 : PCWSTR;
+      nChar : Interfaces.C.Int
+   ) return BOOL;
+   pragma import (C,StrIsIntlEqualW,"StrIsIntlEqualW");
+   function StrNCatA(
+      psz1 : PSTR;
+      psz2 : PCSTR;
+      cchMax : Interfaces.C.Int
+   ) return PSTR;
+   pragma import (C,StrNCatA,"StrNCatA");
+   function StrNCatW(
+      psz1 : PWSTR;
+      psz2 : PCWSTR;
+      cchMax : Interfaces.C.Int
+   ) return PWSTR;
+   pragma import (C,StrNCatW,"StrNCatW");
+   function StrPBrkA(
+      psz_x : PCSTR;
+      pszSet : PCSTR
+   ) return PSTR;
+   pragma import (C,StrPBrkA,"StrPBrkA");
+   function StrPBrkW(
+      psz_x : PCWSTR;
+      pszSet : PCWSTR
+   ) return PWSTR;
+   pragma import (C,StrPBrkW,"StrPBrkW");
+   function StrRChrA(
+      pszStart : PCSTR;
+      pszEnd : PCSTR;
+      wMatch : WORD
+   ) return PSTR;
+   pragma import (C,StrRChrA,"StrRChrA");
+   function StrRChrW(
+      pszStart : PCWSTR;
+      pszEnd : PCWSTR;
+      wMatch : WCHAR
+   ) return PWSTR;
+   pragma import (C,StrRChrW,"StrRChrW");
+   function StrRChrIA(
+      pszStart : PCSTR;
+      pszEnd : PCSTR;
+      wMatch : WORD
+   ) return PSTR;
+   pragma import (C,StrRChrIA,"StrRChrIA");
+   function StrRChrIW(
+      pszStart : PCWSTR;
+      pszEnd : PCWSTR;
+      wMatch : WCHAR
+   ) return PWSTR;
+   pragma import (C,StrRChrIW,"StrRChrIW");
+   function StrRStrIA(
+      pszSource : PCSTR;
+      pszLast : PCSTR;
+      pszSrch : PCSTR
+   ) return PSTR;
+   pragma import (C,StrRStrIA,"StrRStrIA");
+   function StrRStrIW(
+      pszSource : PCWSTR;
+      pszLast : PCWSTR;
+      pszSrch : PCWSTR
+   ) return PWSTR;
+   pragma import (C,StrRStrIW,"StrRStrIW");
+   function StrSpnA(
+      psz_x : PCSTR;
+      pszSet : PCSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrSpnA,"StrSpnA");
+   function StrSpnW(
+      psz_x : PCWSTR;
+      pszSet : PCWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrSpnW,"StrSpnW");
+   function StrStrA(
+      pszFirst : PCSTR;
+      pszSrch : PCSTR
+   ) return PSTR;
+   pragma import (C,StrStrA,"StrStrA");
+   function StrStrW(
+      pszFirst : PCWSTR;
+      pszSrch : PCWSTR
+   ) return PWSTR;
+   pragma import (C,StrStrW,"StrStrW");
+   function StrStrIA(
+      pszFirst : PCSTR;
+      pszSrch : PCSTR
+   ) return PSTR;
+   pragma import (C,StrStrIA,"StrStrIA");
+   function StrStrIW(
+      pszFirst : PCWSTR;
+      pszSrch : PCWSTR
+   ) return PWSTR;
+   pragma import (C,StrStrIW,"StrStrIW");
+   function StrStrNW(
+      pszFirst : PCWSTR;
+      pszSrch : PCWSTR;
+      cchMax : UINT
+   ) return PWSTR;
+   pragma import (C,StrStrNW,"StrStrNW");
+   function StrStrNIW(
+      pszFirst : PCWSTR;
+      pszSrch : PCWSTR;
+      cchMax : UINT
+   ) return PWSTR;
+   pragma import (C,StrStrNIW,"StrStrNIW");
+   subtype STIF_FLAGS is Interfaces.C.Int; -- CXType_Int
+   function StrToIntA(
+      pszSrc : PCSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrToIntA,"StrToIntA");
+   function StrToIntW(
+      pszSrc : PCWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrToIntW,"StrToIntW");
+   function StrToIntExA(
+      pszString : PCSTR;
+      dwFlags : STIF_FLAGS;
+      piRet : access Interfaces.C.Int
+   ) return BOOL;
+   pragma import (C,StrToIntExA,"StrToIntExA");
+   function StrToIntExW(
+      pszString : PCWSTR;
+      dwFlags : STIF_FLAGS;
+      piRet : access Interfaces.C.Int
+   ) return BOOL;
+   pragma import (C,StrToIntExW,"StrToIntExW");
+   function StrToInt64ExA(
+      pszString : PCSTR;
+      dwFlags : STIF_FLAGS;
+      pllRet : access LONGLONG
+   ) return BOOL;
+   pragma import (C,StrToInt64ExA,"StrToInt64ExA");
+   function StrToInt64ExW(
+      pszString : PCWSTR;
+      dwFlags : STIF_FLAGS;
+      pllRet : access LONGLONG
+   ) return BOOL;
+   pragma import (C,StrToInt64ExW,"StrToInt64ExW");
+   function StrTrimA(
+      psz_x : PSTR;
+      pszTrimChars : PCSTR
+   ) return BOOL;
+   pragma import (C,StrTrimA,"StrTrimA");
+   function StrTrimW(
+      psz_x : PWSTR;
+      pszTrimChars : PCWSTR
+   ) return BOOL;
+   pragma import (C,StrTrimW,"StrTrimW");
+   function StrCatW(
+      psz1 : PWSTR;
+      psz2 : PCWSTR
+   ) return PWSTR;
+   pragma import (C,StrCatW,"StrCatW");
+   function StrCmpW(
+      psz1 : PCWSTR;
+      psz2 : PCWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpW,"StrCmpW");
+   function StrCmpIW(
+      psz1 : PCWSTR;
+      psz2 : PCWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpIW,"StrCmpIW");
+   function StrCpyW(
+      psz1 : PWSTR;
+      psz2 : PCWSTR
+   ) return PWSTR;
+   pragma import (C,StrCpyW,"StrCpyW");
+   function StrCpyNW(
+      pszDst : PWSTR;
+      pszSrc : PCWSTR;
+      cchMax : Interfaces.C.Int
+   ) return PWSTR;
+   pragma import (C,StrCpyNW,"StrCpyNW");
+   function StrCatBuffW(
+      pszDest : PWSTR;
+      pszSrc : PCWSTR;
+      cchDestBuffSize : Interfaces.C.Int
+   ) return PWSTR;
+   pragma import (C,StrCatBuffW,"StrCatBuffW");
+   function StrCatBuffA(
+      pszDest : PSTR;
+      pszSrc : PCSTR;
+      cchDestBuffSize : Interfaces.C.Int
+   ) return PSTR;
+   pragma import (C,StrCatBuffA,"StrCatBuffA");
+   function ChrCmpIA(
+      w1 : WORD;
+      w2 : WORD
+   ) return BOOL;
+   pragma import (C,ChrCmpIA,"ChrCmpIA");
+   function ChrCmpIW(
+      w1 : WCHAR;
+      w2 : WCHAR
+   ) return BOOL;
+   pragma import (C,ChrCmpIW,"ChrCmpIW");
+   function wvnsprintfA(
+      pszDest : PSTR;
+      cchDest : Interfaces.C.Int;
+      pszFmt : PCSTR;
+      arglist : va_list
+   ) return Interfaces.C.Int;
+   pragma import (C,wvnsprintfA,"wvnsprintfA");
+   function wvnsprintfW(
+      pszDest : PWSTR;
+      cchDest : Interfaces.C.Int;
+      pszFmt : PCWSTR;
+      arglist : va_list
+   ) return Interfaces.C.Int;
+   pragma import (C,wvnsprintfW,"wvnsprintfW");
+   -- wnsprintfA(...); -- variadic function not supported
+   -- wnsprintfW(...); -- variadic function not supported
+   function StrRetToStrA(
+      pstr_x : access STRRET;
+      pidl : LPCITEMIDLIST;
+      ppsz : access LPSTR
+   ) return HRESULT;
+   pragma import (C,StrRetToStrA,"StrRetToStrA");
+   function StrRetToStrW(
+      pstr_x : access STRRET;
+      pidl : LPCITEMIDLIST;
+      ppsz : access LPWSTR
+   ) return HRESULT;
+   pragma import (C,StrRetToStrW,"StrRetToStrW");
+   function StrRetToBufA(
+      pstr_x : access STRRET;
+      pidl : LPCITEMIDLIST;
+      pszBuf : LPSTR;
+      cchBuf : UINT
+   ) return HRESULT;
+   pragma import (C,StrRetToBufA,"StrRetToBufA");
+   function StrRetToBufW(
+      pstr_x : access STRRET;
+      pidl : LPCITEMIDLIST;
+      pszBuf : LPWSTR;
+      cchBuf : UINT
+   ) return HRESULT;
+   pragma import (C,StrRetToBufW,"StrRetToBufW");
+   function SHStrDupA(
+      psz_x : LPCSTR;
+      ppwsz : access LPWSTR
+   ) return HRESULT;
+   pragma import (C,SHStrDupA,"SHStrDupA");
+   function SHStrDupW(
+      psz_x : LPCWSTR;
+      ppwsz : access LPWSTR
+   ) return HRESULT;
+   pragma import (C,SHStrDupW,"SHStrDupW");
+   -- SHLocalStrDupW(); -- inlined function not supported
+   -- SHLocalStrDupA(); -- inlined function not supported
+   function StrCmpLogicalW(
+      psz1 : PCWSTR;
+      psz2 : PCWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpLogicalW,"StrCmpLogicalW");
+   function StrCatChainW(
+      pszDst : PWSTR;
+      cchDst : DWORD;
+      ichAt : DWORD;
+      pszSrc : PCWSTR
+   ) return DWORD;
+   pragma import (C,StrCatChainW,"StrCatChainW");
+   function StrRetToBSTR(
+      pstr_x : access STRRET;
+      pidl : LPCITEMIDLIST;
+      pbstr : access BSTR
+   ) return HRESULT;
+   pragma import (C,StrRetToBSTR,"StrRetToBSTR");
+   function SHLoadIndirectString(
+      pszSource : PCWSTR;
+      pszOutBuf : PWSTR;
+      cchOutBuf : UINT;
+      ppvReserved : access LPVOID
+   ) return HRESULT;
+   pragma import (C,SHLoadIndirectString,"SHLoadIndirectString");
+   function IsCharSpaceA(
+      wch : CHAR
+   ) return BOOL;
+   pragma import (C,IsCharSpaceA,"IsCharSpaceA");
+   function IsCharSpaceW(
+      wch : WCHAR
+   ) return BOOL;
+   pragma import (C,IsCharSpaceW,"IsCharSpaceW");
+   function StrCmpCA(
+      pszStr1 : LPCSTR;
+      pszStr2 : LPCSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpCA,"StrCmpCA");
+   function StrCmpCW(
+      pszStr1 : LPCWSTR;
+      pszStr2 : LPCWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpCW,"StrCmpCW");
+   function StrCmpICA(
+      pszStr1 : LPCSTR;
+      pszStr2 : LPCSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpICA,"StrCmpICA");
+   function StrCmpICW(
+      pszStr1 : LPCWSTR;
+      pszStr2 : LPCWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpICW,"StrCmpICW");
+   function StrCmpNCA(
+      pszStr1 : LPCSTR;
+      pszStr2 : LPCSTR;
+      nChar : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpNCA,"StrCmpNCA");
+   function StrCmpNCW(
+      pszStr1 : LPCWSTR;
+      pszStr2 : LPCWSTR;
+      nChar : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpNCW,"StrCmpNCW");
+   function StrCmpNICA(
+      pszStr1 : LPCSTR;
+      pszStr2 : LPCSTR;
+      nChar : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpNICA,"StrCmpNICA");
+   function StrCmpNICW(
+      pszStr1 : LPCWSTR;
+      pszStr2 : LPCWSTR;
+      nChar : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,StrCmpNICW,"StrCmpNICW");
+   function IntlStrEqWorkerA(
+      fCaseSens : BOOL;
+      lpString1 : LPCSTR;
+      lpString2 : LPCSTR;
+      nChar : Interfaces.C.Int
+   ) return BOOL;
+   pragma import (C,IntlStrEqWorkerA,"IntlStrEqWorkerA");
+   function IntlStrEqWorkerW(
+      fCaseSens : BOOL;
+      lpString1 : LPCWSTR;
+      lpString2 : LPCWSTR;
+      nChar : Interfaces.C.Int
+   ) return BOOL;
+   pragma import (C,IntlStrEqWorkerW,"IntlStrEqWorkerW");
+   function PathAddBackslashA(
+      pszPath : LPSTR
+   ) return LPSTR;
+   pragma import (C,PathAddBackslashA,"PathAddBackslashA");
+   function PathAddBackslashW(
+      pszPath : LPWSTR
+   ) return LPWSTR;
+   pragma import (C,PathAddBackslashW,"PathAddBackslashW");
+   function PathAddExtensionA(
+      pszPath : LPSTR;
+      pszExt : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathAddExtensionA,"PathAddExtensionA");
+   function PathAddExtensionW(
+      pszPath : LPWSTR;
+      pszExt : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathAddExtensionW,"PathAddExtensionW");
+   function PathAppendA(
+      pszPath : LPSTR;
+      pszMore : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathAppendA,"PathAppendA");
+   function PathAppendW(
+      pszPath : LPWSTR;
+      pszMore : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathAppendW,"PathAppendW");
+   function PathBuildRootA(
+      pszRoot : LPSTR;
+      iDrive : Interfaces.C.Int
+   ) return LPSTR;
+   pragma import (C,PathBuildRootA,"PathBuildRootA");
+   function PathBuildRootW(
+      pszRoot : LPWSTR;
+      iDrive : Interfaces.C.Int
+   ) return LPWSTR;
+   pragma import (C,PathBuildRootW,"PathBuildRootW");
+   function PathCanonicalizeA(
+      pszBuf : LPSTR;
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathCanonicalizeA,"PathCanonicalizeA");
+   function PathCanonicalizeW(
+      pszBuf : LPWSTR;
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathCanonicalizeW,"PathCanonicalizeW");
+   function PathCombineA(
+      pszDest : LPSTR;
+      pszDir : LPCSTR;
+      pszFile : LPCSTR
+   ) return LPSTR;
+   pragma import (C,PathCombineA,"PathCombineA");
+   function PathCombineW(
+      pszDest : LPWSTR;
+      pszDir : LPCWSTR;
+      pszFile : LPCWSTR
+   ) return LPWSTR;
+   pragma import (C,PathCombineW,"PathCombineW");
+   function PathCompactPathA(
+      hDC_x : HDC;
+      pszPath : LPSTR;
+      dx : UINT
+   ) return BOOL;
+   pragma import (C,PathCompactPathA,"PathCompactPathA");
+   function PathCompactPathW(
+      hDC_x : HDC;
+      pszPath : LPWSTR;
+      dx : UINT
+   ) return BOOL;
+   pragma import (C,PathCompactPathW,"PathCompactPathW");
+   function PathCompactPathExA(
+      pszOut : LPSTR;
+      pszSrc : LPCSTR;
+      cchMax : UINT;
+      dwFlags : DWORD
+   ) return BOOL;
+   pragma import (C,PathCompactPathExA,"PathCompactPathExA");
+   function PathCompactPathExW(
+      pszOut : LPWSTR;
+      pszSrc : LPCWSTR;
+      cchMax : UINT;
+      dwFlags : DWORD
+   ) return BOOL;
+   pragma import (C,PathCompactPathExW,"PathCompactPathExW");
+   function PathCommonPrefixA(
+      pszFile1 : LPCSTR;
+      pszFile2 : LPCSTR;
+      achPath : LPSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,PathCommonPrefixA,"PathCommonPrefixA");
+   function PathCommonPrefixW(
+      pszFile1 : LPCWSTR;
+      pszFile2 : LPCWSTR;
+      achPath : LPWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,PathCommonPrefixW,"PathCommonPrefixW");
+   function PathFileExistsA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathFileExistsA,"PathFileExistsA");
+   function PathFileExistsW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathFileExistsW,"PathFileExistsW");
+   function PathFindExtensionA(
+      pszPath : LPCSTR
+   ) return LPSTR;
+   pragma import (C,PathFindExtensionA,"PathFindExtensionA");
+   function PathFindExtensionW(
+      pszPath : LPCWSTR
+   ) return LPWSTR;
+   pragma import (C,PathFindExtensionW,"PathFindExtensionW");
+   function PathFindFileNameA(
+      pszPath : LPCSTR
+   ) return LPSTR;
+   pragma import (C,PathFindFileNameA,"PathFindFileNameA");
+   function PathFindFileNameW(
+      pszPath : LPCWSTR
+   ) return LPWSTR;
+   pragma import (C,PathFindFileNameW,"PathFindFileNameW");
+   function PathFindNextComponentA(
+      pszPath : LPCSTR
+   ) return LPSTR;
+   pragma import (C,PathFindNextComponentA,"PathFindNextComponentA");
+   function PathFindNextComponentW(
+      pszPath : LPCWSTR
+   ) return LPWSTR;
+   pragma import (C,PathFindNextComponentW,"PathFindNextComponentW");
+   function PathFindOnPathA(
+      pszPath : LPSTR;
+      ppszOtherDirs : PZPCSTR
+   ) return BOOL;
+   pragma import (C,PathFindOnPathA,"PathFindOnPathA");
+   function PathFindOnPathW(
+      pszPath : LPWSTR;
+      ppszOtherDirs : PZPCWSTR
+   ) return BOOL;
+   pragma import (C,PathFindOnPathW,"PathFindOnPathW");
+   function PathFindSuffixArrayA(
+      pszPath : LPCSTR;
+      apszSuffix : access constant LPCSTR;
+      iArraySize : Interfaces.C.Int
+   ) return LPCSTR;
+   pragma import (C,PathFindSuffixArrayA,"PathFindSuffixArrayA");
+   function PathFindSuffixArrayW(
+      pszPath : LPCWSTR;
+      apszSuffix : access constant LPCWSTR;
+      iArraySize : Interfaces.C.Int
+   ) return LPCWSTR;
+   pragma import (C,PathFindSuffixArrayW,"PathFindSuffixArrayW");
+   function PathGetArgsA(
+      pszPath : LPCSTR
+   ) return LPSTR;
+   pragma import (C,PathGetArgsA,"PathGetArgsA");
+   function PathGetArgsW(
+      pszPath : LPCWSTR
+   ) return LPWSTR;
+   pragma import (C,PathGetArgsW,"PathGetArgsW");
+   function PathIsLFNFileSpecA(
+      pszName : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsLFNFileSpecA,"PathIsLFNFileSpecA");
+   function PathIsLFNFileSpecW(
+      pszName : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsLFNFileSpecW,"PathIsLFNFileSpecW");
+   function PathGetCharTypeA(
+      ch : UCHAR
+   ) return UINT;
+   pragma import (C,PathGetCharTypeA,"PathGetCharTypeA");
+   function PathGetCharTypeW(
+      ch : WCHAR
+   ) return UINT;
+   pragma import (C,PathGetCharTypeW,"PathGetCharTypeW");
+   function PathGetDriveNumberA(
+      pszPath : LPCSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,PathGetDriveNumberA,"PathGetDriveNumberA");
+   function PathGetDriveNumberW(
+      pszPath : LPCWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,PathGetDriveNumberW,"PathGetDriveNumberW");
+   function PathIsDirectoryA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsDirectoryA,"PathIsDirectoryA");
+   function PathIsDirectoryW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsDirectoryW,"PathIsDirectoryW");
+   function PathIsDirectoryEmptyA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsDirectoryEmptyA,"PathIsDirectoryEmptyA");
+   function PathIsDirectoryEmptyW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsDirectoryEmptyW,"PathIsDirectoryEmptyW");
+   function PathIsFileSpecA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsFileSpecA,"PathIsFileSpecA");
+   function PathIsFileSpecW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsFileSpecW,"PathIsFileSpecW");
+   function PathIsPrefixA(
+      pszPrefix : LPCSTR;
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsPrefixA,"PathIsPrefixA");
+   function PathIsPrefixW(
+      pszPrefix : LPCWSTR;
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsPrefixW,"PathIsPrefixW");
+   function PathIsRelativeA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsRelativeA,"PathIsRelativeA");
+   function PathIsRelativeW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsRelativeW,"PathIsRelativeW");
+   function PathIsRootA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsRootA,"PathIsRootA");
+   function PathIsRootW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsRootW,"PathIsRootW");
+   function PathIsSameRootA(
+      pszPath1 : LPCSTR;
+      pszPath2 : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsSameRootA,"PathIsSameRootA");
+   function PathIsSameRootW(
+      pszPath1 : LPCWSTR;
+      pszPath2 : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsSameRootW,"PathIsSameRootW");
+   function PathIsUNCA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsUNCA,"PathIsUNCA");
+   function PathIsUNCW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsUNCW,"PathIsUNCW");
+   function PathIsNetworkPathA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsNetworkPathA,"PathIsNetworkPathA");
+   function PathIsNetworkPathW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsNetworkPathW,"PathIsNetworkPathW");
+   function PathIsUNCServerA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsUNCServerA,"PathIsUNCServerA");
+   function PathIsUNCServerW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsUNCServerW,"PathIsUNCServerW");
+   function PathIsUNCServerShareA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsUNCServerShareA,"PathIsUNCServerShareA");
+   function PathIsUNCServerShareW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsUNCServerShareW,"PathIsUNCServerShareW");
+   function PathIsContentTypeA(
+      pszPath : LPCSTR;
+      pszContentType : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsContentTypeA,"PathIsContentTypeA");
+   function PathIsContentTypeW(
+      pszPath : LPCWSTR;
+      pszContentType : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsContentTypeW,"PathIsContentTypeW");
+   function PathIsURLA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathIsURLA,"PathIsURLA");
+   function PathIsURLW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathIsURLW,"PathIsURLW");
+   function PathMakePrettyA(
+      pszPath : LPSTR
+   ) return BOOL;
+   pragma import (C,PathMakePrettyA,"PathMakePrettyA");
+   function PathMakePrettyW(
+      pszPath : LPWSTR
+   ) return BOOL;
+   pragma import (C,PathMakePrettyW,"PathMakePrettyW");
+   function PathMatchSpecA(
+      pszFile : LPCSTR;
+      pszSpec : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathMatchSpecA,"PathMatchSpecA");
+   function PathMatchSpecW(
+      pszFile : LPCWSTR;
+      pszSpec : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathMatchSpecW,"PathMatchSpecW");
+   function PathMatchSpecExA(
+      pszFile : LPCSTR;
+      pszSpec : LPCSTR;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,PathMatchSpecExA,"PathMatchSpecExA");
+   function PathMatchSpecExW(
+      pszFile : LPCWSTR;
+      pszSpec : LPCWSTR;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,PathMatchSpecExW,"PathMatchSpecExW");
+   function PathParseIconLocationA(
+      pszIconFile : LPSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,PathParseIconLocationA,"PathParseIconLocationA");
+   function PathParseIconLocationW(
+      pszIconFile : LPWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,PathParseIconLocationW,"PathParseIconLocationW");
+   function PathQuoteSpacesA(
+      lpsz : LPSTR
+   ) return BOOL;
+   pragma import (C,PathQuoteSpacesA,"PathQuoteSpacesA");
+   function PathQuoteSpacesW(
+      lpsz : LPWSTR
+   ) return BOOL;
+   pragma import (C,PathQuoteSpacesW,"PathQuoteSpacesW");
+   function PathRelativePathToA(
+      pszPath : LPSTR;
+      pszFrom : LPCSTR;
+      dwAttrFrom : DWORD;
+      pszTo : LPCSTR;
+      dwAttrTo : DWORD
+   ) return BOOL;
+   pragma import (C,PathRelativePathToA,"PathRelativePathToA");
+   function PathRelativePathToW(
+      pszPath : LPWSTR;
+      pszFrom : LPCWSTR;
+      dwAttrFrom : DWORD;
+      pszTo : LPCWSTR;
+      dwAttrTo : DWORD
+   ) return BOOL;
+   pragma import (C,PathRelativePathToW,"PathRelativePathToW");
+   procedure PathRemoveArgsA(
+      pszPath : LPSTR
+   );
+   pragma import (C,PathRemoveArgsA,"PathRemoveArgsA");
+   procedure PathRemoveArgsW(
+      pszPath : LPWSTR
+   );
+   pragma import (C,PathRemoveArgsW,"PathRemoveArgsW");
+   function PathRemoveBackslashA(
+      pszPath : LPSTR
+   ) return LPSTR;
+   pragma import (C,PathRemoveBackslashA,"PathRemoveBackslashA");
+   function PathRemoveBackslashW(
+      pszPath : LPWSTR
+   ) return LPWSTR;
+   pragma import (C,PathRemoveBackslashW,"PathRemoveBackslashW");
+   procedure PathRemoveBlanksA(
+      pszPath : LPSTR
+   );
+   pragma import (C,PathRemoveBlanksA,"PathRemoveBlanksA");
+   procedure PathRemoveBlanksW(
+      pszPath : LPWSTR
+   );
+   pragma import (C,PathRemoveBlanksW,"PathRemoveBlanksW");
+   procedure PathRemoveExtensionA(
+      pszPath : LPSTR
+   );
+   pragma import (C,PathRemoveExtensionA,"PathRemoveExtensionA");
+   procedure PathRemoveExtensionW(
+      pszPath : LPWSTR
+   );
+   pragma import (C,PathRemoveExtensionW,"PathRemoveExtensionW");
+   function PathRemoveFileSpecA(
+      pszPath : LPSTR
+   ) return BOOL;
+   pragma import (C,PathRemoveFileSpecA,"PathRemoveFileSpecA");
+   function PathRemoveFileSpecW(
+      pszPath : LPWSTR
+   ) return BOOL;
+   pragma import (C,PathRemoveFileSpecW,"PathRemoveFileSpecW");
+   function PathRenameExtensionA(
+      pszPath : LPSTR;
+      pszExt : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathRenameExtensionA,"PathRenameExtensionA");
+   function PathRenameExtensionW(
+      pszPath : LPWSTR;
+      pszExt : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathRenameExtensionW,"PathRenameExtensionW");
+   function PathSearchAndQualifyA(
+      pszPath : LPCSTR;
+      pszBuf : LPSTR;
+      cchBuf : UINT
+   ) return BOOL;
+   pragma import (C,PathSearchAndQualifyA,"PathSearchAndQualifyA");
+   function PathSearchAndQualifyW(
+      pszPath : LPCWSTR;
+      pszBuf : LPWSTR;
+      cchBuf : UINT
+   ) return BOOL;
+   pragma import (C,PathSearchAndQualifyW,"PathSearchAndQualifyW");
+   procedure PathSetDlgItemPathA(
+      hDlg : HWND;
+      id : Interfaces.C.Int;
+      pszPath : LPCSTR
+   );
+   pragma import (C,PathSetDlgItemPathA,"PathSetDlgItemPathA");
+   procedure PathSetDlgItemPathW(
+      hDlg : HWND;
+      id : Interfaces.C.Int;
+      pszPath : LPCWSTR
+   );
+   pragma import (C,PathSetDlgItemPathW,"PathSetDlgItemPathW");
+   function PathSkipRootA(
+      pszPath : LPCSTR
+   ) return LPSTR;
+   pragma import (C,PathSkipRootA,"PathSkipRootA");
+   function PathSkipRootW(
+      pszPath : LPCWSTR
+   ) return LPWSTR;
+   pragma import (C,PathSkipRootW,"PathSkipRootW");
+   procedure PathStripPathA(
+      pszPath : LPSTR
+   );
+   pragma import (C,PathStripPathA,"PathStripPathA");
+   procedure PathStripPathW(
+      pszPath : LPWSTR
+   );
+   pragma import (C,PathStripPathW,"PathStripPathW");
+   function PathStripToRootA(
+      pszPath : LPSTR
+   ) return BOOL;
+   pragma import (C,PathStripToRootA,"PathStripToRootA");
+   function PathStripToRootW(
+      pszPath : LPWSTR
+   ) return BOOL;
+   pragma import (C,PathStripToRootW,"PathStripToRootW");
+   function PathUnquoteSpacesA(
+      lpsz : LPSTR
+   ) return BOOL;
+   pragma import (C,PathUnquoteSpacesA,"PathUnquoteSpacesA");
+   function PathUnquoteSpacesW(
+      lpsz : LPWSTR
+   ) return BOOL;
+   pragma import (C,PathUnquoteSpacesW,"PathUnquoteSpacesW");
+   function PathMakeSystemFolderA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathMakeSystemFolderA,"PathMakeSystemFolderA");
+   function PathMakeSystemFolderW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathMakeSystemFolderW,"PathMakeSystemFolderW");
+   function PathUnmakeSystemFolderA(
+      pszPath : LPCSTR
+   ) return BOOL;
+   pragma import (C,PathUnmakeSystemFolderA,"PathUnmakeSystemFolderA");
+   function PathUnmakeSystemFolderW(
+      pszPath : LPCWSTR
+   ) return BOOL;
+   pragma import (C,PathUnmakeSystemFolderW,"PathUnmakeSystemFolderW");
+   function PathIsSystemFolderA(
+      pszPath : LPCSTR;
+      dwAttrb : DWORD
+   ) return BOOL;
+   pragma import (C,PathIsSystemFolderA,"PathIsSystemFolderA");
+   function PathIsSystemFolderW(
+      pszPath : LPCWSTR;
+      dwAttrb : DWORD
+   ) return BOOL;
+   pragma import (C,PathIsSystemFolderW,"PathIsSystemFolderW");
+   procedure PathUndecorateA(
+      pszPath : LPSTR
+   );
+   pragma import (C,PathUndecorateA,"PathUndecorateA");
+   procedure PathUndecorateW(
+      pszPath : LPWSTR
+   );
+   pragma import (C,PathUndecorateW,"PathUndecorateW");
+   function PathUnExpandEnvStringsA(
+      pszPath : LPCSTR;
+      pszBuf : LPSTR;
+      cchBuf : UINT
+   ) return BOOL;
+   pragma import (C,PathUnExpandEnvStringsA,"PathUnExpandEnvStringsA");
+   function PathUnExpandEnvStringsW(
+      pszPath : LPCWSTR;
+      pszBuf : LPWSTR;
+      cchBuf : UINT
+   ) return BOOL;
+   pragma import (C,PathUnExpandEnvStringsW,"PathUnExpandEnvStringsW");
+   type URL_SCHEME is (
+      URL_SCHEME_INVALID,
+      URL_SCHEME_UNKNOWN,
+      URL_SCHEME_FTP,
+      URL_SCHEME_HTTP,
+      URL_SCHEME_GOPHER,
+      URL_SCHEME_MAILTO,
+      URL_SCHEME_NEWS,
+      URL_SCHEME_NNTP,
+      URL_SCHEME_TELNET,
+      URL_SCHEME_WAIS,
+      URL_SCHEME_FILE,
+      URL_SCHEME_MK,
+      URL_SCHEME_HTTPS,
+      URL_SCHEME_SHELL,
+      URL_SCHEME_SNEWS,
+      URL_SCHEME_LOCAL,
+      URL_SCHEME_JAVASCRIPT,
+      URL_SCHEME_VBSCRIPT,
+      URL_SCHEME_ABOUT,
+      URL_SCHEME_RES,
+      URL_SCHEME_MSSHELLROOTED,
+      URL_SCHEME_MSSHELLIDLIST,
+      URL_SCHEME_MSHELP,
+      URL_SCHEME_MSSHELLDEVICE,
+      URL_SCHEME_WILDCARD,
+      URL_SCHEME_SEARCH_MS,
+      URL_SCHEME_SEARCH,
+      URL_SCHEME_KNOWNFOLDER,
+      URL_SCHEME_MAXVALUE
+   );
+   for URL_SCHEME use (
+      URL_SCHEME_INVALID => -1,
+      URL_SCHEME_UNKNOWN => 0,
+      URL_SCHEME_FTP => 1,
+      URL_SCHEME_HTTP => 2,
+      URL_SCHEME_GOPHER => 3,
+      URL_SCHEME_MAILTO => 4,
+      URL_SCHEME_NEWS => 5,
+      URL_SCHEME_NNTP => 6,
+      URL_SCHEME_TELNET => 7,
+      URL_SCHEME_WAIS => 8,
+      URL_SCHEME_FILE => 9,
+      URL_SCHEME_MK => 10,
+      URL_SCHEME_HTTPS => 11,
+      URL_SCHEME_SHELL => 12,
+      URL_SCHEME_SNEWS => 13,
+      URL_SCHEME_LOCAL => 14,
+      URL_SCHEME_JAVASCRIPT => 15,
+      URL_SCHEME_VBSCRIPT => 16,
+      URL_SCHEME_ABOUT => 17,
+      URL_SCHEME_RES => 18,
+      URL_SCHEME_MSSHELLROOTED => 19,
+      URL_SCHEME_MSSHELLIDLIST => 20,
+      URL_SCHEME_MSHELP => 21,
+      URL_SCHEME_MSSHELLDEVICE => 22,
+      URL_SCHEME_WILDCARD => 23,
+      URL_SCHEME_SEARCH_MS => 24,
+      URL_SCHEME_SEARCH => 25,
+      URL_SCHEME_KNOWNFOLDER => 26,
+      URL_SCHEME_MAXVALUE => 27
+   );
+   for URL_SCHEME'Size use 32;
+   type URL_PART is (
+      URL_PART_NONE,
+      URL_PART_SCHEME,
+      URL_PART_HOSTNAME,
+      URL_PART_USERNAME,
+      URL_PART_PASSWORD,
+      URL_PART_PORT,
+      URL_PART_QUERY
+   );
+   for URL_PART use (
+      URL_PART_NONE => 0,
+      URL_PART_SCHEME => 1,
+      URL_PART_HOSTNAME => 2,
+      URL_PART_USERNAME => 3,
+      URL_PART_PASSWORD => 4,
+      URL_PART_PORT => 5,
+      URL_PART_QUERY => 6
+   );
+   for URL_PART'Size use 32;
+   type URLIS is (
+      URLIS_URL,
+      URLIS_OPAQUE,
+      URLIS_NOHISTORY,
+      URLIS_FILEURL,
+      URLIS_APPLIABLE,
+      URLIS_DIRECTORY,
+      URLIS_HASQUERY
+   );
+   for URLIS use (
+      URLIS_URL => 0,
+      URLIS_OPAQUE => 1,
+      URLIS_NOHISTORY => 2,
+      URLIS_FILEURL => 3,
+      URLIS_APPLIABLE => 4,
+      URLIS_DIRECTORY => 5,
+      URLIS_HASQUERY => 6
+   );
+   for URLIS'Size use 32;
+   function UrlCompareA(
+      psz1 : PCSTR;
+      psz2 : PCSTR;
+      fIgnoreSlash : BOOL
+   ) return Interfaces.C.Int;
+   pragma import (C,UrlCompareA,"UrlCompareA");
+   function UrlCompareW(
+      psz1 : PCWSTR;
+      psz2 : PCWSTR;
+      fIgnoreSlash : BOOL
+   ) return Interfaces.C.Int;
+   pragma import (C,UrlCompareW,"UrlCompareW");
+   function UrlCombineA(
+      pszBase : PCSTR;
+      pszRelative : PCSTR;
+      pszCombined : PSTR;
+      pcchCombined : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlCombineA,"UrlCombineA");
+   function UrlCombineW(
+      pszBase : PCWSTR;
+      pszRelative : PCWSTR;
+      pszCombined : PWSTR;
+      pcchCombined : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlCombineW,"UrlCombineW");
+   function UrlCanonicalizeA(
+      pszUrl : PCSTR;
+      pszCanonicalized : PSTR;
+      pcchCanonicalized : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlCanonicalizeA,"UrlCanonicalizeA");
+   function UrlCanonicalizeW(
+      pszUrl : PCWSTR;
+      pszCanonicalized : PWSTR;
+      pcchCanonicalized : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlCanonicalizeW,"UrlCanonicalizeW");
+   function UrlIsOpaqueA(
+      pszURL : PCSTR
+   ) return BOOL;
+   pragma import (C,UrlIsOpaqueA,"UrlIsOpaqueA");
+   function UrlIsOpaqueW(
+      pszURL : PCWSTR
+   ) return BOOL;
+   pragma import (C,UrlIsOpaqueW,"UrlIsOpaqueW");
+   function UrlIsNoHistoryA(
+      pszURL : PCSTR
+   ) return BOOL;
+   pragma import (C,UrlIsNoHistoryA,"UrlIsNoHistoryA");
+   function UrlIsNoHistoryW(
+      pszURL : PCWSTR
+   ) return BOOL;
+   pragma import (C,UrlIsNoHistoryW,"UrlIsNoHistoryW");
+   function UrlIsA(
+      pszUrl : PCSTR;
+      UrlIs_x : URLIS
+   ) return BOOL;
+   pragma import (C,UrlIsA,"UrlIsA");
+   function UrlIsW(
+      pszUrl : PCWSTR;
+      UrlIs_x : URLIS
+   ) return BOOL;
+   pragma import (C,UrlIsW,"UrlIsW");
+   function UrlGetLocationA(
+      pszURL : PCSTR
+   ) return LPCSTR;
+   pragma import (C,UrlGetLocationA,"UrlGetLocationA");
+   function UrlGetLocationW(
+      pszURL : PCWSTR
+   ) return LPCWSTR;
+   pragma import (C,UrlGetLocationW,"UrlGetLocationW");
+   function UrlUnescapeA(
+      pszUrl : PSTR;
+      pszUnescaped : PSTR;
+      pcchUnescaped : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlUnescapeA,"UrlUnescapeA");
+   function UrlUnescapeW(
+      pszUrl : PWSTR;
+      pszUnescaped : PWSTR;
+      pcchUnescaped : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlUnescapeW,"UrlUnescapeW");
+   function UrlEscapeA(
+      pszUrl : PCSTR;
+      pszEscaped : PSTR;
+      pcchEscaped : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlEscapeA,"UrlEscapeA");
+   function UrlEscapeW(
+      pszUrl : PCWSTR;
+      pszEscaped : PWSTR;
+      pcchEscaped : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlEscapeW,"UrlEscapeW");
+   function UrlCreateFromPathA(
+      pszPath : PCSTR;
+      pszUrl : PSTR;
+      pcchUrl : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlCreateFromPathA,"UrlCreateFromPathA");
+   function UrlCreateFromPathW(
+      pszPath : PCWSTR;
+      pszUrl : PWSTR;
+      pcchUrl : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlCreateFromPathW,"UrlCreateFromPathW");
+   function PathCreateFromUrlA(
+      pszUrl : PCSTR;
+      pszPath : PSTR;
+      pcchPath : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,PathCreateFromUrlA,"PathCreateFromUrlA");
+   function PathCreateFromUrlW(
+      pszUrl : PCWSTR;
+      pszPath : PWSTR;
+      pcchPath : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,PathCreateFromUrlW,"PathCreateFromUrlW");
+   function PathCreateFromUrlAlloc(
+      pszIn : PCWSTR;
+      ppszOut : access PWSTR;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,PathCreateFromUrlAlloc,"PathCreateFromUrlAlloc");
+   function UrlHashA(
+      pszUrl : PCSTR;
+      pbHash : access BYTE;
+      cbHash : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlHashA,"UrlHashA");
+   function UrlHashW(
+      pszUrl : PCWSTR;
+      pbHash : access BYTE;
+      cbHash : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlHashW,"UrlHashW");
+   function UrlGetPartW(
+      pszIn : PCWSTR;
+      pszOut : PWSTR;
+      pcchOut : access DWORD;
+      dwPart : DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlGetPartW,"UrlGetPartW");
+   function UrlGetPartA(
+      pszIn : PCSTR;
+      pszOut : PSTR;
+      pcchOut : access DWORD;
+      dwPart : DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlGetPartA,"UrlGetPartA");
+   function UrlApplySchemeA(
+      pszIn : PCSTR;
+      pszOut : PSTR;
+      pcchOut : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlApplySchemeA,"UrlApplySchemeA");
+   function UrlApplySchemeW(
+      pszIn : PCWSTR;
+      pszOut : PWSTR;
+      pcchOut : access DWORD;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlApplySchemeW,"UrlApplySchemeW");
+   function HashData(
+      pbData : access BYTE;
+      cbData : DWORD;
+      pbHash : access BYTE;
+      cbHash : DWORD
+   ) return HRESULT;
+   pragma import (C,HashData,"HashData");
+   function UrlFixupW(
+      pcszUrl : PCWSTR;
+      pszTranslatedUrl : PWSTR;
+      cchMax : DWORD
+   ) return HRESULT;
+   pragma import (C,UrlFixupW,"UrlFixupW");
+   type tagPARSEDURLA is record
+      cbSize : DWORD;
+      pszProtocol : LPCSTR;
+      cchProtocol : UINT;
+      pszSuffix : LPCSTR;
+      cchSuffix : UINT;
+      nScheme : UINT;
+   end record;
+   subtype PARSEDURLA is tagPARSEDURLA; -- CXType_Elaborated
+   type PPARSEDURLA is access tagPARSEDURLA; -- CXType_Pointer - CXType_Elaborated
+   type tagPARSEDURLW is record
+      cbSize : DWORD;
+      pszProtocol : LPCWSTR;
+      cchProtocol : UINT;
+      pszSuffix : LPCWSTR;
+      cchSuffix : UINT;
+      nScheme : UINT;
+   end record;
+   subtype PARSEDURLW is tagPARSEDURLW; -- CXType_Elaborated
+   type PPARSEDURLW is access tagPARSEDURLW; -- CXType_Pointer - CXType_Elaborated
+   subtype PARSEDURL is PARSEDURLA; -- CXType_Typedef
+   subtype PPARSEDURL is PPARSEDURLA; -- CXType_Typedef
+   function ParseURLA(
+      pcszURL : LPCSTR;
+      ppu : access PARSEDURLA
+   ) return HRESULT;
+   pragma import (C,ParseURLA,"ParseURLA");
+   function ParseURLW(
+      pcszURL : LPCWSTR;
+      ppu : access PARSEDURLW
+   ) return HRESULT;
+   pragma import (C,ParseURLW,"ParseURLW");
+   function SHDeleteEmptyKeyA(
+      hkey_x : HKEY;
+      pszSubKey : LPCSTR
+   ) return LSTATUS;
+   pragma import (C,SHDeleteEmptyKeyA,"SHDeleteEmptyKeyA");
+   function SHDeleteEmptyKeyW(
+      hkey_x : HKEY;
+      pszSubKey : LPCWSTR
+   ) return LSTATUS;
+   pragma import (C,SHDeleteEmptyKeyW,"SHDeleteEmptyKeyW");
+   function SHDeleteKeyA(
+      hkey_x : HKEY;
+      pszSubKey : LPCSTR
+   ) return LSTATUS;
+   pragma import (C,SHDeleteKeyA,"SHDeleteKeyA");
+   function SHDeleteKeyW(
+      hkey_x : HKEY;
+      pszSubKey : LPCWSTR
+   ) return LSTATUS;
+   pragma import (C,SHDeleteKeyW,"SHDeleteKeyW");
+   function SHRegDuplicateHKey(
+      hkey_x : HKEY
+   ) return HKEY;
+   pragma import (C,SHRegDuplicateHKey,"SHRegDuplicateHKey");
+   function SHDeleteValueA(
+      hkey_x : HKEY;
+      pszSubKey : LPCSTR;
+      pszValue : LPCSTR
+   ) return LSTATUS;
+   pragma import (C,SHDeleteValueA,"SHDeleteValueA");
+   function SHDeleteValueW(
+      hkey_x : HKEY;
+      pszSubKey : LPCWSTR;
+      pszValue : LPCWSTR
+   ) return LSTATUS;
+   pragma import (C,SHDeleteValueW,"SHDeleteValueW");
+   function SHGetValueA(
+      hkey_x : HKEY;
+      pszSubKey : LPCSTR;
+      pszValue : LPCSTR;
+      pdwType : access DWORD;
+      pvData : access Void;
+      pcbData : access DWORD
+   ) return LSTATUS;
+   pragma import (C,SHGetValueA,"SHGetValueA");
+   function SHGetValueW(
+      hkey_x : HKEY;
+      pszSubKey : LPCWSTR;
+      pszValue : LPCWSTR;
+      pdwType : access DWORD;
+      pvData : access Void;
+      pcbData : access DWORD
+   ) return LSTATUS;
+   pragma import (C,SHGetValueW,"SHGetValueW");
+   function SHSetValueA(
+      hkey_x : HKEY;
+      pszSubKey : LPCSTR;
+      pszValue : LPCSTR;
+      dwType : DWORD;
+      pvData : LPCVOID;
+      cbData : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHSetValueA,"SHSetValueA");
+   function SHSetValueW(
+      hkey_x : HKEY;
+      pszSubKey : LPCWSTR;
+      pszValue : LPCWSTR;
+      dwType : DWORD;
+      pvData : LPCVOID;
+      cbData : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHSetValueW,"SHSetValueW");
+   subtype SRRF is Interfaces.C.Int; -- CXType_Int
+   function SHRegGetValueA(
+      hkey_x : HKEY;
+      pszSubKey : LPCSTR;
+      pszValue : LPCSTR;
+      srrfFlags : SRRF;
+      pdwType : access DWORD;
+      pvData : access Void;
+      pcbData : access DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegGetValueA,"SHRegGetValueA");
+   function SHRegGetValueW(
+      hkey_x : HKEY;
+      pszSubKey : LPCWSTR;
+      pszValue : LPCWSTR;
+      srrfFlags : SRRF;
+      pdwType : access DWORD;
+      pvData : access Void;
+      pcbData : access DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegGetValueW,"SHRegGetValueW");
+   function SHRegSetValue(
+      hkey_x : HKEY;
+      pszSubKey : LPCWSTR;
+      pszValue : LPCWSTR;
+      srrfFlags : SRRF;
+      dwType : DWORD;
+      pvData : LPCVOID;
+      cbData : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegSetValue,"SHRegSetValue");
+   function SHRegGetValueFromHKCUHKLM(
+      pwszKey : PCWSTR;
+      pwszValue : PCWSTR;
+      srrfFlags : SRRF;
+      pdwType : access DWORD;
+      pvData : access Void;
+      pcbData : access DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegGetValueFromHKCUHKLM,"SHRegGetValueFromHKCUHKLM");
+   function SHRegGetBoolValueFromHKCUHKLM(
+      pszKey : PCWSTR;
+      pszValue : PCWSTR;
+      fDefault : BOOL
+   ) return BOOL;
+   pragma import (C,SHRegGetBoolValueFromHKCUHKLM,"SHRegGetBoolValueFromHKCUHKLM");
+   function SHQueryValueExA(
+      hkey_x : HKEY;
+      pszValue : LPCSTR;
+      pdwReserved : access DWORD;
+      pdwType : access DWORD;
+      pvData : access Void;
+      pcbData : access DWORD
+   ) return LSTATUS;
+   pragma import (C,SHQueryValueExA,"SHQueryValueExA");
+   function SHQueryValueExW(
+      hkey_x : HKEY;
+      pszValue : LPCWSTR;
+      pdwReserved : access DWORD;
+      pdwType : access DWORD;
+      pvData : access Void;
+      pcbData : access DWORD
+   ) return LSTATUS;
+   pragma import (C,SHQueryValueExW,"SHQueryValueExW");
+   function SHEnumKeyExA(
+      hkey_x : HKEY;
+      dwIndex : DWORD;
+      pszName : LPSTR;
+      pcchName : LPDWORD
+   ) return LSTATUS;
+   pragma import (C,SHEnumKeyExA,"SHEnumKeyExA");
+   function SHEnumKeyExW(
+      hkey_x : HKEY;
+      dwIndex : DWORD;
+      pszName : LPWSTR;
+      pcchName : LPDWORD
+   ) return LSTATUS;
+   pragma import (C,SHEnumKeyExW,"SHEnumKeyExW");
+   function SHEnumValueA(
+      hkey_x : HKEY;
+      dwIndex : DWORD;
+      pszValueName : PSTR;
+      pcchValueName : LPDWORD;
+      pdwType : LPDWORD;
+      pvData : access Void;
+      pcbData : LPDWORD
+   ) return LSTATUS;
+   pragma import (C,SHEnumValueA,"SHEnumValueA");
+   function SHEnumValueW(
+      hkey_x : HKEY;
+      dwIndex : DWORD;
+      pszValueName : PWSTR;
+      pcchValueName : LPDWORD;
+      pdwType : LPDWORD;
+      pvData : access Void;
+      pcbData : LPDWORD
+   ) return LSTATUS;
+   pragma import (C,SHEnumValueW,"SHEnumValueW");
+   function SHQueryInfoKeyA(
+      hkey_x : HKEY;
+      pcSubKeys : LPDWORD;
+      pcchMaxSubKeyLen : LPDWORD;
+      pcValues : LPDWORD;
+      pcchMaxValueNameLen : LPDWORD
+   ) return LSTATUS;
+   pragma import (C,SHQueryInfoKeyA,"SHQueryInfoKeyA");
+   function SHQueryInfoKeyW(
+      hkey_x : HKEY;
+      pcSubKeys : LPDWORD;
+      pcchMaxSubKeyLen : LPDWORD;
+      pcValues : LPDWORD;
+      pcchMaxValueNameLen : LPDWORD
+   ) return LSTATUS;
+   pragma import (C,SHQueryInfoKeyW,"SHQueryInfoKeyW");
+   function SHCopyKeyA(
+      hkeySrc : HKEY;
+      pszSrcSubKey : LPCSTR;
+      hkeyDest : HKEY;
+      fReserved : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHCopyKeyA,"SHCopyKeyA");
+   function SHCopyKeyW(
+      hkeySrc : HKEY;
+      pszSrcSubKey : LPCWSTR;
+      hkeyDest : HKEY;
+      fReserved : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHCopyKeyW,"SHCopyKeyW");
+   function SHRegGetPathA(
+      hKey_x : HKEY;
+      pcszSubKey : LPCSTR;
+      pcszValue : LPCSTR;
+      pszPath : LPSTR;
+      dwFlags : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegGetPathA,"SHRegGetPathA");
+   function SHRegGetPathW(
+      hKey_x : HKEY;
+      pcszSubKey : LPCWSTR;
+      pcszValue : LPCWSTR;
+      pszPath : LPWSTR;
+      dwFlags : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegGetPathW,"SHRegGetPathW");
+   function SHRegSetPathA(
+      hKey_x : HKEY;
+      pcszSubKey : LPCSTR;
+      pcszValue : LPCSTR;
+      pcszPath : LPCSTR;
+      dwFlags : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegSetPathA,"SHRegSetPathA");
+   function SHRegSetPathW(
+      hKey_x : HKEY;
+      pcszSubKey : LPCWSTR;
+      pcszValue : LPCWSTR;
+      pcszPath : LPCWSTR;
+      dwFlags : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegSetPathW,"SHRegSetPathW");
+   type SHREGDEL_FLAGS is (
+      SHREGDEL_DEFAULT,
+      SHREGDEL_HKCU,
+      SHREGDEL_HKLM,
+      SHREGDEL_BOTH
+   );
+   for SHREGDEL_FLAGS use (
+      SHREGDEL_DEFAULT => 0,
+      SHREGDEL_HKCU => 1,
+      SHREGDEL_HKLM => 16,
+      SHREGDEL_BOTH => 17
+   );
+   for SHREGDEL_FLAGS'Size use 32;
+   type SHREGENUM_FLAGS is (
+      SHREGENUM_DEFAULT,
+      SHREGENUM_HKCU,
+      SHREGENUM_HKLM,
+      SHREGENUM_BOTH
+   );
+   for SHREGENUM_FLAGS use (
+      SHREGENUM_DEFAULT => 0,
+      SHREGENUM_HKCU => 1,
+      SHREGENUM_HKLM => 16,
+      SHREGENUM_BOTH => 17
+   );
+   for SHREGENUM_FLAGS'Size use 32;
+   subtype HUSKEY is HANDLE; -- CXType_Typedef
+   type PHUSKEY is access HUSKEY; -- CXType_Pointer - CXType_Typedef
+   function SHRegCreateUSKeyA(
+      pszPath : LPCSTR;
+      samDesired : REGSAM;
+      hRelativeUSKey : HUSKEY;
+      phNewUSKey : PHUSKEY;
+      dwFlags : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegCreateUSKeyA,"SHRegCreateUSKeyA");
+   function SHRegCreateUSKeyW(
+      pwzPath : LPCWSTR;
+      samDesired : REGSAM;
+      hRelativeUSKey : HUSKEY;
+      phNewUSKey : PHUSKEY;
+      dwFlags : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegCreateUSKeyW,"SHRegCreateUSKeyW");
+   function SHRegOpenUSKeyA(
+      pszPath : LPCSTR;
+      samDesired : REGSAM;
+      hRelativeUSKey : HUSKEY;
+      phNewUSKey : PHUSKEY;
+      fIgnoreHKCU : BOOL
+   ) return LSTATUS;
+   pragma import (C,SHRegOpenUSKeyA,"SHRegOpenUSKeyA");
+   function SHRegOpenUSKeyW(
+      pwzPath : LPCWSTR;
+      samDesired : REGSAM;
+      hRelativeUSKey : HUSKEY;
+      phNewUSKey : PHUSKEY;
+      fIgnoreHKCU : BOOL
+   ) return LSTATUS;
+   pragma import (C,SHRegOpenUSKeyW,"SHRegOpenUSKeyW");
+   function SHRegQueryUSValueA(
+      hUSKey_x : HUSKEY;
+      pszValue : LPCSTR;
+      pdwType : access DWORD;
+      pvData : access Void;
+      pcbData : access DWORD;
+      fIgnoreHKCU : BOOL;
+      pvDefaultData : access Void;
+      dwDefaultDataSize : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegQueryUSValueA,"SHRegQueryUSValueA");
+   function SHRegQueryUSValueW(
+      hUSKey_x : HUSKEY;
+      pszValue : LPCWSTR;
+      pdwType : access DWORD;
+      pvData : access Void;
+      pcbData : access DWORD;
+      fIgnoreHKCU : BOOL;
+      pvDefaultData : access Void;
+      dwDefaultDataSize : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegQueryUSValueW,"SHRegQueryUSValueW");
+   function SHRegWriteUSValueA(
+      hUSKey_x : HUSKEY;
+      pszValue : LPCSTR;
+      dwType : DWORD;
+      pvData : access Void;
+      cbData : DWORD;
+      dwFlags : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegWriteUSValueA,"SHRegWriteUSValueA");
+   function SHRegWriteUSValueW(
+      hUSKey_x : HUSKEY;
+      pwzValue : LPCWSTR;
+      dwType : DWORD;
+      pvData : access Void;
+      cbData : DWORD;
+      dwFlags : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegWriteUSValueW,"SHRegWriteUSValueW");
+   function SHRegDeleteUSValueA(
+      hUSKey_x : HUSKEY;
+      pszValue : LPCSTR;
+      delRegFlags : SHREGDEL_FLAGS
+   ) return LSTATUS;
+   pragma import (C,SHRegDeleteUSValueA,"SHRegDeleteUSValueA");
+   function SHRegDeleteUSValueW(
+      hUSKey_x : HUSKEY;
+      pwzValue : LPCWSTR;
+      delRegFlags : SHREGDEL_FLAGS
+   ) return LSTATUS;
+   pragma import (C,SHRegDeleteUSValueW,"SHRegDeleteUSValueW");
+   function SHRegDeleteEmptyUSKeyW(
+      hUSKey_x : HUSKEY;
+      pwzSubKey : LPCWSTR;
+      delRegFlags : SHREGDEL_FLAGS
+   ) return LSTATUS;
+   pragma import (C,SHRegDeleteEmptyUSKeyW,"SHRegDeleteEmptyUSKeyW");
+   function SHRegDeleteEmptyUSKeyA(
+      hUSKey_x : HUSKEY;
+      pszSubKey : LPCSTR;
+      delRegFlags : SHREGDEL_FLAGS
+   ) return LSTATUS;
+   pragma import (C,SHRegDeleteEmptyUSKeyA,"SHRegDeleteEmptyUSKeyA");
+   function SHRegEnumUSKeyA(
+      hUSKey_x : HUSKEY;
+      dwIndex : DWORD;
+      pszName : LPSTR;
+      pcchName : LPDWORD;
+      enumRegFlags : SHREGENUM_FLAGS
+   ) return LSTATUS;
+   pragma import (C,SHRegEnumUSKeyA,"SHRegEnumUSKeyA");
+   function SHRegEnumUSKeyW(
+      hUSKey_x : HUSKEY;
+      dwIndex : DWORD;
+      pwzName : LPWSTR;
+      pcchName : LPDWORD;
+      enumRegFlags : SHREGENUM_FLAGS
+   ) return LSTATUS;
+   pragma import (C,SHRegEnumUSKeyW,"SHRegEnumUSKeyW");
+   function SHRegEnumUSValueA(
+      hUSkey_x : HUSKEY;
+      dwIndex : DWORD;
+      pszValueName : LPSTR;
+      pcchValueName : LPDWORD;
+      pdwType : LPDWORD;
+      pvData : access Void;
+      pcbData : LPDWORD;
+      enumRegFlags : SHREGENUM_FLAGS
+   ) return LSTATUS;
+   pragma import (C,SHRegEnumUSValueA,"SHRegEnumUSValueA");
+   function SHRegEnumUSValueW(
+      hUSkey_x : HUSKEY;
+      dwIndex : DWORD;
+      pszValueName : LPWSTR;
+      pcchValueName : LPDWORD;
+      pdwType : LPDWORD;
+      pvData : access Void;
+      pcbData : LPDWORD;
+      enumRegFlags : SHREGENUM_FLAGS
+   ) return LSTATUS;
+   pragma import (C,SHRegEnumUSValueW,"SHRegEnumUSValueW");
+   function SHRegQueryInfoUSKeyA(
+      hUSKey_x : HUSKEY;
+      pcSubKeys : LPDWORD;
+      pcchMaxSubKeyLen : LPDWORD;
+      pcValues : LPDWORD;
+      pcchMaxValueNameLen : LPDWORD;
+      enumRegFlags : SHREGENUM_FLAGS
+   ) return LSTATUS;
+   pragma import (C,SHRegQueryInfoUSKeyA,"SHRegQueryInfoUSKeyA");
+   function SHRegQueryInfoUSKeyW(
+      hUSKey_x : HUSKEY;
+      pcSubKeys : LPDWORD;
+      pcchMaxSubKeyLen : LPDWORD;
+      pcValues : LPDWORD;
+      pcchMaxValueNameLen : LPDWORD;
+      enumRegFlags : SHREGENUM_FLAGS
+   ) return LSTATUS;
+   pragma import (C,SHRegQueryInfoUSKeyW,"SHRegQueryInfoUSKeyW");
+   function SHRegCloseUSKey(
+      hUSKey_x : HUSKEY
+   ) return LSTATUS;
+   pragma import (C,SHRegCloseUSKey,"SHRegCloseUSKey");
+   function SHRegGetUSValueA(
+      pszSubKey : LPCSTR;
+      pszValue : LPCSTR;
+      pdwType : access DWORD;
+      pvData : access Void;
+      pcbData : access DWORD;
+      fIgnoreHKCU : BOOL;
+      pvDefaultData : access Void;
+      dwDefaultDataSize : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegGetUSValueA,"SHRegGetUSValueA");
+   function SHRegGetUSValueW(
+      pszSubKey : LPCWSTR;
+      pszValue : LPCWSTR;
+      pdwType : access DWORD;
+      pvData : access Void;
+      pcbData : access DWORD;
+      fIgnoreHKCU : BOOL;
+      pvDefaultData : access Void;
+      dwDefaultDataSize : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegGetUSValueW,"SHRegGetUSValueW");
+   function SHRegSetUSValueA(
+      pszSubKey : LPCSTR;
+      pszValue : LPCSTR;
+      dwType : DWORD;
+      pvData : access Void;
+      cbData : DWORD;
+      dwFlags : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegSetUSValueA,"SHRegSetUSValueA");
+   function SHRegSetUSValueW(
+      pwzSubKey : LPCWSTR;
+      pwzValue : LPCWSTR;
+      dwType : DWORD;
+      pvData : access Void;
+      cbData : DWORD;
+      dwFlags : DWORD
+   ) return LSTATUS;
+   pragma import (C,SHRegSetUSValueW,"SHRegSetUSValueW");
+   function SHRegGetIntW(
+      hk : HKEY;
+      pwzKey : PCWSTR;
+      iDefault : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,SHRegGetIntW,"SHRegGetIntW");
+   function SHRegGetBoolUSValueA(
+      pszSubKey : LPCSTR;
+      pszValue : LPCSTR;
+      fIgnoreHKCU : BOOL;
+      fDefault : BOOL
+   ) return BOOL;
+   pragma import (C,SHRegGetBoolUSValueA,"SHRegGetBoolUSValueA");
+   function SHRegGetBoolUSValueW(
+      pszSubKey : LPCWSTR;
+      pszValue : LPCWSTR;
+      fIgnoreHKCU : BOOL;
+      fDefault : BOOL
+   ) return BOOL;
+   pragma import (C,SHRegGetBoolUSValueW,"SHRegGetBoolUSValueW");
+   subtype ASSOCF is DWORD; -- CXType_Typedef
+   type ASSOCSTR is (
+      ASSOCSTR_COMMAND,
+      ASSOCSTR_EXECUTABLE,
+      ASSOCSTR_FRIENDLYDOCNAME,
+      ASSOCSTR_FRIENDLYAPPNAME,
+      ASSOCSTR_NOOPEN,
+      ASSOCSTR_SHELLNEWVALUE,
+      ASSOCSTR_DDECOMMAND,
+      ASSOCSTR_DDEIFEXEC,
+      ASSOCSTR_DDEAPPLICATION,
+      ASSOCSTR_DDETOPIC,
+      ASSOCSTR_INFOTIP,
+      ASSOCSTR_QUICKTIP,
+      ASSOCSTR_TILEINFO,
+      ASSOCSTR_CONTENTTYPE,
+      ASSOCSTR_DEFAULTICON,
+      ASSOCSTR_SHELLEXTENSION,
+      ASSOCSTR_DROPTARGET,
+      ASSOCSTR_DELEGATEEXECUTE,
+      ASSOCSTR_SUPPORTED_URI_PROTOCOLS,
+      ASSOCSTR_PROGID,
+      ASSOCSTR_APPID,
+      ASSOCSTR_APPPUBLISHER,
+      ASSOCSTR_APPICONREFERENCE,
+      ASSOCSTR_MAX
+   );
+   for ASSOCSTR use (
+      ASSOCSTR_COMMAND => 1,
+      ASSOCSTR_EXECUTABLE => 2,
+      ASSOCSTR_FRIENDLYDOCNAME => 3,
+      ASSOCSTR_FRIENDLYAPPNAME => 4,
+      ASSOCSTR_NOOPEN => 5,
+      ASSOCSTR_SHELLNEWVALUE => 6,
+      ASSOCSTR_DDECOMMAND => 7,
+      ASSOCSTR_DDEIFEXEC => 8,
+      ASSOCSTR_DDEAPPLICATION => 9,
+      ASSOCSTR_DDETOPIC => 10,
+      ASSOCSTR_INFOTIP => 11,
+      ASSOCSTR_QUICKTIP => 12,
+      ASSOCSTR_TILEINFO => 13,
+      ASSOCSTR_CONTENTTYPE => 14,
+      ASSOCSTR_DEFAULTICON => 15,
+      ASSOCSTR_SHELLEXTENSION => 16,
+      ASSOCSTR_DROPTARGET => 17,
+      ASSOCSTR_DELEGATEEXECUTE => 18,
+      ASSOCSTR_SUPPORTED_URI_PROTOCOLS => 19,
+      ASSOCSTR_PROGID => 20,
+      ASSOCSTR_APPID => 21,
+      ASSOCSTR_APPPUBLISHER => 22,
+      ASSOCSTR_APPICONREFERENCE => 23,
+      ASSOCSTR_MAX => 24
+   );
+   for ASSOCSTR'Size use 32;
+   type ASSOCKEY is (
+      ASSOCKEY_SHELLEXECCLASS,
+      ASSOCKEY_APP,
+      ASSOCKEY_CLASS,
+      ASSOCKEY_BASECLASS,
+      ASSOCKEY_MAX
+   );
+   for ASSOCKEY use (
+      ASSOCKEY_SHELLEXECCLASS => 1,
+      ASSOCKEY_APP => 2,
+      ASSOCKEY_CLASS => 3,
+      ASSOCKEY_BASECLASS => 4,
+      ASSOCKEY_MAX => 5
+   );
+   for ASSOCKEY'Size use 32;
+   type ASSOCDATA is (
+      ASSOCDATA_MSIDESCRIPTOR,
+      ASSOCDATA_NOACTIVATEHANDLER,
+      ASSOCDATA_UNUSED1,
+      ASSOCDATA_HASPERUSERASSOC,
+      ASSOCDATA_EDITFLAGS,
+      ASSOCDATA_VALUE,
+      ASSOCDATA_MAX
+   );
+   for ASSOCDATA use (
+      ASSOCDATA_MSIDESCRIPTOR => 1,
+      ASSOCDATA_NOACTIVATEHANDLER => 2,
+      ASSOCDATA_UNUSED1 => 3,
+      ASSOCDATA_HASPERUSERASSOC => 4,
+      ASSOCDATA_EDITFLAGS => 5,
+      ASSOCDATA_VALUE => 6,
+      ASSOCDATA_MAX => 7
+   );
+   for ASSOCDATA'Size use 32;
+   type ASSOCENUM is (
+      ASSOCENUM_NONE
+   );
+   for ASSOCENUM use (
+      ASSOCENUM_NONE => 0
+   );
+   for ASSOCENUM'Size use 32;
+   type FILETYPEATTRIBUTEFLAGS is (
+      FTA_None,
+      FTA_Exclude,
+      FTA_Show,
+      FTA_HasExtension,
+      FTA_NoEdit,
+      FTA_NoRemove,
+      FTA_NoNewVerb,
+      FTA_NoEditVerb,
+      FTA_NoRemoveVerb,
+      FTA_NoEditDesc,
+      FTA_NoEditIcon,
+      FTA_NoEditDflt,
+      FTA_NoEditVerbCmd,
+      FTA_NoEditVerbExe,
+      FTA_NoDDE,
+      FTA_NoEditMIME,
+      FTA_OpenIsSafe,
+      FTA_AlwaysUnsafe,
+      FTA_NoRecentDocs,
+      FTA_SafeForElevation,
+      FTA_AlwaysUseDirectInvoke
+   );
+   for FILETYPEATTRIBUTEFLAGS use (
+      FTA_None => 0,
+      FTA_Exclude => 1,
+      FTA_Show => 2,
+      FTA_HasExtension => 4,
+      FTA_NoEdit => 8,
+      FTA_NoRemove => 16,
+      FTA_NoNewVerb => 32,
+      FTA_NoEditVerb => 64,
+      FTA_NoRemoveVerb => 128,
+      FTA_NoEditDesc => 256,
+      FTA_NoEditIcon => 512,
+      FTA_NoEditDflt => 1024,
+      FTA_NoEditVerbCmd => 2048,
+      FTA_NoEditVerbExe => 4096,
+      FTA_NoDDE => 8192,
+      FTA_NoEditMIME => 32768,
+      FTA_OpenIsSafe => 65536,
+      FTA_AlwaysUnsafe => 131072,
+      FTA_NoRecentDocs => 1048576,
+      FTA_SafeForElevation => 2097152,
+      FTA_AlwaysUseDirectInvoke => 4194304
+   );
+   for FILETYPEATTRIBUTEFLAGS'Size use 32;
+   type IQueryAssociations_Interface is interface and IUnknown_Interface;
+      function Init(
+         This : access IQueryAssociations_Interface;
+         flags : ASSOCF;
+         pszAssoc : LPCWSTR;
+         hkProgid : HKEY;
+         hwnd_x : HWND
+      ) return HRESULT is abstract;
+      function GetString(
+         This : access IQueryAssociations_Interface;
+         flags : ASSOCF;
+         str : ASSOCSTR;
+         pszExtra : LPCWSTR;
+         pszOut : LPWSTR;
+         pcchOut : access DWORD
+      ) return HRESULT is abstract;
+      function GetKey(
+         This : access IQueryAssociations_Interface;
+         flags : ASSOCF;
+         key : ASSOCKEY;
+         pszExtra : LPCWSTR;
+         phkeyOut : access HKEY
+      ) return HRESULT is abstract;
+      function GetData(
+         This : access IQueryAssociations_Interface;
+         flags : ASSOCF;
+         data : ASSOCDATA;
+         pszExtra : LPCWSTR;
+         pvOut : access Void;
+         pcbOut : access DWORD
+      ) return HRESULT is abstract;
+      function GetEnum(
+         This : access IQueryAssociations_Interface;
+         flags : ASSOCF;
+         assocenum_x : ASSOCENUM;
+         pszExtra : LPCWSTR;
+         riid : access constant IID;
+         ppvOut : access LPVOID
+      ) return HRESULT is abstract;
+   type IQueryAssociations is access IQueryAssociations_Interface'Class;
+   type IQueryAssociations_Ptr is access IQueryAssociations;
+   function AssocCreate(
+      clsid_x : CLSID;
+      riid : access constant IID;
+      ppv : access LPVOID
+   ) return HRESULT;
+   pragma import (C,AssocCreate,"AssocCreate");
+   function SHGetAssocKeys(
+      pqa : access Void;
+      rgKeys : access HKEY;
+      cKeys : DWORD
+   ) return DWORD;
+   pragma import (C,SHGetAssocKeys,"SHGetAssocKeys");
+   function AssocQueryStringA(
+      flags : ASSOCF;
+      str : ASSOCSTR;
+      pszAssoc : LPCSTR;
+      pszExtra : LPCSTR;
+      pszOut : LPSTR;
+      pcchOut : access DWORD
+   ) return HRESULT;
+   pragma import (C,AssocQueryStringA,"AssocQueryStringA");
+   function AssocQueryStringW(
+      flags : ASSOCF;
+      str : ASSOCSTR;
+      pszAssoc : LPCWSTR;
+      pszExtra : LPCWSTR;
+      pszOut : LPWSTR;
+      pcchOut : access DWORD
+   ) return HRESULT;
+   pragma import (C,AssocQueryStringW,"AssocQueryStringW");
+   function AssocQueryStringByKeyA(
+      flags : ASSOCF;
+      str : ASSOCSTR;
+      hkAssoc : HKEY;
+      pszExtra : LPCSTR;
+      pszOut : LPSTR;
+      pcchOut : access DWORD
+   ) return HRESULT;
+   pragma import (C,AssocQueryStringByKeyA,"AssocQueryStringByKeyA");
+   function AssocQueryStringByKeyW(
+      flags : ASSOCF;
+      str : ASSOCSTR;
+      hkAssoc : HKEY;
+      pszExtra : LPCWSTR;
+      pszOut : LPWSTR;
+      pcchOut : access DWORD
+   ) return HRESULT;
+   pragma import (C,AssocQueryStringByKeyW,"AssocQueryStringByKeyW");
+   function AssocQueryKeyA(
+      flags : ASSOCF;
+      key : ASSOCKEY;
+      pszAssoc : LPCSTR;
+      pszExtra : LPCSTR;
+      phkeyOut : access HKEY
+   ) return HRESULT;
+   pragma import (C,AssocQueryKeyA,"AssocQueryKeyA");
+   function AssocQueryKeyW(
+      flags : ASSOCF;
+      key : ASSOCKEY;
+      pszAssoc : LPCWSTR;
+      pszExtra : LPCWSTR;
+      phkeyOut : access HKEY
+   ) return HRESULT;
+   pragma import (C,AssocQueryKeyW,"AssocQueryKeyW");
+   function AssocIsDangerous(
+      pszAssoc : PCWSTR
+   ) return BOOL;
+   pragma import (C,AssocIsDangerous,"AssocIsDangerous");
+   function AssocGetPerceivedType(
+      pszExt : PCWSTR;
+      ptype : access PERCEIVED;
+      pflag : access PERCEIVEDFLAG;
+      ppszType : access PWSTR
+   ) return HRESULT;
+   pragma import (C,AssocGetPerceivedType,"AssocGetPerceivedType");
+   function SHCreateStreamOnFileA(
+      pszFile : LPCSTR;
+      grfMode : DWORD;
+      ppstm : access LPSTREAM
+   ) return HRESULT;
+   pragma import (C,SHCreateStreamOnFileA,"SHCreateStreamOnFileA");
+   function SHCreateStreamOnFileW(
+      pszFile : LPCWSTR;
+      grfMode : DWORD;
+      ppstm : access LPSTREAM
+   ) return HRESULT;
+   pragma import (C,SHCreateStreamOnFileW,"SHCreateStreamOnFileW");
+   function SHCreateStreamOnFileEx(
+      pszFile : LPCWSTR;
+      grfMode : DWORD;
+      dwAttributes : DWORD;
+      fCreate : BOOL;
+      pstmTemplate : access IStream;
+      ppstm : access LPSTREAM
+   ) return HRESULT;
+   pragma import (C,SHCreateStreamOnFileEx,"SHCreateStreamOnFileEx");
+   function GetAcceptLanguagesA(
+      pszLanguages : LPSTR;
+      pcchLanguages : access DWORD
+   ) return HRESULT;
+   pragma import (C,GetAcceptLanguagesA,"GetAcceptLanguagesA");
+   function GetAcceptLanguagesW(
+      pszLanguages : LPWSTR;
+      pcchLanguages : access DWORD
+   ) return HRESULT;
+   pragma import (C,GetAcceptLanguagesW,"GetAcceptLanguagesW");
+   procedure IUnknown_Set(
+      ppunk : access LPUNKNOWN;
+      punk : access IUnknown
+   );
+   pragma import (C,IUnknown_Set,"IUnknown_Set");
+   procedure IUnknown_AtomicRelease(
+      ppunk : access LPVOID
+   );
+   pragma import (C,IUnknown_AtomicRelease,"IUnknown_AtomicRelease");
+   function IUnknown_GetWindow(
+      punk : access IUnknown;
+      phwnd : access HWND
+   ) return HRESULT;
+   pragma import (C,IUnknown_GetWindow,"IUnknown_GetWindow");
+   function IUnknown_SetSite(
+      punk : access IUnknown;
+      punkSite : access IUnknown
+   ) return HRESULT;
+   pragma import (C,IUnknown_SetSite,"IUnknown_SetSite");
+   function IUnknown_GetSite(
+      punk : access IUnknown;
+      riid : access constant IID;
+      ppv : access LPVOID
+   ) return HRESULT;
+   pragma import (C,IUnknown_GetSite,"IUnknown_GetSite");
+   function IUnknown_QueryService(
+      punk : access IUnknown;
+      guidService : access constant GUID;
+      riid : access constant IID;
+      ppvOut : access LPVOID
+   ) return HRESULT;
+   pragma import (C,IUnknown_QueryService,"IUnknown_QueryService");
+   function IStream_Read(
+      pstm : access IStream;
+      pv : access Void;
+      cb : ULONG
+   ) return HRESULT;
+   pragma import (C,IStream_Read,"IStream_Read");
+   function IStream_Write(
+      pstm : access IStream;
+      pv : access Void;
+      cb : ULONG
+   ) return HRESULT;
+   pragma import (C,IStream_Write,"IStream_Write");
+   function IStream_Reset(
+      pstm : access IStream
+   ) return HRESULT;
+   pragma import (C,IStream_Reset,"IStream_Reset");
+   function IStream_Size(
+      pstm : access IStream;
+      pui : access ULARGE_INTEGER
+   ) return HRESULT;
+   pragma import (C,IStream_Size,"IStream_Size");
+   type IConnectionPoint; -- Forward Declaration
+   type IConnectionPoint_Ptr is access all IConnectionPoint; -- Auto Generated Dependancy
+   function ConnectToConnectionPoint(
+      punk : access IUnknown;
+      riidEvent : access constant IID;
+      fConnect : BOOL;
+      punkTarget : access IUnknown;
+      pdwCookie : access DWORD;
+      ppcpOut : access IConnectionPoint_Ptr
+   ) return HRESULT;
+   pragma import (C,ConnectToConnectionPoint,"ConnectToConnectionPoint");
+   function IStream_ReadPidl(
+      pstm : access IStream;
+      ppidlOut : access LPITEMIDLIST
+   ) return HRESULT;
+   pragma import (C,IStream_ReadPidl,"IStream_ReadPidl");
+   function IStream_WritePidl(
+      pstm : access IStream;
+      pidlWrite : LPCITEMIDLIST
+   ) return HRESULT;
+   pragma import (C,IStream_WritePidl,"IStream_WritePidl");
+   function IStream_ReadStr(
+      pstm : access IStream;
+      ppsz : access PWSTR
+   ) return HRESULT;
+   pragma import (C,IStream_ReadStr,"IStream_ReadStr");
+   function IStream_WriteStr(
+      pstm : access IStream;
+      psz_x : PCWSTR
+   ) return HRESULT;
+   pragma import (C,IStream_WriteStr,"IStream_WriteStr");
+   function IStream_Copy(
+      pstmFrom : access IStream;
+      pstmTo : access IStream;
+      cb : DWORD
+   ) return HRESULT;
+   pragma import (C,IStream_Copy,"IStream_Copy");
+   function SHGetViewStatePropertyBag(
+      pidl : LPCITEMIDLIST;
+      pszBagName : PCWSTR;
+      dwFlags : DWORD;
+      riid : access constant IID;
+      ppv : access LPVOID
+   ) return HRESULT;
+   pragma import (C,SHGetViewStatePropertyBag,"SHGetViewStatePropertyBag");
+   function SHFormatDateTimeA(
+      pft : access constant FILETIME;
+      pdwFlags : access DWORD;
+      pszBuf : LPSTR;
+      cchBuf : UINT
+   ) return Interfaces.C.Int;
+   pragma import (C,SHFormatDateTimeA,"SHFormatDateTimeA");
+   function SHFormatDateTimeW(
+      pft : access constant FILETIME;
+      pdwFlags : access DWORD;
+      pszBuf : LPWSTR;
+      cchBuf : UINT
+   ) return Interfaces.C.Int;
+   pragma import (C,SHFormatDateTimeW,"SHFormatDateTimeW");
+   function SHAnsiToUnicode(
+      pszSrc : PCSTR;
+      pwszDst : PWSTR;
+      cwchBuf : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,SHAnsiToUnicode,"SHAnsiToUnicode");
+   function SHAnsiToAnsi(
+      pszSrc : PCSTR;
+      pszDst : PSTR;
+      cchBuf : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,SHAnsiToAnsi,"SHAnsiToAnsi");
+   function SHUnicodeToAnsi(
+      pwszSrc : PCWSTR;
+      pszDst : PSTR;
+      cchBuf : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,SHUnicodeToAnsi,"SHUnicodeToAnsi");
+   function SHUnicodeToUnicode(
+      pwzSrc : PCWSTR;
+      pwzDst : PWSTR;
+      cwchBuf : Interfaces.C.Int
+   ) return Interfaces.C.Int;
+   pragma import (C,SHUnicodeToUnicode,"SHUnicodeToUnicode");
+   function SHMessageBoxCheckA(
+      hwnd_x : HWND;
+      pszText : LPCSTR;
+      pszCaption : LPCSTR;
+      uType : UINT;
+      iDefault : Interfaces.C.Int;
+      pszRegVal : LPCSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,SHMessageBoxCheckA,"SHMessageBoxCheckA");
+   function SHMessageBoxCheckW(
+      hwnd_x : HWND;
+      pszText : LPCWSTR;
+      pszCaption : LPCWSTR;
+      uType : UINT;
+      iDefault : Interfaces.C.Int;
+      pszRegVal : LPCWSTR
+   ) return Interfaces.C.Int;
+   pragma import (C,SHMessageBoxCheckW,"SHMessageBoxCheckW");
+   function SHSendMessageBroadcastA(
+      uMsg : UINT;
+      wParam_x : WPARAM;
+      lParam_x : LPARAM
+   ) return LRESULT;
+   pragma import (C,SHSendMessageBroadcastA,"SHSendMessageBroadcastA");
+   function SHSendMessageBroadcastW(
+      uMsg : UINT;
+      wParam_x : WPARAM;
+      lParam_x : LPARAM
+   ) return LRESULT;
+   pragma import (C,SHSendMessageBroadcastW,"SHSendMessageBroadcastW");
+   function SHStripMneumonicA(
+      pszMenu : LPSTR
+   ) return CHAR;
+   pragma import (C,SHStripMneumonicA,"SHStripMneumonicA");
+   function SHStripMneumonicW(
+      pszMenu : LPWSTR
+   ) return WCHAR;
+   pragma import (C,SHStripMneumonicW,"SHStripMneumonicW");
+   function IsOS(
+      dwOS : DWORD
+   ) return BOOL;
+   pragma import (C,IsOS,"IsOS");
+   type SHGLOBALCOUNTER is (
+      GLOBALCOUNTER_SEARCHMANAGER,
+      GLOBALCOUNTER_SEARCHOPTIONS,
+      GLOBALCOUNTER_FOLDERSETTINGSCHANGE,
+      GLOBALCOUNTER_RATINGS,
+      GLOBALCOUNTER_APPROVEDSITES,
+      GLOBALCOUNTER_RESTRICTIONS,
+      GLOBALCOUNTER_SHELLSETTINGSCHANGED,
+      GLOBALCOUNTER_SYSTEMPIDLCHANGE,
+      GLOBALCOUNTER_OVERLAYMANAGER,
+      GLOBALCOUNTER_QUERYASSOCIATIONS,
+      GLOBALCOUNTER_IESESSIONS,
+      GLOBALCOUNTER_IEONLY_SESSIONS,
+      GLOBALCOUNTER_APPLICATION_DESTINATIONS,
+      UNUSED_RECYCLE_WAS_GLOBALCOUNTER_CSCSYNCINPROGRESS_x,
+      GLOBALCOUNTER_BITBUCKETNUMDELETERS,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_SHARES,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_A,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_B,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_C,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_D,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_E,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_F,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_G,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_H,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_I,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_J,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_K,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_L,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_M,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_N,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_O,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_P,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_Q,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_R,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_S,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_T,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_U,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_V,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_W,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_X,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_Y,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_Z,
+      UNUSED_RECYCLE_WAS_GLOBALCOUNTER_RECYCLEDIRTYCOUNT_SERVERDRIVE_x,
+      UNUSED_RECYCLE_WAS_GLOBALCOUNTER_RECYCLEGLOBALDIRTYCOUNT_x,
+      GLOBALCOUNTER_RECYCLEBINENUM,
+      GLOBALCOUNTER_RECYCLEBINCORRUPTED,
+      GLOBALCOUNTER_RATINGS_STATECOUNTER,
+      GLOBALCOUNTER_PRIVATE_PROFILE_CACHE,
+      GLOBALCOUNTER_INTERNETTOOLBAR_LAYOUT,
+      GLOBALCOUNTER_FOLDERDEFINITION_CACHE,
+      GLOBALCOUNTER_COMMONPLACES_LIST_CACHE,
+      GLOBALCOUNTER_PRIVATE_PROFILE_CACHE_MACHINEWIDE,
+      GLOBALCOUNTER_ASSOCCHANGED,
+      GLOBALCOUNTER_APP_ITEMS_STATE_STORE_CACHE,
+      GLOBALCOUNTER_SETTINGSYNC_ENABLED,
+      GLOBALCOUNTER_APPSFOLDER_FILETYPEASSOCIATION_COUNTER,
+      GLOBALCOUNTER_USERINFOCHANGED,
+      GLOBALCOUNTER_SYNC_ENGINE_INFORMATION_CACHE_MACHINEWIDE,
+      GLOBALCOUNTER_BANNERS_DATAMODEL_CACHE_MACHINEWIDE,
+      GLOBALCOUNTER_MAXIMUMVALUE
+   );
+   for SHGLOBALCOUNTER use (
+      GLOBALCOUNTER_SEARCHMANAGER => 0,
+      GLOBALCOUNTER_SEARCHOPTIONS => 1,
+      GLOBALCOUNTER_FOLDERSETTINGSCHANGE => 2,
+      GLOBALCOUNTER_RATINGS => 3,
+      GLOBALCOUNTER_APPROVEDSITES => 4,
+      GLOBALCOUNTER_RESTRICTIONS => 5,
+      GLOBALCOUNTER_SHELLSETTINGSCHANGED => 6,
+      GLOBALCOUNTER_SYSTEMPIDLCHANGE => 7,
+      GLOBALCOUNTER_OVERLAYMANAGER => 8,
+      GLOBALCOUNTER_QUERYASSOCIATIONS => 9,
+      GLOBALCOUNTER_IESESSIONS => 10,
+      GLOBALCOUNTER_IEONLY_SESSIONS => 11,
+      GLOBALCOUNTER_APPLICATION_DESTINATIONS => 12,
+      UNUSED_RECYCLE_WAS_GLOBALCOUNTER_CSCSYNCINPROGRESS_x => 13,
+      GLOBALCOUNTER_BITBUCKETNUMDELETERS => 14,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_SHARES => 15,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_A => 16,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_B => 17,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_C => 18,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_D => 19,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_E => 20,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_F => 21,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_G => 22,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_H => 23,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_I => 24,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_J => 25,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_K => 26,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_L => 27,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_M => 28,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_N => 29,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_O => 30,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_P => 31,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_Q => 32,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_R => 33,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_S => 34,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_T => 35,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_U => 36,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_V => 37,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_W => 38,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_X => 39,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_Y => 40,
+      GLOBALCOUNTER_RECYCLEDIRTYCOUNT_DRIVE_Z => 41,
+      UNUSED_RECYCLE_WAS_GLOBALCOUNTER_RECYCLEDIRTYCOUNT_SERVERDRIVE_x => 42,
+      UNUSED_RECYCLE_WAS_GLOBALCOUNTER_RECYCLEGLOBALDIRTYCOUNT_x => 43,
+      GLOBALCOUNTER_RECYCLEBINENUM => 44,
+      GLOBALCOUNTER_RECYCLEBINCORRUPTED => 45,
+      GLOBALCOUNTER_RATINGS_STATECOUNTER => 46,
+      GLOBALCOUNTER_PRIVATE_PROFILE_CACHE => 47,
+      GLOBALCOUNTER_INTERNETTOOLBAR_LAYOUT => 48,
+      GLOBALCOUNTER_FOLDERDEFINITION_CACHE => 49,
+      GLOBALCOUNTER_COMMONPLACES_LIST_CACHE => 50,
+      GLOBALCOUNTER_PRIVATE_PROFILE_CACHE_MACHINEWIDE => 51,
+      GLOBALCOUNTER_ASSOCCHANGED => 52,
+      GLOBALCOUNTER_APP_ITEMS_STATE_STORE_CACHE => 53,
+      GLOBALCOUNTER_SETTINGSYNC_ENABLED => 54,
+      GLOBALCOUNTER_APPSFOLDER_FILETYPEASSOCIATION_COUNTER => 55,
+      GLOBALCOUNTER_USERINFOCHANGED => 56,
+      GLOBALCOUNTER_SYNC_ENGINE_INFORMATION_CACHE_MACHINEWIDE => 57,
+      GLOBALCOUNTER_BANNERS_DATAMODEL_CACHE_MACHINEWIDE => 58,
+      GLOBALCOUNTER_MAXIMUMVALUE => 59
+   );
+   for SHGLOBALCOUNTER'Size use 32;
+   function SHGlobalCounterGetValue(
+      id : SHGLOBALCOUNTER
+   ) return Interfaces.C.Long;
+   pragma import (C,SHGlobalCounterGetValue,"SHGlobalCounterGetValue");
+   function SHGlobalCounterIncrement(
+      id : SHGLOBALCOUNTER
+   ) return Interfaces.C.Long;
+   pragma import (C,SHGlobalCounterIncrement,"SHGlobalCounterIncrement");
+   function SHGlobalCounterDecrement(
+      id : SHGLOBALCOUNTER
+   ) return Interfaces.C.Long;
+   pragma import (C,SHGlobalCounterDecrement,"SHGlobalCounterDecrement");
+   function SHAllocShared(
+      pvData : access Void;
+      dwSize : DWORD;
+      dwProcessId : DWORD
+   ) return HANDLE;
+   pragma import (C,SHAllocShared,"SHAllocShared");
+   function SHFreeShared(
+      hData : HANDLE;
+      dwProcessId : DWORD
+   ) return BOOL;
+   pragma import (C,SHFreeShared,"SHFreeShared");
+   procedure SHLockShared(
+      hData : HANDLE;
+      dwProcessId : DWORD
+   );
+   pragma import (C,SHLockShared,"SHLockShared");
+   function SHUnlockShared(
+      pvData : access Void
+   ) return BOOL;
+   pragma import (C,SHUnlockShared,"SHUnlockShared");
+   function WhichPlatform return UINT;
+   pragma import (C,WhichPlatform,"WhichPlatform");
+   type QITAB is record
+      piid : access constant IID;
+      dwOffset : DWORD;
+   end record;
+   type LPQITAB is access QITAB; -- CXType_Pointer - CXType_Elaborated
+   type LPCQITAB is access constant QITAB; -- CXType_Pointer - CXType_Typedef
+   function QISearch(
+      that : access Void;
+      pqit : LPCQITAB;
+      riid : access constant IID;
+      ppv : access LPVOID
+   ) return HRESULT;
+   pragma import (C,QISearch,"QISearch");
+   function SHIsLowMemoryMachine(
+      dwType : DWORD
+   ) return BOOL;
+   pragma import (C,SHIsLowMemoryMachine,"SHIsLowMemoryMachine");
+   function GetMenuPosFromID(
+      hmenu_x : HMENU;
+      id : UINT
+   ) return Interfaces.C.Int;
+   pragma import (C,GetMenuPosFromID,"GetMenuPosFromID");
+   function SHGetInverseCMAP(
+      pbMap : access BYTE;
+      cbMap : ULONG
+   ) return HRESULT;
+   pragma import (C,SHGetInverseCMAP,"SHGetInverseCMAP");
+   function SHAutoComplete(
+      hwndEdit : HWND;
+      dwFlags : DWORD
+   ) return HRESULT;
+   pragma import (C,SHAutoComplete,"SHAutoComplete");
+   function SHCreateThreadRef(
+      pcRef : access LONG;
+      ppunk : access LPUNKNOWN
+   ) return HRESULT;
+   pragma import (C,SHCreateThreadRef,"SHCreateThreadRef");
+   function SHSetThreadRef(
+      punk : access IUnknown
+   ) return HRESULT;
+   pragma import (C,SHSetThreadRef,"SHSetThreadRef");
+   function SHGetThreadRef(
+      ppunk : access LPUNKNOWN
+   ) return HRESULT;
+   pragma import (C,SHGetThreadRef,"SHGetThreadRef");
+   function SHSkipJunction(
+      pbc : access IBindCtx;
+      pclsid : access constant CLSID
+   ) return BOOL;
+   pragma import (C,SHSkipJunction,"SHSkipJunction");
+   subtype SHCT_FLAGS is DWORD; -- CXType_Typedef
+   function SHCreateThread(
+      pfnThreadProc : LPTHREAD_START_ROUTINE;
+      pData : access Void;
+      flags : SHCT_FLAGS;
+      pfnCallback_x : LPTHREAD_START_ROUTINE
+   ) return BOOL;
+   pragma import (C,SHCreateThread,"SHCreateThread");
+   function SHCreateThreadWithHandle(
+      pfnThreadProc : LPTHREAD_START_ROUTINE;
+      pData : access Void;
+      flags : SHCT_FLAGS;
+      pfnCallback_x : LPTHREAD_START_ROUTINE;
+      pHandle_x : access HANDLE
+   ) return BOOL;
+   pragma import (C,SHCreateThreadWithHandle,"SHCreateThreadWithHandle");
+   procedure SetProcessReference(
+      punk : access IUnknown
+   );
+   pragma import (C,SetProcessReference,"SetProcessReference");
+   function GetProcessReference(
+      punk : access LPUNKNOWN
+   ) return HRESULT;
+   pragma import (C,GetProcessReference,"GetProcessReference");
+   function SHReleaseThreadRef return HRESULT;
+   pragma import (C,SHReleaseThreadRef,"SHReleaseThreadRef");
+   function SHCreateShellPalette(
+      hdc_x : HDC
+   ) return HPALETTE;
+   pragma import (C,SHCreateShellPalette,"SHCreateShellPalette");
+   procedure ColorRGBToHLS(
+      clrRGB : COLORREF;
+      pwHue : access WORD;
+      pwLuminance : access WORD;
+      pwSaturation : access WORD
+   );
+   pragma import (C,ColorRGBToHLS,"ColorRGBToHLS");
+   function ColorHLSToRGB(
+      wHue : WORD;
+      wLuminance : WORD;
+      wSaturation : WORD
+   ) return COLORREF;
+   pragma import (C,ColorHLSToRGB,"ColorHLSToRGB");
+   function ColorAdjustLuma(
+      clrRGB : COLORREF;
+      n : Interfaces.C.Int;
+      fScale : BOOL
+   ) return COLORREF;
+   pragma import (C,ColorAdjustLuma,"ColorAdjustLuma");
+   type DLLVERSIONINFO_x is record
+      cbSize : DWORD;
+      dwMajorVersion : DWORD;
+      dwMinorVersion : DWORD;
+      dwBuildNumber : DWORD;
+      dwPlatformID : DWORD;
+   end record;
+   subtype DLLVERSIONINFO is DLLVERSIONINFO_x; -- CXType_Elaborated
+   type DLLVERSIONINFO2_x is record
+      info1 : DLLVERSIONINFO;
+      dwFlags : DWORD;
+      ullVersion : ULONGLONG;
+   end record;
+   subtype DLLVERSIONINFO2 is DLLVERSIONINFO2_x; -- CXType_Elaborated
+   subtype DLLGETVERSIONPROC is System.Address; -- [FIXME - CXType_Pointer - CXType_Unexposed] HRESULT (DLLVERSIONINFO *)
+   function DllInstall(
+      bInstall : BOOL;
+      pszCmdLine : PCWSTR
+   ) return HRESULT;
+   pragma import (C,DllInstall,"DllInstall");
+   function IsInternetESCEnabled return BOOL;
+   pragma import (C,IsInternetESCEnabled,"IsInternetESCEnabled");
    
    -----------------------------------------------------------------------------
    -- Opaque types
@@ -69837,6 +72565,7 @@ package Win32 is
    type IXMLDOMEntityReference is null record;
    type XMLDOMDocumentEvents is null record;
    type SC_NOTIFICATION_REGISTRATION_x is null record;
+   type IConnectionPoint is null record;
    
    -----------------------------------------------------------------------------
    
