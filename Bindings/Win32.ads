@@ -80555,6 +80555,137 @@ package Win32 is
    -- Uninitialize_x(); -- inlined function not supported
    -- RegisterActivationFactories_x(); -- inlined function not supported
    -- RevokeActivationFactories_x(); -- inlined function not supported
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt\winstring.h>
+   function WindowsCreateString(
+      sourceString : PCNZWCH;
+      length : UINT32;
+      string : access HSTRING
+   ) return HRESULT;
+   pragma import (C,WindowsCreateString,"WindowsCreateString");
+   function WindowsCreateStringReference(
+      sourceString : PCWSTR;
+      length : UINT32;
+      hstringHeader : access HSTRING_HEADER;
+      string : access HSTRING
+   ) return HRESULT;
+   pragma import (C,WindowsCreateStringReference,"WindowsCreateStringReference");
+   function WindowsDeleteString(
+      string : HSTRING
+   ) return HRESULT;
+   pragma import (C,WindowsDeleteString,"WindowsDeleteString");
+   function WindowsDuplicateString(
+      string : HSTRING;
+      newString : access HSTRING
+   ) return HRESULT;
+   pragma import (C,WindowsDuplicateString,"WindowsDuplicateString");
+   function WindowsGetStringLen(
+      string : HSTRING
+   ) return UINT32;
+   pragma import (C,WindowsGetStringLen,"WindowsGetStringLen");
+   function WindowsGetStringRawBuffer(
+      string : HSTRING;
+      length : access UINT32
+   ) return PCWSTR;
+   pragma import (C,WindowsGetStringRawBuffer,"WindowsGetStringRawBuffer");
+   function WindowsIsStringEmpty(
+      string : HSTRING
+   ) return BOOL;
+   pragma import (C,WindowsIsStringEmpty,"WindowsIsStringEmpty");
+   function WindowsStringHasEmbeddedNull(
+      string : HSTRING;
+      hasEmbedNull : access BOOL
+   ) return HRESULT;
+   pragma import (C,WindowsStringHasEmbeddedNull,"WindowsStringHasEmbeddedNull");
+   function WindowsCompareStringOrdinal(
+      string1 : HSTRING;
+      string2 : HSTRING;
+      result : access INT32
+   ) return HRESULT;
+   pragma import (C,WindowsCompareStringOrdinal,"WindowsCompareStringOrdinal");
+   function WindowsSubstring(
+      string : HSTRING;
+      startIndex : UINT32;
+      newString : access HSTRING
+   ) return HRESULT;
+   pragma import (C,WindowsSubstring,"WindowsSubstring");
+   function WindowsSubstringWithSpecifiedLength(
+      string : HSTRING;
+      startIndex : UINT32;
+      length : UINT32;
+      newString : access HSTRING
+   ) return HRESULT;
+   pragma import (C,WindowsSubstringWithSpecifiedLength,"WindowsSubstringWithSpecifiedLength");
+   function WindowsConcatString(
+      string1 : HSTRING;
+      string2 : HSTRING;
+      newString : access HSTRING
+   ) return HRESULT;
+   pragma import (C,WindowsConcatString,"WindowsConcatString");
+   function WindowsReplaceString(
+      string : HSTRING;
+      stringReplaced : HSTRING;
+      stringReplaceWith : HSTRING;
+      newString : access HSTRING
+   ) return HRESULT;
+   pragma import (C,WindowsReplaceString,"WindowsReplaceString");
+   function WindowsTrimStringStart(
+      string : HSTRING;
+      trimString : HSTRING;
+      newString : access HSTRING
+   ) return HRESULT;
+   pragma import (C,WindowsTrimStringStart,"WindowsTrimStringStart");
+   function WindowsTrimStringEnd(
+      string : HSTRING;
+      trimString : HSTRING;
+      newString : access HSTRING
+   ) return HRESULT;
+   pragma import (C,WindowsTrimStringEnd,"WindowsTrimStringEnd");
+   function WindowsPreallocateStringBuffer(
+      length : UINT32;
+      charBuffer : access PWCHAR;
+      bufferHandle : access HSTRING_BUFFER
+   ) return HRESULT;
+   pragma import (C,WindowsPreallocateStringBuffer,"WindowsPreallocateStringBuffer");
+   function WindowsPromoteStringBuffer(
+      bufferHandle : HSTRING_BUFFER;
+      string : access HSTRING
+   ) return HRESULT;
+   pragma import (C,WindowsPromoteStringBuffer,"WindowsPromoteStringBuffer");
+   function WindowsDeleteStringBuffer(
+      bufferHandle : HSTRING_BUFFER
+   ) return HRESULT;
+   pragma import (C,WindowsDeleteStringBuffer,"WindowsDeleteStringBuffer");
+   function HSTRING_UserSize_x(
+      pFlags : access ULONG;
+      StartingSize : ULONG;
+      ppidl : access HSTRING
+   ) return ULONG;
+   pragma import (C,HSTRING_UserSize_x,"HSTRING_UserSize");
+   procedure HSTRING_UserFree_x(
+      pFlags : access ULONG;
+      ppidl : access HSTRING
+   );
+   pragma import (C,HSTRING_UserFree_x,"HSTRING_UserFree");
+   subtype PINSPECT_HSTRING_CALLBACK is System.Address; -- [FIXME - CXType_Pointer - CXType_Unexposed] HRESULT (void *, UINT_PTR, UINT32, BYTE *)
+   function WindowsInspectString(
+      targetHString : UINT_PTR;
+      machine : USHORT;
+      callback : PINSPECT_HSTRING_CALLBACK;
+      context_x : access Void;
+      length : access UINT32;
+      targetStringAddress : access UINT_PTR
+   ) return HRESULT;
+   pragma import (C,WindowsInspectString,"WindowsInspectString");
+   subtype PINSPECT_HSTRING_CALLBACK2 is System.Address; -- [FIXME - CXType_Pointer - CXType_Unexposed] HRESULT (void *, UINT64, UINT32, BYTE *)
+   function WindowsInspectString2(
+      targetHString : UINT64;
+      machine : USHORT;
+      callback : PINSPECT_HSTRING_CALLBACK2;
+      context_x : access Void;
+      length : access UINT32;
+      targetStringAddress : access UINT64
+   ) return HRESULT;
+   pragma import (C,WindowsInspectString2,"WindowsInspectString2");
    
    -----------------------------------------------------------------------------
    -- Opaque types
