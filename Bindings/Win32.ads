@@ -52716,6 +52716,8 @@ package Win32 is
    type AsyncIUnknown; -- Forward Declaration
    type IClassFactory; -- Forward Declaration
    type LPUNKNOWN is access IUnknown; -- CXType_Pointer - CXType_Typedef
+   IID_IUnknown : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IUnknown,"IID_IUnknown"); -- [FIXME CXCursor_VarDecl]
    type IUnknown_Interface is interface;
       function QueryInterface(
          This : access IUnknown_Interface;
@@ -52761,6 +52763,8 @@ package Win32 is
       pdwStubPhase : access DWORD
    );
    pragma import (C,IUnknown_Release_Stub,"IUnknown_Release_Stub");
+   IID_AsyncIUnknown : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_AsyncIUnknown,"IID_AsyncIUnknown"); -- [FIXME CXCursor_VarDecl]
    type AsyncIUnknown_Interface is interface and IUnknown_Interface;
       function Begin_QueryInterface(
          This : access AsyncIUnknown_Interface;
@@ -52777,6 +52781,8 @@ package Win32 is
    type AsyncIUnknown is access AsyncIUnknown_Interface'Class;
    type AsyncIUnknown_Ptr is access AsyncIUnknown;
    type LPCLASSFACTORY is access IClassFactory; -- CXType_Pointer - CXType_Typedef
+   IID_IClassFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IClassFactory,"IID_IClassFactory"); -- [FIXME CXCursor_VarDecl]
    type IClassFactory_Interface is interface and IUnknown_Interface;
       function CreateInstance(
          This : access IClassFactory_Interface;
@@ -52903,6 +52909,8 @@ package Win32 is
    end record;
    subtype COSERVERINFO is COSERVERINFO_x; -- CXType_Elaborated
    type LPMARSHAL is access IMarshal; -- CXType_Pointer - CXType_Typedef
+   IID_IMarshal : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMarshal,"IID_IMarshal"); -- [FIXME CXCursor_VarDecl]
    type IMarshal_Interface is interface and IUnknown_Interface;
       function GetUnmarshalClass(
          This : access IMarshal_Interface;
@@ -52947,6 +52955,10 @@ package Win32 is
       ) return HRESULT is abstract;
    type IMarshal is access IMarshal_Interface'Class;
    type IMarshal_Ptr is access IMarshal;
+   IID_INoMarshal : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_INoMarshal,"IID_INoMarshal"); -- [FIXME CXCursor_VarDecl]
+   IID_IAgileObject : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAgileObject,"IID_IAgileObject"); -- [FIXME CXCursor_VarDecl]
    type tagACTIVATIONTYPE is (
       ACTIVATIONTYPE_UNCATEGORIZED,
       ACTIVATIONTYPE_FROM_MONIKER,
@@ -52965,6 +52977,8 @@ package Win32 is
    );
    for tagACTIVATIONTYPE'Size use 32;
    subtype ACTIVATIONTYPE is tagACTIVATIONTYPE; -- CXType_Elaborated
+   IID_IActivationFilter : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IActivationFilter,"IID_IActivationFilter"); -- [FIXME CXCursor_VarDecl]
    type IActivationFilter_Interface is interface and IUnknown_Interface;
       function HandleActivation(
          This : access IActivationFilter_Interface;
@@ -52975,7 +52989,11 @@ package Win32 is
    type IActivationFilter is access IActivationFilter_Interface'Class;
    type IActivationFilter_Ptr is access IActivationFilter;
    type LPMARSHAL2 is access IMarshal2; -- CXType_Pointer - CXType_Typedef
+   IID_IMarshal2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMarshal2,"IID_IMarshal2"); -- [FIXME CXCursor_VarDecl]
    type LPMALLOC is access IMalloc; -- CXType_Pointer - CXType_Typedef
+   IID_IMalloc : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMalloc,"IID_IMalloc"); -- [FIXME CXCursor_VarDecl]
    type IMalloc_Interface is interface and IUnknown_Interface;
       procedure Alloc(
          This : access IMalloc_Interface;
@@ -53002,6 +53020,8 @@ package Win32 is
    type IMalloc is access IMalloc_Interface'Class;
    type IMalloc_Ptr is access IMalloc;
    type LPSTDMARSHALINFO is access IStdMarshalInfo; -- CXType_Pointer - CXType_Typedef
+   IID_IStdMarshalInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IStdMarshalInfo,"IID_IStdMarshalInfo"); -- [FIXME CXCursor_VarDecl]
    type IStdMarshalInfo_Interface is interface and IUnknown_Interface;
       function GetClassForHandler(
          This : access IStdMarshalInfo_Interface;
@@ -53024,6 +53044,8 @@ package Win32 is
    );
    for tagEXTCONN'Size use 32;
    subtype EXTCONN is tagEXTCONN; -- CXType_Elaborated
+   IID_IExternalConnection : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IExternalConnection,"IID_IExternalConnection"); -- [FIXME CXCursor_VarDecl]
    type IExternalConnection_Interface is interface and IUnknown_Interface;
       function AddConnection(
          This : access IExternalConnection_Interface;
@@ -53045,6 +53067,8 @@ package Win32 is
       hr : HRESULT;
    end record;
    subtype MULTI_QI is tagMULTI_QI; -- CXType_Elaborated
+   IID_IMultiQI : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMultiQI,"IID_IMultiQI"); -- [FIXME CXCursor_VarDecl]
    type IMultiQI_Interface is interface and IUnknown_Interface;
       function QueryMultipleInterfaces(
          This : access IMultiQI_Interface;
@@ -53053,6 +53077,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IMultiQI is access IMultiQI_Interface'Class;
    type IMultiQI_Ptr is access IMultiQI;
+   IID_AsyncIMultiQI : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_AsyncIMultiQI,"IID_AsyncIMultiQI"); -- [FIXME CXCursor_VarDecl]
    type AsyncIMultiQI_Interface is interface and IUnknown_Interface;
       function Begin_QueryMultipleInterfaces(
          This : access AsyncIMultiQI_Interface;
@@ -53065,6 +53091,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type AsyncIMultiQI is access AsyncIMultiQI_Interface'Class;
    type AsyncIMultiQI_Ptr is access AsyncIMultiQI;
+   IID_IInternalUnknown : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternalUnknown,"IID_IInternalUnknown"); -- [FIXME CXCursor_VarDecl]
    type IInternalUnknown_Interface is interface and IUnknown_Interface;
       function QueryInternalInterface(
          This : access IInternalUnknown_Interface;
@@ -53074,6 +53102,8 @@ package Win32 is
    type IInternalUnknown is access IInternalUnknown_Interface'Class;
    type IInternalUnknown_Ptr is access IInternalUnknown;
    type LPENUMUNKNOWN is access IEnumUnknown; -- CXType_Pointer - CXType_Typedef
+   IID_IEnumUnknown : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumUnknown,"IID_IEnumUnknown"); -- [FIXME CXCursor_VarDecl]
    type IEnumUnknown_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumUnknown_Interface;
@@ -53107,6 +53137,8 @@ package Win32 is
    );
    pragma import (C,IEnumUnknown_RemoteNext_Stub,"IEnumUnknown_RemoteNext_Stub");
    type LPENUMSTRING is access IEnumString; -- CXType_Pointer - CXType_Typedef
+   IID_IEnumString : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumString,"IID_IEnumString"); -- [FIXME CXCursor_VarDecl]
    type IEnumString_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumString_Interface;
@@ -53139,6 +53171,8 @@ package Win32 is
       pdwStubPhase : access DWORD
    );
    pragma import (C,IEnumString_RemoteNext_Stub,"IEnumString_RemoteNext_Stub");
+   IID_ISequentialStream : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISequentialStream,"IID_ISequentialStream"); -- [FIXME CXCursor_VarDecl]
    type ISequentialStream_Interface is interface and IUnknown_Interface;
       function Read(
          This : access ISequentialStream_Interface;
@@ -53235,6 +53269,8 @@ package Win32 is
    );
    for tagLOCKTYPE'Size use 32;
    subtype LOCKTYPE is tagLOCKTYPE; -- CXType_Elaborated
+   IID_IStream : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IStream,"IID_IStream"); -- [FIXME CXCursor_VarDecl]
    type IStream_Interface is interface and ISequentialStream_Interface;
       function Seek(
          This : access IStream_Interface;
@@ -53322,6 +53358,8 @@ package Win32 is
    end record;
    subtype RPCOLEMESSAGE is tagRPCOLEMESSAGE; -- CXType_Elaborated
    type PRPCOLEMESSAGE is access RPCOLEMESSAGE; -- CXType_Pointer - CXType_Typedef
+   IID_IRpcChannelBuffer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRpcChannelBuffer,"IID_IRpcChannelBuffer"); -- [FIXME CXCursor_VarDecl]
    type IRpcChannelBuffer_Interface is interface and IUnknown_Interface;
       function GetBuffer(
          This : access IRpcChannelBuffer_Interface;
@@ -53345,6 +53383,8 @@ package Win32 is
       function IsConnected(This : access IRpcChannelBuffer_Interface) return HRESULT is abstract;
    type IRpcChannelBuffer is access IRpcChannelBuffer_Interface'Class;
    type IRpcChannelBuffer_Ptr is access IRpcChannelBuffer;
+   IID_IRpcChannelBuffer2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRpcChannelBuffer2,"IID_IRpcChannelBuffer2"); -- [FIXME CXCursor_VarDecl]
    type IRpcChannelBuffer2_Interface is interface and IRpcChannelBuffer_Interface;
       function GetProtocolVersion(
          This : access IRpcChannelBuffer2_Interface;
@@ -53352,6 +53392,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IRpcChannelBuffer2 is access IRpcChannelBuffer2_Interface'Class;
    type IRpcChannelBuffer2_Ptr is access IRpcChannelBuffer2;
+   IID_IAsyncRpcChannelBuffer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAsyncRpcChannelBuffer,"IID_IAsyncRpcChannelBuffer"); -- [FIXME CXCursor_VarDecl]
    type IAsyncRpcChannelBuffer_Interface is interface and IRpcChannelBuffer2_Interface;
       function Send_x(
          This : access IAsyncRpcChannelBuffer_Interface;
@@ -53372,6 +53414,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IAsyncRpcChannelBuffer is access IAsyncRpcChannelBuffer_Interface'Class;
    type IAsyncRpcChannelBuffer_Ptr is access IAsyncRpcChannelBuffer;
+   IID_IRpcChannelBuffer3 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRpcChannelBuffer3,"IID_IRpcChannelBuffer3"); -- [FIXME CXCursor_VarDecl]
    type IRpcChannelBuffer3_Interface is interface and IRpcChannelBuffer2_Interface;
       function Send_x(
          This : access IRpcChannelBuffer3_Interface;
@@ -53412,6 +53456,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IRpcChannelBuffer3 is access IRpcChannelBuffer3_Interface'Class;
    type IRpcChannelBuffer3_Ptr is access IRpcChannelBuffer3;
+   IID_IRpcSyntaxNegotiate : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRpcSyntaxNegotiate,"IID_IRpcSyntaxNegotiate"); -- [FIXME CXCursor_VarDecl]
    type IRpcSyntaxNegotiate_Interface is interface and IUnknown_Interface;
       function NegotiateSyntax(
          This : access IRpcSyntaxNegotiate_Interface;
@@ -53419,6 +53465,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IRpcSyntaxNegotiate is access IRpcSyntaxNegotiate_Interface'Class;
    type IRpcSyntaxNegotiate_Ptr is access IRpcSyntaxNegotiate;
+   IID_IRpcProxyBuffer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRpcProxyBuffer,"IID_IRpcProxyBuffer"); -- [FIXME CXCursor_VarDecl]
    type IRpcProxyBuffer_Interface is interface and IUnknown_Interface;
       function Connect_x(
          This : access IRpcProxyBuffer_Interface;
@@ -53427,6 +53475,8 @@ package Win32 is
       procedure Disconnect(This : access IRpcProxyBuffer_Interface) is abstract;
    type IRpcProxyBuffer is access IRpcProxyBuffer_Interface'Class;
    type IRpcProxyBuffer_Ptr is access IRpcProxyBuffer;
+   IID_IRpcStubBuffer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRpcStubBuffer,"IID_IRpcStubBuffer"); -- [FIXME CXCursor_VarDecl]
    type IRpcStubBuffer_Interface is interface and IUnknown_Interface;
       function Connect_x(
          This : access IRpcStubBuffer_Interface;
@@ -53449,6 +53499,8 @@ package Win32 is
       ) is abstract;
    type IRpcStubBuffer is access IRpcStubBuffer_Interface'Class;
    type IRpcStubBuffer_Ptr is access IRpcStubBuffer;
+   IID_IPSFactoryBuffer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPSFactoryBuffer,"IID_IPSFactoryBuffer"); -- [FIXME CXCursor_VarDecl]
    type IPSFactoryBuffer_Interface is interface and IUnknown_Interface;
       function CreateProxy(
          This : access IPSFactoryBuffer_Interface;
@@ -53473,6 +53525,8 @@ package Win32 is
       iMethod : DWORD;
       pObject : access Void;
    end record;
+   IID_IChannelHook : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IChannelHook,"IID_IChannelHook"); -- [FIXME CXCursor_VarDecl]
    type IChannelHook_Interface is interface and IUnknown_Interface;
       procedure ClientGetSize(
          This : access IChannelHook_Interface;
@@ -53580,6 +53634,8 @@ package Win32 is
    end record;
    subtype SOLE_AUTHENTICATION_LIST is tagSOLE_AUTHENTICATION_LIST; -- CXType_Elaborated
    type PSOLE_AUTHENTICATION_LIST is access tagSOLE_AUTHENTICATION_LIST; -- CXType_Pointer - CXType_Elaborated
+   IID_IClientSecurity : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IClientSecurity,"IID_IClientSecurity"); -- [FIXME CXCursor_VarDecl]
    type IClientSecurity_Interface is interface and IUnknown_Interface;
       function QueryBlanket(
          This : access IClientSecurity_Interface;
@@ -53610,6 +53666,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IClientSecurity is access IClientSecurity_Interface'Class;
    type IClientSecurity_Ptr is access IClientSecurity;
+   IID_IServerSecurity : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServerSecurity,"IID_IServerSecurity"); -- [FIXME CXCursor_VarDecl]
    type IServerSecurity_Interface is interface and IUnknown_Interface;
       function QueryBlanket(
          This : access IServerSecurity_Interface;
@@ -53656,6 +53714,8 @@ package Win32 is
    );
    for tagRPCOPT_SERVER_LOCALITY_VALUES'Size use 32;
    subtype RPCOPT_SERVER_LOCALITY_VALUES is tagRPCOPT_SERVER_LOCALITY_VALUES; -- CXType_Elaborated
+   IID_IRpcOptions : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRpcOptions,"IID_IRpcOptions"); -- [FIXME CXCursor_VarDecl]
    type IRpcOptions_Interface is interface and IUnknown_Interface;
       function Set(
          This : access IRpcOptions_Interface;
@@ -53753,6 +53813,8 @@ package Win32 is
    );
    for tagGLOBALOPT_UNMARSHALING_POLICY_VALUES'Size use 32;
    subtype GLOBALOPT_UNMARSHALING_POLICY_VALUES is tagGLOBALOPT_UNMARSHALING_POLICY_VALUES; -- CXType_Elaborated
+   IID_IGlobalOptions : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IGlobalOptions,"IID_IGlobalOptions"); -- [FIXME CXCursor_VarDecl]
    type IGlobalOptions_Interface is interface and IUnknown_Interface;
       function Set(
          This : access IGlobalOptions_Interface;
@@ -53767,6 +53829,8 @@ package Win32 is
    type IGlobalOptions is access IGlobalOptions_Interface'Class;
    type IGlobalOptions_Ptr is access IGlobalOptions;
    type LPSURROGATE is access ISurrogate; -- CXType_Pointer - CXType_Typedef
+   IID_ISurrogate : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISurrogate,"IID_ISurrogate"); -- [FIXME CXCursor_VarDecl]
    type ISurrogate_Interface is interface and IUnknown_Interface;
       function LoadDllServer(
          This : access ISurrogate_Interface;
@@ -53776,6 +53840,8 @@ package Win32 is
    type ISurrogate is access ISurrogate_Interface'Class;
    type ISurrogate_Ptr is access ISurrogate;
    type LPGLOBALINTERFACETABLE is access IGlobalInterfaceTable; -- CXType_Pointer - CXType_Typedef
+   IID_IGlobalInterfaceTable : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IGlobalInterfaceTable,"IID_IGlobalInterfaceTable"); -- [FIXME CXCursor_VarDecl]
    type IGlobalInterfaceTable_Interface is interface and IUnknown_Interface;
       function RegisterInterfaceInGlobal(
          This : access IGlobalInterfaceTable_Interface;
@@ -53795,6 +53861,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IGlobalInterfaceTable is access IGlobalInterfaceTable_Interface'Class;
    type IGlobalInterfaceTable_Ptr is access IGlobalInterfaceTable;
+   IID_ISynchronize : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISynchronize,"IID_ISynchronize"); -- [FIXME CXCursor_VarDecl]
    type ISynchronize_Interface is interface and IUnknown_Interface;
       function Wait(
          This : access ISynchronize_Interface;
@@ -53805,6 +53873,8 @@ package Win32 is
       function Reset(This : access ISynchronize_Interface) return HRESULT is abstract;
    type ISynchronize is access ISynchronize_Interface'Class;
    type ISynchronize_Ptr is access ISynchronize;
+   IID_ISynchronizeHandle : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISynchronizeHandle,"IID_ISynchronizeHandle"); -- [FIXME CXCursor_VarDecl]
    type ISynchronizeHandle_Interface is interface and IUnknown_Interface;
       function GetHandle(
          This : access ISynchronizeHandle_Interface;
@@ -53812,6 +53882,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISynchronizeHandle is access ISynchronizeHandle_Interface'Class;
    type ISynchronizeHandle_Ptr is access ISynchronizeHandle;
+   IID_ISynchronizeEvent : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISynchronizeEvent,"IID_ISynchronizeEvent"); -- [FIXME CXCursor_VarDecl]
    type ISynchronizeEvent_Interface is interface and ISynchronizeHandle_Interface;
       function SetEventHandle(
          This : access ISynchronizeEvent_Interface;
@@ -53819,6 +53891,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISynchronizeEvent is access ISynchronizeEvent_Interface'Class;
    type ISynchronizeEvent_Ptr is access ISynchronizeEvent;
+   IID_ISynchronizeContainer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISynchronizeContainer,"IID_ISynchronizeContainer"); -- [FIXME CXCursor_VarDecl]
    type ISynchronizeContainer_Interface is interface and IUnknown_Interface;
       function AddSynchronize(
          This : access ISynchronizeContainer_Interface;
@@ -53832,11 +53906,15 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISynchronizeContainer is access ISynchronizeContainer_Interface'Class;
    type ISynchronizeContainer_Ptr is access ISynchronizeContainer;
+   IID_ISynchronizeMutex : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISynchronizeMutex,"IID_ISynchronizeMutex"); -- [FIXME CXCursor_VarDecl]
    type ISynchronizeMutex_Interface is interface and ISynchronize_Interface;
       function ReleaseMutex_x(This : access ISynchronizeMutex_Interface) return HRESULT is abstract;
    type ISynchronizeMutex is access ISynchronizeMutex_Interface'Class;
    type ISynchronizeMutex_Ptr is access ISynchronizeMutex;
    type LPCANCELMETHODCALLS is access ICancelMethodCalls; -- CXType_Pointer - CXType_Typedef
+   IID_ICancelMethodCalls : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICancelMethodCalls,"IID_ICancelMethodCalls"); -- [FIXME CXCursor_VarDecl]
    type ICancelMethodCalls_Interface is interface and IUnknown_Interface;
       function Cancel(
          This : access ICancelMethodCalls_Interface;
@@ -53857,6 +53935,8 @@ package Win32 is
    );
    for tagDCOM_CALL_STATE'Size use 32;
    subtype DCOM_CALL_STATE is tagDCOM_CALL_STATE; -- CXType_Elaborated
+   IID_IAsyncManager : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAsyncManager,"IID_IAsyncManager"); -- [FIXME CXCursor_VarDecl]
    type IAsyncManager_Interface is interface and IUnknown_Interface;
       function CompleteCall(
          This : access IAsyncManager_Interface;
@@ -53873,6 +53953,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IAsyncManager is access IAsyncManager_Interface'Class;
    type IAsyncManager_Ptr is access IAsyncManager;
+   IID_ICallFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICallFactory,"IID_ICallFactory"); -- [FIXME CXCursor_VarDecl]
    type ICallFactory_Interface is interface and IUnknown_Interface;
       function CreateCall(
          This : access ICallFactory_Interface;
@@ -53883,6 +53965,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ICallFactory is access ICallFactory_Interface'Class;
    type ICallFactory_Ptr is access ICallFactory;
+   IID_IRpcHelper : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRpcHelper,"IID_IRpcHelper"); -- [FIXME CXCursor_VarDecl]
    type IRpcHelper_Interface is interface and IUnknown_Interface;
       function GetDCOMProtocolVersion(
          This : access IRpcHelper_Interface;
@@ -53895,6 +53979,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IRpcHelper is access IRpcHelper_Interface'Class;
    type IRpcHelper_Ptr is access IRpcHelper;
+   IID_IReleaseMarshalBuffers : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IReleaseMarshalBuffers,"IID_IReleaseMarshalBuffers"); -- [FIXME CXCursor_VarDecl]
    type IReleaseMarshalBuffers_Interface is interface and IUnknown_Interface;
       function ReleaseMarshalBuffer(
          This : access IReleaseMarshalBuffers_Interface;
@@ -53904,6 +53990,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IReleaseMarshalBuffers is access IReleaseMarshalBuffers_Interface'Class;
    type IReleaseMarshalBuffers_Ptr is access IReleaseMarshalBuffers;
+   IID_IWaitMultiple : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IWaitMultiple,"IID_IWaitMultiple"); -- [FIXME CXCursor_VarDecl]
    type IWaitMultiple_Interface is interface and IUnknown_Interface;
       function WaitMultiple(
          This : access IWaitMultiple_Interface;
@@ -53917,12 +54005,16 @@ package Win32 is
    type IWaitMultiple is access IWaitMultiple_Interface'Class;
    type IWaitMultiple_Ptr is access IWaitMultiple;
    type LPADDRTRACKINGCONTROL is access IAddrTrackingControl; -- CXType_Pointer - CXType_Typedef
+   IID_IAddrTrackingControl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAddrTrackingControl,"IID_IAddrTrackingControl"); -- [FIXME CXCursor_VarDecl]
    type IAddrTrackingControl_Interface is interface and IUnknown_Interface;
       function EnableCOMDynamicAddrTracking(This : access IAddrTrackingControl_Interface) return HRESULT is abstract;
       function DisableCOMDynamicAddrTracking(This : access IAddrTrackingControl_Interface) return HRESULT is abstract;
    type IAddrTrackingControl is access IAddrTrackingControl_Interface'Class;
    type IAddrTrackingControl_Ptr is access IAddrTrackingControl;
    type LPADDREXCLUSIONCONTROL is access IAddrExclusionControl; -- CXType_Pointer - CXType_Typedef
+   IID_IAddrExclusionControl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAddrExclusionControl,"IID_IAddrExclusionControl"); -- [FIXME CXCursor_VarDecl]
    type IAddrExclusionControl_Interface is interface and IUnknown_Interface;
       function GetCurrentAddrExclusionList(
          This : access IAddrExclusionControl_Interface;
@@ -53935,6 +54027,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IAddrExclusionControl is access IAddrExclusionControl_Interface'Class;
    type IAddrExclusionControl_Ptr is access IAddrExclusionControl;
+   IID_IPipeByte : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPipeByte,"IID_IPipeByte"); -- [FIXME CXCursor_VarDecl]
    type IPipeByte_Interface is interface and IUnknown_Interface;
       function Pull(
          This : access IPipeByte_Interface;
@@ -53949,6 +54043,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IPipeByte is access IPipeByte_Interface'Class;
    type IPipeByte_Ptr is access IPipeByte;
+   IID_AsyncIPipeByte : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_AsyncIPipeByte,"IID_AsyncIPipeByte"); -- [FIXME CXCursor_VarDecl]
    type AsyncIPipeByte_Interface is interface and IUnknown_Interface;
       function Begin_Pull(
          This : access AsyncIPipeByte_Interface;
@@ -53967,6 +54063,8 @@ package Win32 is
       function Finish_Push(This : access AsyncIPipeByte_Interface) return HRESULT is abstract;
    type AsyncIPipeByte is access AsyncIPipeByte_Interface'Class;
    type AsyncIPipeByte_Ptr is access AsyncIPipeByte;
+   IID_IPipeLong : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPipeLong,"IID_IPipeLong"); -- [FIXME CXCursor_VarDecl]
    type IPipeLong_Interface is interface and IUnknown_Interface;
       function Pull(
          This : access IPipeLong_Interface;
@@ -53981,6 +54079,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IPipeLong is access IPipeLong_Interface'Class;
    type IPipeLong_Ptr is access IPipeLong;
+   IID_AsyncIPipeLong : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_AsyncIPipeLong,"IID_AsyncIPipeLong"); -- [FIXME CXCursor_VarDecl]
    type AsyncIPipeLong_Interface is interface and IUnknown_Interface;
       function Begin_Pull(
          This : access AsyncIPipeLong_Interface;
@@ -53999,6 +54099,8 @@ package Win32 is
       function Finish_Push(This : access AsyncIPipeLong_Interface) return HRESULT is abstract;
    type AsyncIPipeLong is access AsyncIPipeLong_Interface'Class;
    type AsyncIPipeLong_Ptr is access AsyncIPipeLong;
+   IID_IPipeDouble : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPipeDouble,"IID_IPipeDouble"); -- [FIXME CXCursor_VarDecl]
    type IPipeDouble_Interface is interface and IUnknown_Interface;
       function Pull(
          This : access IPipeDouble_Interface;
@@ -54013,6 +54115,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IPipeDouble is access IPipeDouble_Interface'Class;
    type IPipeDouble_Ptr is access IPipeDouble;
+   IID_AsyncIPipeDouble : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_AsyncIPipeDouble,"IID_AsyncIPipeDouble"); -- [FIXME CXCursor_VarDecl]
    type AsyncIPipeDouble_Interface is interface and IUnknown_Interface;
       function Begin_Pull(
          This : access AsyncIPipeDouble_Interface;
@@ -54078,6 +54182,8 @@ package Win32 is
    for THDTYPE_x'Size use 32;
    subtype THDTYPE is THDTYPE_x; -- CXType_Elaborated
    subtype APARTMENTID is DWORD; -- CXType_Typedef
+   IID_IComThreadingInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComThreadingInfo,"IID_IComThreadingInfo"); -- [FIXME CXCursor_VarDecl]
    type IComThreadingInfo_Interface is interface and IUnknown_Interface;
       function GetCurrentApartmentType(
          This : access IComThreadingInfo_Interface;
@@ -54097,6 +54203,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComThreadingInfo is access IComThreadingInfo_Interface'Class;
    type IComThreadingInfo_Ptr is access IComThreadingInfo;
+   IID_IProcessInitControl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IProcessInitControl,"IID_IProcessInitControl"); -- [FIXME CXCursor_VarDecl]
    type IProcessInitControl_Interface is interface and IUnknown_Interface;
       function ResetInitializerTimeout(
          This : access IProcessInitControl_Interface;
@@ -54104,6 +54212,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IProcessInitControl is access IProcessInitControl_Interface'Class;
    type IProcessInitControl_Ptr is access IProcessInitControl;
+   IID_IFastRundown : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IFastRundown,"IID_IFastRundown"); -- [FIXME CXCursor_VarDecl]
    type CO_MARSHALING_CONTEXT_ATTRIBUTES is (
       CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_1,
       CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_2,
@@ -54135,6 +54245,8 @@ package Win32 is
       CO_MARSHALING_SOURCE_IS_APP_CONTAINER => 0
    );
    for CO_MARSHALING_CONTEXT_ATTRIBUTES'Size use 32;
+   IID_IMarshalingStream : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMarshalingStream,"IID_IMarshalingStream"); -- [FIXME CXCursor_VarDecl]
    type IMarshalingStream_Interface is interface and IStream_Interface;
       function GetMarshalingContextAttribute(
          This : access IMarshalingStream_Interface;
@@ -54143,6 +54255,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IMarshalingStream is access IMarshalingStream_Interface'Class;
    type IMarshalingStream_Ptr is access IMarshalingStream;
+   IID_IAgileReference : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAgileReference,"IID_IAgileReference"); -- [FIXME CXCursor_VarDecl]
    type IAgileReference_Interface is interface and IUnknown_Interface;
       function Resolve(
          This : access IAgileReference_Interface;
@@ -54151,6 +54265,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IAgileReference is access IAgileReference_Interface'Class;
    type IAgileReference_Ptr is access IAgileReference;
+   IID_ICallbackWithNoReentrancyToApplicationSTA : aliased constant GUID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICallbackWithNoReentrancyToApplicationSTA,"IID_ICallbackWithNoReentrancyToApplicationSTA"); -- [FIXME CXCursor_VarDecl]
    function IEnumUnknown_Next_Proxy(
       This : access IEnumUnknown;
       celt : ULONG;
@@ -54817,6 +54933,8 @@ package Win32 is
    pragma import (C,IClassFactory_LockServer_Stub_x,"IClassFactory_LockServer_Stub");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/objidl.h>
    type LPMALLOCSPY is access IMallocSpy; -- CXType_Pointer - CXType_Typedef
+   IID_IMallocSpy : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMallocSpy,"IID_IMallocSpy"); -- [FIXME CXCursor_VarDecl]
    type IMallocSpy_Interface is interface and IUnknown_Interface;
       function PreAlloc(
          This : access IMallocSpy_Interface;
@@ -54905,6 +55023,8 @@ package Win32 is
    );
    for tagBIND_FLAGS'Size use 32;
    subtype BIND_FLAGS is tagBIND_FLAGS; -- CXType_Elaborated
+   IID_IBindCtx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IBindCtx,"IID_IBindCtx"); -- [FIXME CXCursor_VarDecl]
    type IRunningObjectTable_Ptr is access all IRunningObjectTable; -- Auto Generated Dependancy
    type IBindCtx_Interface is interface and IUnknown_Interface;
       function RegisterObjectBound(
@@ -54973,6 +55093,8 @@ package Win32 is
    );
    pragma import (C,IBindCtx_RemoteGetBindOptions_Stub,"IBindCtx_RemoteGetBindOptions_Stub");
    type LPENUMMONIKER is access IEnumMoniker; -- CXType_Pointer - CXType_Typedef
+   IID_IEnumMoniker : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumMoniker,"IID_IEnumMoniker"); -- [FIXME CXCursor_VarDecl]
    type IMoniker_Ptr is access all IMoniker; -- Auto Generated Dependancy
    type IEnumMoniker_Interface is interface and IUnknown_Interface;
       function Next(
@@ -55007,6 +55129,8 @@ package Win32 is
    );
    pragma import (C,IEnumMoniker_RemoteNext_Stub,"IEnumMoniker_RemoteNext_Stub");
    type LPRUNNABLEOBJECT is access IRunnableObject; -- CXType_Pointer - CXType_Typedef
+   IID_IRunnableObject : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRunnableObject,"IID_IRunnableObject"); -- [FIXME CXCursor_VarDecl]
    type IRunnableObject_Interface is interface and IUnknown_Interface;
       function GetRunningClass(
          This : access IRunnableObject_Interface;
@@ -55040,6 +55164,8 @@ package Win32 is
    );
    pragma import (C,IRunnableObject_RemoteIsRunning_Stub,"IRunnableObject_RemoteIsRunning_Stub");
    type LPRUNNINGOBJECTTABLE is access IRunningObjectTable; -- CXType_Pointer - CXType_Typedef
+   IID_IRunningObjectTable : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRunningObjectTable,"IID_IRunningObjectTable"); -- [FIXME CXCursor_VarDecl]
    type IRunningObjectTable_Interface is interface and IUnknown_Interface;
       function Register(
          This : access IRunningObjectTable_Interface;
@@ -55077,6 +55203,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IRunningObjectTable is access IRunningObjectTable_Interface'Class;
    type LPPERSIST is access IPersist; -- CXType_Pointer - CXType_Typedef
+   IID_IPersist : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPersist,"IID_IPersist"); -- [FIXME CXCursor_VarDecl]
    type IPersist_Interface is interface and IUnknown_Interface;
       function GetClassID(
          This : access IPersist_Interface;
@@ -55085,6 +55213,8 @@ package Win32 is
    type IPersist is access IPersist_Interface'Class;
    type IPersist_Ptr is access IPersist;
    type LPPERSISTSTREAM is access IPersistStream; -- CXType_Pointer - CXType_Typedef
+   IID_IPersistStream : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPersistStream,"IID_IPersistStream"); -- [FIXME CXCursor_VarDecl]
    type IPersistStream_Interface is interface and IPersist_Interface;
       function IsDirty(This : access IPersistStream_Interface) return HRESULT is abstract;
       function Load(
@@ -55143,6 +55273,8 @@ package Win32 is
    );
    for tagMKREDUCE'Size use 32;
    subtype MKRREDUCE is tagMKREDUCE; -- CXType_Elaborated
+   IID_IMoniker : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMoniker,"IID_IMoniker"); -- [FIXME CXCursor_VarDecl]
    type IMoniker_Interface is interface and IPersistStream_Interface;
       function BindToObject(
          This : access IMoniker_Interface;
@@ -55259,6 +55391,8 @@ package Win32 is
       pdwStubPhase : access DWORD
    );
    pragma import (C,IMoniker_RemoteBindToStorage_Stub,"IMoniker_RemoteBindToStorage_Stub");
+   IID_IROTData : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IROTData,"IID_IROTData"); -- [FIXME CXCursor_VarDecl]
    type IROTData_Interface is interface and IUnknown_Interface;
       function GetComparisonData(
          This : access IROTData_Interface;
@@ -55269,6 +55403,8 @@ package Win32 is
    type IROTData is access IROTData_Interface'Class;
    type IROTData_Ptr is access IROTData;
    type LPENUMSTATSTG is access IEnumSTATSTG; -- CXType_Pointer - CXType_Typedef
+   IID_IEnumSTATSTG : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumSTATSTG,"IID_IEnumSTATSTG"); -- [FIXME CXCursor_VarDecl]
    type IEnumSTATSTG_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumSTATSTG_Interface;
@@ -55310,6 +55446,8 @@ package Win32 is
    subtype RemSNB is tagRemSNB; -- CXType_Elaborated
    type wireSNB is access RemSNB; -- CXType_Pointer - CXType_Typedef
    type SNB is access LPOLESTR; -- CXType_Pointer - CXType_Typedef
+   IID_IStorage : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IStorage,"IID_IStorage"); -- [FIXME CXCursor_VarDecl]
    type IStorage_Interface is interface and IUnknown_Interface;
       function CreateStream(
          This : access IStorage_Interface;
@@ -55451,6 +55589,8 @@ package Win32 is
    );
    pragma import (C,IStorage_RemoteEnumElements_Stub,"IStorage_RemoteEnumElements_Stub");
    type LPPERSISTFILE is access IPersistFile; -- CXType_Pointer - CXType_Typedef
+   IID_IPersistFile : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPersistFile,"IID_IPersistFile"); -- [FIXME CXCursor_VarDecl]
    type IPersistFile_Interface is interface and IPersist_Interface;
       function IsDirty(This : access IPersistFile_Interface) return HRESULT is abstract;
       function Load(
@@ -55474,6 +55614,8 @@ package Win32 is
    type IPersistFile is access IPersistFile_Interface'Class;
    type IPersistFile_Ptr is access IPersistFile;
    type LPPERSISTSTORAGE is access IPersistStorage; -- CXType_Pointer - CXType_Typedef
+   IID_IPersistStorage : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPersistStorage,"IID_IPersistStorage"); -- [FIXME CXCursor_VarDecl]
    type IPersistStorage_Interface is interface and IPersist_Interface;
       function IsDirty(This : access IPersistStorage_Interface) return HRESULT is abstract;
       function InitNew(
@@ -55497,6 +55639,8 @@ package Win32 is
    type IPersistStorage is access IPersistStorage_Interface'Class;
    type IPersistStorage_Ptr is access IPersistStorage;
    type LPLOCKBYTES is access ILockBytes; -- CXType_Pointer - CXType_Typedef
+   IID_ILockBytes : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ILockBytes,"IID_ILockBytes"); -- [FIXME CXCursor_VarDecl]
    type ILockBytes_Interface is interface and IUnknown_Interface;
       function ReadAt(
          This : access ILockBytes_Interface;
@@ -55586,6 +55730,8 @@ package Win32 is
    end record;
    subtype FORMATETC is tagFORMATETC; -- CXType_Elaborated
    type LPFORMATETC is access tagFORMATETC; -- CXType_Pointer - CXType_Elaborated
+   IID_IEnumFORMATETC : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumFORMATETC,"IID_IEnumFORMATETC"); -- [FIXME CXCursor_VarDecl]
    type IEnumFORMATETC_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumFORMATETC_Interface;
@@ -55647,6 +55793,8 @@ package Win32 is
    end record;
    subtype STATDATA is tagSTATDATA; -- CXType_Elaborated
    type LPSTATDATA is access STATDATA; -- CXType_Pointer - CXType_Typedef
+   IID_IEnumSTATDATA : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumSTATDATA,"IID_IEnumSTATDATA"); -- [FIXME CXCursor_VarDecl]
    type IEnumSTATDATA_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumSTATDATA_Interface;
@@ -55680,6 +55828,8 @@ package Win32 is
    );
    pragma import (C,IEnumSTATDATA_RemoteNext_Stub,"IEnumSTATDATA_RemoteNext_Stub");
    type LPROOTSTORAGE is access IRootStorage; -- CXType_Pointer - CXType_Typedef
+   IID_IRootStorage : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRootStorage,"IID_IRootStorage"); -- [FIXME CXCursor_VarDecl]
    type IRootStorage_Interface is interface and IUnknown_Interface;
       function SwitchToFile(
          This : access IRootStorage_Interface;
@@ -55757,6 +55907,8 @@ package Win32 is
       Stgmed : STGMEDIUM;
    end record;
    subtype FLAG_STGMEDIUM is FLAG_STGMEDIUM_x; -- CXType_Elaborated
+   IID_IAdviseSink : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAdviseSink,"IID_IAdviseSink"); -- [FIXME CXCursor_VarDecl]
    type IAdviseSink_Interface is interface and IUnknown_Interface;
       procedure OnDataChange(
          This : access IAdviseSink_Interface;
@@ -55836,6 +55988,8 @@ package Win32 is
       pdwStubPhase : access DWORD
    );
    pragma import (C,IAdviseSink_RemoteOnClose_Stub,"IAdviseSink_RemoteOnClose_Stub");
+   IID_AsyncIAdviseSink : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_AsyncIAdviseSink,"IID_AsyncIAdviseSink"); -- [FIXME CXCursor_VarDecl]
    type AsyncIAdviseSink_Interface is interface and IUnknown_Interface;
       procedure Begin_OnDataChange(
          This : access AsyncIAdviseSink_Interface;
@@ -55976,6 +56130,8 @@ package Win32 is
    );
    pragma import (C,AsyncIAdviseSink_Finish_RemoteOnClose_Stub,"AsyncIAdviseSink_Finish_RemoteOnClose_Stub");
    type LPADVISESINK2 is access IAdviseSink2; -- CXType_Pointer - CXType_Typedef
+   IID_IAdviseSink2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAdviseSink2,"IID_IAdviseSink2"); -- [FIXME CXCursor_VarDecl]
    type IAdviseSink2_Interface is interface and IAdviseSink_Interface;
       procedure OnLinkSrcChange(
          This : access IAdviseSink2_Interface;
@@ -55995,6 +56151,8 @@ package Win32 is
       pdwStubPhase : access DWORD
    );
    pragma import (C,IAdviseSink2_RemoteOnLinkSrcChange_Stub,"IAdviseSink2_RemoteOnLinkSrcChange_Stub");
+   IID_AsyncIAdviseSink2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_AsyncIAdviseSink2,"IID_AsyncIAdviseSink2"); -- [FIXME CXCursor_VarDecl]
    type AsyncIAdviseSink2_Interface is interface and AsyncIAdviseSink_Interface;
       procedure Begin_OnLinkSrcChange(
          This : access AsyncIAdviseSink2_Interface;
@@ -56037,6 +56195,8 @@ package Win32 is
    );
    for tagDATADIR'Size use 32;
    subtype DATADIR is tagDATADIR; -- CXType_Elaborated
+   IID_IDataObject : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDataObject,"IID_IDataObject"); -- [FIXME CXCursor_VarDecl]
    type IDataObject_Interface is interface and IUnknown_Interface;
       function GetData(
          This : access IDataObject_Interface;
@@ -56126,6 +56286,8 @@ package Win32 is
    );
    pragma import (C,IDataObject_RemoteSetData_Stub,"IDataObject_RemoteSetData_Stub");
    type LPDATAADVISEHOLDER is access IDataAdviseHolder; -- CXType_Pointer - CXType_Typedef
+   IID_IDataAdviseHolder : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDataAdviseHolder,"IID_IDataAdviseHolder"); -- [FIXME CXCursor_VarDecl]
    type IDataAdviseHolder_Interface is interface and IUnknown_Interface;
       function Advise(
          This : access IDataAdviseHolder_Interface;
@@ -56209,6 +56371,8 @@ package Win32 is
    end record;
    subtype INTERFACEINFO is tagINTERFACEINFO; -- CXType_Elaborated
    type LPINTERFACEINFO is access tagINTERFACEINFO; -- CXType_Pointer - CXType_Elaborated
+   IID_IMessageFilter : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMessageFilter,"IID_IMessageFilter"); -- [FIXME CXCursor_VarDecl]
    type IMessageFilter_Interface is interface and IUnknown_Interface;
       function HandleInComingCall(
          This : access IMessageFilter_Interface;
@@ -56231,6 +56395,8 @@ package Win32 is
       ) return DWORD is abstract;
    type IMessageFilter is access IMessageFilter_Interface'Class;
    type IMessageFilter_Ptr is access IMessageFilter;
+   IID_IClassActivator : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IClassActivator,"IID_IClassActivator"); -- [FIXME CXCursor_VarDecl]
    type IClassActivator_Interface is interface and IUnknown_Interface;
       function GetClassObject(
          This : access IClassActivator_Interface;
@@ -56242,6 +56408,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IClassActivator is access IClassActivator_Interface'Class;
    type IClassActivator_Ptr is access IClassActivator;
+   IID_IFillLockBytes : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IFillLockBytes,"IID_IFillLockBytes"); -- [FIXME CXCursor_VarDecl]
    type IFillLockBytes_Interface is interface and IUnknown_Interface;
       function FillAppend(
          This : access IFillLockBytes_Interface;
@@ -56295,6 +56463,8 @@ package Win32 is
       pdwStubPhase : access DWORD
    );
    pragma import (C,IFillLockBytes_RemoteFillAt_Stub,"IFillLockBytes_RemoteFillAt_Stub");
+   IID_IProgressNotify : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IProgressNotify,"IID_IProgressNotify"); -- [FIXME CXCursor_VarDecl]
    type IProgressNotify_Interface is interface and IUnknown_Interface;
       function OnProgress(
          This : access IProgressNotify_Interface;
@@ -56312,6 +56482,8 @@ package Win32 is
       cBytes : LARGE_INTEGER;
    end record;
    subtype StorageLayout is tagStorageLayout; -- CXType_Elaborated
+   IID_ILayoutStorage : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ILayoutStorage,"IID_ILayoutStorage"); -- [FIXME CXCursor_VarDecl]
    type ILayoutStorage_Interface is interface and IUnknown_Interface;
       function LayoutScript(
          This : access ILayoutStorage_Interface;
@@ -56331,6 +56503,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ILayoutStorage is access ILayoutStorage_Interface'Class;
    type ILayoutStorage_Ptr is access ILayoutStorage;
+   IID_IBlockingLock : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IBlockingLock,"IID_IBlockingLock"); -- [FIXME CXCursor_VarDecl]
    type IBlockingLock_Interface is interface and IUnknown_Interface;
       function Lock(
          This : access IBlockingLock_Interface;
@@ -56339,6 +56513,8 @@ package Win32 is
       function Unlock(This : access IBlockingLock_Interface) return HRESULT is abstract;
    type IBlockingLock is access IBlockingLock_Interface'Class;
    type IBlockingLock_Ptr is access IBlockingLock;
+   IID_ITimeAndNoticeControl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITimeAndNoticeControl,"IID_ITimeAndNoticeControl"); -- [FIXME CXCursor_VarDecl]
    type ITimeAndNoticeControl_Interface is interface and IUnknown_Interface;
       function SuppressChanges(
          This : access ITimeAndNoticeControl_Interface;
@@ -56347,6 +56523,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITimeAndNoticeControl is access ITimeAndNoticeControl_Interface'Class;
    type ITimeAndNoticeControl_Ptr is access ITimeAndNoticeControl;
+   IID_IOplockStorage : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOplockStorage,"IID_IOplockStorage"); -- [FIXME CXCursor_VarDecl]
    type IOplockStorage_Interface is interface and IUnknown_Interface;
       function CreateStorageEx(
          This : access IOplockStorage_Interface;
@@ -56368,6 +56546,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IOplockStorage is access IOplockStorage_Interface'Class;
    type IOplockStorage_Ptr is access IOplockStorage;
+   IID_IDirectWriterLock : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDirectWriterLock,"IID_IDirectWriterLock"); -- [FIXME CXCursor_VarDecl]
    type IDirectWriterLock_Interface is interface and IUnknown_Interface;
       function WaitForWriteAccess(
          This : access IDirectWriterLock_Interface;
@@ -56377,6 +56557,8 @@ package Win32 is
       function HaveWriteAccess(This : access IDirectWriterLock_Interface) return HRESULT is abstract;
    type IDirectWriterLock is access IDirectWriterLock_Interface'Class;
    type IDirectWriterLock_Ptr is access IDirectWriterLock;
+   IID_IUrlMon : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IUrlMon,"IID_IUrlMon"); -- [FIXME CXCursor_VarDecl]
    type IUrlMon_Interface is interface and IUnknown_Interface;
       function AsyncGetClassBits(
          This : access IUrlMon_Interface;
@@ -56393,6 +56575,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IUrlMon is access IUrlMon_Interface'Class;
    type IUrlMon_Ptr is access IUrlMon;
+   IID_IForegroundTransfer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IForegroundTransfer,"IID_IForegroundTransfer"); -- [FIXME CXCursor_VarDecl]
    type IForegroundTransfer_Interface is interface and IUnknown_Interface;
       function AllowForegroundTransfer(
          This : access IForegroundTransfer_Interface;
@@ -56400,6 +56584,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IForegroundTransfer is access IForegroundTransfer_Interface'Class;
    type IForegroundTransfer_Ptr is access IForegroundTransfer;
+   IID_IThumbnailExtractor : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IThumbnailExtractor,"IID_IThumbnailExtractor"); -- [FIXME CXCursor_VarDecl]
    type IThumbnailExtractor_Interface is interface and IUnknown_Interface;
       function ExtractThumbnail(
          This : access IThumbnailExtractor_Interface;
@@ -56416,6 +56602,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IThumbnailExtractor is access IThumbnailExtractor_Interface'Class;
    type IThumbnailExtractor_Ptr is access IThumbnailExtractor;
+   IID_IDummyHICONIncluder : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDummyHICONIncluder,"IID_IDummyHICONIncluder"); -- [FIXME CXCursor_VarDecl]
    type IDummyHICONIncluder_Interface is interface and IUnknown_Interface;
       function Dummy(
          This : access IDummyHICONIncluder_Interface;
@@ -56444,11 +56632,15 @@ package Win32 is
    );
    for tagShutdownType'Size use 32;
    subtype ShutdownType is tagShutdownType; -- CXType_Elaborated
+   IID_IProcessLock : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IProcessLock,"IID_IProcessLock"); -- [FIXME CXCursor_VarDecl]
    type IProcessLock_Interface is interface and IUnknown_Interface;
       function AddRefOnProcess(This : access IProcessLock_Interface) return ULONG is abstract;
       function ReleaseRefOnProcess(This : access IProcessLock_Interface) return ULONG is abstract;
    type IProcessLock is access IProcessLock_Interface'Class;
    type IProcessLock_Ptr is access IProcessLock;
+   IID_ISurrogateService : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISurrogateService,"IID_ISurrogateService"); -- [FIXME CXCursor_VarDecl]
    type ISurrogateService_Interface is interface and IUnknown_Interface;
       function Init(
          This : access ISurrogateService_Interface;
@@ -56476,6 +56668,8 @@ package Win32 is
    type ISurrogateService is access ISurrogateService_Interface'Class;
    type ISurrogateService_Ptr is access ISurrogateService;
    type LPINITIALIZESPY is access IInitializeSpy; -- CXType_Pointer - CXType_Typedef
+   IID_IInitializeSpy : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInitializeSpy,"IID_IInitializeSpy"); -- [FIXME CXCursor_VarDecl]
    type IInitializeSpy_Interface is interface and IUnknown_Interface;
       function PreInitialize(
          This : access IInitializeSpy_Interface;
@@ -56498,6 +56692,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IInitializeSpy is access IInitializeSpy_Interface'Class;
    type IInitializeSpy_Ptr is access IInitializeSpy;
+   IID_IApartmentShutdown : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IApartmentShutdown,"IID_IApartmentShutdown"); -- [FIXME CXCursor_VarDecl]
    type IApartmentShutdown_Interface is interface and IUnknown_Interface;
       procedure OnUninitialize(
          This : access IApartmentShutdown_Interface;
@@ -57665,6 +57861,8 @@ package Win32 is
    subtype CUSTDATA is tagCUSTDATA; -- CXType_Elaborated
    type LPCUSTDATA is access tagCUSTDATA; -- CXType_Pointer - CXType_Elaborated
    type LPCREATETYPEINFO is access ICreateTypeInfo; -- CXType_Pointer - CXType_Typedef
+   IID_ICreateTypeInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICreateTypeInfo,"IID_ICreateTypeInfo"); -- [FIXME CXCursor_VarDecl]
    type ICreateTypeInfo_Interface is interface and IUnknown_Interface;
       function SetGuid(
          This : access ICreateTypeInfo_Interface;
@@ -57774,6 +57972,8 @@ package Win32 is
    type ICreateTypeInfo is access ICreateTypeInfo_Interface'Class;
    type ICreateTypeInfo_Ptr is access ICreateTypeInfo;
    type LPCREATETYPEINFO2 is access ICreateTypeInfo2; -- CXType_Pointer - CXType_Typedef
+   IID_ICreateTypeInfo2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICreateTypeInfo2,"IID_ICreateTypeInfo2"); -- [FIXME CXCursor_VarDecl]
    type ICreateTypeInfo2_Interface is interface and ICreateTypeInfo_Interface;
       function DeleteFuncDesc(
          This : access ICreateTypeInfo2_Interface;
@@ -57848,6 +58048,8 @@ package Win32 is
    type ICreateTypeInfo2 is access ICreateTypeInfo2_Interface'Class;
    type ICreateTypeInfo2_Ptr is access ICreateTypeInfo2;
    type LPCREATETYPELIB is access ICreateTypeLib; -- CXType_Pointer - CXType_Typedef
+   IID_ICreateTypeLib : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICreateTypeLib,"IID_ICreateTypeLib"); -- [FIXME CXCursor_VarDecl]
    type ICreateTypeLib_Interface is interface and IUnknown_Interface;
       function CreateTypeInfo(
          This : access ICreateTypeLib_Interface;
@@ -57892,6 +58094,8 @@ package Win32 is
    type ICreateTypeLib is access ICreateTypeLib_Interface'Class;
    type ICreateTypeLib_Ptr is access ICreateTypeLib;
    type LPCREATETYPELIB2 is access ICreateTypeLib2; -- CXType_Pointer - CXType_Typedef
+   IID_ICreateTypeLib2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICreateTypeLib2,"IID_ICreateTypeLib2"); -- [FIXME CXCursor_VarDecl]
    type ICreateTypeLib2_Interface is interface and ICreateTypeLib_Interface;
       function DeleteTypeInfo(
          This : access ICreateTypeLib2_Interface;
@@ -57913,6 +58117,8 @@ package Win32 is
    type ICreateTypeLib2 is access ICreateTypeLib2_Interface'Class;
    type ICreateTypeLib2_Ptr is access ICreateTypeLib2;
    type LPDISPATCH is access IDispatch; -- CXType_Pointer - CXType_Typedef
+   IID_IDispatch : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDispatch,"IID_IDispatch"); -- [FIXME CXCursor_VarDecl]
    type ITypeInfo_Ptr is access all ITypeInfo; -- Auto Generated Dependancy
    type IDispatch_Interface is interface and IUnknown_Interface;
       function GetTypeInfoCount(
@@ -57968,6 +58174,8 @@ package Win32 is
    );
    pragma import (C,IDispatch_RemoteInvoke_Stub,"IDispatch_RemoteInvoke_Stub");
    type LPENUMVARIANT is access IEnumVARIANT; -- CXType_Pointer - CXType_Typedef
+   IID_IEnumVARIANT : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumVARIANT,"IID_IEnumVARIANT"); -- [FIXME CXCursor_VarDecl]
    type IEnumVARIANT_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumVARIANT_Interface;
@@ -58022,6 +58230,8 @@ package Win32 is
    type tagBINDPTR is null record; -- Union Placeholder [FIXME]
    subtype BINDPTR is tagBINDPTR; -- CXType_Elaborated
    type LPBINDPTR is access tagBINDPTR; -- CXType_Pointer - CXType_Elaborated
+   IID_ITypeComp : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITypeComp,"IID_ITypeComp"); -- [FIXME CXCursor_VarDecl]
    type ITypeComp_Interface is interface and IUnknown_Interface;
       function Bind_x(
          This : access ITypeComp_Interface;
@@ -58076,6 +58286,8 @@ package Win32 is
    );
    pragma import (C,ITypeComp_RemoteBindType_Stub,"ITypeComp_RemoteBindType_Stub");
    type LPTYPEINFO is access ITypeInfo; -- CXType_Pointer - CXType_Typedef
+   IID_ITypeInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITypeInfo,"IID_ITypeInfo"); -- [FIXME CXCursor_VarDecl]
    type TYPEATTR_Ptr is access all TYPEATTR; -- Auto Generated Dependancy
    type FUNCDESC_Ptr is access all FUNCDESC; -- Auto Generated Dependancy
    type VARDESC_Ptr is access all VARDESC; -- Auto Generated Dependancy
@@ -58371,6 +58583,8 @@ package Win32 is
    );
    pragma import (C,ITypeInfo_LocalReleaseVarDesc_Stub,"ITypeInfo_LocalReleaseVarDesc_Stub");
    type LPTYPEINFO2 is access ITypeInfo2; -- CXType_Pointer - CXType_Typedef
+   IID_ITypeInfo2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITypeInfo2,"IID_ITypeInfo2"); -- [FIXME CXCursor_VarDecl]
    type ITypeInfo2_Interface is interface and ITypeInfo_Interface;
       function GetTypeKind(
          This : access ITypeInfo2_Interface;
@@ -58512,6 +58726,8 @@ package Win32 is
    end record;
    subtype TLIBATTR is tagTLIBATTR; -- CXType_Elaborated
    type LPTLIBATTR is access tagTLIBATTR; -- CXType_Pointer - CXType_Elaborated
+   IID_ITypeLib : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITypeLib,"IID_ITypeLib"); -- [FIXME CXCursor_VarDecl]
    type TLIBATTR_Ptr is access all TLIBATTR; -- Auto Generated Dependancy
    type ITypeLib_Interface is interface and IUnknown_Interface;
       function GetTypeInfoCount(This : access ITypeLib_Interface) return UINT is abstract;
@@ -58651,6 +58867,8 @@ package Win32 is
    );
    pragma import (C,ITypeLib_LocalReleaseTLibAttr_Stub,"ITypeLib_LocalReleaseTLibAttr_Stub");
    type LPTYPELIB2 is access ITypeLib2; -- CXType_Pointer - CXType_Typedef
+   IID_ITypeLib2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITypeLib2,"IID_ITypeLib2"); -- [FIXME CXCursor_VarDecl]
    type ITypeLib2_Interface is interface and ITypeLib_Interface;
       function GetCustData(
          This : access ITypeLib2_Interface;
@@ -58729,6 +58947,8 @@ package Win32 is
    );
    for tagCHANGEKIND'Size use 32;
    subtype CHANGEKIND is tagCHANGEKIND; -- CXType_Elaborated
+   IID_ITypeChangeEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITypeChangeEvents,"IID_ITypeChangeEvents"); -- [FIXME CXCursor_VarDecl]
    type ITypeChangeEvents_Interface is interface and IUnknown_Interface;
       function RequestTypeChange(
          This : access ITypeChangeEvents_Interface;
@@ -58746,6 +58966,8 @@ package Win32 is
    type ITypeChangeEvents is access ITypeChangeEvents_Interface'Class;
    type ITypeChangeEvents_Ptr is access ITypeChangeEvents;
    type LPERRORINFO is access IErrorInfo; -- CXType_Pointer - CXType_Typedef
+   IID_IErrorInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IErrorInfo,"IID_IErrorInfo"); -- [FIXME CXCursor_VarDecl]
    type IErrorInfo_Interface is interface and IUnknown_Interface;
       function GetGUID(
          This : access IErrorInfo_Interface;
@@ -58770,6 +58992,8 @@ package Win32 is
    type IErrorInfo is access IErrorInfo_Interface'Class;
    type IErrorInfo_Ptr is access IErrorInfo;
    type LPCREATEERRORINFO is access ICreateErrorInfo; -- CXType_Pointer - CXType_Typedef
+   IID_ICreateErrorInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICreateErrorInfo,"IID_ICreateErrorInfo"); -- [FIXME CXCursor_VarDecl]
    type ICreateErrorInfo_Interface is interface and IUnknown_Interface;
       function SetGUID(
          This : access ICreateErrorInfo_Interface;
@@ -58794,6 +59018,8 @@ package Win32 is
    type ICreateErrorInfo is access ICreateErrorInfo_Interface'Class;
    type ICreateErrorInfo_Ptr is access ICreateErrorInfo;
    type LPSUPPORTERRORINFO is access ISupportErrorInfo; -- CXType_Pointer - CXType_Typedef
+   IID_ISupportErrorInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISupportErrorInfo,"IID_ISupportErrorInfo"); -- [FIXME CXCursor_VarDecl]
    type ISupportErrorInfo_Interface is interface and IUnknown_Interface;
       function InterfaceSupportsErrorInfo(
          This : access ISupportErrorInfo_Interface;
@@ -58801,6 +59027,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISupportErrorInfo is access ISupportErrorInfo_Interface'Class;
    type ISupportErrorInfo_Ptr is access ISupportErrorInfo;
+   IID_ITypeFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITypeFactory,"IID_ITypeFactory"); -- [FIXME CXCursor_VarDecl]
    type ITypeFactory_Interface is interface and IUnknown_Interface;
       function CreateFromTypeInfo(
          This : access ITypeFactory_Interface;
@@ -58810,6 +59038,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITypeFactory is access ITypeFactory_Interface'Class;
    type ITypeFactory_Ptr is access ITypeFactory;
+   IID_ITypeMarshal : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITypeMarshal,"IID_ITypeMarshal"); -- [FIXME CXCursor_VarDecl]
    type ITypeMarshal_Interface is interface and IUnknown_Interface;
       function Size_x(
          This : access ITypeMarshal_Interface;
@@ -58842,6 +59072,8 @@ package Win32 is
    type ITypeMarshal is access ITypeMarshal_Interface'Class;
    type ITypeMarshal_Ptr is access ITypeMarshal;
    type LPRECORDINFO is access IRecordInfo; -- CXType_Pointer - CXType_Typedef
+   IID_IRecordInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRecordInfo,"IID_IRecordInfo"); -- [FIXME CXCursor_VarDecl]
    type IRecordInfo_Interface is interface and IUnknown_Interface;
       function RecordInit(
          This : access IRecordInfo_Interface;
@@ -58921,6 +59153,8 @@ package Win32 is
    type IRecordInfo is access IRecordInfo_Interface'Class;
    type IRecordInfo_Ptr is access IRecordInfo;
    type LPERRORLOG is access IErrorLog; -- CXType_Pointer - CXType_Typedef
+   IID_IErrorLog : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IErrorLog,"IID_IErrorLog"); -- [FIXME CXCursor_VarDecl]
    type IErrorLog_Interface is interface and IUnknown_Interface;
       function AddError(
          This : access IErrorLog_Interface;
@@ -58930,6 +59164,8 @@ package Win32 is
    type IErrorLog is access IErrorLog_Interface'Class;
    type IErrorLog_Ptr is access IErrorLog;
    type LPPROPERTYBAG is access IPropertyBag; -- CXType_Pointer - CXType_Typedef
+   IID_IPropertyBag : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPropertyBag,"IID_IPropertyBag"); -- [FIXME CXCursor_VarDecl]
    type IPropertyBag_Interface is interface and IUnknown_Interface;
       function Read(
          This : access IPropertyBag_Interface;
@@ -58960,6 +59196,8 @@ package Win32 is
       pdwStubPhase : access DWORD
    );
    pragma import (C,IPropertyBag_RemoteRead_Stub,"IPropertyBag_RemoteRead_Stub");
+   IID_ITypeLibRegistrationReader : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITypeLibRegistrationReader,"IID_ITypeLibRegistrationReader"); -- [FIXME CXCursor_VarDecl]
    type ITypeLibRegistrationReader_Interface is interface and IUnknown_Interface;
       function EnumTypeLibRegistrations(
          This : access ITypeLibRegistrationReader_Interface;
@@ -58967,6 +59205,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITypeLibRegistrationReader is access ITypeLibRegistrationReader_Interface'Class;
    type ITypeLibRegistrationReader_Ptr is access ITypeLibRegistrationReader;
+   IID_ITypeLibRegistration : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITypeLibRegistration,"IID_ITypeLibRegistration"); -- [FIXME CXCursor_VarDecl]
    type ITypeLibRegistration_Interface is interface and IUnknown_Interface;
       function GetGuid(
          This : access ITypeLibRegistration_Interface;
@@ -59617,6 +59857,8 @@ package Win32 is
       dwOSVersion : DWORD;
    end record;
    subtype STATPROPSETSTG is tagSTATPROPSETSTG; -- CXType_Elaborated
+   IID_IPropertyStorage : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPropertyStorage,"IID_IPropertyStorage"); -- [FIXME CXCursor_VarDecl]
    type IEnumSTATPROPSTG_Ptr is access all IEnumSTATPROPSTG; -- Auto Generated Dependancy
    type IPropertyStorage_Interface is interface and IUnknown_Interface;
       function ReadMultiple(
@@ -59680,6 +59922,8 @@ package Win32 is
    type IPropertyStorage is access IPropertyStorage_Interface'Class;
    type IPropertyStorage_Ptr is access IPropertyStorage;
    type LPPROPERTYSETSTORAGE is access IPropertySetStorage; -- CXType_Pointer - CXType_Typedef
+   IID_IPropertySetStorage : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPropertySetStorage,"IID_IPropertySetStorage"); -- [FIXME CXCursor_VarDecl]
    type IEnumSTATPROPSETSTG_Ptr is access all IEnumSTATPROPSETSTG; -- Auto Generated Dependancy
    type IPropertySetStorage_Interface is interface and IUnknown_Interface;
       function Create(
@@ -59707,6 +59951,8 @@ package Win32 is
    type IPropertySetStorage is access IPropertySetStorage_Interface'Class;
    type IPropertySetStorage_Ptr is access IPropertySetStorage;
    type LPENUMSTATPROPSTG is access IEnumSTATPROPSTG; -- CXType_Pointer - CXType_Typedef
+   IID_IEnumSTATPROPSTG : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumSTATPROPSTG,"IID_IEnumSTATPROPSTG"); -- [FIXME CXCursor_VarDecl]
    type IEnumSTATPROPSTG_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumSTATPROPSTG_Interface;
@@ -59739,6 +59985,8 @@ package Win32 is
    );
    pragma import (C,IEnumSTATPROPSTG_RemoteNext_Stub,"IEnumSTATPROPSTG_RemoteNext_Stub");
    type LPENUMSTATPROPSETSTG is access IEnumSTATPROPSETSTG; -- CXType_Pointer - CXType_Typedef
+   IID_IEnumSTATPROPSETSTG : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumSTATPROPSETSTG,"IID_IEnumSTATPROPSETSTG"); -- [FIXME CXCursor_VarDecl]
    type IEnumSTATPROPSETSTG_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumSTATPROPSETSTG_Interface;
@@ -60342,6 +60590,8 @@ package Win32 is
    type IEnterpriseDropTarget; -- Forward Declaration
    type IEnumOLEVERB; -- Forward Declaration
    type LPOLEADVISEHOLDER is access IOleAdviseHolder; -- CXType_Pointer - CXType_Typedef
+   IID_IOleAdviseHolder : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleAdviseHolder,"IID_IOleAdviseHolder"); -- [FIXME CXCursor_VarDecl]
    type IOleAdviseHolder_Interface is interface and IUnknown_Interface;
       function Advise(
          This : access IOleAdviseHolder_Interface;
@@ -60365,6 +60615,8 @@ package Win32 is
    type IOleAdviseHolder is access IOleAdviseHolder_Interface'Class;
    type IOleAdviseHolder_Ptr is access IOleAdviseHolder;
    type LPOLECACHE is access IOleCache; -- CXType_Pointer - CXType_Typedef
+   IID_IOleCache : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleCache,"IID_IOleCache"); -- [FIXME CXCursor_VarDecl]
    type IOleCache_Interface is interface and IUnknown_Interface;
       function Cache(
          This : access IOleCache_Interface;
@@ -60403,6 +60655,8 @@ package Win32 is
    );
    for tagDISCARDCACHE'Size use 32;
    subtype DISCARDCACHE is tagDISCARDCACHE; -- CXType_Elaborated
+   IID_IOleCache2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleCache2,"IID_IOleCache2"); -- [FIXME CXCursor_VarDecl]
    type IOleCache2_Interface is interface and IOleCache_Interface;
       function UpdateCache(
          This : access IOleCache2_Interface;
@@ -60431,6 +60685,8 @@ package Win32 is
    );
    pragma import (C,IOleCache2_RemoteUpdateCache_Stub,"IOleCache2_RemoteUpdateCache_Stub");
    type LPOLECACHECONTROL is access IOleCacheControl; -- CXType_Pointer - CXType_Typedef
+   IID_IOleCacheControl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleCacheControl,"IID_IOleCacheControl"); -- [FIXME CXCursor_VarDecl]
    type IOleCacheControl_Interface is interface and IUnknown_Interface;
       function OnRun(
          This : access IOleCacheControl_Interface;
@@ -60440,6 +60696,8 @@ package Win32 is
    type IOleCacheControl is access IOleCacheControl_Interface'Class;
    type IOleCacheControl_Ptr is access IOleCacheControl;
    type LPPARSEDISPLAYNAME is access IParseDisplayName; -- CXType_Pointer - CXType_Typedef
+   IID_IParseDisplayName : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IParseDisplayName,"IID_IParseDisplayName"); -- [FIXME CXCursor_VarDecl]
    type IParseDisplayName_Interface is interface and IUnknown_Interface;
       function ParseDisplayName(
          This : access IParseDisplayName_Interface;
@@ -60451,6 +60709,8 @@ package Win32 is
    type IParseDisplayName is access IParseDisplayName_Interface'Class;
    type IParseDisplayName_Ptr is access IParseDisplayName;
    type LPOLECONTAINER is access IOleContainer; -- CXType_Pointer - CXType_Typedef
+   IID_IOleContainer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleContainer,"IID_IOleContainer"); -- [FIXME CXCursor_VarDecl]
    type IOleContainer_Interface is interface and IParseDisplayName_Interface;
       function EnumObjects_x(
          This : access IOleContainer_Interface;
@@ -60464,6 +60724,8 @@ package Win32 is
    type IOleContainer is access IOleContainer_Interface'Class;
    type IOleContainer_Ptr is access IOleContainer;
    type LPOLECLIENTSITE is access IOleClientSite; -- CXType_Pointer - CXType_Typedef
+   IID_IOleClientSite : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleClientSite,"IID_IOleClientSite"); -- [FIXME CXCursor_VarDecl]
    type IOleClientSite_Interface is interface and IUnknown_Interface;
       function SaveObject(This : access IOleClientSite_Interface) return HRESULT is abstract;
       function GetMoniker(
@@ -60585,6 +60847,8 @@ package Win32 is
    );
    for tagOLECLOSE'Size use 32;
    subtype OLECLOSE is tagOLECLOSE; -- CXType_Elaborated
+   IID_IOleObject : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleObject,"IID_IOleObject"); -- [FIXME CXCursor_VarDecl]
    type IEnumOLEVERB_Ptr is access all IEnumOLEVERB; -- Auto Generated Dependancy
    type IOleObject_Interface is interface and IUnknown_Interface;
       function SetClientSite(
@@ -60716,6 +60980,8 @@ package Win32 is
    type PLINKSRCDESCRIPTOR is access tagOBJECTDESCRIPTOR; -- CXType_Pointer - CXType_Elaborated
    type LPLINKSRCDESCRIPTOR is access tagOBJECTDESCRIPTOR; -- CXType_Pointer - CXType_Elaborated
    type LPOLEWINDOW is access IOleWindow; -- CXType_Pointer - CXType_Typedef
+   IID_IOleWindow : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleWindow,"IID_IOleWindow"); -- [FIXME CXCursor_VarDecl]
    type IOleWindow_Interface is interface and IUnknown_Interface;
       function GetWindow_x(
          This : access IOleWindow_Interface;
@@ -60748,6 +61014,8 @@ package Win32 is
    );
    for tagOLELINKBIND'Size use 32;
    subtype OLELINKBIND is tagOLELINKBIND; -- CXType_Elaborated
+   IID_IOleLink : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleLink,"IID_IOleLink"); -- [FIXME CXCursor_VarDecl]
    type IOleLink_Interface is interface and IUnknown_Interface;
       function SetUpdateOptions(
          This : access IOleLink_Interface;
@@ -60820,6 +61088,8 @@ package Win32 is
    );
    for tagOLECONTF'Size use 32;
    subtype OLECONTF is tagOLECONTF; -- CXType_Elaborated
+   IID_IOleItemContainer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleItemContainer,"IID_IOleItemContainer"); -- [FIXME CXCursor_VarDecl]
    type IOleItemContainer_Interface is interface and IOleContainer_Interface;
       function GetObjectA_x(
          This : access IOleItemContainer_Interface;
@@ -60846,6 +61116,8 @@ package Win32 is
    subtype BORDERWIDTHS is RECT; -- CXType_Typedef
    subtype LPBORDERWIDTHS is LPRECT; -- CXType_Typedef
    subtype LPCBORDERWIDTHS is LPCRECT; -- CXType_Typedef
+   IID_IOleInPlaceUIWindow : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleInPlaceUIWindow,"IID_IOleInPlaceUIWindow"); -- [FIXME CXCursor_VarDecl]
    type IOleInPlaceUIWindow_Interface is interface and IOleWindow_Interface;
       function GetBorder(
          This : access IOleInPlaceUIWindow_Interface;
@@ -60867,6 +61139,8 @@ package Win32 is
    type IOleInPlaceUIWindow is access IOleInPlaceUIWindow_Interface'Class;
    type IOleInPlaceUIWindow_Ptr is access IOleInPlaceUIWindow;
    type LPOLEINPLACEACTIVEOBJECT is access IOleInPlaceActiveObject; -- CXType_Pointer - CXType_Typedef
+   IID_IOleInPlaceActiveObject : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleInPlaceActiveObject,"IID_IOleInPlaceActiveObject"); -- [FIXME CXCursor_VarDecl]
    type IOleInPlaceActiveObject_Interface is interface and IOleWindow_Interface;
       function TranslateAcceleratorA_x(
          This : access IOleInPlaceActiveObject_Interface;
@@ -60934,6 +61208,8 @@ package Win32 is
    subtype OLEMENUGROUPWIDTHS is tagOleMenuGroupWidths; -- CXType_Elaborated
    type LPOLEMENUGROUPWIDTHS is access tagOleMenuGroupWidths; -- CXType_Pointer - CXType_Elaborated
    subtype HOLEMENU is HGLOBAL; -- CXType_Typedef
+   IID_IOleInPlaceFrame : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleInPlaceFrame,"IID_IOleInPlaceFrame"); -- [FIXME CXCursor_VarDecl]
    type IOleInPlaceFrame_Interface is interface and IOleInPlaceUIWindow_Interface;
       function InsertMenus(
          This : access IOleInPlaceFrame_Interface;
@@ -60966,6 +61242,8 @@ package Win32 is
    type IOleInPlaceFrame is access IOleInPlaceFrame_Interface'Class;
    type IOleInPlaceFrame_Ptr is access IOleInPlaceFrame;
    type LPOLEINPLACEOBJECT is access IOleInPlaceObject; -- CXType_Pointer - CXType_Typedef
+   IID_IOleInPlaceObject : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleInPlaceObject,"IID_IOleInPlaceObject"); -- [FIXME CXCursor_VarDecl]
    type IOleInPlaceObject_Interface is interface and IOleWindow_Interface;
       function InPlaceDeactivate(This : access IOleInPlaceObject_Interface) return HRESULT is abstract;
       function UIDeactivate(This : access IOleInPlaceObject_Interface) return HRESULT is abstract;
@@ -60978,6 +61256,8 @@ package Win32 is
    type IOleInPlaceObject is access IOleInPlaceObject_Interface'Class;
    type IOleInPlaceObject_Ptr is access IOleInPlaceObject;
    type LPOLEINPLACESITE is access IOleInPlaceSite; -- CXType_Pointer - CXType_Typedef
+   IID_IOleInPlaceSite : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleInPlaceSite,"IID_IOleInPlaceSite"); -- [FIXME CXCursor_VarDecl]
    type IOleInPlaceSite_Interface is interface and IOleWindow_Interface;
       function CanInPlaceActivate(This : access IOleInPlaceSite_Interface) return HRESULT is abstract;
       function OnInPlaceActivate(This : access IOleInPlaceSite_Interface) return HRESULT is abstract;
@@ -61007,11 +61287,15 @@ package Win32 is
       ) return HRESULT is abstract;
    type IOleInPlaceSite is access IOleInPlaceSite_Interface'Class;
    type IOleInPlaceSite_Ptr is access IOleInPlaceSite;
+   IID_IContinue : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IContinue,"IID_IContinue"); -- [FIXME CXCursor_VarDecl]
    type IContinue_Interface is interface and IUnknown_Interface;
       function FContinue(This : access IContinue_Interface) return HRESULT is abstract;
    type IContinue is access IContinue_Interface'Class;
    type IContinue_Ptr is access IContinue;
    type LPVIEWOBJECT is access IViewObject; -- CXType_Pointer - CXType_Typedef
+   IID_IViewObject : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IViewObject,"IID_IViewObject"); -- [FIXME CXCursor_VarDecl]
    type LOGPALETTE_Ptr is access all LOGPALETTE; -- Auto Generated Dependancy
    type IViewObject_Interface is interface and IUnknown_Interface;
       function Draw(
@@ -61128,6 +61412,8 @@ package Win32 is
    );
    pragma import (C,IViewObject_RemoteGetAdvise_Stub,"IViewObject_RemoteGetAdvise_Stub");
    type LPVIEWOBJECT2 is access IViewObject2; -- CXType_Pointer - CXType_Typedef
+   IID_IViewObject2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IViewObject2,"IID_IViewObject2"); -- [FIXME CXCursor_VarDecl]
    type IViewObject2_Interface is interface and IViewObject_Interface;
       function GetExtent(
          This : access IViewObject2_Interface;
@@ -61139,6 +61425,8 @@ package Win32 is
    type IViewObject2 is access IViewObject2_Interface'Class;
    type IViewObject2_Ptr is access IViewObject2;
    type LPDROPSOURCE is access IDropSource; -- CXType_Pointer - CXType_Typedef
+   IID_IDropSource : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDropSource,"IID_IDropSource"); -- [FIXME CXCursor_VarDecl]
    type IDropSource_Interface is interface and IUnknown_Interface;
       function QueryContinueDrag(
          This : access IDropSource_Interface;
@@ -61152,6 +61440,8 @@ package Win32 is
    type IDropSource is access IDropSource_Interface'Class;
    type IDropSource_Ptr is access IDropSource;
    type LPDROPTARGET is access IDropTarget; -- CXType_Pointer - CXType_Typedef
+   IID_IDropTarget : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDropTarget,"IID_IDropTarget"); -- [FIXME CXCursor_VarDecl]
    type IDropTarget_Interface is interface and IUnknown_Interface;
       function DragEnter(
          This : access IDropTarget_Interface;
@@ -61176,6 +61466,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IDropTarget is access IDropTarget_Interface'Class;
    type IDropTarget_Ptr is access IDropTarget;
+   IID_IDropSourceNotify : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDropSourceNotify,"IID_IDropSourceNotify"); -- [FIXME CXCursor_VarDecl]
    type IDropSourceNotify_Interface is interface and IUnknown_Interface;
       function DragEnterTarget(
          This : access IDropSourceNotify_Interface;
@@ -61184,6 +61476,8 @@ package Win32 is
       function DragLeaveTarget(This : access IDropSourceNotify_Interface) return HRESULT is abstract;
    type IDropSourceNotify is access IDropSourceNotify_Interface'Class;
    type IDropSourceNotify_Ptr is access IDropSourceNotify;
+   IID_IEnterpriseDropTarget : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnterpriseDropTarget,"IID_IEnterpriseDropTarget"); -- [FIXME CXCursor_VarDecl]
    type IEnterpriseDropTarget_Interface is interface and IUnknown_Interface;
       function SetDropSourceEnterpriseId(
          This : access IEnterpriseDropTarget_Interface;
@@ -61214,6 +61508,8 @@ package Win32 is
    );
    for tagOLEVERBATTRIB'Size use 32;
    subtype OLEVERBATTRIB is tagOLEVERBATTRIB; -- CXType_Elaborated
+   IID_IEnumOLEVERB : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumOLEVERB,"IID_IEnumOLEVERB"); -- [FIXME CXCursor_VarDecl]
    type IEnumOLEVERB_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumOLEVERB_Interface;
@@ -61531,6 +61827,8 @@ package Win32 is
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/servprov.h>
    type IServiceProvider; -- Forward Declaration
    type LPSERVICEPROVIDER is access IServiceProvider; -- CXType_Pointer - CXType_Typedef
+   IID_IServiceProvider : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceProvider,"IID_IServiceProvider"); -- [FIXME CXCursor_VarDecl]
    type IServiceProvider_Interface is interface and IUnknown_Interface;
       function QueryService(
          This : access IServiceProvider_Interface;
@@ -61661,6 +61959,8 @@ package Win32 is
    );
    for tagXMLEMEM_TYPE'Size use 32;
    subtype XMLELEM_TYPE is tagXMLEMEM_TYPE; -- CXType_Elaborated
+   IID_IXMLDOMImplementation : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMImplementation,"IID_IXMLDOMImplementation"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMImplementation_Interface is interface and IDispatch_Interface;
       function hasFeature(
          This : access IXMLDOMImplementation_Interface;
@@ -61670,6 +61970,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLDOMImplementation is access IXMLDOMImplementation_Interface'Class;
    type IXMLDOMImplementation_Ptr is access IXMLDOMImplementation;
+   IID_IXMLDOMNode : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMNode,"IID_IXMLDOMNode"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMNodeList_Ptr is access all IXMLDOMNodeList; -- Auto Generated Dependancy
    type IXMLDOMNamedNodeMap_Ptr is access all IXMLDOMNamedNodeMap; -- Auto Generated Dependancy
    type IXMLDOMDocument_Ptr is access all IXMLDOMDocument; -- Auto Generated Dependancy
@@ -61831,6 +62133,10 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLDOMNode is access IXMLDOMNode_Interface'Class;
    type IXMLDOMNode_Ptr is access IXMLDOMNode;
+   IID_IXMLDOMDocumentFragment : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMDocumentFragment,"IID_IXMLDOMDocumentFragment"); -- [FIXME CXCursor_VarDecl]
+   IID_IXMLDOMDocument : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMDocument,"IID_IXMLDOMDocument"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMDocumentType_Ptr is access all IXMLDOMDocumentType; -- Auto Generated Dependancy
    type IXMLDOMElement_Ptr is access all IXMLDOMElement; -- Auto Generated Dependancy
    type IXMLDOMDocumentFragment_Ptr is access all IXMLDOMDocumentFragment; -- Auto Generated Dependancy
@@ -61987,6 +62293,8 @@ package Win32 is
          ontransformnodeSink : VARIANT
       ) return HRESULT is abstract;
    type IXMLDOMDocument is access IXMLDOMDocument_Interface'Class;
+   IID_IXMLDOMNodeList : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMNodeList,"IID_IXMLDOMNodeList"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMNodeList_Interface is interface and IDispatch_Interface;
       function get_item(
          This : access IXMLDOMNodeList_Interface;
@@ -62007,6 +62315,8 @@ package Win32 is
          ppUnk : access LPVOID
       ) return HRESULT is abstract;
    type IXMLDOMNodeList is access IXMLDOMNodeList_Interface'Class;
+   IID_IXMLDOMNamedNodeMap : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMNamedNodeMap,"IID_IXMLDOMNamedNodeMap"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMNamedNodeMap_Interface is interface and IDispatch_Interface;
       function getNamedItem(
          This : access IXMLDOMNamedNodeMap_Interface;
@@ -62054,6 +62364,8 @@ package Win32 is
          ppUnk : access LPVOID
       ) return HRESULT is abstract;
    type IXMLDOMNamedNodeMap is access IXMLDOMNamedNodeMap_Interface'Class;
+   IID_IXMLDOMCharacterData : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMCharacterData,"IID_IXMLDOMCharacterData"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMCharacterData_Interface is interface and IXMLDOMNode_Interface;
       function get_data(
          This : access IXMLDOMCharacterData_Interface;
@@ -62095,6 +62407,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLDOMCharacterData is access IXMLDOMCharacterData_Interface'Class;
    type IXMLDOMCharacterData_Ptr is access IXMLDOMCharacterData;
+   IID_IXMLDOMAttribute : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMAttribute,"IID_IXMLDOMAttribute"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMAttribute_Interface is interface and IXMLDOMNode_Interface;
       function get_name(
          This : access IXMLDOMAttribute_Interface;
@@ -62109,6 +62423,8 @@ package Win32 is
          attributeValue : VARIANT
       ) return HRESULT is abstract;
    type IXMLDOMAttribute is access IXMLDOMAttribute_Interface'Class;
+   IID_IXMLDOMElement : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMElement,"IID_IXMLDOMElement"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMElement_Interface is interface and IXMLDOMNode_Interface;
       function get_tagName(
          This : access IXMLDOMElement_Interface;
@@ -62150,6 +62466,8 @@ package Win32 is
       ) return HRESULT is abstract;
       function normalize(This : access IXMLDOMElement_Interface) return HRESULT is abstract;
    type IXMLDOMElement is access IXMLDOMElement_Interface'Class;
+   IID_IXMLDOMText : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMText,"IID_IXMLDOMText"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMText_Interface is interface and IXMLDOMCharacterData_Interface;
       function splitText(
          This : access IXMLDOMText_Interface;
@@ -62157,6 +62475,10 @@ package Win32 is
          rightHandTextNode : access LPVOID
       ) return HRESULT is abstract;
    type IXMLDOMText is access IXMLDOMText_Interface'Class;
+   IID_IXMLDOMComment : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMComment,"IID_IXMLDOMComment"); -- [FIXME CXCursor_VarDecl]
+   IID_IXMLDOMProcessingInstruction : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMProcessingInstruction,"IID_IXMLDOMProcessingInstruction"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMProcessingInstruction_Interface is interface and IXMLDOMNode_Interface;
       function get_target(
          This : access IXMLDOMProcessingInstruction_Interface;
@@ -62171,6 +62493,10 @@ package Win32 is
          value : BSTR
       ) return HRESULT is abstract;
    type IXMLDOMProcessingInstruction is access IXMLDOMProcessingInstruction_Interface'Class;
+   IID_IXMLDOMCDATASection : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMCDATASection,"IID_IXMLDOMCDATASection"); -- [FIXME CXCursor_VarDecl]
+   IID_IXMLDOMDocumentType : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMDocumentType,"IID_IXMLDOMDocumentType"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMDocumentType_Interface is interface and IXMLDOMNode_Interface;
       function get_name(
          This : access IXMLDOMDocumentType_Interface;
@@ -62185,6 +62511,8 @@ package Win32 is
          notationMap : access IXMLDOMNamedNodeMap_Ptr
       ) return HRESULT is abstract;
    type IXMLDOMDocumentType is access IXMLDOMDocumentType_Interface'Class;
+   IID_IXMLDOMNotation : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMNotation,"IID_IXMLDOMNotation"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMNotation_Interface is interface and IXMLDOMNode_Interface;
       function get_publicId(
          This : access IXMLDOMNotation_Interface;
@@ -62196,6 +62524,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLDOMNotation is access IXMLDOMNotation_Interface'Class;
    type IXMLDOMNotation_Ptr is access IXMLDOMNotation;
+   IID_IXMLDOMEntity : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMEntity,"IID_IXMLDOMEntity"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMEntity_Interface is interface and IXMLDOMNode_Interface;
       function get_publicId(
          This : access IXMLDOMEntity_Interface;
@@ -62211,6 +62541,10 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLDOMEntity is access IXMLDOMEntity_Interface'Class;
    type IXMLDOMEntity_Ptr is access IXMLDOMEntity;
+   IID_IXMLDOMEntityReference : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMEntityReference,"IID_IXMLDOMEntityReference"); -- [FIXME CXCursor_VarDecl]
+   IID_IXMLDOMParseError : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDOMParseError,"IID_IXMLDOMParseError"); -- [FIXME CXCursor_VarDecl]
    type IXMLDOMParseError_Interface is interface and IDispatch_Interface;
       function get_errorCode(
          This : access IXMLDOMParseError_Interface;
@@ -62241,6 +62575,8 @@ package Win32 is
          filePosition : access Interfaces.C.Long
       ) return HRESULT is abstract;
    type IXMLDOMParseError is access IXMLDOMParseError_Interface'Class;
+   IID_IXTLRuntime : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXTLRuntime,"IID_IXTLRuntime"); -- [FIXME CXCursor_VarDecl]
    type IXTLRuntime_Interface is interface and IXMLDOMNode_Interface;
       function uniqueID(
          This : access IXTLRuntime_Interface;
@@ -62296,6 +62632,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXTLRuntime is access IXTLRuntime_Interface'Class;
    type IXTLRuntime_Ptr is access IXTLRuntime;
+   IID_IXMLHttpRequest : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLHttpRequest,"IID_IXMLHttpRequest"); -- [FIXME CXCursor_VarDecl]
    type IXMLHttpRequest_Interface is interface and IDispatch_Interface;
       function open(
          This : access IXMLHttpRequest_Interface;
@@ -62358,6 +62696,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLHttpRequest is access IXMLHttpRequest_Interface'Class;
    type IXMLHttpRequest_Ptr is access IXMLHttpRequest;
+   IID_IXMLDSOControl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDSOControl,"IID_IXMLDSOControl"); -- [FIXME CXCursor_VarDecl]
    type IXMLDSOControl_Interface is interface and IDispatch_Interface;
       function get_XMLDocument(
          This : access IXMLDSOControl_Interface;
@@ -62381,6 +62721,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLDSOControl is access IXMLDSOControl_Interface'Class;
    type IXMLDSOControl_Ptr is access IXMLDSOControl;
+   IID_IXMLElementCollection : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLElementCollection,"IID_IXMLElementCollection"); -- [FIXME CXCursor_VarDecl]
    type IXMLElementCollection_Interface is interface and IDispatch_Interface;
       function put_length(
          This : access IXMLElementCollection_Interface;
@@ -62402,6 +62744,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLElementCollection is access IXMLElementCollection_Interface'Class;
    type IXMLElementCollection_Ptr is access IXMLElementCollection;
+   IID_IXMLDocument : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDocument,"IID_IXMLDocument"); -- [FIXME CXCursor_VarDecl]
    type IXMLElement_Ptr is access all IXMLElement; -- Auto Generated Dependancy
    type IXMLDocument_Interface is interface and IDispatch_Interface;
       function get_root(
@@ -62464,6 +62808,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLDocument is access IXMLDocument_Interface'Class;
    type IXMLDocument_Ptr is access IXMLDocument;
+   IID_IXMLDocument2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLDocument2,"IID_IXMLDocument2"); -- [FIXME CXCursor_VarDecl]
    type IXMLElement2_Ptr is access all IXMLElement2; -- Auto Generated Dependancy
    type IXMLDocument2_Interface is interface and IDispatch_Interface;
       function get_root(
@@ -62534,6 +62880,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLDocument2 is access IXMLDocument2_Interface'Class;
    type IXMLDocument2_Ptr is access IXMLDocument2;
+   IID_IXMLElement : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLElement,"IID_IXMLElement"); -- [FIXME CXCursor_VarDecl]
    type IXMLElement_Interface is interface and IDispatch_Interface;
       function get_tagName(
          This : access IXMLElement_Interface;
@@ -62588,6 +62936,8 @@ package Win32 is
          pChildElem : access Void
       ) return HRESULT is abstract;
    type IXMLElement is access IXMLElement_Interface'Class;
+   IID_IXMLElement2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLElement2,"IID_IXMLElement2"); -- [FIXME CXCursor_VarDecl]
    type IXMLElement2_Interface is interface and IDispatch_Interface;
       function get_tagName(
          This : access IXMLElement2_Interface;
@@ -62646,6 +62996,8 @@ package Win32 is
          pp : access IXMLElementCollection_Ptr
       ) return HRESULT is abstract;
    type IXMLElement2 is access IXMLElement2_Interface'Class;
+   IID_IXMLAttribute : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLAttribute,"IID_IXMLAttribute"); -- [FIXME CXCursor_VarDecl]
    type IXMLAttribute_Interface is interface and IDispatch_Interface;
       function get_name(
          This : access IXMLAttribute_Interface;
@@ -62657,6 +63009,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXMLAttribute is access IXMLAttribute_Interface'Class;
    type IXMLAttribute_Ptr is access IXMLAttribute;
+   IID_IXMLError : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXMLError,"IID_IXMLError"); -- [FIXME CXCursor_VarDecl]
    type IXMLError_Interface is interface and IUnknown_Interface;
       function GetErrorInfo(
          This : access IXMLError_Interface;
@@ -62665,6 +63019,10 @@ package Win32 is
    type IXMLError is access IXMLError_Interface'Class;
    type IXMLError_Ptr is access IXMLError;
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um/urlmon.h>
+   IID_IAsyncMoniker : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAsyncMoniker,"IID_IAsyncMoniker"); -- [FIXME CXCursor_VarDecl]
+   IID_IAsyncBindCtx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAsyncBindCtx,"IID_IAsyncBindCtx"); -- [FIXME CXCursor_VarDecl]
    function CreateURLMoniker(
       pMkCtx : LPMONIKER;
       szURL : LPCWSTR;
@@ -62899,6 +63257,8 @@ package Win32 is
    ) return HRESULT;
    pragma import (C,SetAccessForIEAppContainer,"SetAccessForIEAppContainer");
    type LPPERSISTMONIKER is access IPersistMoniker; -- CXType_Pointer - CXType_Typedef
+   IID_IPersistMoniker : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPersistMoniker,"IID_IPersistMoniker"); -- [FIXME CXCursor_VarDecl]
    type IPersistMoniker_Interface is interface and IUnknown_Interface;
       function GetClassID(
          This : access IPersistMoniker_Interface;
@@ -62946,6 +63306,8 @@ package Win32 is
    );
    for MIDL_IMonikerProp_0001_x'Size use 32;
    subtype MONIKERPROPERTY is MIDL_IMonikerProp_0001_x; -- CXType_Elaborated
+   IID_IMonikerProp : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMonikerProp,"IID_IMonikerProp"); -- [FIXME CXCursor_VarDecl]
    type IMonikerProp_Interface is interface and IUnknown_Interface;
       function PutProperty(
          This : access IMonikerProp_Interface;
@@ -62955,6 +63317,8 @@ package Win32 is
    type IMonikerProp is access IMonikerProp_Interface'Class;
    type IMonikerProp_Ptr is access IMonikerProp;
    type LPBINDPROTOCOL is access IBindProtocol; -- CXType_Pointer - CXType_Typedef
+   IID_IBindProtocol : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IBindProtocol,"IID_IBindProtocol"); -- [FIXME CXCursor_VarDecl]
    type IBindProtocol_Interface is interface and IUnknown_Interface;
       function CreateBinding(
          This : access IBindProtocol_Interface;
@@ -62965,6 +63329,8 @@ package Win32 is
    type IBindProtocol is access IBindProtocol_Interface'Class;
    type IBindProtocol_Ptr is access IBindProtocol;
    type LPBINDING is access IBinding; -- CXType_Pointer - CXType_Typedef
+   IID_IBinding : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IBinding,"IID_IBinding"); -- [FIXME CXCursor_VarDecl]
    type IBinding_Interface is interface and IUnknown_Interface;
       function abort_x_x(This : access IBinding_Interface) return HRESULT is abstract;
       function Suspend(This : access IBinding_Interface) return HRESULT is abstract;
@@ -63371,6 +63737,8 @@ package Win32 is
    );
    for tagBINDSTATUS'Size use 32;
    subtype BINDSTATUS is tagBINDSTATUS; -- CXType_Elaborated
+   IID_IBindStatusCallback : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IBindStatusCallback,"IID_IBindStatusCallback"); -- [FIXME CXCursor_VarDecl]
    type IBindStatusCallback_Interface is interface and IUnknown_Interface;
       function OnStartBinding(
          This : access IBindStatusCallback_Interface;
@@ -63513,6 +63881,8 @@ package Win32 is
    );
    for MIDL_IBindStatusCallbackEx_0001_x'Size use 32;
    subtype BINDF2 is MIDL_IBindStatusCallbackEx_0001_x; -- CXType_Elaborated
+   IID_IBindStatusCallbackEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IBindStatusCallbackEx,"IID_IBindStatusCallbackEx"); -- [FIXME CXCursor_VarDecl]
    type IBindStatusCallbackEx_Interface is interface and IBindStatusCallback_Interface;
       function GetBindInfoEx(
          This : access IBindStatusCallbackEx_Interface;
@@ -63540,6 +63910,8 @@ package Win32 is
    );
    pragma import (C,IBindStatusCallbackEx_RemoteGetBindInfoEx_Stub,"IBindStatusCallbackEx_RemoteGetBindInfoEx_Stub");
    type LPAUTHENTICATION is access IAuthenticate; -- CXType_Pointer - CXType_Typedef
+   IID_IAuthenticate : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAuthenticate,"IID_IAuthenticate"); -- [FIXME CXCursor_VarDecl]
    type IAuthenticate_Interface is interface and IUnknown_Interface;
       function Authenticate(
          This : access IAuthenticate_Interface;
@@ -63567,6 +63939,8 @@ package Win32 is
       dwReserved : DWORD;
    end record;
    subtype AUTHENTICATEINFO is tagAUTHENTICATEINFO_x; -- CXType_Elaborated
+   IID_IAuthenticateEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAuthenticateEx,"IID_IAuthenticateEx"); -- [FIXME CXCursor_VarDecl]
    type IAuthenticateEx_Interface is interface and IAuthenticate_Interface;
       function AuthenticateEx(
          This : access IAuthenticateEx_Interface;
@@ -63578,6 +63952,8 @@ package Win32 is
    type IAuthenticateEx is access IAuthenticateEx_Interface'Class;
    type IAuthenticateEx_Ptr is access IAuthenticateEx;
    type LPHTTPNEGOTIATE is access IHttpNegotiate; -- CXType_Pointer - CXType_Typedef
+   IID_IHttpNegotiate : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IHttpNegotiate,"IID_IHttpNegotiate"); -- [FIXME CXCursor_VarDecl]
    type IHttpNegotiate_Interface is interface and IUnknown_Interface;
       function BeginningTransaction(
          This : access IHttpNegotiate_Interface;
@@ -63596,6 +63972,8 @@ package Win32 is
    type IHttpNegotiate is access IHttpNegotiate_Interface'Class;
    type IHttpNegotiate_Ptr is access IHttpNegotiate;
    type LPHTTPNEGOTIATE2 is access IHttpNegotiate2; -- CXType_Pointer - CXType_Typedef
+   IID_IHttpNegotiate2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IHttpNegotiate2,"IID_IHttpNegotiate2"); -- [FIXME CXCursor_VarDecl]
    type IHttpNegotiate2_Interface is interface and IHttpNegotiate_Interface;
       function GetRootSecurityId(
          This : access IHttpNegotiate2_Interface;
@@ -63606,6 +63984,8 @@ package Win32 is
    type IHttpNegotiate2 is access IHttpNegotiate2_Interface'Class;
    type IHttpNegotiate2_Ptr is access IHttpNegotiate2;
    type LPHTTPNEGOTIATE3 is access IHttpNegotiate3; -- CXType_Pointer - CXType_Typedef
+   IID_IHttpNegotiate3 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IHttpNegotiate3,"IID_IHttpNegotiate3"); -- [FIXME CXCursor_VarDecl]
    type IHttpNegotiate3_Interface is interface and IHttpNegotiate2_Interface;
       function GetSerializedClientCertContext(
          This : access IHttpNegotiate3_Interface;
@@ -63615,6 +63995,8 @@ package Win32 is
    type IHttpNegotiate3 is access IHttpNegotiate3_Interface'Class;
    type IHttpNegotiate3_Ptr is access IHttpNegotiate3;
    type LPWININETFILESTREAM is access IWinInetFileStream; -- CXType_Pointer - CXType_Typedef
+   IID_IWinInetFileStream : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IWinInetFileStream,"IID_IWinInetFileStream"); -- [FIXME CXCursor_VarDecl]
    type IWinInetFileStream_Interface is interface and IUnknown_Interface;
       function SetHandleForUnlock(
          This : access IWinInetFileStream_Interface;
@@ -63628,6 +64010,8 @@ package Win32 is
    type IWinInetFileStream is access IWinInetFileStream_Interface'Class;
    type IWinInetFileStream_Ptr is access IWinInetFileStream;
    type LPWINDOWFORBINDINGUI is access IWindowForBindingUI; -- CXType_Pointer - CXType_Typedef
+   IID_IWindowForBindingUI : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IWindowForBindingUI,"IID_IWindowForBindingUI"); -- [FIXME CXCursor_VarDecl]
    type IWindowForBindingUI_Interface is interface and IUnknown_Interface;
       function GetWindow_x(
          This : access IWindowForBindingUI_Interface;
@@ -63663,6 +64047,8 @@ package Win32 is
    );
    for MIDL_ICodeInstall_0001_x'Size use 32;
    subtype CIP_STATUS is MIDL_ICodeInstall_0001_x; -- CXType_Elaborated
+   IID_ICodeInstall : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICodeInstall,"IID_ICodeInstall"); -- [FIXME CXCursor_VarDecl]
    type ICodeInstall_Interface is interface and IWindowForBindingUI_Interface;
       function OnCodeInstallProblem(
          This : access ICodeInstall_Interface;
@@ -63733,6 +64119,8 @@ package Win32 is
    );
    for MIDL_IUri_0002_x'Size use 32;
    subtype Uri_HOST_TYPE is MIDL_IUri_0002_x; -- CXType_Elaborated
+   IID_IUri : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IUri,"IID_IUri"); -- [FIXME CXCursor_VarDecl]
    type IUri_Interface is interface and IUnknown_Interface;
       function GetPropertyBSTR(
          This : access IUri_Interface;
@@ -63868,6 +64256,8 @@ package Win32 is
       ppUri : access IUri_Ptr
    ) return HRESULT;
    pragma import (C,CreateUriFromMultiByteString,"CreateUriFromMultiByteString");
+   IID_IUriContainer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IUriContainer,"IID_IUriContainer"); -- [FIXME CXCursor_VarDecl]
    type IUriContainer_Interface is interface and IUnknown_Interface;
       function GetIUri(
          This : access IUriContainer_Interface;
@@ -63875,6 +64265,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IUriContainer is access IUriContainer_Interface'Class;
    type IUriContainer_Ptr is access IUriContainer;
+   IID_IUriBuilder : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IUriBuilder,"IID_IUriBuilder"); -- [FIXME CXCursor_VarDecl]
    type IUriBuilder_Interface is interface and IUnknown_Interface;
       function CreateUriSimple(
          This : access IUriBuilder_Interface;
@@ -63988,6 +64380,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IUriBuilder is access IUriBuilder_Interface'Class;
    type IUriBuilder_Ptr is access IUriBuilder;
+   IID_IUriBuilderFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IUriBuilderFactory,"IID_IUriBuilderFactory"); -- [FIXME CXCursor_VarDecl]
    type IUriBuilderFactory_Interface is interface and IUnknown_Interface;
       function CreateIUriBuilder(
          This : access IUriBuilderFactory_Interface;
@@ -64011,6 +64405,8 @@ package Win32 is
    ) return HRESULT;
    pragma import (C,CreateIUriBuilder,"CreateIUriBuilder");
    type LPWININETINFO is access IWinInetInfo; -- CXType_Pointer - CXType_Typedef
+   IID_IWinInetInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IWinInetInfo,"IID_IWinInetInfo"); -- [FIXME CXCursor_VarDecl]
    type IWinInetInfo_Interface is interface and IUnknown_Interface;
       function QueryOption(
          This : access IWinInetInfo_Interface;
@@ -64035,6 +64431,8 @@ package Win32 is
    );
    pragma import (C,IWinInetInfo_RemoteQueryOption_Stub,"IWinInetInfo_RemoteQueryOption_Stub");
    type LPHTTPSECURITY is access IHttpSecurity; -- CXType_Pointer - CXType_Typedef
+   IID_IHttpSecurity : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IHttpSecurity,"IID_IHttpSecurity"); -- [FIXME CXCursor_VarDecl]
    type IHttpSecurity_Interface is interface and IWindowForBindingUI_Interface;
       function OnSecurityProblem(
          This : access IHttpSecurity_Interface;
@@ -64043,6 +64441,8 @@ package Win32 is
    type IHttpSecurity is access IHttpSecurity_Interface'Class;
    type IHttpSecurity_Ptr is access IHttpSecurity;
    type LPWININETHTTPINFO is access IWinInetHttpInfo; -- CXType_Pointer - CXType_Typedef
+   IID_IWinInetHttpInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IWinInetHttpInfo,"IID_IWinInetHttpInfo"); -- [FIXME CXCursor_VarDecl]
    type IWinInetHttpInfo_Interface is interface and IWinInetInfo_Interface;
       function QueryInfo(
          This : access IWinInetHttpInfo_Interface;
@@ -64070,6 +64470,8 @@ package Win32 is
       pdwStubPhase : access DWORD
    );
    pragma import (C,IWinInetHttpInfo_RemoteQueryInfo_Stub,"IWinInetHttpInfo_RemoteQueryInfo_Stub");
+   IID_IWinInetHttpTimeouts : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IWinInetHttpTimeouts,"IID_IWinInetHttpTimeouts"); -- [FIXME CXCursor_VarDecl]
    type IWinInetHttpTimeouts_Interface is interface and IUnknown_Interface;
       function GetRequestTimeouts(
          This : access IWinInetHttpTimeouts_Interface;
@@ -64080,6 +64482,8 @@ package Win32 is
    type IWinInetHttpTimeouts is access IWinInetHttpTimeouts_Interface'Class;
    type IWinInetHttpTimeouts_Ptr is access IWinInetHttpTimeouts;
    type LPWININETCACHEHINTS is access IWinInetCacheHints; -- CXType_Pointer - CXType_Typedef
+   IID_IWinInetCacheHints : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IWinInetCacheHints,"IID_IWinInetCacheHints"); -- [FIXME CXCursor_VarDecl]
    type IWinInetCacheHints_Interface is interface and IUnknown_Interface;
       function SetCacheExtension(
          This : access IWinInetCacheHints_Interface;
@@ -64092,6 +64496,8 @@ package Win32 is
    type IWinInetCacheHints is access IWinInetCacheHints_Interface'Class;
    type IWinInetCacheHints_Ptr is access IWinInetCacheHints;
    type LPWININETCACHEHINTS2 is access IWinInetCacheHints2; -- CXType_Pointer - CXType_Typedef
+   IID_IWinInetCacheHints2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IWinInetCacheHints2,"IID_IWinInetCacheHints2"); -- [FIXME CXCursor_VarDecl]
    type IWinInetCacheHints2_Interface is interface and IWinInetCacheHints_Interface;
       function SetCacheExtension2(
          This : access IWinInetCacheHints2_Interface;
@@ -64104,6 +64510,8 @@ package Win32 is
    type IWinInetCacheHints2 is access IWinInetCacheHints2_Interface'Class;
    type IWinInetCacheHints2_Ptr is access IWinInetCacheHints2;
    type LPBINDHOST is access IBindHost; -- CXType_Pointer - CXType_Typedef
+   IID_IBindHost : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IBindHost,"IID_IBindHost"); -- [FIXME CXCursor_VarDecl]
    type IBindHost_Interface is interface and IUnknown_Interface;
       function CreateMoniker(
          This : access IBindHost_Interface;
@@ -64281,6 +64689,8 @@ package Win32 is
    ) return HRESULT;
    pragma import (C,HlinkNavigateMoniker,"HlinkNavigateMoniker");
    type LPIINTERNET is access IInternet; -- CXType_Pointer - CXType_Typedef
+   IID_IInternet : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternet,"IID_IInternet"); -- [FIXME CXCursor_VarDecl]
    type LPIINTERNETBINDINFO is access IInternetBindInfo; -- CXType_Pointer - CXType_Typedef
    type tagBINDSTRING is (
       BINDSTRING_HEADERS,
@@ -64338,6 +64748,8 @@ package Win32 is
    );
    for tagBINDSTRING'Size use 32;
    subtype BINDSTRING is tagBINDSTRING; -- CXType_Elaborated
+   IID_IInternetBindInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetBindInfo,"IID_IInternetBindInfo"); -- [FIXME CXCursor_VarDecl]
    type IInternetBindInfo_Interface is interface and IUnknown_Interface;
       function GetBindInfo(
          This : access IInternetBindInfo_Interface;
@@ -64354,6 +64766,8 @@ package Win32 is
    type IInternetBindInfo is access IInternetBindInfo_Interface'Class;
    type IInternetBindInfo_Ptr is access IInternetBindInfo;
    type LPIINTERNETBINDINFOEX is access IInternetBindInfoEx; -- CXType_Pointer - CXType_Typedef
+   IID_IInternetBindInfoEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetBindInfoEx,"IID_IInternetBindInfoEx"); -- [FIXME CXCursor_VarDecl]
    type IInternetBindInfoEx_Interface is interface and IInternetBindInfo_Interface;
       function GetBindInfoEx(
          This : access IInternetBindInfoEx_Interface;
@@ -64414,6 +64828,8 @@ package Win32 is
       pItf : access IUnknown;
    end record;
    subtype StartParam is tagStartParam_x; -- CXType_Elaborated
+   IID_IInternetProtocolRoot : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetProtocolRoot,"IID_IInternetProtocolRoot"); -- [FIXME CXCursor_VarDecl]
    type IInternetProtocolRoot_Interface is interface and IUnknown_Interface;
       function Start(
          This : access IInternetProtocolRoot_Interface;
@@ -64441,6 +64857,8 @@ package Win32 is
    type IInternetProtocolRoot is access IInternetProtocolRoot_Interface'Class;
    type IInternetProtocolRoot_Ptr is access IInternetProtocolRoot;
    type LPIINTERNETPROTOCOL is access IInternetProtocol; -- CXType_Pointer - CXType_Typedef
+   IID_IInternetProtocol : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetProtocol,"IID_IInternetProtocol"); -- [FIXME CXCursor_VarDecl]
    type IInternetProtocol_Interface is interface and IInternetProtocolRoot_Interface;
       function Read(
          This : access IInternetProtocol_Interface;
@@ -64461,6 +64879,8 @@ package Win32 is
       function UnlockRequest(This : access IInternetProtocol_Interface) return HRESULT is abstract;
    type IInternetProtocol is access IInternetProtocol_Interface'Class;
    type IInternetProtocol_Ptr is access IInternetProtocol;
+   IID_IInternetProtocolEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetProtocolEx,"IID_IInternetProtocolEx"); -- [FIXME CXCursor_VarDecl]
    type IInternetProtocolEx_Interface is interface and IInternetProtocol_Interface;
       function StartEx(
          This : access IInternetProtocolEx_Interface;
@@ -64473,6 +64893,8 @@ package Win32 is
    type IInternetProtocolEx is access IInternetProtocolEx_Interface'Class;
    type IInternetProtocolEx_Ptr is access IInternetProtocolEx;
    type LPIINTERNETPROTOCOLSINK is access IInternetProtocolSink; -- CXType_Pointer - CXType_Typedef
+   IID_IInternetProtocolSink : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetProtocolSink,"IID_IInternetProtocolSink"); -- [FIXME CXCursor_VarDecl]
    type IInternetProtocolSink_Interface is interface and IUnknown_Interface;
       function Switch(
          This : access IInternetProtocolSink_Interface;
@@ -64498,6 +64920,8 @@ package Win32 is
    type IInternetProtocolSink is access IInternetProtocolSink_Interface'Class;
    type IInternetProtocolSink_Ptr is access IInternetProtocolSink;
    type LPIINTERNETPROTOCOLSINKStackable is access IInternetProtocolSinkStackable; -- CXType_Pointer - CXType_Typedef
+   IID_IInternetProtocolSinkStackable : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetProtocolSinkStackable,"IID_IInternetProtocolSinkStackable"); -- [FIXME CXCursor_VarDecl]
    type IInternetProtocolSinkStackable_Interface is interface and IUnknown_Interface;
       function SwitchSink(
          This : access IInternetProtocolSinkStackable_Interface;
@@ -64518,6 +64942,8 @@ package Win32 is
    );
    for tagOIBDG_FLAGS_x'Size use 32;
    subtype OIBDG_FLAGS is tagOIBDG_FLAGS_x; -- CXType_Elaborated
+   IID_IInternetSession : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetSession,"IID_IInternetSession"); -- [FIXME CXCursor_VarDecl]
    type IInternetSession_Interface is interface and IUnknown_Interface;
       function RegisterNameSpace(
          This : access IInternetSession_Interface;
@@ -64570,12 +64996,16 @@ package Win32 is
    type IInternetSession is access IInternetSession_Interface'Class;
    type IInternetSession_Ptr is access IInternetSession;
    type LPIINTERNETTHREADSWITCH is access IInternetThreadSwitch; -- CXType_Pointer - CXType_Typedef
+   IID_IInternetThreadSwitch : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetThreadSwitch,"IID_IInternetThreadSwitch"); -- [FIXME CXCursor_VarDecl]
    type IInternetThreadSwitch_Interface is interface and IUnknown_Interface;
       function Prepare(This : access IInternetThreadSwitch_Interface) return HRESULT is abstract;
       function Continue(This : access IInternetThreadSwitch_Interface) return HRESULT is abstract;
    type IInternetThreadSwitch is access IInternetThreadSwitch_Interface'Class;
    type IInternetThreadSwitch_Ptr is access IInternetThreadSwitch;
    type LPIINTERNETPRIORITY is access IInternetPriority; -- CXType_Pointer - CXType_Typedef
+   IID_IInternetPriority : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetPriority,"IID_IInternetPriority"); -- [FIXME CXCursor_VarDecl]
    type IInternetPriority_Interface is interface and IUnknown_Interface;
       function SetPriority(
          This : access IInternetPriority_Interface;
@@ -64680,6 +65110,8 @@ package Win32 is
    );
    for tagQUERYOPTION_x'Size use 32;
    subtype QUERYOPTION is tagQUERYOPTION_x; -- CXType_Elaborated
+   IID_IInternetProtocolInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetProtocolInfo,"IID_IInternetProtocolInfo"); -- [FIXME CXCursor_VarDecl]
    type IInternetProtocolInfo_Interface is interface and IUnknown_Interface;
       function ParseUrl(
          This : access IInternetProtocolInfo_Interface;
@@ -64945,6 +65377,8 @@ package Win32 is
       dwReserved : DWORD
    ) return HRESULT;
    pragma import (C,CoInternetCreateZoneManager,"CoInternetCreateZoneManager");
+   IID_IInternetSecurityMgrSite : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetSecurityMgrSite,"IID_IInternetSecurityMgrSite"); -- [FIXME CXCursor_VarDecl]
    type IInternetSecurityMgrSite_Interface is interface and IUnknown_Interface;
       function GetWindow_x(
          This : access IInternetSecurityMgrSite_Interface;
@@ -65024,6 +65458,8 @@ package Win32 is
    );
    for MIDL_IInternetSecurityManager_0003_x'Size use 32;
    subtype SZM_FLAGS is MIDL_IInternetSecurityManager_0003_x; -- CXType_Elaborated
+   IID_IInternetSecurityManager : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetSecurityManager,"IID_IInternetSecurityManager"); -- [FIXME CXCursor_VarDecl]
    type IInternetSecurityManager_Interface is interface and IUnknown_Interface;
       function SetSecuritySite(
          This : access IInternetSecurityManager_Interface;
@@ -65080,6 +65516,8 @@ package Win32 is
          dwFlags : DWORD
       ) return HRESULT is abstract;
    type IInternetSecurityManager is access IInternetSecurityManager_Interface'Class;
+   IID_IInternetSecurityManagerEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetSecurityManagerEx,"IID_IInternetSecurityManagerEx"); -- [FIXME CXCursor_VarDecl]
    type IInternetSecurityManagerEx_Interface is interface and IInternetSecurityManager_Interface;
       function ProcessUrlActionEx(
          This : access IInternetSecurityManagerEx_Interface;
@@ -65095,6 +65533,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IInternetSecurityManagerEx is access IInternetSecurityManagerEx_Interface'Class;
    type IInternetSecurityManagerEx_Ptr is access IInternetSecurityManagerEx;
+   IID_IInternetSecurityManagerEx2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetSecurityManagerEx2,"IID_IInternetSecurityManagerEx2"); -- [FIXME CXCursor_VarDecl]
    type IInternetSecurityManagerEx2_Interface is interface and IInternetSecurityManagerEx_Interface;
       function MapUrlToZoneEx2(
          This : access IInternetSecurityManagerEx2_Interface;
@@ -65135,6 +65575,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IInternetSecurityManagerEx2 is access IInternetSecurityManagerEx2_Interface'Class;
    type IInternetSecurityManagerEx2_Ptr is access IInternetSecurityManagerEx2;
+   IID_IZoneIdentifier : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IZoneIdentifier,"IID_IZoneIdentifier"); -- [FIXME CXCursor_VarDecl]
    type IZoneIdentifier_Interface is interface and IUnknown_Interface;
       function GetId(
          This : access IZoneIdentifier_Interface;
@@ -65147,6 +65589,8 @@ package Win32 is
       function Remove(This : access IZoneIdentifier_Interface) return HRESULT is abstract;
    type IZoneIdentifier is access IZoneIdentifier_Interface'Class;
    type IZoneIdentifier_Ptr is access IZoneIdentifier;
+   IID_IZoneIdentifier2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IZoneIdentifier2,"IID_IZoneIdentifier2"); -- [FIXME CXCursor_VarDecl]
    type IZoneIdentifier2_Interface is interface and IZoneIdentifier_Interface;
       function GetLastWriterPackageFamilyName(
          This : access IZoneIdentifier2_Interface;
@@ -65168,6 +65612,8 @@ package Win32 is
       function RemoveAppZoneId(This : access IZoneIdentifier2_Interface) return HRESULT is abstract;
    type IZoneIdentifier2 is access IZoneIdentifier2_Interface'Class;
    type IZoneIdentifier2_Ptr is access IZoneIdentifier2;
+   IID_IInternetHostSecurityManager : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetHostSecurityManager,"IID_IInternetHostSecurityManager"); -- [FIXME CXCursor_VarDecl]
    type IInternetHostSecurityManager_Interface is interface and IUnknown_Interface;
       function GetSecurityId(
          This : access IInternetHostSecurityManager_Interface;
@@ -65304,6 +65750,8 @@ package Win32 is
    );
    for URLZONEREG_x'Size use 32;
    subtype URLZONEREG is URLZONEREG_x; -- CXType_Elaborated
+   IID_IInternetZoneManager : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetZoneManager,"IID_IInternetZoneManager"); -- [FIXME CXCursor_VarDecl]
    type IInternetZoneManager_Interface is interface and IUnknown_Interface;
       function GetZoneAttributes(
          This : access IInternetZoneManager_Interface;
@@ -65385,6 +65833,8 @@ package Win32 is
          dwReserved : DWORD
       ) return HRESULT is abstract;
    type IInternetZoneManager is access IInternetZoneManager_Interface'Class;
+   IID_IInternetZoneManagerEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetZoneManagerEx,"IID_IInternetZoneManagerEx"); -- [FIXME CXCursor_VarDecl]
    type IInternetZoneManagerEx_Interface is interface and IInternetZoneManager_Interface;
       function GetZoneActionPolicyEx(
          This : access IInternetZoneManagerEx_Interface;
@@ -65406,6 +65856,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IInternetZoneManagerEx is access IInternetZoneManagerEx_Interface'Class;
    type IInternetZoneManagerEx_Ptr is access IInternetZoneManagerEx;
+   IID_IInternetZoneManagerEx2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInternetZoneManagerEx2,"IID_IInternetZoneManagerEx2"); -- [FIXME CXCursor_VarDecl]
    type IInternetZoneManagerEx2_Interface is interface and IInternetZoneManagerEx_Interface;
       function GetZoneAttributesEx(
          This : access IInternetZoneManagerEx2_Interface;
@@ -65457,6 +65909,8 @@ package Win32 is
    end record;
    subtype SOFTDISTINFO is tagSOFTDISTINFO_x; -- CXType_Elaborated
    type LPSOFTDISTINFO is access tagSOFTDISTINFO_x; -- CXType_Pointer - CXType_Elaborated
+   IID_ISoftDistExt : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISoftDistExt,"IID_ISoftDistExt"); -- [FIXME CXCursor_VarDecl]
    type ISoftDistExt_Interface is interface and IUnknown_Interface;
       function ProcessSoftDist(
          This : access ISoftDistExt_Interface;
@@ -65496,6 +65950,8 @@ package Win32 is
    ) return HRESULT;
    pragma import (C,SetSoftwareUpdateAdvertisementState,"SetSoftwareUpdateAdvertisementState");
    type LPCATALOGFILEINFO is access ICatalogFileInfo; -- CXType_Pointer - CXType_Typedef
+   IID_ICatalogFileInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICatalogFileInfo,"IID_ICatalogFileInfo"); -- [FIXME CXCursor_VarDecl]
    type ICatalogFileInfo_Interface is interface and IUnknown_Interface;
       function GetCatalogFile(
          This : access ICatalogFileInfo_Interface;
@@ -65508,6 +65964,8 @@ package Win32 is
    type ICatalogFileInfo is access ICatalogFileInfo_Interface'Class;
    type ICatalogFileInfo_Ptr is access ICatalogFileInfo;
    type LPDATAFILTER is access IDataFilter; -- CXType_Pointer - CXType_Typedef
+   IID_IDataFilter : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDataFilter,"IID_IDataFilter"); -- [FIXME CXCursor_VarDecl]
    type IDataFilter_Interface is interface and IUnknown_Interface;
       function DoEncode(
          This : access IDataFilter_Interface;
@@ -65555,6 +66013,8 @@ package Win32 is
       ulProcessorSpeed : ULONG;
    end record;
    subtype DATAINFO is tagDATAINFO_x; -- CXType_Elaborated
+   IID_IEncodingFilterFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEncodingFilterFactory,"IID_IEncodingFilterFactory"); -- [FIXME CXCursor_VarDecl]
    type IEncodingFilterFactory_Interface is interface and IUnknown_Interface;
       function FindBestFilter(
          This : access IEncodingFilterFactory_Interface;
@@ -65598,6 +66058,8 @@ package Win32 is
       dwFlags : DWORD;
    end record;
    type LPIWRAPPEDPROTOCOL is access IWrappedProtocol; -- CXType_Pointer - CXType_Typedef
+   IID_IWrappedProtocol : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IWrappedProtocol,"IID_IWrappedProtocol"); -- [FIXME CXCursor_VarDecl]
    type IWrappedProtocol_Interface is interface and IUnknown_Interface;
       function GetWrapperCode(
          This : access IWrappedProtocol_Interface;
@@ -65619,6 +66081,8 @@ package Win32 is
    );
    for MIDL_IGetBindHandle_0001_x'Size use 32;
    subtype BINDHANDLETYPES is MIDL_IGetBindHandle_0001_x; -- CXType_Elaborated
+   IID_IGetBindHandle : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IGetBindHandle,"IID_IGetBindHandle"); -- [FIXME CXCursor_VarDecl]
    type IGetBindHandle_Interface is interface and IUnknown_Interface;
       function GetBindHandle(
          This : access IGetBindHandle_Interface;
@@ -65634,6 +66098,8 @@ package Win32 is
    subtype PROTOCOL_ARGUMENT is tagPROTOCOL_ARGUMENT_x; -- CXType_Elaborated
    type LPPROTOCOL_ARGUMENT is access tagPROTOCOL_ARGUMENT_x; -- CXType_Pointer - CXType_Elaborated
    type LPBINDCALLBACKREDIRECT is access IBindCallbackRedirect; -- CXType_Pointer - CXType_Typedef
+   IID_IBindCallbackRedirect : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IBindCallbackRedirect,"IID_IBindCallbackRedirect"); -- [FIXME CXCursor_VarDecl]
    type IBindCallbackRedirect_Interface is interface and IUnknown_Interface;
       function Redirect(
          This : access IBindCallbackRedirect_Interface;
@@ -65642,6 +66108,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IBindCallbackRedirect is access IBindCallbackRedirect_Interface'Class;
    type IBindCallbackRedirect_Ptr is access IBindCallbackRedirect;
+   IID_IBindHttpSecurity : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IBindHttpSecurity,"IID_IBindHttpSecurity"); -- [FIXME CXCursor_VarDecl]
    type IBindHttpSecurity_Interface is interface and IUnknown_Interface;
       function GetIgnoreCertMask(
          This : access IBindHttpSecurity_Interface;
@@ -65957,6 +66425,8 @@ package Win32 is
    ) return HRESULT;
    pragma import (C,CreateStdProgressIndicator,"CreateStdProgressIndicator");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\oleauto.h>
+   IID_StdOle : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_StdOle,"IID_StdOle"); -- [FIXME CXCursor_VarDecl]
    function SysAllocString(
       psz_x : access constant OLECHAR
    ) return BSTR;
@@ -68481,6 +68951,10 @@ package Win32 is
    ) return HRESULT;
    pragma import (C,OleConvertOLESTREAMToIStorageEx,"OleConvertOLESTREAMToIStorageEx");
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\commdlg.h>
+   IID_IPrintDialogCallback : aliased constant GUID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPrintDialogCallback,"IID_IPrintDialogCallback"); -- [FIXME CXCursor_VarDecl]
+   IID_IPrintDialogServices : aliased constant GUID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPrintDialogServices,"IID_IPrintDialogServices"); -- [FIXME CXCursor_VarDecl]
    subtype LPOFNHOOKPROC is System.Address; -- [FIXME - CXType_Pointer - CXType_Unexposed] UINT_PTR (HWND, UINT, WPARAM, LPARAM)
    type tagOFN_NT4A is record
       lStructSize : DWORD;
@@ -73341,6 +73815,8 @@ package Win32 is
    subtype CONNECTDATA is tagCONNECTDATA; -- CXType_Elaborated
    type PCONNECTDATA is access tagCONNECTDATA; -- CXType_Pointer - CXType_Elaborated
    type LPCONNECTDATA is access tagCONNECTDATA; -- CXType_Pointer - CXType_Elaborated
+   IID_IEnumConnections : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumConnections,"IID_IEnumConnections"); -- [FIXME CXCursor_VarDecl]
    type IEnumConnections_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumConnections_Interface;
@@ -73375,6 +73851,8 @@ package Win32 is
    pragma import (C,IEnumConnections_RemoteNext_Stub,"IEnumConnections_RemoteNext_Stub");
    type PCONNECTIONPOINT is access IConnectionPoint; -- CXType_Pointer - CXType_Typedef
    type LPCONNECTIONPOINT is access IConnectionPoint; -- CXType_Pointer - CXType_Typedef
+   IID_IConnectionPoint : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IConnectionPoint,"IID_IConnectionPoint"); -- [FIXME CXCursor_VarDecl]
    type IConnectionPointContainer_Ptr is access all IConnectionPointContainer; -- Auto Generated Dependancy
    type IConnectionPoint_Interface is interface and IUnknown_Interface;
       function GetConnectionInterface(
@@ -73401,6 +73879,8 @@ package Win32 is
    type IConnectionPoint is access IConnectionPoint_Interface'Class;
    type PENUMCONNECTIONPOINTS is access IEnumConnectionPoints; -- CXType_Pointer - CXType_Typedef
    type LPENUMCONNECTIONPOINTS is access IEnumConnectionPoints; -- CXType_Pointer - CXType_Typedef
+   IID_IEnumConnectionPoints : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumConnectionPoints,"IID_IEnumConnectionPoints"); -- [FIXME CXCursor_VarDecl]
    type IEnumConnectionPoints_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumConnectionPoints_Interface;
@@ -73435,6 +73915,8 @@ package Win32 is
    pragma import (C,IEnumConnectionPoints_RemoteNext_Stub,"IEnumConnectionPoints_RemoteNext_Stub");
    type PCONNECTIONPOINTCONTAINER is access IConnectionPointContainer; -- CXType_Pointer - CXType_Typedef
    type LPCONNECTIONPOINTCONTAINER is access IConnectionPointContainer; -- CXType_Pointer - CXType_Typedef
+   IID_IConnectionPointContainer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IConnectionPointContainer,"IID_IConnectionPointContainer"); -- [FIXME CXCursor_VarDecl]
    type IConnectionPointContainer_Interface is interface and IUnknown_Interface;
       function EnumConnectionPoints(
          This : access IConnectionPointContainer_Interface;
@@ -73454,6 +73936,8 @@ package Win32 is
    end record;
    subtype LICINFO is tagLICINFO; -- CXType_Elaborated
    type LPLICINFO is access tagLICINFO; -- CXType_Pointer - CXType_Elaborated
+   IID_IClassFactory2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IClassFactory2,"IID_IClassFactory2"); -- [FIXME CXCursor_VarDecl]
    type IClassFactory2_Interface is interface and IClassFactory_Interface;
       function GetLicInfo(
          This : access IClassFactory2_Interface;
@@ -73489,6 +73973,8 @@ package Win32 is
    );
    pragma import (C,IClassFactory2_RemoteCreateInstanceLic_Stub,"IClassFactory2_RemoteCreateInstanceLic_Stub");
    type LPPROVIDECLASSINFO is access IProvideClassInfo; -- CXType_Pointer - CXType_Typedef
+   IID_IProvideClassInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IProvideClassInfo,"IID_IProvideClassInfo"); -- [FIXME CXCursor_VarDecl]
    type IProvideClassInfo_Interface is interface and IUnknown_Interface;
       function GetClassInfoA_x(
          This : access IProvideClassInfo_Interface;
@@ -73505,6 +73991,8 @@ package Win32 is
    );
    for tagGUIDKIND'Size use 32;
    subtype GUIDKIND is tagGUIDKIND; -- CXType_Elaborated
+   IID_IProvideClassInfo2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IProvideClassInfo2,"IID_IProvideClassInfo2"); -- [FIXME CXCursor_VarDecl]
    type IProvideClassInfo2_Interface is interface and IProvideClassInfo_Interface;
       function GetGUID(
          This : access IProvideClassInfo2_Interface;
@@ -73514,6 +74002,8 @@ package Win32 is
    type IProvideClassInfo2 is access IProvideClassInfo2_Interface'Class;
    type IProvideClassInfo2_Ptr is access IProvideClassInfo2;
    type LPPROVIDEMULTIPLECLASSINFO is access IProvideMultipleClassInfo; -- CXType_Pointer - CXType_Typedef
+   IID_IProvideMultipleClassInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IProvideMultipleClassInfo,"IID_IProvideMultipleClassInfo"); -- [FIXME CXCursor_VarDecl]
    type IProvideMultipleClassInfo_Interface is interface and IProvideClassInfo2_Interface;
       function GetMultiTypeInfoCount(
          This : access IProvideMultipleClassInfo_Interface;
@@ -73550,6 +74040,8 @@ package Win32 is
    );
    for tagCTRLINFO'Size use 32;
    subtype CTRLINFO is tagCTRLINFO; -- CXType_Elaborated
+   IID_IOleControl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleControl,"IID_IOleControl"); -- [FIXME CXCursor_VarDecl]
    type IOleControl_Interface is interface and IUnknown_Interface;
       function GetControlInfo(
          This : access IOleControl_Interface;
@@ -73592,6 +74084,8 @@ package Win32 is
    );
    for tagXFORMCOORDS'Size use 32;
    subtype XFORMCOORDS is tagXFORMCOORDS; -- CXType_Elaborated
+   IID_IOleControlSite : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleControlSite,"IID_IOleControlSite"); -- [FIXME CXCursor_VarDecl]
    type IOleControlSite_Interface is interface and IUnknown_Interface;
       function OnControlInfoChanged(This : access IOleControlSite_Interface) return HRESULT is abstract;
       function LockInPlaceActive(
@@ -73631,6 +74125,8 @@ package Win32 is
    end record;
    subtype PROPPAGEINFO is tagPROPPAGEINFO; -- CXType_Elaborated
    type LPPROPPAGEINFO is access tagPROPPAGEINFO; -- CXType_Pointer - CXType_Elaborated
+   IID_IPropertyPage : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPropertyPage,"IID_IPropertyPage"); -- [FIXME CXCursor_VarDecl]
    type IPropertyPage_Interface is interface and IUnknown_Interface;
       function SetPageSite(
          This : access IPropertyPage_Interface;
@@ -73673,6 +74169,8 @@ package Win32 is
    type IPropertyPage is access IPropertyPage_Interface'Class;
    type IPropertyPage_Ptr is access IPropertyPage;
    type LPPROPERTYPAGE2 is access IPropertyPage2; -- CXType_Pointer - CXType_Typedef
+   IID_IPropertyPage2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPropertyPage2,"IID_IPropertyPage2"); -- [FIXME CXCursor_VarDecl]
    type IPropertyPage2_Interface is interface and IPropertyPage_Interface;
       function EditProperty(
          This : access IPropertyPage2_Interface;
@@ -73693,6 +74191,8 @@ package Win32 is
    );
    for tagPROPPAGESTATUS'Size use 32;
    subtype PROPPAGESTATUS is tagPROPPAGESTATUS; -- CXType_Elaborated
+   IID_IPropertyPageSite : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPropertyPageSite,"IID_IPropertyPageSite"); -- [FIXME CXCursor_VarDecl]
    type IPropertyPageSite_Interface is interface and IUnknown_Interface;
       function OnStatusChange(
          This : access IPropertyPageSite_Interface;
@@ -73713,6 +74213,8 @@ package Win32 is
    type IPropertyPageSite is access IPropertyPageSite_Interface'Class;
    type IPropertyPageSite_Ptr is access IPropertyPageSite;
    type LPPROPERTYNOTIFYSINK is access IPropertyNotifySink; -- CXType_Pointer - CXType_Typedef
+   IID_IPropertyNotifySink : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPropertyNotifySink,"IID_IPropertyNotifySink"); -- [FIXME CXCursor_VarDecl]
    type IPropertyNotifySink_Interface is interface and IUnknown_Interface;
       function OnChanged(
          This : access IPropertyNotifySink_Interface;
@@ -73731,6 +74233,8 @@ package Win32 is
    end record;
    subtype CAUUID is tagCAUUID; -- CXType_Elaborated
    type LPCAUUID is access tagCAUUID; -- CXType_Pointer - CXType_Elaborated
+   IID_ISpecifyPropertyPages : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISpecifyPropertyPages,"IID_ISpecifyPropertyPages"); -- [FIXME CXCursor_VarDecl]
    type ISpecifyPropertyPages_Interface is interface and IUnknown_Interface;
       function GetPages(
          This : access ISpecifyPropertyPages_Interface;
@@ -73739,6 +74243,8 @@ package Win32 is
    type ISpecifyPropertyPages is access ISpecifyPropertyPages_Interface'Class;
    type ISpecifyPropertyPages_Ptr is access ISpecifyPropertyPages;
    type LPPERSISTMEMORY is access IPersistMemory; -- CXType_Pointer - CXType_Typedef
+   IID_IPersistMemory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPersistMemory,"IID_IPersistMemory"); -- [FIXME CXCursor_VarDecl]
    type IPersistMemory_Interface is interface and IPersist_Interface;
       function IsDirty(This : access IPersistMemory_Interface) return HRESULT is abstract;
       function Load(
@@ -73787,6 +74293,8 @@ package Win32 is
    );
    pragma import (C,IPersistMemory_RemoteSave_Stub,"IPersistMemory_RemoteSave_Stub");
    type LPPERSISTSTREAMINIT is access IPersistStreamInit; -- CXType_Pointer - CXType_Typedef
+   IID_IPersistStreamInit : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPersistStreamInit,"IID_IPersistStreamInit"); -- [FIXME CXCursor_VarDecl]
    type IPersistStreamInit_Interface is interface and IPersist_Interface;
       function IsDirty(This : access IPersistStreamInit_Interface) return HRESULT is abstract;
       function Load(
@@ -73806,6 +74314,8 @@ package Win32 is
    type IPersistStreamInit is access IPersistStreamInit_Interface'Class;
    type IPersistStreamInit_Ptr is access IPersistStreamInit;
    type LPPERSISTPROPERTYBAG is access IPersistPropertyBag; -- CXType_Pointer - CXType_Typedef
+   IID_IPersistPropertyBag : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPersistPropertyBag,"IID_IPersistPropertyBag"); -- [FIXME CXCursor_VarDecl]
    type IPersistPropertyBag_Interface is interface and IPersist_Interface;
       function InitNew(This : access IPersistPropertyBag_Interface) return HRESULT is abstract;
       function Load(
@@ -73822,6 +74332,8 @@ package Win32 is
    type IPersistPropertyBag is access IPersistPropertyBag_Interface'Class;
    type IPersistPropertyBag_Ptr is access IPersistPropertyBag;
    type LPSIMPLEFRAMESITE is access ISimpleFrameSite; -- CXType_Pointer - CXType_Typedef
+   IID_ISimpleFrameSite : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISimpleFrameSite,"IID_ISimpleFrameSite"); -- [FIXME CXCursor_VarDecl]
    type ISimpleFrameSite_Interface is interface and IUnknown_Interface;
       function PreMessageFilter(
          This : access ISimpleFrameSite_Interface;
@@ -73846,6 +74358,8 @@ package Win32 is
    type LPFONT is access IFont; -- CXType_Pointer - CXType_Typedef
    subtype TEXTMETRICOLE is TEXTMETRICW; -- CXType_Typedef
    type LPTEXTMETRICOLE is access TEXTMETRICOLE; -- CXType_Pointer - CXType_Typedef
+   IID_IFont : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IFont,"IID_IFont"); -- [FIXME CXCursor_VarDecl]
    type IFont_Interface is interface and IUnknown_Interface;
       function get_Name(
          This : access IFont_Interface;
@@ -73962,6 +74476,8 @@ package Win32 is
    subtype OLE_YPOS_HIMETRIC is LONG; -- CXType_Typedef
    subtype OLE_XSIZE_HIMETRIC is LONG; -- CXType_Typedef
    subtype OLE_YSIZE_HIMETRIC is LONG; -- CXType_Typedef
+   IID_IPicture : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPicture,"IID_IPicture"); -- [FIXME CXCursor_VarDecl]
    type IPicture_Interface is interface and IUnknown_Interface;
       function get_Handle(
          This : access IPicture_Interface;
@@ -74033,6 +74549,8 @@ package Win32 is
    type IPicture_Ptr is access IPicture;
    type LPPICTURE2 is access IPicture2; -- CXType_Pointer - CXType_Typedef
    subtype HHANDLE is UINT_PTR; -- CXType_Typedef
+   IID_IPicture2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPicture2,"IID_IPicture2"); -- [FIXME CXCursor_VarDecl]
    type IPicture2_Interface is interface and IUnknown_Interface;
       function get_Handle(
          This : access IPicture2_Interface;
@@ -74103,9 +74621,17 @@ package Win32 is
    type IPicture2 is access IPicture2_Interface'Class;
    type IPicture2_Ptr is access IPicture2;
    type LPFONTEVENTS is access IFontEventsDisp; -- CXType_Pointer - CXType_Typedef
+   IID_IFontEventsDisp : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IFontEventsDisp,"IID_IFontEventsDisp"); -- [FIXME CXCursor_VarDecl]
    type LPFONTDISP is access IFontDisp; -- CXType_Pointer - CXType_Typedef
+   IID_IFontDisp : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IFontDisp,"IID_IFontDisp"); -- [FIXME CXCursor_VarDecl]
    type LPPICTUREDISP is access IPictureDisp; -- CXType_Pointer - CXType_Typedef
+   IID_IPictureDisp : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPictureDisp,"IID_IPictureDisp"); -- [FIXME CXCursor_VarDecl]
    type LPOLEINPLACEOBJECTWINDOWLESS is access IOleInPlaceObjectWindowless; -- CXType_Pointer - CXType_Typedef
+   IID_IOleInPlaceObjectWindowless : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleInPlaceObjectWindowless,"IID_IOleInPlaceObjectWindowless"); -- [FIXME CXCursor_VarDecl]
    type IOleInPlaceObjectWindowless_Interface is interface and IOleInPlaceObject_Interface;
       function OnWindowMessage(
          This : access IOleInPlaceObjectWindowless_Interface;
@@ -74129,6 +74655,8 @@ package Win32 is
    );
    for tagACTIVATEFLAGS'Size use 32;
    subtype ACTIVATEFLAGS is tagACTIVATEFLAGS; -- CXType_Elaborated
+   IID_IOleInPlaceSiteEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleInPlaceSiteEx,"IID_IOleInPlaceSiteEx"); -- [FIXME CXCursor_VarDecl]
    type IOleInPlaceSiteEx_Interface is interface and IOleInPlaceSite_Interface;
       function OnInPlaceActivateEx(
          This : access IOleInPlaceSiteEx_Interface;
@@ -74155,6 +74683,8 @@ package Win32 is
    );
    for tagOLEDCFLAGS'Size use 32;
    subtype OLEDCFLAGS is tagOLEDCFLAGS; -- CXType_Elaborated
+   IID_IOleInPlaceSiteWindowless : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleInPlaceSiteWindowless,"IID_IOleInPlaceSiteWindowless"); -- [FIXME CXCursor_VarDecl]
    type IOleInPlaceSiteWindowless_Interface is interface and IOleInPlaceSiteEx_Interface;
       function CanWindowlessActivate(This : access IOleInPlaceSiteWindowless_Interface) return HRESULT is abstract;
       function GetCapture_x(This : access IOleInPlaceSiteWindowless_Interface) return HRESULT is abstract;
@@ -74279,6 +74809,8 @@ package Win32 is
       dwFlags : DWORD;
    end record;
    subtype DVASPECTINFO is tagAspectInfo; -- CXType_Elaborated
+   IID_IViewObjectEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IViewObjectEx,"IID_IViewObjectEx"); -- [FIXME CXCursor_VarDecl]
    type IViewObjectEx_Interface is interface and IViewObject2_Interface;
       function GetRect(
          This : access IViewObjectEx_Interface;
@@ -74317,6 +74849,8 @@ package Win32 is
    type IViewObjectEx is access IViewObjectEx_Interface'Class;
    type IViewObjectEx_Ptr is access IViewObjectEx;
    type LPOLEUNDOUNIT is access IOleUndoUnit; -- CXType_Pointer - CXType_Typedef
+   IID_IOleUndoUnit : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleUndoUnit,"IID_IOleUndoUnit"); -- [FIXME CXCursor_VarDecl]
    type IOleUndoUnit_Interface is interface and IUnknown_Interface;
       function do_x(
          This : access IOleUndoUnit_Interface;
@@ -74335,6 +74869,8 @@ package Win32 is
    type IOleUndoUnit is access IOleUndoUnit_Interface'Class;
    type IOleUndoUnit_Ptr is access IOleUndoUnit;
    type LPOLEPARENTUNDOUNIT is access IOleParentUndoUnit; -- CXType_Pointer - CXType_Typedef
+   IID_IOleParentUndoUnit : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleParentUndoUnit,"IID_IOleParentUndoUnit"); -- [FIXME CXCursor_VarDecl]
    type IOleParentUndoUnit_Interface is interface and IOleUndoUnit_Interface;
       function Open(
          This : access IOleParentUndoUnit_Interface;
@@ -74360,6 +74896,8 @@ package Win32 is
    type IOleParentUndoUnit is access IOleParentUndoUnit_Interface'Class;
    type IOleParentUndoUnit_Ptr is access IOleParentUndoUnit;
    type LPENUMOLEUNDOUNITS is access IEnumOleUndoUnits; -- CXType_Pointer - CXType_Typedef
+   IID_IEnumOleUndoUnits : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumOleUndoUnits,"IID_IEnumOleUndoUnits"); -- [FIXME CXCursor_VarDecl]
    type IEnumOleUndoUnits_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumOleUndoUnits_Interface;
@@ -74393,6 +74931,8 @@ package Win32 is
    );
    pragma import (C,IEnumOleUndoUnits_RemoteNext_Stub,"IEnumOleUndoUnits_RemoteNext_Stub");
    type LPOLEUNDOMANAGER is access IOleUndoManager; -- CXType_Pointer - CXType_Typedef
+   IID_IOleUndoManager : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IOleUndoManager,"IID_IOleUndoManager"); -- [FIXME CXCursor_VarDecl]
    type IOleUndoManager_Interface is interface and IUnknown_Interface;
       function Open(
          This : access IOleUndoManager_Interface;
@@ -74458,6 +74998,8 @@ package Win32 is
    );
    for tagPOINTERINACTIVE'Size use 32;
    subtype POINTERINACTIVE is tagPOINTERINACTIVE; -- CXType_Elaborated
+   IID_IPointerInactive : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPointerInactive,"IID_IPointerInactive"); -- [FIXME CXCursor_VarDecl]
    type IPointerInactive_Interface is interface and IUnknown_Interface;
       function GetActivationPolicy(
          This : access IPointerInactive_Interface;
@@ -74481,6 +75023,8 @@ package Win32 is
    type IPointerInactive is access IPointerInactive_Interface'Class;
    type IPointerInactive_Ptr is access IPointerInactive;
    type LPOBJECTWITHSITE is access IObjectWithSite; -- CXType_Pointer - CXType_Typedef
+   IID_IObjectWithSite : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IObjectWithSite,"IID_IObjectWithSite"); -- [FIXME CXCursor_VarDecl]
    type IObjectWithSite_Interface is interface and IUnknown_Interface;
       function SetSite(
          This : access IObjectWithSite_Interface;
@@ -74506,6 +75050,8 @@ package Win32 is
    end record;
    subtype CADWORD is tagCADWORD; -- CXType_Elaborated
    type LPCADWORD is access tagCADWORD; -- CXType_Pointer - CXType_Elaborated
+   IID_IPerPropertyBrowsing : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPerPropertyBrowsing,"IID_IPerPropertyBrowsing"); -- [FIXME CXCursor_VarDecl]
    type IPerPropertyBrowsing_Interface is interface and IUnknown_Interface;
       function GetDisplayString(
          This : access IPerPropertyBrowsing_Interface;
@@ -74561,6 +75107,8 @@ package Win32 is
       clsid_x : CLSID;
    end record;
    subtype PROPBAG2 is tagPROPBAG2; -- CXType_Elaborated
+   IID_IPropertyBag2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPropertyBag2,"IID_IPropertyBag2"); -- [FIXME CXCursor_VarDecl]
    type IPropertyBag2_Interface is interface and IUnknown_Interface;
       function Read(
          This : access IPropertyBag2_Interface;
@@ -74597,6 +75145,8 @@ package Win32 is
    type IPropertyBag2 is access IPropertyBag2_Interface'Class;
    type IPropertyBag2_Ptr is access IPropertyBag2;
    type LPPERSISTPROPERTYBAG2 is access IPersistPropertyBag2; -- CXType_Pointer - CXType_Typedef
+   IID_IPersistPropertyBag2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPersistPropertyBag2,"IID_IPersistPropertyBag2"); -- [FIXME CXCursor_VarDecl]
    type IPersistPropertyBag2_Interface is interface and IPersist_Interface;
       function InitNew(This : access IPersistPropertyBag2_Interface) return HRESULT is abstract;
       function Load(
@@ -74614,6 +75164,8 @@ package Win32 is
    type IPersistPropertyBag2 is access IPersistPropertyBag2_Interface'Class;
    type IPersistPropertyBag2_Ptr is access IPersistPropertyBag2;
    type LPADVISESINKEX is access IAdviseSinkEx; -- CXType_Pointer - CXType_Typedef
+   IID_IAdviseSinkEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAdviseSinkEx,"IID_IAdviseSinkEx"); -- [FIXME CXCursor_VarDecl]
    type IAdviseSinkEx_Interface is interface and IAdviseSink_Interface;
       procedure OnViewStatusChange(
          This : access IAdviseSinkEx_Interface;
@@ -74685,6 +75237,8 @@ package Win32 is
       dwPointerActivationPolicy : DWORD;
    end record;
    subtype QACONTROL is tagQACONTROL; -- CXType_Elaborated
+   IID_IQuickActivate : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IQuickActivate,"IID_IQuickActivate"); -- [FIXME CXCursor_VarDecl]
    type IQuickActivate_Interface is interface and IUnknown_Interface;
       function QuickActivate(
          This : access IQuickActivate_Interface;
@@ -75023,6 +75577,8 @@ package Win32 is
    type ICOMAdminCatalog2; -- Forward Declaration
    type ICatalogObject; -- Forward Declaration
    type ICatalogCollection; -- Forward Declaration
+   IID_ICOMAdminCatalog : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICOMAdminCatalog,"IID_ICOMAdminCatalog"); -- [FIXME CXCursor_VarDecl]
    type ICOMAdminCatalog_Interface is interface and IDispatch_Interface;
       function GetCollection(
          This : access ICOMAdminCatalog_Interface;
@@ -75165,6 +75721,8 @@ package Win32 is
       COMAdminInUseByRegistryClsid => 5
    );
    for COMAdminInUse'Size use 32;
+   IID_ICOMAdminCatalog2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICOMAdminCatalog2,"IID_ICOMAdminCatalog2"); -- [FIXME CXCursor_VarDecl]
    type ICOMAdminCatalog2_Interface is interface and ICOMAdminCatalog_Interface;
       function GetCollectionByQuery2(
          This : access ICOMAdminCatalog2_Interface;
@@ -75332,6 +75890,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ICOMAdminCatalog2 is access ICOMAdminCatalog2_Interface'Class;
    type ICOMAdminCatalog2_Ptr is access ICOMAdminCatalog2;
+   IID_ICatalogObject : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICatalogObject,"IID_ICatalogObject"); -- [FIXME CXCursor_VarDecl]
    type ICatalogObject_Interface is interface and IDispatch_Interface;
       function get_Value(
          This : access ICatalogObject_Interface;
@@ -75367,6 +75927,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ICatalogObject is access ICatalogObject_Interface'Class;
    type ICatalogObject_Ptr is access ICatalogObject;
+   IID_ICatalogCollection : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICatalogCollection,"IID_ICatalogCollection"); -- [FIXME CXCursor_VarDecl]
    type ICatalogCollection_Interface is interface and IDispatch_Interface;
       function get_NewEnum(
          This : access ICatalogCollection_Interface;
@@ -76201,6 +76763,8 @@ package Win32 is
       ulTimeout : ULONG;
       szDescription : Void;
    end record;
+   IID_ITransaction : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransaction,"IID_ITransaction"); -- [FIXME CXCursor_VarDecl]
    type ITransaction_Interface is interface and IUnknown_Interface;
       function Commit(
          This : access ITransaction_Interface;
@@ -76220,6 +76784,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransaction is access ITransaction_Interface'Class;
    type ITransaction_Ptr is access ITransaction;
+   IID_ITransactionCloner : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionCloner,"IID_ITransactionCloner"); -- [FIXME CXCursor_VarDecl]
    type ITransactionCloner_Interface is interface and ITransaction_Interface;
       function CloneWithCommitDisabled(
          This : access ITransactionCloner_Interface;
@@ -76227,6 +76793,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionCloner is access ITransactionCloner_Interface'Class;
    type ITransactionCloner_Ptr is access ITransactionCloner;
+   IID_ITransaction2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransaction2,"IID_ITransaction2"); -- [FIXME CXCursor_VarDecl]
    type ITransaction2_Interface is interface and ITransactionCloner_Interface;
       function GetTransactionInfo2(
          This : access ITransaction2_Interface;
@@ -76234,6 +76802,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransaction2 is access ITransaction2_Interface'Class;
    type ITransaction2_Ptr is access ITransaction2;
+   IID_ITransactionDispenser : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionDispenser,"IID_ITransactionDispenser"); -- [FIXME CXCursor_VarDecl]
    type ITransactionOptions_Ptr is access all ITransactionOptions; -- Auto Generated Dependancy
    type ITransactionDispenser_Interface is interface and IUnknown_Interface;
       function GetOptionsObject(
@@ -76250,6 +76820,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionDispenser is access ITransactionDispenser_Interface'Class;
    type ITransactionDispenser_Ptr is access ITransactionDispenser;
+   IID_ITransactionOptions : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionOptions,"IID_ITransactionOptions"); -- [FIXME CXCursor_VarDecl]
    type ITransactionOptions_Interface is interface and IUnknown_Interface;
       function SetOptions(
          This : access ITransactionOptions_Interface;
@@ -76260,6 +76832,8 @@ package Win32 is
          pOptions : access XACTOPT
       ) return HRESULT is abstract;
    type ITransactionOptions is access ITransactionOptions_Interface'Class;
+   IID_ITransactionOutcomeEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionOutcomeEvents,"IID_ITransactionOutcomeEvents"); -- [FIXME CXCursor_VarDecl]
    type ITransactionOutcomeEvents_Interface is interface and IUnknown_Interface;
       function Committed(
          This : access ITransactionOutcomeEvents_Interface;
@@ -76283,6 +76857,8 @@ package Win32 is
       function Indoubt(This : access ITransactionOutcomeEvents_Interface) return HRESULT is abstract;
    type ITransactionOutcomeEvents is access ITransactionOutcomeEvents_Interface'Class;
    type ITransactionOutcomeEvents_Ptr is access ITransactionOutcomeEvents;
+   IID_ITmNodeName : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITmNodeName,"IID_ITmNodeName"); -- [FIXME CXCursor_VarDecl]
    type ITmNodeName_Interface is interface and IUnknown_Interface;
       function GetNodeNameSize(
          This : access ITmNodeName_Interface;
@@ -76295,6 +76871,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITmNodeName is access ITmNodeName_Interface'Class;
    type ITmNodeName_Ptr is access ITmNodeName;
+   IID_IKernelTransaction : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IKernelTransaction,"IID_IKernelTransaction"); -- [FIXME CXCursor_VarDecl]
    type IKernelTransaction_Interface is interface and IUnknown_Interface;
       function GetHandle(
          This : access IKernelTransaction_Interface;
@@ -76358,6 +76936,8 @@ package Win32 is
    type IDtcNetworkAccessConfig; -- Forward Declaration
    type IDtcNetworkAccessConfig2; -- Forward Declaration
    type IDtcNetworkAccessConfig3; -- Forward Declaration
+   IID_ITransactionResourceAsync : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionResourceAsync,"IID_ITransactionResourceAsync"); -- [FIXME CXCursor_VarDecl]
    type ITransactionResourceAsync_Interface is interface and IUnknown_Interface;
       function PrepareRequest(
          This : access ITransactionResourceAsync_Interface;
@@ -76380,6 +76960,8 @@ package Win32 is
       function TMDown(This : access ITransactionResourceAsync_Interface) return HRESULT is abstract;
    type ITransactionResourceAsync is access ITransactionResourceAsync_Interface'Class;
    type ITransactionResourceAsync_Ptr is access ITransactionResourceAsync;
+   IID_ITransactionLastResourceAsync : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionLastResourceAsync,"IID_ITransactionLastResourceAsync"); -- [FIXME CXCursor_VarDecl]
    type ITransactionLastResourceAsync_Interface is interface and IUnknown_Interface;
       function DelegateCommit(
          This : access ITransactionLastResourceAsync_Interface;
@@ -76391,6 +76973,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionLastResourceAsync is access ITransactionLastResourceAsync_Interface'Class;
    type ITransactionLastResourceAsync_Ptr is access ITransactionLastResourceAsync;
+   IID_ITransactionResource : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionResource,"IID_ITransactionResource"); -- [FIXME CXCursor_VarDecl]
    type ITransactionResource_Interface is interface and IUnknown_Interface;
       function PrepareRequest(
          This : access ITransactionResource_Interface;
@@ -76413,6 +76997,8 @@ package Win32 is
       function TMDown(This : access ITransactionResource_Interface) return HRESULT is abstract;
    type ITransactionResource is access ITransactionResource_Interface'Class;
    type ITransactionResource_Ptr is access ITransactionResource;
+   IID_ITransactionEnlistmentAsync : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionEnlistmentAsync,"IID_ITransactionEnlistmentAsync"); -- [FIXME CXCursor_VarDecl]
    type ITransactionEnlistmentAsync_Interface is interface and IUnknown_Interface;
       function PrepareRequestDone(
          This : access ITransactionEnlistmentAsync_Interface;
@@ -76430,6 +77016,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionEnlistmentAsync is access ITransactionEnlistmentAsync_Interface'Class;
    type ITransactionEnlistmentAsync_Ptr is access ITransactionEnlistmentAsync;
+   IID_ITransactionLastEnlistmentAsync : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionLastEnlistmentAsync,"IID_ITransactionLastEnlistmentAsync"); -- [FIXME CXCursor_VarDecl]
    type ITransactionLastEnlistmentAsync_Interface is interface and IUnknown_Interface;
       function TransactionOutcome(
          This : access ITransactionLastEnlistmentAsync_Interface;
@@ -76438,6 +77026,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionLastEnlistmentAsync is access ITransactionLastEnlistmentAsync_Interface'Class;
    type ITransactionLastEnlistmentAsync_Ptr is access ITransactionLastEnlistmentAsync;
+   IID_ITransactionExportFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionExportFactory,"IID_ITransactionExportFactory"); -- [FIXME CXCursor_VarDecl]
    type ITransactionExport_Ptr is access all ITransactionExport; -- Auto Generated Dependancy
    type ITransactionExportFactory_Interface is interface and IUnknown_Interface;
       function GetRemoteClassId(
@@ -76452,6 +77042,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionExportFactory is access ITransactionExportFactory_Interface'Class;
    type ITransactionExportFactory_Ptr is access ITransactionExportFactory;
+   IID_ITransactionImportWhereabouts : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionImportWhereabouts,"IID_ITransactionImportWhereabouts"); -- [FIXME CXCursor_VarDecl]
    type ITransactionImportWhereabouts_Interface is interface and IUnknown_Interface;
       function GetWhereaboutsSize(
          This : access ITransactionImportWhereabouts_Interface;
@@ -76479,6 +77071,8 @@ package Win32 is
       pdwStubPhase : access DWORD
    );
    pragma import (C,ITransactionImportWhereabouts_RemoteGetWhereabouts_Stub,"ITransactionImportWhereabouts_RemoteGetWhereabouts_Stub");
+   IID_ITransactionExport : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionExport,"IID_ITransactionExport"); -- [FIXME CXCursor_VarDecl]
    type ITransactionExport_Interface is interface and IUnknown_Interface;
       function Export(
          This : access ITransactionExport_Interface;
@@ -76508,6 +77102,8 @@ package Win32 is
       pdwStubPhase : access DWORD
    );
    pragma import (C,ITransactionExport_RemoteGetTransactionCookie_Stub,"ITransactionExport_RemoteGetTransactionCookie_Stub");
+   IID_ITransactionImport : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionImport,"IID_ITransactionImport"); -- [FIXME CXCursor_VarDecl]
    type ITransactionImport_Interface is interface and IUnknown_Interface;
       function Import(
          This : access ITransactionImport_Interface;
@@ -76518,6 +77114,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionImport is access ITransactionImport_Interface'Class;
    type ITransactionImport_Ptr is access ITransactionImport;
+   IID_ITipTransaction : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITipTransaction,"IID_ITipTransaction"); -- [FIXME CXCursor_VarDecl]
    type ITipTransaction_Interface is interface and IUnknown_Interface;
       function Push(
          This : access ITipTransaction_Interface;
@@ -76530,6 +77128,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITipTransaction is access ITipTransaction_Interface'Class;
    type ITipTransaction_Ptr is access ITipTransaction;
+   IID_ITipHelper : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITipHelper,"IID_ITipHelper"); -- [FIXME CXCursor_VarDecl]
    type ITipHelper_Interface is interface and IUnknown_Interface;
       function Pull(
          This : access ITipHelper_Interface;
@@ -76548,6 +77148,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITipHelper is access ITipHelper_Interface'Class;
    type ITipHelper_Ptr is access ITipHelper;
+   IID_ITipPullSink : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITipPullSink,"IID_ITipPullSink"); -- [FIXME CXCursor_VarDecl]
    type ITipPullSink_Interface is interface and IUnknown_Interface;
       function PullComplete(
          This : access ITipPullSink_Interface;
@@ -76555,6 +77157,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITipPullSink is access ITipPullSink_Interface'Class;
    type ITipPullSink_Ptr is access ITipPullSink;
+   IID_IDtcNetworkAccessConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcNetworkAccessConfig,"IID_IDtcNetworkAccessConfig"); -- [FIXME CXCursor_VarDecl]
    type IDtcNetworkAccessConfig_Interface is interface and IUnknown_Interface;
       function GetAnyNetworkAccess(
          This : access IDtcNetworkAccessConfig_Interface;
@@ -76618,6 +77222,8 @@ package Win32 is
       MUTUAL_AUTHENTICATION_REQUIRED => 2
    );
    for AUTHENTICATION_LEVEL'Size use 32;
+   IID_IDtcNetworkAccessConfig2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcNetworkAccessConfig2,"IID_IDtcNetworkAccessConfig2"); -- [FIXME CXCursor_VarDecl]
    type IDtcNetworkAccessConfig2_Interface is interface and IDtcNetworkAccessConfig_Interface;
       function GetNetworkInboundAccess(
          This : access IDtcNetworkAccessConfig2_Interface;
@@ -76645,6 +77251,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IDtcNetworkAccessConfig2 is access IDtcNetworkAccessConfig2_Interface'Class;
    type IDtcNetworkAccessConfig2_Ptr is access IDtcNetworkAccessConfig2;
+   IID_IDtcNetworkAccessConfig3 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcNetworkAccessConfig3,"IID_IDtcNetworkAccessConfig3"); -- [FIXME CXCursor_VarDecl]
    type IDtcNetworkAccessConfig3_Interface is interface and IDtcNetworkAccessConfig2_Interface;
       function GetLUAccess(
          This : access IDtcNetworkAccessConfig3_Interface;
@@ -76760,6 +77368,8 @@ package Win32 is
       xa_forget_entry : access System.Address;
       xa_complete_entry : access System.Address;
    end record;
+   IID_IXATransLookup : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXATransLookup,"IID_IXATransLookup"); -- [FIXME CXCursor_VarDecl]
    type IXATransLookup_Interface is interface and IUnknown_Interface;
       function Lookup(
          This : access IXATransLookup_Interface;
@@ -76767,6 +77377,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXATransLookup is access IXATransLookup_Interface'Class;
    type IXATransLookup_Ptr is access IXATransLookup;
+   IID_IXATransLookup2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXATransLookup2,"IID_IXATransLookup2"); -- [FIXME CXCursor_VarDecl]
    type IXATransLookup2_Interface is interface and IUnknown_Interface;
       function Lookup(
          This : access IXATransLookup2_Interface;
@@ -76775,10 +77387,14 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXATransLookup2 is access IXATransLookup2_Interface'Class;
    type IXATransLookup2_Ptr is access IXATransLookup2;
+   IID_IResourceManagerSink : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IResourceManagerSink,"IID_IResourceManagerSink"); -- [FIXME CXCursor_VarDecl]
    type IResourceManagerSink_Interface is interface and IUnknown_Interface;
       function TMDown(This : access IResourceManagerSink_Interface) return HRESULT is abstract;
    type IResourceManagerSink is access IResourceManagerSink_Interface'Class;
    type IResourceManagerSink_Ptr is access IResourceManagerSink;
+   IID_IResourceManager : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IResourceManager,"IID_IResourceManager"); -- [FIXME CXCursor_VarDecl]
    type IResourceManager_Interface is interface and IUnknown_Interface;
       function Enlist(
          This : access IResourceManager_Interface;
@@ -76803,6 +77419,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IResourceManager is access IResourceManager_Interface'Class;
    type IResourceManager_Ptr is access IResourceManager;
+   IID_ILastResourceManager : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ILastResourceManager,"IID_ILastResourceManager"); -- [FIXME CXCursor_VarDecl]
    type ILastResourceManager_Interface is interface and IUnknown_Interface;
       function TransactionCommitted(
          This : access ILastResourceManager_Interface;
@@ -76812,6 +77430,8 @@ package Win32 is
       function RecoveryDone(This : access ILastResourceManager_Interface) return HRESULT is abstract;
    type ILastResourceManager is access ILastResourceManager_Interface'Class;
    type ILastResourceManager_Ptr is access ILastResourceManager;
+   IID_IResourceManager2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IResourceManager2,"IID_IResourceManager2"); -- [FIXME CXCursor_VarDecl]
    type IResourceManager2_Interface is interface and IResourceManager_Interface;
       function Enlist2(
          This : access IResourceManager2_Interface;
@@ -76830,6 +77450,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IResourceManager2 is access IResourceManager2_Interface'Class;
    type IResourceManager2_Ptr is access IResourceManager2;
+   IID_IResourceManagerRejoinable : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IResourceManagerRejoinable,"IID_IResourceManagerRejoinable"); -- [FIXME CXCursor_VarDecl]
    type IResourceManagerRejoinable_Interface is interface and IResourceManager2_Interface;
       function Rejoin(
          This : access IResourceManagerRejoinable_Interface;
@@ -76840,6 +77462,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IResourceManagerRejoinable is access IResourceManagerRejoinable_Interface'Class;
    type IResourceManagerRejoinable_Ptr is access IResourceManagerRejoinable;
+   IID_IXAConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXAConfig,"IID_IXAConfig"); -- [FIXME CXCursor_VarDecl]
    type IXAConfig_Interface is interface and IUnknown_Interface;
       function Initialize(
          This : access IXAConfig_Interface;
@@ -76848,6 +77472,8 @@ package Win32 is
       function terminate_x(This : access IXAConfig_Interface) return HRESULT is abstract;
    type IXAConfig is access IXAConfig_Interface'Class;
    type IXAConfig_Ptr is access IXAConfig;
+   IID_IRMHelper : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRMHelper,"IID_IRMHelper"); -- [FIXME CXCursor_VarDecl]
    type IRMHelper_Interface is interface and IUnknown_Interface;
       function RMCount(
          This : access IRMHelper_Interface;
@@ -76863,6 +77489,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IRMHelper is access IRMHelper_Interface'Class;
    type IRMHelper_Ptr is access IRMHelper;
+   IID_IXAObtainRMInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IXAObtainRMInfo,"IID_IXAObtainRMInfo"); -- [FIXME CXCursor_VarDecl]
    type IXAObtainRMInfo_Interface is interface and IUnknown_Interface;
       function ObtainRMInfo(
          This : access IXAObtainRMInfo_Interface;
@@ -76870,6 +77498,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IXAObtainRMInfo is access IXAObtainRMInfo_Interface'Class;
    type IXAObtainRMInfo_Ptr is access IXAObtainRMInfo;
+   IID_IResourceManagerFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IResourceManagerFactory,"IID_IResourceManagerFactory"); -- [FIXME CXCursor_VarDecl]
    type IResourceManagerFactory_Interface is interface and IUnknown_Interface;
       function Create(
          This : access IResourceManagerFactory_Interface;
@@ -76880,6 +77510,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IResourceManagerFactory is access IResourceManagerFactory_Interface'Class;
    type IResourceManagerFactory_Ptr is access IResourceManagerFactory;
+   IID_IResourceManagerFactory2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IResourceManagerFactory2,"IID_IResourceManagerFactory2"); -- [FIXME CXCursor_VarDecl]
    type IResourceManagerFactory2_Interface is interface and IResourceManagerFactory_Interface;
       function CreateEx(
          This : access IResourceManagerFactory2_Interface;
@@ -76891,6 +77523,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IResourceManagerFactory2 is access IResourceManagerFactory2_Interface'Class;
    type IResourceManagerFactory2_Ptr is access IResourceManagerFactory2;
+   IID_IPrepareInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPrepareInfo,"IID_IPrepareInfo"); -- [FIXME CXCursor_VarDecl]
    type IPrepareInfo_Interface is interface and IUnknown_Interface;
       function GetPrepareInfoSize(
          This : access IPrepareInfo_Interface;
@@ -76902,6 +77536,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IPrepareInfo is access IPrepareInfo_Interface'Class;
    type IPrepareInfo_Ptr is access IPrepareInfo;
+   IID_IPrepareInfo2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPrepareInfo2,"IID_IPrepareInfo2"); -- [FIXME CXCursor_VarDecl]
    type IPrepareInfo2_Interface is interface and IUnknown_Interface;
       function GetPrepareInfoSize(
          This : access IPrepareInfo2_Interface;
@@ -76914,6 +77550,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IPrepareInfo2 is access IPrepareInfo2_Interface'Class;
    type IPrepareInfo2_Ptr is access IPrepareInfo2;
+   IID_IGetDispenser : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IGetDispenser,"IID_IGetDispenser"); -- [FIXME CXCursor_VarDecl]
    type IGetDispenser_Interface is interface and IUnknown_Interface;
       function GetDispenser(
          This : access IGetDispenser_Interface;
@@ -76922,6 +77560,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IGetDispenser is access IGetDispenser_Interface'Class;
    type IGetDispenser_Ptr is access IGetDispenser;
+   IID_ITransactionVoterBallotAsync2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionVoterBallotAsync2,"IID_ITransactionVoterBallotAsync2"); -- [FIXME CXCursor_VarDecl]
    type ITransactionVoterBallotAsync2_Interface is interface and IUnknown_Interface;
       function VoteRequestDone(
          This : access ITransactionVoterBallotAsync2_Interface;
@@ -76930,10 +77570,14 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionVoterBallotAsync2 is access ITransactionVoterBallotAsync2_Interface'Class;
    type ITransactionVoterBallotAsync2_Ptr is access ITransactionVoterBallotAsync2;
+   IID_ITransactionVoterNotifyAsync2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionVoterNotifyAsync2,"IID_ITransactionVoterNotifyAsync2"); -- [FIXME CXCursor_VarDecl]
    type ITransactionVoterNotifyAsync2_Interface is interface and ITransactionOutcomeEvents_Interface;
       function VoteRequest(This : access ITransactionVoterNotifyAsync2_Interface) return HRESULT is abstract;
    type ITransactionVoterNotifyAsync2 is access ITransactionVoterNotifyAsync2_Interface'Class;
    type ITransactionVoterNotifyAsync2_Ptr is access ITransactionVoterNotifyAsync2;
+   IID_ITransactionVoterFactory2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionVoterFactory2,"IID_ITransactionVoterFactory2"); -- [FIXME CXCursor_VarDecl]
    type ITransactionVoterFactory2_Interface is interface and IUnknown_Interface;
       function Create(
          This : access ITransactionVoterFactory2_Interface;
@@ -76943,6 +77587,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionVoterFactory2 is access ITransactionVoterFactory2_Interface'Class;
    type ITransactionVoterFactory2_Ptr is access ITransactionVoterFactory2;
+   IID_ITransactionPhase0EnlistmentAsync : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionPhase0EnlistmentAsync,"IID_ITransactionPhase0EnlistmentAsync"); -- [FIXME CXCursor_VarDecl]
    type ITransactionPhase0EnlistmentAsync_Interface is interface and IUnknown_Interface;
       function Enable(This : access ITransactionPhase0EnlistmentAsync_Interface) return HRESULT is abstract;
       function WaitForEnlistment(This : access ITransactionPhase0EnlistmentAsync_Interface) return HRESULT is abstract;
@@ -76954,6 +77600,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionPhase0EnlistmentAsync is access ITransactionPhase0EnlistmentAsync_Interface'Class;
    type ITransactionPhase0EnlistmentAsync_Ptr is access ITransactionPhase0EnlistmentAsync;
+   IID_ITransactionPhase0NotifyAsync : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionPhase0NotifyAsync,"IID_ITransactionPhase0NotifyAsync"); -- [FIXME CXCursor_VarDecl]
    type ITransactionPhase0NotifyAsync_Interface is interface and IUnknown_Interface;
       function Phase0Request(
          This : access ITransactionPhase0NotifyAsync_Interface;
@@ -76965,6 +77613,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionPhase0NotifyAsync is access ITransactionPhase0NotifyAsync_Interface'Class;
    type ITransactionPhase0NotifyAsync_Ptr is access ITransactionPhase0NotifyAsync;
+   IID_ITransactionPhase0Factory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionPhase0Factory,"IID_ITransactionPhase0Factory"); -- [FIXME CXCursor_VarDecl]
    type ITransactionPhase0Factory_Interface is interface and IUnknown_Interface;
       function Create(
          This : access ITransactionPhase0Factory_Interface;
@@ -76973,6 +77623,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionPhase0Factory is access ITransactionPhase0Factory_Interface'Class;
    type ITransactionPhase0Factory_Ptr is access ITransactionPhase0Factory;
+   IID_ITransactionTransmitter : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionTransmitter,"IID_ITransactionTransmitter"); -- [FIXME CXCursor_VarDecl]
    type ITransactionTransmitter_Interface is interface and IUnknown_Interface;
       function Set(
          This : access ITransactionTransmitter_Interface;
@@ -76996,6 +77648,8 @@ package Win32 is
       function Reset(This : access ITransactionTransmitter_Interface) return HRESULT is abstract;
    type ITransactionTransmitter is access ITransactionTransmitter_Interface'Class;
    type ITransactionTransmitter_Ptr is access ITransactionTransmitter;
+   IID_ITransactionTransmitterFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionTransmitterFactory,"IID_ITransactionTransmitterFactory"); -- [FIXME CXCursor_VarDecl]
    type ITransactionTransmitterFactory_Interface is interface and IUnknown_Interface;
       function Create(
          This : access ITransactionTransmitterFactory_Interface;
@@ -77003,6 +77657,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionTransmitterFactory is access ITransactionTransmitterFactory_Interface'Class;
    type ITransactionTransmitterFactory_Ptr is access ITransactionTransmitterFactory;
+   IID_ITransactionReceiver : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionReceiver,"IID_ITransactionReceiver"); -- [FIXME CXCursor_VarDecl]
    type ITransactionReceiver_Interface is interface and IUnknown_Interface;
       function UnmarshalPropagationToken(
          This : access ITransactionReceiver_Interface;
@@ -77023,6 +77679,8 @@ package Win32 is
       function Reset(This : access ITransactionReceiver_Interface) return HRESULT is abstract;
    type ITransactionReceiver is access ITransactionReceiver_Interface'Class;
    type ITransactionReceiver_Ptr is access ITransactionReceiver;
+   IID_ITransactionReceiverFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionReceiverFactory,"IID_ITransactionReceiverFactory"); -- [FIXME CXCursor_VarDecl]
    type ITransactionReceiverFactory_Interface is interface and IUnknown_Interface;
       function Create(
          This : access ITransactionReceiverFactory_Interface;
@@ -77034,6 +77692,8 @@ package Win32 is
       wcThreadsMax : WORD;
    end record;
    subtype PROXY_CONFIG_PARAMS is ProxyConfigParams_x; -- CXType_Elaborated
+   IID_IDtcLuConfigure : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuConfigure,"IID_IDtcLuConfigure"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuConfigure_Interface is interface and IUnknown_Interface;
       function Add(
          This : access IDtcLuConfigure_Interface;
@@ -77047,6 +77707,10 @@ package Win32 is
       ) return HRESULT is abstract;
    type IDtcLuConfigure is access IDtcLuConfigure_Interface'Class;
    type IDtcLuConfigure_Ptr is access IDtcLuConfigure;
+   IID_IDtcLuRecovery : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuRecovery,"IID_IDtcLuRecovery"); -- [FIXME CXCursor_VarDecl]
+   IID_IDtcLuRecoveryFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuRecoveryFactory,"IID_IDtcLuRecoveryFactory"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuRecovery_Ptr is access all IDtcLuRecovery; -- Auto Generated Dependancy
    type IDtcLuRecoveryFactory_Interface is interface and IUnknown_Interface;
       function Create(
@@ -77165,6 +77829,8 @@ package Win32 is
    );
    for DtcLu_CompareStates_Response_x'Size use 32;
    subtype DTCLUCOMPARESTATESRESPONSE is DtcLu_CompareStates_Response_x; -- CXType_Elaborated
+   IID_IDtcLuRecoveryInitiatedByDtcTransWork : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuRecoveryInitiatedByDtcTransWork,"IID_IDtcLuRecoveryInitiatedByDtcTransWork"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuRecoveryInitiatedByDtcTransWork_Interface is interface and IUnknown_Interface;
       function GetLogNameSizes(
          This : access IDtcLuRecoveryInitiatedByDtcTransWork_Interface;
@@ -77227,6 +77893,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IDtcLuRecoveryInitiatedByDtcTransWork is access IDtcLuRecoveryInitiatedByDtcTransWork_Interface'Class;
    type IDtcLuRecoveryInitiatedByDtcTransWork_Ptr is access IDtcLuRecoveryInitiatedByDtcTransWork;
+   IID_IDtcLuRecoveryInitiatedByDtcStatusWork : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuRecoveryInitiatedByDtcStatusWork,"IID_IDtcLuRecoveryInitiatedByDtcStatusWork"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuRecoveryInitiatedByDtcStatusWork_Interface is interface and IUnknown_Interface;
       function HandleCheckLuStatus(
          This : access IDtcLuRecoveryInitiatedByDtcStatusWork_Interface;
@@ -77234,6 +77902,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IDtcLuRecoveryInitiatedByDtcStatusWork is access IDtcLuRecoveryInitiatedByDtcStatusWork_Interface'Class;
    type IDtcLuRecoveryInitiatedByDtcStatusWork_Ptr is access IDtcLuRecoveryInitiatedByDtcStatusWork;
+   IID_IDtcLuRecoveryInitiatedByDtc : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuRecoveryInitiatedByDtc,"IID_IDtcLuRecoveryInitiatedByDtc"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuRecoveryInitiatedByDtc_Interface is interface and IUnknown_Interface;
       function GetWork(
          This : access IDtcLuRecoveryInitiatedByDtc_Interface;
@@ -77242,6 +77912,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IDtcLuRecoveryInitiatedByDtc is access IDtcLuRecoveryInitiatedByDtc_Interface'Class;
    type IDtcLuRecoveryInitiatedByDtc_Ptr is access IDtcLuRecoveryInitiatedByDtc;
+   IID_IDtcLuRecoveryInitiatedByLuWork : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuRecoveryInitiatedByLuWork,"IID_IDtcLuRecoveryInitiatedByLuWork"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuRecoveryInitiatedByLuWork_Interface is interface and IUnknown_Interface;
       function HandleTheirXln(
          This : access IDtcLuRecoveryInitiatedByLuWork_Interface;
@@ -77287,6 +77959,8 @@ package Win32 is
       function ConversationLost(This : access IDtcLuRecoveryInitiatedByLuWork_Interface) return HRESULT is abstract;
    type IDtcLuRecoveryInitiatedByLuWork is access IDtcLuRecoveryInitiatedByLuWork_Interface'Class;
    type IDtcLuRecoveryInitiatedByLuWork_Ptr is access IDtcLuRecoveryInitiatedByLuWork;
+   IID_IDtcLuRecoveryInitiatedByLu : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuRecoveryInitiatedByLu,"IID_IDtcLuRecoveryInitiatedByLu"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuRecoveryInitiatedByLu_Interface is interface and IUnknown_Interface;
       function GetObjectToHandleWorkFromLu(
          This : access IDtcLuRecoveryInitiatedByLu_Interface;
@@ -77294,6 +77968,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IDtcLuRecoveryInitiatedByLu is access IDtcLuRecoveryInitiatedByLu_Interface'Class;
    type IDtcLuRecoveryInitiatedByLu_Ptr is access IDtcLuRecoveryInitiatedByLu;
+   IID_IDtcLuRmEnlistment : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuRmEnlistment,"IID_IDtcLuRmEnlistment"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuRmEnlistment_Interface is interface and IUnknown_Interface;
       function Unplug(
          This : access IDtcLuRmEnlistment_Interface;
@@ -77306,6 +77982,8 @@ package Win32 is
       function RequestCommit(This : access IDtcLuRmEnlistment_Interface) return HRESULT is abstract;
    type IDtcLuRmEnlistment is access IDtcLuRmEnlistment_Interface'Class;
    type IDtcLuRmEnlistment_Ptr is access IDtcLuRmEnlistment;
+   IID_IDtcLuRmEnlistmentSink : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuRmEnlistmentSink,"IID_IDtcLuRmEnlistmentSink"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuRmEnlistmentSink_Interface is interface and IUnknown_Interface;
       function AckUnplug(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
       function TmDown(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
@@ -77318,6 +77996,8 @@ package Win32 is
       function RequestCommit(This : access IDtcLuRmEnlistmentSink_Interface) return HRESULT is abstract;
    type IDtcLuRmEnlistmentSink is access IDtcLuRmEnlistmentSink_Interface'Class;
    type IDtcLuRmEnlistmentSink_Ptr is access IDtcLuRmEnlistmentSink;
+   IID_IDtcLuRmEnlistmentFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuRmEnlistmentFactory,"IID_IDtcLuRmEnlistmentFactory"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuRmEnlistmentFactory_Interface is interface and IUnknown_Interface;
       function Create(
          This : access IDtcLuRmEnlistmentFactory_Interface;
@@ -77331,6 +78011,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IDtcLuRmEnlistmentFactory is access IDtcLuRmEnlistmentFactory_Interface'Class;
    type IDtcLuRmEnlistmentFactory_Ptr is access IDtcLuRmEnlistmentFactory;
+   IID_IDtcLuSubordinateDtc : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuSubordinateDtc,"IID_IDtcLuSubordinateDtc"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuSubordinateDtc_Interface is interface and IUnknown_Interface;
       function Unplug(
          This : access IDtcLuSubordinateDtc_Interface;
@@ -77344,6 +78026,8 @@ package Win32 is
       function RequestCommit(This : access IDtcLuSubordinateDtc_Interface) return HRESULT is abstract;
    type IDtcLuSubordinateDtc is access IDtcLuSubordinateDtc_Interface'Class;
    type IDtcLuSubordinateDtc_Ptr is access IDtcLuSubordinateDtc;
+   IID_IDtcLuSubordinateDtcSink : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuSubordinateDtcSink,"IID_IDtcLuSubordinateDtcSink"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuSubordinateDtcSink_Interface is interface and IUnknown_Interface;
       function AckUnplug(This : access IDtcLuSubordinateDtcSink_Interface) return HRESULT is abstract;
       function TmDown(This : access IDtcLuSubordinateDtcSink_Interface) return HRESULT is abstract;
@@ -77355,6 +78039,8 @@ package Win32 is
       function RequestCommit(This : access IDtcLuSubordinateDtcSink_Interface) return HRESULT is abstract;
    type IDtcLuSubordinateDtcSink is access IDtcLuSubordinateDtcSink_Interface'Class;
    type IDtcLuSubordinateDtcSink_Ptr is access IDtcLuSubordinateDtcSink;
+   IID_IDtcLuSubordinateDtcFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDtcLuSubordinateDtcFactory,"IID_IDtcLuSubordinateDtcFactory"); -- [FIXME CXCursor_VarDecl]
    type IDtcLuSubordinateDtcFactory_Interface is interface and IUnknown_Interface;
       function Create(
          This : access IDtcLuSubordinateDtcFactory_Interface;
@@ -77373,6 +78059,8 @@ package Win32 is
    type IDtcLuSubordinateDtcFactory is access IDtcLuSubordinateDtcFactory_Interface'Class;
    type IDtcLuSubordinateDtcFactory_Ptr is access IDtcLuSubordinateDtcFactory;
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\ComSvcs.h>
+   IID_ISecurityIdentityColl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISecurityIdentityColl,"IID_ISecurityIdentityColl"); -- [FIXME CXCursor_VarDecl]
    type ISecurityIdentityColl_Interface is interface and IDispatch_Interface;
       function get_Count(
          This : access ISecurityIdentityColl_Interface;
@@ -77389,6 +78077,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISecurityIdentityColl is access ISecurityIdentityColl_Interface'Class;
    type ISecurityIdentityColl_Ptr is access ISecurityIdentityColl;
+   IID_ISecurityCallersColl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISecurityCallersColl,"IID_ISecurityCallersColl"); -- [FIXME CXCursor_VarDecl]
    type ISecurityCallersColl_Interface is interface and IDispatch_Interface;
       function get_Count(
          This : access ISecurityCallersColl_Interface;
@@ -77405,6 +78095,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISecurityCallersColl is access ISecurityCallersColl_Interface'Class;
    type ISecurityCallersColl_Ptr is access ISecurityCallersColl;
+   IID_ISecurityCallContext : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISecurityCallContext,"IID_ISecurityCallContext"); -- [FIXME CXCursor_VarDecl]
    type ISecurityCallContext_Interface is interface and IDispatch_Interface;
       function get_Count(
          This : access ISecurityCallContext_Interface;
@@ -77436,6 +78128,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISecurityCallContext is access ISecurityCallContext_Interface'Class;
    type ISecurityCallContext_Ptr is access ISecurityCallContext;
+   IID_IGetSecurityCallContext : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IGetSecurityCallContext,"IID_IGetSecurityCallContext"); -- [FIXME CXCursor_VarDecl]
    type IGetSecurityCallContext_Interface is interface and IDispatch_Interface;
       function GetSecurityCallContext(
          This : access IGetSecurityCallContext_Interface;
@@ -77443,6 +78137,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IGetSecurityCallContext is access IGetSecurityCallContext_Interface'Class;
    type IGetSecurityCallContext_Ptr is access IGetSecurityCallContext;
+   IID_SecurityProperty : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_SecurityProperty,"IID_SecurityProperty"); -- [FIXME CXCursor_VarDecl]
    type SecurityProperty_Interface is interface and IDispatch_Interface;
       function GetDirectCallerName(
          This : access SecurityProperty_Interface;
@@ -77462,6 +78158,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type SecurityProperty is access SecurityProperty_Interface'Class;
    type SecurityProperty_Ptr is access SecurityProperty;
+   IID_ContextInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ContextInfo,"IID_ContextInfo"); -- [FIXME CXCursor_VarDecl]
    type ContextInfo_Interface is interface and IDispatch_Interface;
       function IsInTransaction(
          This : access ContextInfo_Interface;
@@ -77485,6 +78183,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ContextInfo is access ContextInfo_Interface'Class;
    type ContextInfo_Ptr is access ContextInfo;
+   IID_ContextInfo2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ContextInfo2,"IID_ContextInfo2"); -- [FIXME CXCursor_VarDecl]
    type ContextInfo2_Interface is interface and ContextInfo_Interface;
       function GetPartitionId(
          This : access ContextInfo2_Interface;
@@ -77500,6 +78200,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ContextInfo2 is access ContextInfo2_Interface'Class;
    type ContextInfo2_Ptr is access ContextInfo2;
+   IID_ObjectContext : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ObjectContext,"IID_ObjectContext"); -- [FIXME CXCursor_VarDecl]
    type ObjectContext_Interface is interface and IDispatch_Interface;
       function CreateInstance(
          This : access ObjectContext_Interface;
@@ -77546,6 +78248,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ObjectContext is access ObjectContext_Interface'Class;
    type ObjectContext_Ptr is access ObjectContext;
+   IID_ITransactionContextEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionContextEx,"IID_ITransactionContextEx"); -- [FIXME CXCursor_VarDecl]
    type ITransactionContextEx_Interface is interface and IUnknown_Interface;
       function CreateInstance(
          This : access ITransactionContextEx_Interface;
@@ -77557,6 +78261,8 @@ package Win32 is
       function abort_x_x(This : access ITransactionContextEx_Interface) return HRESULT is abstract;
    type ITransactionContextEx is access ITransactionContextEx_Interface'Class;
    type ITransactionContextEx_Ptr is access ITransactionContextEx;
+   IID_ITransactionContext : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionContext,"IID_ITransactionContext"); -- [FIXME CXCursor_VarDecl]
    type ITransactionContext_Interface is interface and IDispatch_Interface;
       function CreateInstance(
          This : access ITransactionContext_Interface;
@@ -77567,6 +78273,8 @@ package Win32 is
       function abort_x_x(This : access ITransactionContext_Interface) return HRESULT is abstract;
    type ITransactionContext is access ITransactionContext_Interface'Class;
    type ITransactionContext_Ptr is access ITransactionContext;
+   IID_ICreateWithTransactionEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICreateWithTransactionEx,"IID_ICreateWithTransactionEx"); -- [FIXME CXCursor_VarDecl]
    type ICreateWithTransactionEx_Interface is interface and IUnknown_Interface;
       function CreateInstance(
          This : access ICreateWithTransactionEx_Interface;
@@ -77577,6 +78285,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ICreateWithTransactionEx is access ICreateWithTransactionEx_Interface'Class;
    type ICreateWithTransactionEx_Ptr is access ICreateWithTransactionEx;
+   IID_ICreateWithLocalTransaction : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICreateWithLocalTransaction,"IID_ICreateWithLocalTransaction"); -- [FIXME CXCursor_VarDecl]
    type ICreateWithLocalTransaction_Interface is interface and IUnknown_Interface;
       function CreateInstanceWithSysTx(
          This : access ICreateWithLocalTransaction_Interface;
@@ -77587,6 +78297,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ICreateWithLocalTransaction is access ICreateWithLocalTransaction_Interface'Class;
    type ICreateWithLocalTransaction_Ptr is access ICreateWithLocalTransaction;
+   IID_ICreateWithTipTransactionEx : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICreateWithTipTransactionEx,"IID_ICreateWithTipTransactionEx"); -- [FIXME CXCursor_VarDecl]
    type ICreateWithTipTransactionEx_Interface is interface and IUnknown_Interface;
       function CreateInstance(
          This : access ICreateWithTipTransactionEx_Interface;
@@ -77609,6 +78321,8 @@ package Win32 is
       sMachineName : LPOLESTR;
    end record;
    subtype COMSVCSEVENTINFO is MIDL_MIDL_itf_autosvcs_0000_0013_0001_x; -- CXType_Elaborated
+   IID_IComLTxEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComLTxEvents,"IID_IComLTxEvents"); -- [FIXME CXCursor_VarDecl]
    type IComLTxEvents_Interface is interface and IUnknown_Interface;
       function OnLtxTransactionStart(
          This : access IComLTxEvents_Interface;
@@ -77642,6 +78356,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComLTxEvents is access IComLTxEvents_Interface'Class;
    type IComLTxEvents_Ptr is access IComLTxEvents;
+   IID_IComUserEvent : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComUserEvent,"IID_IComUserEvent"); -- [FIXME CXCursor_VarDecl]
    type IComUserEvent_Interface is interface and IUnknown_Interface;
       function OnUserEvent(
          This : access IComUserEvent_Interface;
@@ -77650,6 +78366,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComUserEvent is access IComUserEvent_Interface'Class;
    type IComUserEvent_Ptr is access IComUserEvent;
+   IID_IComThreadEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComThreadEvents,"IID_IComThreadEvents"); -- [FIXME CXCursor_VarDecl]
    type IComThreadEvents_Interface is interface and IUnknown_Interface;
       function OnThreadStart(
          This : access IComThreadEvents_Interface;
@@ -77728,6 +78446,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComThreadEvents is access IComThreadEvents_Interface'Class;
    type IComThreadEvents_Ptr is access IComThreadEvents;
+   IID_IComAppEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComAppEvents,"IID_IComAppEvents"); -- [FIXME CXCursor_VarDecl]
    type IComAppEvents_Interface is interface and IUnknown_Interface;
       function OnAppActivation(
          This : access IComAppEvents_Interface;
@@ -77746,6 +78466,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComAppEvents is access IComAppEvents_Interface'Class;
    type IComAppEvents_Ptr is access IComAppEvents;
+   IID_IComInstanceEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComInstanceEvents,"IID_IComInstanceEvents"); -- [FIXME CXCursor_VarDecl]
    type IComInstanceEvents_Interface is interface and IUnknown_Interface;
       function OnObjectCreate(
          This : access IComInstanceEvents_Interface;
@@ -77763,6 +78485,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComInstanceEvents is access IComInstanceEvents_Interface'Class;
    type IComInstanceEvents_Ptr is access IComInstanceEvents;
+   IID_IComTransactionEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComTransactionEvents,"IID_IComTransactionEvents"); -- [FIXME CXCursor_VarDecl]
    type IComTransactionEvents_Interface is interface and IUnknown_Interface;
       function OnTransactionStart(
          This : access IComTransactionEvents_Interface;
@@ -77789,6 +78513,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComTransactionEvents is access IComTransactionEvents_Interface'Class;
    type IComTransactionEvents_Ptr is access IComTransactionEvents;
+   IID_IComMethodEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComMethodEvents,"IID_IComMethodEvents"); -- [FIXME CXCursor_VarDecl]
    type IComMethodEvents_Interface is interface and IUnknown_Interface;
       function OnMethodCall(
          This : access IComMethodEvents_Interface;
@@ -77817,6 +78543,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComMethodEvents is access IComMethodEvents_Interface'Class;
    type IComMethodEvents_Ptr is access IComMethodEvents;
+   IID_IComObjectEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComObjectEvents,"IID_IComObjectEvents"); -- [FIXME CXCursor_VarDecl]
    type IComObjectEvents_Interface is interface and IUnknown_Interface;
       function OnObjectActivate(
          This : access IComObjectEvents_Interface;
@@ -77852,6 +78580,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComObjectEvents is access IComObjectEvents_Interface'Class;
    type IComObjectEvents_Ptr is access IComObjectEvents;
+   IID_IComResourceEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComResourceEvents,"IID_IComResourceEvents"); -- [FIXME CXCursor_VarDecl]
    type IComResourceEvents_Interface is interface and IUnknown_Interface;
       function OnResourceCreate(
          This : access IComResourceEvents_Interface;
@@ -77896,6 +78626,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComResourceEvents is access IComResourceEvents_Interface'Class;
    type IComResourceEvents_Ptr is access IComResourceEvents;
+   IID_IComSecurityEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComSecurityEvents,"IID_IComSecurityEvents"); -- [FIXME CXCursor_VarDecl]
    type IComSecurityEvents_Interface is interface and IUnknown_Interface;
       function OnAuthenticate(
          This : access IComSecurityEvents_Interface;
@@ -77925,6 +78657,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComSecurityEvents is access IComSecurityEvents_Interface'Class;
    type IComSecurityEvents_Ptr is access IComSecurityEvents;
+   IID_IComObjectPoolEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComObjectPoolEvents,"IID_IComObjectPoolEvents"); -- [FIXME CXCursor_VarDecl]
    type IComObjectPoolEvents_Interface is interface and IUnknown_Interface;
       function OnObjPoolPutObject(
          This : access IComObjectPoolEvents_Interface;
@@ -77960,6 +78694,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComObjectPoolEvents is access IComObjectPoolEvents_Interface'Class;
    type IComObjectPoolEvents_Ptr is access IComObjectPoolEvents;
+   IID_IComObjectPoolEvents2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComObjectPoolEvents2,"IID_IComObjectPoolEvents2"); -- [FIXME CXCursor_VarDecl]
    type IComObjectPoolEvents2_Interface is interface and IUnknown_Interface;
       function OnObjPoolCreateObject(
          This : access IComObjectPoolEvents2_Interface;
@@ -78001,6 +78737,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComObjectPoolEvents2 is access IComObjectPoolEvents2_Interface'Class;
    type IComObjectPoolEvents2_Ptr is access IComObjectPoolEvents2;
+   IID_IComObjectConstructionEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComObjectConstructionEvents,"IID_IComObjectConstructionEvents"); -- [FIXME CXCursor_VarDecl]
    type IComObjectConstructionEvents_Interface is interface and IUnknown_Interface;
       function OnObjectConstruct(
          This : access IComObjectConstructionEvents_Interface;
@@ -78011,6 +78749,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComObjectConstructionEvents is access IComObjectConstructionEvents_Interface'Class;
    type IComObjectConstructionEvents_Ptr is access IComObjectConstructionEvents;
+   IID_IComActivityEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComActivityEvents,"IID_IComActivityEvents"); -- [FIXME CXCursor_VarDecl]
    type IComActivityEvents_Interface is interface and IUnknown_Interface;
       function OnActivityCreate(
          This : access IComActivityEvents_Interface;
@@ -78058,6 +78798,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComActivityEvents is access IComActivityEvents_Interface'Class;
    type IComActivityEvents_Ptr is access IComActivityEvents;
+   IID_IComIdentityEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComIdentityEvents,"IID_IComIdentityEvents"); -- [FIXME CXCursor_VarDecl]
    type IComIdentityEvents_Interface is interface and IUnknown_Interface;
       function OnIISRequestInfo(
          This : access IComIdentityEvents_Interface;
@@ -78069,6 +78811,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComIdentityEvents is access IComIdentityEvents_Interface'Class;
    type IComIdentityEvents_Ptr is access IComIdentityEvents;
+   IID_IComQCEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComQCEvents,"IID_IComQCEvents"); -- [FIXME CXCursor_VarDecl]
    type IComQCEvents_Interface is interface and IUnknown_Interface;
       function OnQCRecord(
          This : access IComQCEvents_Interface;
@@ -78123,6 +78867,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComQCEvents is access IComQCEvents_Interface'Class;
    type IComQCEvents_Ptr is access IComQCEvents;
+   IID_IComExceptionEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComExceptionEvents,"IID_IComExceptionEvents"); -- [FIXME CXCursor_VarDecl]
    type IComExceptionEvents_Interface is interface and IUnknown_Interface;
       function OnExceptionUser(
          This : access IComExceptionEvents_Interface;
@@ -78133,6 +78879,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComExceptionEvents is access IComExceptionEvents_Interface'Class;
    type IComExceptionEvents_Ptr is access IComExceptionEvents;
+   IID_ILBEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ILBEvents,"IID_ILBEvents"); -- [FIXME CXCursor_VarDecl]
    type ILBEvents_Interface is interface and IUnknown_Interface;
       function TargetUp(
          This : access ILBEvents_Interface;
@@ -78152,6 +78900,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ILBEvents is access ILBEvents_Interface'Class;
    type ILBEvents_Ptr is access ILBEvents;
+   IID_IComCRMEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComCRMEvents,"IID_IComCRMEvents"); -- [FIXME CXCursor_VarDecl]
    type IComCRMEvents_Interface is interface and IUnknown_Interface;
       function OnCRMRecoveryStart(
          This : access IComCRMEvents_Interface;
@@ -78240,6 +78990,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComCRMEvents is access IComCRMEvents_Interface'Class;
    type IComCRMEvents_Ptr is access IComCRMEvents;
+   IID_IComMethod2Events : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComMethod2Events,"IID_IComMethod2Events"); -- [FIXME CXCursor_VarDecl]
    type IComMethod2Events_Interface is interface and IUnknown_Interface;
       function OnMethodCall2(
          This : access IComMethod2Events_Interface;
@@ -78271,6 +79023,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComMethod2Events is access IComMethod2Events_Interface'Class;
    type IComMethod2Events_Ptr is access IComMethod2Events;
+   IID_IComTrackingInfoEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComTrackingInfoEvents,"IID_IComTrackingInfoEvents"); -- [FIXME CXCursor_VarDecl]
    type IComTrackingInfoEvents_Interface is interface and IUnknown_Interface;
       function OnNewTrackingInfo(
          This : access IComTrackingInfoEvents_Interface;
@@ -78290,6 +79044,8 @@ package Win32 is
    );
    for MIDL_MIDL_itf_autosvcs_0000_0034_0001_x'Size use 32;
    subtype TRACKING_COLL_TYPE is MIDL_MIDL_itf_autosvcs_0000_0034_0001_x; -- CXType_Elaborated
+   IID_IComTrackingInfoCollection : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComTrackingInfoCollection,"IID_IComTrackingInfoCollection"); -- [FIXME CXCursor_VarDecl]
    type IComTrackingInfoCollection_Interface is interface and IUnknown_Interface;
       function Type_Function(
          This : access IComTrackingInfoCollection_Interface;
@@ -78307,6 +79063,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComTrackingInfoCollection is access IComTrackingInfoCollection_Interface'Class;
    type IComTrackingInfoCollection_Ptr is access IComTrackingInfoCollection;
+   IID_IComTrackingInfoObject : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComTrackingInfoObject,"IID_IComTrackingInfoObject"); -- [FIXME CXCursor_VarDecl]
    type IComTrackingInfoObject_Interface is interface and IUnknown_Interface;
       function GetValue(
          This : access IComTrackingInfoObject_Interface;
@@ -78315,6 +79073,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComTrackingInfoObject is access IComTrackingInfoObject_Interface'Class;
    type IComTrackingInfoObject_Ptr is access IComTrackingInfoObject;
+   IID_IComTrackingInfoProperties : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComTrackingInfoProperties,"IID_IComTrackingInfoProperties"); -- [FIXME CXCursor_VarDecl]
    type IComTrackingInfoProperties_Interface is interface and IUnknown_Interface;
       function PropCount(
          This : access IComTrackingInfoProperties_Interface;
@@ -78327,6 +79087,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComTrackingInfoProperties is access IComTrackingInfoProperties_Interface'Class;
    type IComTrackingInfoProperties_Ptr is access IComTrackingInfoProperties;
+   IID_IComApp2Events : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComApp2Events,"IID_IComApp2Events"); -- [FIXME CXCursor_VarDecl]
    type IComApp2Events_Interface is interface and IUnknown_Interface;
       function OnAppActivation2(
          This : access IComApp2Events_Interface;
@@ -78359,6 +79121,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComApp2Events is access IComApp2Events_Interface'Class;
    type IComApp2Events_Ptr is access IComApp2Events;
+   IID_IComTransaction2Events : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComTransaction2Events,"IID_IComTransaction2Events"); -- [FIXME CXCursor_VarDecl]
    type IComTransaction2Events_Interface is interface and IUnknown_Interface;
       function OnTransactionStart2(
          This : access IComTransaction2Events_Interface;
@@ -78386,6 +79150,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComTransaction2Events is access IComTransaction2Events_Interface'Class;
    type IComTransaction2Events_Ptr is access IComTransaction2Events;
+   IID_IComInstance2Events : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComInstance2Events,"IID_IComInstance2Events"); -- [FIXME CXCursor_VarDecl]
    type IComInstance2Events_Interface is interface and IUnknown_Interface;
       function OnObjectCreate2(
          This : access IComInstance2Events_Interface;
@@ -78404,6 +79170,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComInstance2Events is access IComInstance2Events_Interface'Class;
    type IComInstance2Events_Ptr is access IComInstance2Events;
+   IID_IComObjectPool2Events : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComObjectPool2Events,"IID_IComObjectPool2Events"); -- [FIXME CXCursor_VarDecl]
    type IComObjectPool2Events_Interface is interface and IUnknown_Interface;
       function OnObjPoolPutObject2(
          This : access IComObjectPool2Events_Interface;
@@ -78441,6 +79209,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComObjectPool2Events is access IComObjectPool2Events_Interface'Class;
    type IComObjectPool2Events_Ptr is access IComObjectPool2Events;
+   IID_IComObjectConstruction2Events : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComObjectConstruction2Events,"IID_IComObjectConstruction2Events"); -- [FIXME CXCursor_VarDecl]
    type IComObjectConstruction2Events_Interface is interface and IUnknown_Interface;
       function OnObjectConstruct2(
          This : access IComObjectConstruction2Events_Interface;
@@ -78452,6 +79222,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComObjectConstruction2Events is access IComObjectConstruction2Events_Interface'Class;
    type IComObjectConstruction2Events_Ptr is access IComObjectConstruction2Events;
+   IID_ISystemAppEventData : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISystemAppEventData,"IID_ISystemAppEventData"); -- [FIXME CXCursor_VarDecl]
    type ISystemAppEventData_Interface is interface and IUnknown_Interface;
       function Startup(This : access ISystemAppEventData_Interface) return HRESULT is abstract;
       function OnDataChanged(
@@ -78465,6 +79237,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISystemAppEventData is access ISystemAppEventData_Interface'Class;
    type ISystemAppEventData_Ptr is access ISystemAppEventData;
+   IID_IMtsEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMtsEvents,"IID_IMtsEvents"); -- [FIXME CXCursor_VarDecl]
    type IMtsEvents_Interface is interface and IDispatch_Interface;
       function get_PackageName(
          This : access IMtsEvents_Interface;
@@ -78488,6 +79262,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IMtsEvents is access IMtsEvents_Interface'Class;
    type IMtsEvents_Ptr is access IMtsEvents;
+   IID_IMtsEventInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMtsEventInfo,"IID_IMtsEventInfo"); -- [FIXME CXCursor_VarDecl]
    type IMtsEventInfo_Interface is interface and IDispatch_Interface;
       function get_Names(
          This : access IMtsEventInfo_Interface;
@@ -78512,6 +79288,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IMtsEventInfo is access IMtsEventInfo_Interface'Class;
    type IMtsEventInfo_Ptr is access IMtsEventInfo;
+   IID_IMTSLocator : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMTSLocator,"IID_IMTSLocator"); -- [FIXME CXCursor_VarDecl]
    type IMTSLocator_Interface is interface and IDispatch_Interface;
       function GetEventDispatcher(
          This : access IMTSLocator_Interface;
@@ -78519,6 +79297,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IMTSLocator is access IMTSLocator_Interface'Class;
    type IMTSLocator_Ptr is access IMTSLocator;
+   IID_IMtsGrp : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMtsGrp,"IID_IMtsGrp"); -- [FIXME CXCursor_VarDecl]
    type IMtsGrp_Interface is interface and IDispatch_Interface;
       function get_Count(
          This : access IMtsGrp_Interface;
@@ -78532,6 +79312,8 @@ package Win32 is
       function Refresh(This : access IMtsGrp_Interface) return HRESULT is abstract;
    type IMtsGrp is access IMtsGrp_Interface'Class;
    type IMtsGrp_Ptr is access IMtsGrp;
+   IID_IMessageMover : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMessageMover,"IID_IMessageMover"); -- [FIXME CXCursor_VarDecl]
    type IMessageMover_Interface is interface and IDispatch_Interface;
       function get_SourcePath(
          This : access IMessageMover_Interface;
@@ -78563,6 +79345,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IMessageMover is access IMessageMover_Interface'Class;
    type IMessageMover_Ptr is access IMessageMover;
+   IID_IEventServerTrace : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEventServerTrace,"IID_IEventServerTrace"); -- [FIXME CXCursor_VarDecl]
    type IEventServerTrace_Interface is interface and IDispatch_Interface;
       function StartTraceGuid(
          This : access IEventServerTrace_Interface;
@@ -78764,6 +79548,8 @@ package Win32 is
       AvgCallThresholdInMs : ULONG;
    end record;
    subtype ComponentHangMonitorInfo is ComponentHangMonitorInfo_x; -- CXType_Elaborated
+   IID_IGetAppTrackerData : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IGetAppTrackerData,"IID_IGetAppTrackerData"); -- [FIXME CXCursor_VarDecl]
    type ApplicationProcessSummary_Ptr is access all ApplicationProcessSummary; -- Auto Generated Dependancy
    type ApplicationSummary_Ptr is access all ApplicationSummary; -- Auto Generated Dependancy
    type ComponentSummary_Ptr is access all ComponentSummary; -- Auto Generated Dependancy
@@ -78869,6 +79655,8 @@ package Win32 is
    subtype TIMEINSECS is Interfaces.C.Long; -- CXType_Long
    subtype INSTID is DWORD_PTR; -- CXType_Typedef
    subtype TRANSID is DWORD_PTR; -- CXType_Typedef
+   IID_IDispenserManager : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDispenserManager,"IID_IDispenserManager"); -- [FIXME CXCursor_VarDecl]
    type IHolder_Ptr is access all IHolder; -- Auto Generated Dependancy
    type IDispenserManager_Interface is interface and IUnknown_Interface;
       function RegisterDispenser(
@@ -78884,6 +79672,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IDispenserManager is access IDispenserManager_Interface'Class;
    type IDispenserManager_Ptr is access IDispenserManager;
+   IID_IHolder : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IHolder,"IID_IHolder"); -- [FIXME CXCursor_VarDecl]
    type IHolder_Interface is interface and IUnknown_Interface;
       function AllocResource(
          This : access IHolder_Interface;
@@ -78918,6 +79708,8 @@ package Win32 is
          MIDL_IHolder0009 : RESID
       ) return HRESULT is abstract;
    type IHolder is access IHolder_Interface'Class;
+   IID_IDispenserDriver : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IDispenserDriver,"IID_IDispenserDriver"); -- [FIXME CXCursor_VarDecl]
    type IDispenserDriver_Interface is interface and IUnknown_Interface;
       function CreateResource(
          This : access IDispenserDriver_Interface;
@@ -78951,6 +79743,10 @@ package Win32 is
       ) return HRESULT is abstract;
    type IDispenserDriver is access IDispenserDriver_Interface'Class;
    type IDispenserDriver_Ptr is access IDispenserDriver;
+   IID_IEnterActivityWithNoLock : aliased constant GUID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnterActivityWithNoLock,"IID_IEnterActivityWithNoLock"); -- [FIXME CXCursor_VarDecl]
+   IID_ITransactionProxy : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionProxy,"IID_ITransactionProxy"); -- [FIXME CXCursor_VarDecl]
    type ITransactionProxy_Interface is interface and IUnknown_Interface;
       function Commit(
          This : access ITransactionProxy_Interface;
@@ -78980,6 +79776,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionProxy is access ITransactionProxy_Interface'Class;
    type ITransactionProxy_Ptr is access ITransactionProxy;
+   IID_IContextSecurityPerimeter : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IContextSecurityPerimeter,"IID_IContextSecurityPerimeter"); -- [FIXME CXCursor_VarDecl]
    type IContextSecurityPerimeter_Interface is interface and IUnknown_Interface;
       function GetPerimeterFlag(
          This : access IContextSecurityPerimeter_Interface;
@@ -78991,6 +79789,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IContextSecurityPerimeter is access IContextSecurityPerimeter_Interface'Class;
    type IContextSecurityPerimeter_Ptr is access IContextSecurityPerimeter;
+   IID_ITxProxyHolder : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITxProxyHolder,"IID_ITxProxyHolder"); -- [FIXME CXCursor_VarDecl]
    type ITxProxyHolder_Interface is interface and IUnknown_Interface;
       procedure GetIdentifier(
          This : access ITxProxyHolder_Interface;
@@ -78998,6 +79798,8 @@ package Win32 is
       ) is abstract;
    type ITxProxyHolder is access ITxProxyHolder_Interface'Class;
    type ITxProxyHolder_Ptr is access ITxProxyHolder;
+   IID_IObjectContext : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IObjectContext,"IID_IObjectContext"); -- [FIXME CXCursor_VarDecl]
    type IObjectContext_Interface is interface and IUnknown_Interface;
       function CreateInstance(
          This : access IObjectContext_Interface;
@@ -79018,12 +79820,16 @@ package Win32 is
       ) return HRESULT is abstract;
    type IObjectContext is access IObjectContext_Interface'Class;
    type IObjectContext_Ptr is access IObjectContext;
+   IID_IObjectControl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IObjectControl,"IID_IObjectControl"); -- [FIXME CXCursor_VarDecl]
    type IObjectControl_Interface is interface and IUnknown_Interface;
       function Activate(This : access IObjectControl_Interface) return HRESULT is abstract;
       procedure Deactivate(This : access IObjectControl_Interface) is abstract;
       function CanBePooled(This : access IObjectControl_Interface) return BOOL is abstract;
    type IObjectControl is access IObjectControl_Interface'Class;
    type IObjectControl_Ptr is access IObjectControl;
+   IID_IEnumNames : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IEnumNames,"IID_IEnumNames"); -- [FIXME CXCursor_VarDecl]
    type IEnumNames_Interface is interface and IUnknown_Interface;
       function Next(
          This : access IEnumNames_Interface;
@@ -79042,6 +79848,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IEnumNames is access IEnumNames_Interface'Class;
    type IEnumNames_Ptr is access IEnumNames;
+   IID_ISecurityProperty : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISecurityProperty,"IID_ISecurityProperty"); -- [FIXME CXCursor_VarDecl]
    type ISecurityProperty_Interface is interface and IUnknown_Interface;
       function GetDirectCreatorSID(
          This : access ISecurityProperty_Interface;
@@ -79065,6 +79873,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISecurityProperty is access ISecurityProperty_Interface'Class;
    type ISecurityProperty_Ptr is access ISecurityProperty;
+   IID_ObjectControl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ObjectControl,"IID_ObjectControl"); -- [FIXME CXCursor_VarDecl]
    type ObjectControl_Interface is interface and IUnknown_Interface;
       function Activate(This : access ObjectControl_Interface) return HRESULT is abstract;
       function Deactivate(This : access ObjectControl_Interface) return HRESULT is abstract;
@@ -79074,6 +79884,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ObjectControl is access ObjectControl_Interface'Class;
    type ObjectControl_Ptr is access ObjectControl;
+   IID_ISharedProperty : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISharedProperty,"IID_ISharedProperty"); -- [FIXME CXCursor_VarDecl]
    type ISharedProperty_Interface is interface and IDispatch_Interface;
       function get_Value(
          This : access ISharedProperty_Interface;
@@ -79085,6 +79897,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISharedProperty is access ISharedProperty_Interface'Class;
    type ISharedProperty_Ptr is access ISharedProperty;
+   IID_ISharedPropertyGroup : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISharedPropertyGroup,"IID_ISharedPropertyGroup"); -- [FIXME CXCursor_VarDecl]
    type ISharedPropertyGroup_Interface is interface and IDispatch_Interface;
       function CreatePropertyByPosition(
          This : access ISharedPropertyGroup_Interface;
@@ -79110,6 +79924,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISharedPropertyGroup is access ISharedPropertyGroup_Interface'Class;
    type ISharedPropertyGroup_Ptr is access ISharedPropertyGroup;
+   IID_ISharedPropertyGroupManager : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISharedPropertyGroupManager,"IID_ISharedPropertyGroupManager"); -- [FIXME CXCursor_VarDecl]
    type ISharedPropertyGroupManager_Interface is interface and IDispatch_Interface;
       function CreatePropertyGroup(
          This : access ISharedPropertyGroupManager_Interface;
@@ -79130,6 +79946,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISharedPropertyGroupManager is access ISharedPropertyGroupManager_Interface'Class;
    type ISharedPropertyGroupManager_Ptr is access ISharedPropertyGroupManager;
+   IID_IObjectConstruct : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IObjectConstruct,"IID_IObjectConstruct"); -- [FIXME CXCursor_VarDecl]
    type IObjectConstruct_Interface is interface and IUnknown_Interface;
       function Construct(
          This : access IObjectConstruct_Interface;
@@ -79137,6 +79955,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IObjectConstruct is access IObjectConstruct_Interface'Class;
    type IObjectConstruct_Ptr is access IObjectConstruct;
+   IID_IObjectConstructString : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IObjectConstructString,"IID_IObjectConstructString"); -- [FIXME CXCursor_VarDecl]
    type IObjectConstructString_Interface is interface and IDispatch_Interface;
       function get_ConstructString(
          This : access IObjectConstructString_Interface;
@@ -79144,6 +79964,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IObjectConstructString is access IObjectConstructString_Interface'Class;
    type IObjectConstructString_Ptr is access IObjectConstructString;
+   IID_IObjectContextActivity : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IObjectContextActivity,"IID_IObjectContextActivity"); -- [FIXME CXCursor_VarDecl]
    type IObjectContextActivity_Interface is interface and IUnknown_Interface;
       function GetActivityId(
          This : access IObjectContextActivity_Interface;
@@ -79151,6 +79973,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IObjectContextActivity is access IObjectContextActivity_Interface'Class;
    type IObjectContextActivity_Ptr is access IObjectContextActivity;
+   IID_IObjectContextInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IObjectContextInfo,"IID_IObjectContextInfo"); -- [FIXME CXCursor_VarDecl]
    type IObjectContextInfo_Interface is interface and IUnknown_Interface;
       function IsInTransaction(This : access IObjectContextInfo_Interface) return BOOL is abstract;
       function GetTransaction(
@@ -79171,6 +79995,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IObjectContextInfo is access IObjectContextInfo_Interface'Class;
    type IObjectContextInfo_Ptr is access IObjectContextInfo;
+   IID_IObjectContextInfo2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IObjectContextInfo2,"IID_IObjectContextInfo2"); -- [FIXME CXCursor_VarDecl]
    type IObjectContextInfo2_Interface is interface and IObjectContextInfo_Interface;
       function GetPartitionId(
          This : access IObjectContextInfo2_Interface;
@@ -79186,6 +80012,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IObjectContextInfo2 is access IObjectContextInfo2_Interface'Class;
    type IObjectContextInfo2_Ptr is access IObjectContextInfo2;
+   IID_ITransactionStatus : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionStatus,"IID_ITransactionStatus"); -- [FIXME CXCursor_VarDecl]
    type ITransactionStatus_Interface is interface and IUnknown_Interface;
       function SetTransactionStatus(
          This : access ITransactionStatus_Interface;
@@ -79197,6 +80025,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ITransactionStatus is access ITransactionStatus_Interface'Class;
    type ITransactionStatus_Ptr is access ITransactionStatus;
+   IID_IObjectContextTip : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IObjectContextTip,"IID_IObjectContextTip"); -- [FIXME CXCursor_VarDecl]
    type IObjectContextTip_Interface is interface and IUnknown_Interface;
       function GetTipUrl(
          This : access IObjectContextTip_Interface;
@@ -79204,11 +80034,15 @@ package Win32 is
       ) return HRESULT is abstract;
    type IObjectContextTip is access IObjectContextTip_Interface'Class;
    type IObjectContextTip_Ptr is access IObjectContextTip;
+   IID_IPlaybackControl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPlaybackControl,"IID_IPlaybackControl"); -- [FIXME CXCursor_VarDecl]
    type IPlaybackControl_Interface is interface and IUnknown_Interface;
       function FinalClientRetry(This : access IPlaybackControl_Interface) return HRESULT is abstract;
       function FinalServerRetry(This : access IPlaybackControl_Interface) return HRESULT is abstract;
    type IPlaybackControl is access IPlaybackControl_Interface'Class;
    type IPlaybackControl_Ptr is access IPlaybackControl;
+   IID_IGetContextProperties : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IGetContextProperties,"IID_IGetContextProperties"); -- [FIXME CXCursor_VarDecl]
    type IGetContextProperties_Interface is interface and IUnknown_Interface;
       function Count(
          This : access IGetContextProperties_Interface;
@@ -79235,6 +80069,8 @@ package Win32 is
    );
    for tagTransactionVote'Size use 32;
    subtype TransactionVote is tagTransactionVote; -- CXType_Elaborated
+   IID_IContextState : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IContextState,"IID_IContextState"); -- [FIXME CXCursor_VarDecl]
    type IContextState_Interface is interface and IUnknown_Interface;
       function SetDeactivateOnReturn(
          This : access IContextState_Interface;
@@ -79254,6 +80090,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IContextState is access IContextState_Interface'Class;
    type IContextState_Ptr is access IContextState;
+   IID_IPoolManager : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IPoolManager,"IID_IPoolManager"); -- [FIXME CXCursor_VarDecl]
    type IPoolManager_Interface is interface and IDispatch_Interface;
       function ShutdownPool(
          This : access IPoolManager_Interface;
@@ -79261,6 +80099,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IPoolManager is access IPoolManager_Interface'Class;
    type IPoolManager_Ptr is access IPoolManager;
+   IID_ISelectCOMLBServer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISelectCOMLBServer,"IID_ISelectCOMLBServer"); -- [FIXME CXCursor_VarDecl]
    type ISelectCOMLBServer_Interface is interface and IUnknown_Interface;
       function Init(This : access ISelectCOMLBServer_Interface) return HRESULT is abstract;
       function GetLBServer(
@@ -79269,6 +80109,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISelectCOMLBServer is access ISelectCOMLBServer_Interface'Class;
    type ISelectCOMLBServer_Ptr is access ISelectCOMLBServer;
+   IID_ICOMLBArguments : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICOMLBArguments,"IID_ICOMLBArguments"); -- [FIXME CXCursor_VarDecl]
    type ICOMLBArguments_Interface is interface and IUnknown_Interface;
       function GetCLSID(
          This : access ICOMLBArguments_Interface;
@@ -79317,6 +80159,8 @@ package Win32 is
       lReasonCode : Interfaces.C.Long
    ) return HRESULT;
    pragma import (C,RecycleSurrogate,"RecycleSurrogate");
+   IID_ICrmLogControl : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICrmLogControl,"IID_ICrmLogControl"); -- [FIXME CXCursor_VarDecl]
    type ICrmLogControl_Interface is interface and IUnknown_Interface;
       function get_TransactionUOW(
          This : access ICrmLogControl_Interface;
@@ -79342,6 +80186,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ICrmLogControl is access ICrmLogControl_Interface'Class;
    type ICrmLogControl_Ptr is access ICrmLogControl;
+   IID_ICrmCompensatorVariants : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICrmCompensatorVariants,"IID_ICrmCompensatorVariants"); -- [FIXME CXCursor_VarDecl]
    type ICrmCompensatorVariants_Interface is interface and IUnknown_Interface;
       function SetLogControlVariants(
          This : access ICrmCompensatorVariants_Interface;
@@ -79385,6 +80231,8 @@ package Win32 is
       blobUserData : BLOB;
    end record;
    subtype CrmLogRecordRead is tagCrmLogRecordRead; -- CXType_Elaborated
+   IID_ICrmCompensator : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICrmCompensator,"IID_ICrmCompensator"); -- [FIXME CXCursor_VarDecl]
    type ICrmCompensator_Interface is interface and IUnknown_Interface;
       function SetLogControl(
          This : access ICrmCompensator_Interface;
@@ -79436,6 +80284,8 @@ package Win32 is
    );
    for tagCrmTransactionState'Size use 32;
    subtype CrmTransactionState is tagCrmTransactionState; -- CXType_Elaborated
+   IID_ICrmMonitorLogRecords : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICrmMonitorLogRecords,"IID_ICrmMonitorLogRecords"); -- [FIXME CXCursor_VarDecl]
    type ICrmMonitorLogRecords_Interface is interface and IUnknown_Interface;
       function get_Count(
          This : access ICrmMonitorLogRecords_Interface;
@@ -79461,6 +80311,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ICrmMonitorLogRecords is access ICrmMonitorLogRecords_Interface'Class;
    type ICrmMonitorLogRecords_Ptr is access ICrmMonitorLogRecords;
+   IID_ICrmMonitorClerks : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICrmMonitorClerks,"IID_ICrmMonitorClerks"); -- [FIXME CXCursor_VarDecl]
    type ICrmMonitorClerks_Interface is interface and IDispatch_Interface;
       function Item(
          This : access ICrmMonitorClerks_Interface;
@@ -79497,6 +80349,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ICrmMonitorClerks is access ICrmMonitorClerks_Interface'Class;
    type ICrmMonitorClerks_Ptr is access ICrmMonitorClerks;
+   IID_ICrmMonitor : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICrmMonitor,"IID_ICrmMonitor"); -- [FIXME CXCursor_VarDecl]
    type ICrmMonitor_Interface is interface and IUnknown_Interface;
       function GetClerks(
          This : access ICrmMonitor_Interface;
@@ -79509,6 +80363,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ICrmMonitor is access ICrmMonitor_Interface'Class;
    type ICrmMonitor_Ptr is access ICrmMonitor;
+   IID_ICrmFormatLogRecords : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICrmFormatLogRecords,"IID_ICrmFormatLogRecords"); -- [FIXME CXCursor_VarDecl]
    type ICrmFormatLogRecords_Interface is interface and IUnknown_Interface;
       function GetColumnCount(
          This : access ICrmFormatLogRecords_Interface;
@@ -79646,6 +80502,8 @@ package Win32 is
    );
    for tagCSC_SxsConfig'Size use 32;
    subtype CSC_SxsConfig is tagCSC_SxsConfig; -- CXType_Elaborated
+   IID_IServiceIISIntrinsicsConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceIISIntrinsicsConfig,"IID_IServiceIISIntrinsicsConfig"); -- [FIXME CXCursor_VarDecl]
    type IServiceIISIntrinsicsConfig_Interface is interface and IUnknown_Interface;
       function IISIntrinsicsConfig(
          This : access IServiceIISIntrinsicsConfig_Interface;
@@ -79653,6 +80511,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServiceIISIntrinsicsConfig is access IServiceIISIntrinsicsConfig_Interface'Class;
    type IServiceIISIntrinsicsConfig_Ptr is access IServiceIISIntrinsicsConfig;
+   IID_IServiceComTIIntrinsicsConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceComTIIntrinsicsConfig,"IID_IServiceComTIIntrinsicsConfig"); -- [FIXME CXCursor_VarDecl]
    type IServiceComTIIntrinsicsConfig_Interface is interface and IUnknown_Interface;
       function ComTIIntrinsicsConfig(
          This : access IServiceComTIIntrinsicsConfig_Interface;
@@ -79660,6 +80520,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServiceComTIIntrinsicsConfig is access IServiceComTIIntrinsicsConfig_Interface'Class;
    type IServiceComTIIntrinsicsConfig_Ptr is access IServiceComTIIntrinsicsConfig;
+   IID_IServiceSxsConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceSxsConfig,"IID_IServiceSxsConfig"); -- [FIXME CXCursor_VarDecl]
    type IServiceSxsConfig_Interface is interface and IUnknown_Interface;
       function SxsConfig(
          This : access IServiceSxsConfig_Interface;
@@ -79675,6 +80537,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServiceSxsConfig is access IServiceSxsConfig_Interface'Class;
    type IServiceSxsConfig_Ptr is access IServiceSxsConfig;
+   IID_ICheckSxsConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ICheckSxsConfig,"IID_ICheckSxsConfig"); -- [FIXME CXCursor_VarDecl]
    type ICheckSxsConfig_Interface is interface and IUnknown_Interface;
       function IsSameSxsConfig(
          This : access ICheckSxsConfig_Interface;
@@ -79684,6 +80548,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ICheckSxsConfig is access ICheckSxsConfig_Interface'Class;
    type ICheckSxsConfig_Ptr is access ICheckSxsConfig;
+   IID_IServiceInheritanceConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceInheritanceConfig,"IID_IServiceInheritanceConfig"); -- [FIXME CXCursor_VarDecl]
    type IServiceInheritanceConfig_Interface is interface and IUnknown_Interface;
       function ContainingContextTreatment(
          This : access IServiceInheritanceConfig_Interface;
@@ -79691,6 +80557,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServiceInheritanceConfig is access IServiceInheritanceConfig_Interface'Class;
    type IServiceInheritanceConfig_Ptr is access IServiceInheritanceConfig;
+   IID_IServiceThreadPoolConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceThreadPoolConfig,"IID_IServiceThreadPoolConfig"); -- [FIXME CXCursor_VarDecl]
    type IServiceThreadPoolConfig_Interface is interface and IUnknown_Interface;
       function SelectThreadPool(
          This : access IServiceThreadPoolConfig_Interface;
@@ -79702,6 +80570,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServiceThreadPoolConfig is access IServiceThreadPoolConfig_Interface'Class;
    type IServiceThreadPoolConfig_Ptr is access IServiceThreadPoolConfig;
+   IID_IServiceTransactionConfigBase : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceTransactionConfigBase,"IID_IServiceTransactionConfigBase"); -- [FIXME CXCursor_VarDecl]
    type IServiceTransactionConfigBase_Interface is interface and IUnknown_Interface;
       function ConfigureTransaction(
          This : access IServiceTransactionConfigBase_Interface;
@@ -79725,6 +80595,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServiceTransactionConfigBase is access IServiceTransactionConfigBase_Interface'Class;
    type IServiceTransactionConfigBase_Ptr is access IServiceTransactionConfigBase;
+   IID_IServiceTransactionConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceTransactionConfig,"IID_IServiceTransactionConfig"); -- [FIXME CXCursor_VarDecl]
    type IServiceTransactionConfig_Interface is interface and IServiceTransactionConfigBase_Interface;
       function ConfigureBYOT(
          This : access IServiceTransactionConfig_Interface;
@@ -79732,6 +80604,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServiceTransactionConfig is access IServiceTransactionConfig_Interface'Class;
    type IServiceTransactionConfig_Ptr is access IServiceTransactionConfig;
+   IID_IServiceSysTxnConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceSysTxnConfig,"IID_IServiceSysTxnConfig"); -- [FIXME CXCursor_VarDecl]
    type IServiceSysTxnConfig_Interface is interface and IServiceTransactionConfig_Interface;
       function ConfigureBYOTSysTxn(
          This : access IServiceSysTxnConfig_Interface;
@@ -79739,6 +80613,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServiceSysTxnConfig is access IServiceSysTxnConfig_Interface'Class;
    type IServiceSysTxnConfig_Ptr is access IServiceSysTxnConfig;
+   IID_IServiceSynchronizationConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceSynchronizationConfig,"IID_IServiceSynchronizationConfig"); -- [FIXME CXCursor_VarDecl]
    type IServiceSynchronizationConfig_Interface is interface and IUnknown_Interface;
       function ConfigureSynchronization(
          This : access IServiceSynchronizationConfig_Interface;
@@ -79746,6 +80622,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServiceSynchronizationConfig is access IServiceSynchronizationConfig_Interface'Class;
    type IServiceSynchronizationConfig_Ptr is access IServiceSynchronizationConfig;
+   IID_IServiceTrackerConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceTrackerConfig,"IID_IServiceTrackerConfig"); -- [FIXME CXCursor_VarDecl]
    type IServiceTrackerConfig_Interface is interface and IUnknown_Interface;
       function TrackerConfig(
          This : access IServiceTrackerConfig_Interface;
@@ -79755,6 +80633,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServiceTrackerConfig is access IServiceTrackerConfig_Interface'Class;
    type IServiceTrackerConfig_Ptr is access IServiceTrackerConfig;
+   IID_IServicePartitionConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServicePartitionConfig,"IID_IServicePartitionConfig"); -- [FIXME CXCursor_VarDecl]
    type IServicePartitionConfig_Interface is interface and IUnknown_Interface;
       function PartitionConfig(
          This : access IServicePartitionConfig_Interface;
@@ -79766,10 +80646,14 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServicePartitionConfig is access IServicePartitionConfig_Interface'Class;
    type IServicePartitionConfig_Ptr is access IServicePartitionConfig;
+   IID_IServiceCall : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceCall,"IID_IServiceCall"); -- [FIXME CXCursor_VarDecl]
    type IServiceCall_Interface is interface and IUnknown_Interface;
       function OnCall(This : access IServiceCall_Interface) return HRESULT is abstract;
    type IServiceCall is access IServiceCall_Interface'Class;
    type IServiceCall_Ptr is access IServiceCall;
+   IID_IAsyncErrorNotify : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAsyncErrorNotify,"IID_IAsyncErrorNotify"); -- [FIXME CXCursor_VarDecl]
    type IAsyncErrorNotify_Interface is interface and IUnknown_Interface;
       function OnError(
          This : access IAsyncErrorNotify_Interface;
@@ -79777,6 +80661,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IAsyncErrorNotify is access IAsyncErrorNotify_Interface'Class;
    type IAsyncErrorNotify_Ptr is access IAsyncErrorNotify;
+   IID_IServiceActivity : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServiceActivity,"IID_IServiceActivity"); -- [FIXME CXCursor_VarDecl]
    type IServiceActivity_Interface is interface and IUnknown_Interface;
       function SynchronousCall(
          This : access IServiceActivity_Interface;
@@ -79790,6 +80676,8 @@ package Win32 is
       function UnbindFromThread(This : access IServiceActivity_Interface) return HRESULT is abstract;
    type IServiceActivity is access IServiceActivity_Interface'Class;
    type IServiceActivity_Ptr is access IServiceActivity;
+   IID_IThreadPoolKnobs : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IThreadPoolKnobs,"IID_IThreadPoolKnobs"); -- [FIXME CXCursor_VarDecl]
    type IThreadPoolKnobs_Interface is interface and IUnknown_Interface;
       function GetMaxThreads(
          This : access IThreadPoolKnobs_Interface;
@@ -79833,6 +80721,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IThreadPoolKnobs is access IThreadPoolKnobs_Interface'Class;
    type IThreadPoolKnobs_Ptr is access IThreadPoolKnobs;
+   IID_IComStaThreadPoolKnobs : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComStaThreadPoolKnobs,"IID_IComStaThreadPoolKnobs"); -- [FIXME CXCursor_VarDecl]
    type IComStaThreadPoolKnobs_Interface is interface and IUnknown_Interface;
       function SetMinThreadCount(
          This : access IComStaThreadPoolKnobs_Interface;
@@ -79880,6 +80770,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComStaThreadPoolKnobs is access IComStaThreadPoolKnobs_Interface'Class;
    type IComStaThreadPoolKnobs_Ptr is access IComStaThreadPoolKnobs;
+   IID_IComMtaThreadPoolKnobs : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComMtaThreadPoolKnobs,"IID_IComMtaThreadPoolKnobs"); -- [FIXME CXCursor_VarDecl]
    type IComMtaThreadPoolKnobs_Interface is interface and IUnknown_Interface;
       function MTASetMaxThreadCount(
          This : access IComMtaThreadPoolKnobs_Interface;
@@ -79899,6 +80791,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComMtaThreadPoolKnobs is access IComMtaThreadPoolKnobs_Interface'Class;
    type IComMtaThreadPoolKnobs_Ptr is access IComMtaThreadPoolKnobs;
+   IID_IComStaThreadPoolKnobs2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IComStaThreadPoolKnobs2,"IID_IComStaThreadPoolKnobs2"); -- [FIXME CXCursor_VarDecl]
    type IComStaThreadPoolKnobs2_Interface is interface and IComStaThreadPoolKnobs_Interface;
       function GetMaxCPULoad(
          This : access IComStaThreadPoolKnobs2_Interface;
@@ -79942,6 +80836,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IComStaThreadPoolKnobs2 is access IComStaThreadPoolKnobs2_Interface'Class;
    type IComStaThreadPoolKnobs2_Ptr is access IComStaThreadPoolKnobs2;
+   IID_IProcessInitializer : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IProcessInitializer,"IID_IProcessInitializer"); -- [FIXME CXCursor_VarDecl]
    type IProcessInitializer_Interface is interface and IUnknown_Interface;
       function Startup(
          This : access IProcessInitializer_Interface;
@@ -79950,6 +80846,8 @@ package Win32 is
       function Shutdown_x(This : access IProcessInitializer_Interface) return HRESULT is abstract;
    type IProcessInitializer is access IProcessInitializer_Interface'Class;
    type IProcessInitializer_Ptr is access IProcessInitializer;
+   IID_IServicePoolConfig : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServicePoolConfig,"IID_IServicePoolConfig"); -- [FIXME CXCursor_VarDecl]
    type IServicePoolConfig_Interface is interface and IUnknown_Interface;
       function put_MaxPoolSize(
          This : access IServicePoolConfig_Interface;
@@ -79993,6 +80891,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IServicePoolConfig is access IServicePoolConfig_Interface'Class;
    type IServicePoolConfig_Ptr is access IServicePoolConfig;
+   IID_IServicePool : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IServicePool,"IID_IServicePool"); -- [FIXME CXCursor_VarDecl]
    type IServicePool_Interface is interface and IUnknown_Interface;
       function Initialize(
          This : access IServicePool_Interface;
@@ -80006,6 +80906,8 @@ package Win32 is
       function Shutdown_x(This : access IServicePool_Interface) return HRESULT is abstract;
    type IServicePool is access IServicePool_Interface'Class;
    type IServicePool_Ptr is access IServicePool;
+   IID_IManagedPooledObj : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IManagedPooledObj,"IID_IManagedPooledObj"); -- [FIXME CXCursor_VarDecl]
    type IManagedPooledObj_Interface is interface and IUnknown_Interface;
       function SetHeld(
          This : access IManagedPooledObj_Interface;
@@ -80013,10 +80915,14 @@ package Win32 is
       ) return HRESULT is abstract;
    type IManagedPooledObj is access IManagedPooledObj_Interface'Class;
    type IManagedPooledObj_Ptr is access IManagedPooledObj;
+   IID_IManagedPoolAction : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IManagedPoolAction,"IID_IManagedPoolAction"); -- [FIXME CXCursor_VarDecl]
    type IManagedPoolAction_Interface is interface and IUnknown_Interface;
       function LastRelease(This : access IManagedPoolAction_Interface) return HRESULT is abstract;
    type IManagedPoolAction is access IManagedPoolAction_Interface'Class;
    type IManagedPoolAction_Ptr is access IManagedPoolAction;
+   IID_IManagedObjectInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IManagedObjectInfo,"IID_IManagedObjectInfo"); -- [FIXME CXCursor_VarDecl]
    type IManagedObjectInfo_Interface is interface and IUnknown_Interface;
       function GetIUnknown(
          This : access IManagedObjectInfo_Interface;
@@ -80037,6 +80943,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IManagedObjectInfo is access IManagedObjectInfo_Interface'Class;
    type IManagedObjectInfo_Ptr is access IManagedObjectInfo;
+   IID_IAppDomainHelper : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAppDomainHelper,"IID_IAppDomainHelper"); -- [FIXME CXCursor_VarDecl]
    type IAppDomainHelper_Interface is interface and IDispatch_Interface;
       function Initialize(
          This : access IAppDomainHelper_Interface;
@@ -80052,6 +80960,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IAppDomainHelper is access IAppDomainHelper_Interface'Class;
    type IAppDomainHelper_Ptr is access IAppDomainHelper;
+   IID_IAssemblyLocator : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IAssemblyLocator,"IID_IAssemblyLocator"); -- [FIXME CXCursor_VarDecl]
    type IAssemblyLocator_Interface is interface and IDispatch_Interface;
       function GetModules(
          This : access IAssemblyLocator_Interface;
@@ -80062,6 +80972,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IAssemblyLocator is access IAssemblyLocator_Interface'Class;
    type IAssemblyLocator_Ptr is access IAssemblyLocator;
+   IID_IManagedActivationEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IManagedActivationEvents,"IID_IManagedActivationEvents"); -- [FIXME CXCursor_VarDecl]
    type IManagedActivationEvents_Interface is interface and IUnknown_Interface;
       function CreateManagedStub(
          This : access IManagedActivationEvents_Interface;
@@ -80074,6 +80986,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IManagedActivationEvents is access IManagedActivationEvents_Interface'Class;
    type IManagedActivationEvents_Ptr is access IManagedActivationEvents;
+   IID_ISendMethodEvents : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ISendMethodEvents,"IID_ISendMethodEvents"); -- [FIXME CXCursor_VarDecl]
    type ISendMethodEvents_Interface is interface and IUnknown_Interface;
       function SendMethodCall(
          This : access ISendMethodEvents_Interface;
@@ -80091,6 +81005,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type ISendMethodEvents is access ISendMethodEvents_Interface'Class;
    type ISendMethodEvents_Ptr is access ISendMethodEvents;
+   IID_ITransactionResourcePool : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionResourcePool,"IID_ITransactionResourcePool"); -- [FIXME CXCursor_VarDecl]
    type ITransactionResourcePool_Interface is interface and IUnknown_Interface;
       function PutResource(
          This : access ITransactionResourcePool_Interface;
@@ -80109,10 +81025,14 @@ package Win32 is
       ppobj : access LPVOID
    ) return HRESULT;
    pragma import (C,MTSCreateActivity,"MTSCreateActivity");
+   IID_IMTSCall : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMTSCall,"IID_IMTSCall"); -- [FIXME CXCursor_VarDecl]
    type IMTSCall_Interface is interface and IUnknown_Interface;
       function OnCall(This : access IMTSCall_Interface) return HRESULT is abstract;
    type IMTSCall is access IMTSCall_Interface'Class;
    type IMTSCall_Ptr is access IMTSCall;
+   IID_IContextProperties : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IContextProperties,"IID_IContextProperties"); -- [FIXME CXCursor_VarDecl]
    type IContextProperties_Interface is interface and IUnknown_Interface;
       function Count(
          This : access IContextProperties_Interface;
@@ -80138,6 +81058,8 @@ package Win32 is
       ) return HRESULT is abstract;
    type IContextProperties is access IContextProperties_Interface'Class;
    type IContextProperties_Ptr is access IContextProperties;
+   IID_IObjPool : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IObjPool,"IID_IObjPool"); -- [FIXME CXCursor_VarDecl]
    type IObjPool_Interface is interface and IUnknown_Interface;
       procedure Reserved1(This : access IObjPool_Interface) is abstract;
       procedure Reserved2(This : access IObjPool_Interface) is abstract;
@@ -80151,6 +81073,8 @@ package Win32 is
       procedure Reserved6(This : access IObjPool_Interface) is abstract;
    type IObjPool is access IObjPool_Interface'Class;
    type IObjPool_Ptr is access IObjPool;
+   IID_ITransactionProperty : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ITransactionProperty,"IID_ITransactionProperty"); -- [FIXME CXCursor_VarDecl]
    type ITransactionProperty_Interface is interface and IUnknown_Interface;
       procedure Reserved1(This : access ITransactionProperty_Interface) is abstract;
       procedure Reserved2(This : access ITransactionProperty_Interface) is abstract;
@@ -80175,6 +81099,8 @@ package Win32 is
       procedure Reserved17(This : access ITransactionProperty_Interface) is abstract;
    type ITransactionProperty is access ITransactionProperty_Interface'Class;
    type ITransactionProperty_Ptr is access ITransactionProperty;
+   IID_IMTSActivity : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IMTSActivity,"IID_IMTSActivity"); -- [FIXME CXCursor_VarDecl]
    type IMTSActivity_Interface is interface and IUnknown_Interface;
       function SynchronousCall(
          This : access IMTSActivity_Interface;
@@ -80440,6 +81366,8 @@ package Win32 is
       FullTrust => 2
    );
    for TrustLevel'Size use 32;
+   IID_IInspectable : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IInspectable,"IID_IInspectable"); -- [FIXME CXCursor_VarDecl]
    type IInspectable_Interface is interface and IUnknown_Interface;
       function GetIids(
          This : access IInspectable_Interface;
@@ -80481,6 +81409,8 @@ package Win32 is
    -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt\activation.h>
    type IActivationFactory; -- Forward Declaration
    type PACTIVATIONFACTORY is access IActivationFactory; -- CXType_Pointer - CXType_Typedef
+   IID_IActivationFactory : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IActivationFactory,"IID_IActivationFactory"); -- [FIXME CXCursor_VarDecl]
    type IActivationFactory_Interface is interface and IInspectable_Interface;
       function ActivateInstance(
          This : access IActivationFactory_Interface;
@@ -80686,6 +81616,240 @@ package Win32 is
       targetStringAddress : access UINT64
    ) return HRESULT;
    pragma import (C,WindowsInspectString2,"WindowsInspectString2");
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um\restrictedErrorInfo.h>
+   type IRestrictedErrorInfo; -- Forward Declaration
+   type ILanguageExceptionErrorInfo; -- Forward Declaration
+   type ILanguageExceptionTransform; -- Forward Declaration
+   type ILanguageExceptionStackBackTrace; -- Forward Declaration
+   type ILanguageExceptionErrorInfo2; -- Forward Declaration
+   IID_IRestrictedErrorInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_IRestrictedErrorInfo,"IID_IRestrictedErrorInfo"); -- [FIXME CXCursor_VarDecl]
+   type IRestrictedErrorInfo_Interface is interface and IUnknown_Interface;
+      function GetErrorDetails(
+         This : access IRestrictedErrorInfo_Interface;
+         description : access BSTR;
+         error : access HRESULT;
+         restrictedDescription : access BSTR;
+         capabilitySid : access BSTR
+      ) return HRESULT is abstract;
+      function GetReference(
+         This : access IRestrictedErrorInfo_Interface;
+         reference : access BSTR
+      ) return HRESULT is abstract;
+   type IRestrictedErrorInfo is access IRestrictedErrorInfo_Interface'Class;
+   type IRestrictedErrorInfo_Ptr is access IRestrictedErrorInfo;
+   IID_ILanguageExceptionErrorInfo : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ILanguageExceptionErrorInfo,"IID_ILanguageExceptionErrorInfo"); -- [FIXME CXCursor_VarDecl]
+   type ILanguageExceptionErrorInfo_Interface is interface and IUnknown_Interface;
+      function GetLanguageException(
+         This : access ILanguageExceptionErrorInfo_Interface;
+         languageException : access LPVOID
+      ) return HRESULT is abstract;
+   type ILanguageExceptionErrorInfo is access ILanguageExceptionErrorInfo_Interface'Class;
+   type ILanguageExceptionErrorInfo_Ptr is access ILanguageExceptionErrorInfo;
+   IID_ILanguageExceptionTransform : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ILanguageExceptionTransform,"IID_ILanguageExceptionTransform"); -- [FIXME CXCursor_VarDecl]
+   type ILanguageExceptionTransform_Interface is interface and IUnknown_Interface;
+      function GetTransformedRestrictedErrorInfo(
+         This : access ILanguageExceptionTransform_Interface;
+         restrictedErrorInfo : access IRestrictedErrorInfo_Ptr
+      ) return HRESULT is abstract;
+   type ILanguageExceptionTransform is access ILanguageExceptionTransform_Interface'Class;
+   type ILanguageExceptionTransform_Ptr is access ILanguageExceptionTransform;
+   IID_ILanguageExceptionStackBackTrace : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ILanguageExceptionStackBackTrace,"IID_ILanguageExceptionStackBackTrace"); -- [FIXME CXCursor_VarDecl]
+   type ILanguageExceptionStackBackTrace_Interface is interface and IUnknown_Interface;
+      function GetStackBackTrace(
+         This : access ILanguageExceptionStackBackTrace_Interface;
+         maxFramesToCapture : ULONG;
+         stackBackTrace : Void;
+         framesCaptured : access ULONG
+      ) return HRESULT is abstract;
+   type ILanguageExceptionStackBackTrace is access ILanguageExceptionStackBackTrace_Interface'Class;
+   type ILanguageExceptionStackBackTrace_Ptr is access ILanguageExceptionStackBackTrace;
+   IID_ILanguageExceptionErrorInfo2 : aliased constant IID; -- [FIXME CXCursor_VarDecl]
+   pragma import (c,IID_ILanguageExceptionErrorInfo2,"IID_ILanguageExceptionErrorInfo2"); -- [FIXME CXCursor_VarDecl]
+   type ILanguageExceptionErrorInfo2_Interface is interface and ILanguageExceptionErrorInfo_Interface;
+      function GetPreviousLanguageExceptionErrorInfo(
+         This : access ILanguageExceptionErrorInfo2_Interface;
+         previousLanguageExceptionErrorInfo : access LPVOID
+      ) return HRESULT is abstract;
+      function CapturePropagationContext(
+         This : access ILanguageExceptionErrorInfo2_Interface;
+         languageException : access Void
+      ) return HRESULT is abstract;
+      function GetPropagationContextHead(
+         This : access ILanguageExceptionErrorInfo2_Interface;
+         propagatedLanguageExceptionErrorInfoHead : access LPVOID
+      ) return HRESULT is abstract;
+   type ILanguageExceptionErrorInfo2 is access ILanguageExceptionErrorInfo2_Interface'Class;
+   type ILanguageExceptionErrorInfo2_Ptr is access ILanguageExceptionErrorInfo2;
+   function BSTR_UserSize_x_x_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize_x_x_x_x_x_x_x,"BSTR_UserSize");
+   procedure BSTR_UserFree_x_x_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree_x_x_x_x_x_x_x,"BSTR_UserFree");
+   function BSTR_UserSize64_x_x_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : Interfaces.C.unsigned_long;
+      param3 : access BSTR
+   ) return Interfaces.C.unsigned_long;
+   pragma import (C,BSTR_UserSize64_x_x_x_x_x_x_x,"BSTR_UserSize64");
+   procedure BSTR_UserFree64_x_x_x_x_x_x_x(
+      param1 : access Interfaces.C.unsigned_long;
+      param2 : access BSTR
+   );
+   pragma import (C,BSTR_UserFree64_x_x_x_x_x_x_x,"BSTR_UserFree64");
+   -- #include <C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt\roerrorapi.h>
+   type RO_ERROR_REPORTING_FLAGS is (
+      RO_ERROR_REPORTING_NONE,
+      RO_ERROR_REPORTING_SUPPRESSEXCEPTIONS,
+      RO_ERROR_REPORTING_FORCEEXCEPTIONS,
+      RO_ERROR_REPORTING_USESETERRORINFO,
+      RO_ERROR_REPORTING_SUPPRESSSETERRORINFO
+   );
+   for RO_ERROR_REPORTING_FLAGS use (
+      RO_ERROR_REPORTING_NONE => 0,
+      RO_ERROR_REPORTING_SUPPRESSEXCEPTIONS => 1,
+      RO_ERROR_REPORTING_FORCEEXCEPTIONS => 2,
+      RO_ERROR_REPORTING_USESETERRORINFO => 4,
+      RO_ERROR_REPORTING_SUPPRESSSETERRORINFO => 8
+   );
+   for RO_ERROR_REPORTING_FLAGS'Size use 32;
+   -- operator|_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator|=_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator&_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator&=_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator~_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator^_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator^=_x_x_x_x_x_x_x(); -- inlined function not supported
+   function RoGetErrorReportingFlags(
+      pflags : access UINT32
+   ) return HRESULT;
+   pragma import (C,RoGetErrorReportingFlags,"RoGetErrorReportingFlags");
+   function RoSetErrorReportingFlags(
+      flags : UINT32
+   ) return HRESULT;
+   pragma import (C,RoSetErrorReportingFlags,"RoSetErrorReportingFlags");
+   function RoResolveRestrictedErrorInfoReference(
+      reference : PCWSTR;
+      ppRestrictedErrorInfo : access IRestrictedErrorInfo_Ptr
+   ) return HRESULT;
+   pragma import (C,RoResolveRestrictedErrorInfoReference,"RoResolveRestrictedErrorInfoReference");
+   function SetRestrictedErrorInfo(
+      pRestrictedErrorInfo : access IRestrictedErrorInfo
+   ) return HRESULT;
+   pragma import (C,SetRestrictedErrorInfo,"SetRestrictedErrorInfo");
+   function GetRestrictedErrorInfo(
+      ppRestrictedErrorInfo : access IRestrictedErrorInfo_Ptr
+   ) return HRESULT;
+   pragma import (C,GetRestrictedErrorInfo,"GetRestrictedErrorInfo");
+   function RoOriginateErrorW(
+      error : HRESULT;
+      cchMax : UINT;
+      message : PCWSTR
+   ) return BOOL;
+   pragma import (C,RoOriginateErrorW,"RoOriginateErrorW");
+   function RoOriginateError(
+      error : HRESULT;
+      message : HSTRING
+   ) return BOOL;
+   pragma import (C,RoOriginateError,"RoOriginateError");
+   function RoTransformErrorW(
+      oldError : HRESULT;
+      newError : HRESULT;
+      cchMax : UINT;
+      message : PCWSTR
+   ) return BOOL;
+   pragma import (C,RoTransformErrorW,"RoTransformErrorW");
+   function RoTransformError(
+      oldError : HRESULT;
+      newError : HRESULT;
+      message : HSTRING
+   ) return BOOL;
+   pragma import (C,RoTransformError,"RoTransformError");
+   function RoCaptureErrorContext(
+      hr : HRESULT
+   ) return HRESULT;
+   pragma import (C,RoCaptureErrorContext,"RoCaptureErrorContext");
+   procedure RoFailFastWithErrorContext(
+      hrError : HRESULT
+   );
+   pragma import (C,RoFailFastWithErrorContext,"RoFailFastWithErrorContext");
+   -- operator|_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator|=_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator&_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator&=_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator~_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator^_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator^=_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- GetErrorReportingFlags(); -- inlined function not supported
+   -- SetErrorReportingFlags(); -- inlined function not supported
+   -- OriginateError(); -- inlined function not supported
+   -- OriginateError_x(); -- inlined function not supported
+   -- TransformError(); -- inlined function not supported
+   -- TransformError_x(); -- inlined function not supported
+   -- operator|_x_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator|=_x_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator&_x_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator&=_x_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator~_x_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator^_x_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- operator^=_x_x_x_x_x_x_x_x_x(); -- inlined function not supported
+   -- GetErrorReportingFlags_x(); -- inlined function not supported
+   -- SetErrorReportingFlags_x(); -- inlined function not supported
+   -- OriginateError_x_x(); -- inlined function not supported
+   -- OriginateError_x_x_x(); -- inlined function not supported
+   -- TransformError_x_x(); -- inlined function not supported
+   -- TransformError_x_x_x(); -- inlined function not supported
+   function RoOriginateLanguageException(
+      error : HRESULT;
+      message : HSTRING;
+      languageException : access IUnknown
+   ) return BOOL;
+   pragma import (C,RoOriginateLanguageException,"RoOriginateLanguageException");
+   procedure RoClearError;
+   pragma import (C,RoClearError,"RoClearError");
+   function RoReportUnhandledError(
+      pRestrictedErrorInfo : access IRestrictedErrorInfo
+   ) return HRESULT;
+   pragma import (C,RoReportUnhandledError,"RoReportUnhandledError");
+   subtype PINSPECT_MEMORY_CALLBACK is System.Address; -- [FIXME - CXType_Pointer - CXType_Unexposed] HRESULT (void *, UINT_PTR, UINT32, BYTE *)
+   function RoInspectThreadErrorInfo(
+      targetTebAddress : UINT_PTR;
+      machine : USHORT;
+      readMemoryCallback : PINSPECT_MEMORY_CALLBACK;
+      context_x : PVOID;
+      targetErrorInfoAddress : access UINT_PTR
+   ) return HRESULT;
+   pragma import (C,RoInspectThreadErrorInfo,"RoInspectThreadErrorInfo");
+   function RoInspectCapturedStackBackTrace(
+      targetErrorInfoAddress : UINT_PTR;
+      machine : USHORT;
+      readMemoryCallback : PINSPECT_MEMORY_CALLBACK;
+      context_x : PVOID;
+      frameCount : access UINT32;
+      targetBackTraceAddress : access UINT_PTR
+   ) return HRESULT;
+   pragma import (C,RoInspectCapturedStackBackTrace,"RoInspectCapturedStackBackTrace");
+   function RoGetMatchingRestrictedErrorInfo(
+      hrIn : HRESULT;
+      ppRestrictedErrorInfo : access IRestrictedErrorInfo_Ptr
+   ) return HRESULT;
+   pragma import (C,RoGetMatchingRestrictedErrorInfo,"RoGetMatchingRestrictedErrorInfo");
+   function RoReportFailedDelegate(
+      punkDelegate : access IUnknown;
+      pRestrictedErrorInfo : access IRestrictedErrorInfo
+   ) return HRESULT;
+   pragma import (C,RoReportFailedDelegate,"RoReportFailedDelegate");
+   function IsErrorPropagationEnabled return BOOL;
+   pragma import (C,IsErrorPropagationEnabled,"IsErrorPropagationEnabled");
    
    -----------------------------------------------------------------------------
    -- Opaque types
