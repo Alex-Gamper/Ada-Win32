@@ -170,6 +170,8 @@
     <AdaCompile Include="Service1.adb">
       <SubType>Code</SubType>
     </AdaCompile>
+    <AdaCompile Include="ServiceMain.adb" />
+    <AdaCompile Include="ServiceMain.ads" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
