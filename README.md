@@ -1,7 +1,7 @@
 ## Ada-Win32
 Ada bindings for Win32
 
-#include <SDKDDKVer.h>
+\#include <SDKDDKVer.h>
 #if (_MSC_VER >= 1900)
     #ifdef _WIN64
         #if _WIN32_WINNT >= _WIN32_WINNT_WINBLUE
