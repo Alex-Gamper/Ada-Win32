@@ -9,31 +9,31 @@ Ada bindings for Win32
     
         #if _WIN32_WINNT >= _WIN32_WINNT_WINBLUE
         
-            define WIN32_LEAN_AND_MEAN
+            #define WIN32_LEAN_AND_MEAN
             
-            include <windows.h>
+            #include <windows.h>
             
-            include <shellapi.h>
+            #include <shellapi.h>
             
-            include <winperf.h>
+            #include <winperf.h>
             
-            include <Winsock2.h>
+            #include <Winsock2.h>
             
-            include <winspool.h>
+            #include <winspool.h>
             
-            include <ole2.h>
+            #include <ole2.h>
             
-            include <commdlg.h>
+            #include <commdlg.h>
             
-            include <CommCtrl.h>
+            #include <CommCtrl.h>
             
-            include <ComSvcs.h>
+            #include <ComSvcs.h>
             
-            include <roapi.h>
+            #include <roapi.h>
             
-            include <winstring.h>
+            #include <winstring.h>
             
-            include <roerrorapi.h>
+            #include <roerrorapi.h>
             
         #endif
         
