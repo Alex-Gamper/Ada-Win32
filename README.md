@@ -29,4 +29,4 @@ Ada bindings for Win32
     
 #endif
 
-![alt text](https://github.com/alex-gamper/Ada-Win32/tree/master/Images/IncludeFile.PNG "")
+![screenshot](https://github.com/alex-gamper/Ada-Win32/tree/master/Images/IncludeFile.PNG)
