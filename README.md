@@ -10,14 +10,10 @@ Ada bindings for Win32
         #if _WIN32_WINNT >= _WIN32_WINNT_WINBLUE
         
             #define WIN32_LEAN_AND_MEAN            
-            #include <windows.h>
-            
-            #include <shellapi.h>
-            
-            #include <winperf.h>
-            
-            #include <Winsock2.h>
-            
+            #include <windows.h>            
+            #include <shellapi.h>            
+            #include <winperf.h>            
+            #include <Winsock2.h>            
             #include <winspool.h>
             
             #include <ole2.h>
