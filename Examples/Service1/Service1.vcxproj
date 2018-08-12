@@ -25,7 +25,7 @@
     <Keyword>Service1</Keyword>
     <RootNamespace>Service1</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <UseMicrosoftLinker>false</UseMicrosoftLinker>
+    <UseMicrosoftLinker>true</UseMicrosoftLinker>
   </PropertyGroup>
   <Import Project="$(CustomProjectExtensionsPath)Ada_Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -121,8 +121,8 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\msys64\mingw64\lib\winrt;C:\msys64\mingw64\x86_64-w64-mingw32\lib;C:\msys64\mingw64\lib\gcc\x86_64-w64-mingw32\8.1.1;C:\msys64\mingw64\lib\gcc\x86_64-w64-mingw32\8.1.1\adalib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>msvcrt.lib;oldnames.lib;ucrt.lib;vcruntime.lib;libgnat.a;libgnarl.a;libgcc.a;libgcc_eh.a;libmingwex.a;libmingw32.a;libmsvcrt.a;kernel32.lib;user32.lib;shell32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\msys64\mingw64\lib\winrt;C:\msys64\mingw64\x86_64-w64-mingw32\lib;C:\msys64\mingw64\lib\gcc\x86_64-w64-mingw32\8.1.1;C:\msys64\mingw64\lib\gcc\x86_64-w64-mingw32\8.1.1\adalib;C:\Ada\Software\Win32\Bindings\x64\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>msvcrt.lib;oldnames.lib;ucrt.lib;vcruntime.lib;libgnat.a;libgnarl.a;libgcc.a;libgcc_eh.a;libmingwex.a;libmingw32.a;libmsvcrt.a;kernel32.lib;user32.lib;shell32.lib;advapi32.lib;libWin32.a;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <FullProgramDatabaseFile>true</FullProgramDatabaseFile>
@@ -161,8 +161,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\msys64\mingw64\lib\winrt;C:\msys64\mingw64\x86_64-w64-mingw32\lib;C:\msys64\mingw64\lib\gcc\x86_64-w64-mingw32\8.1.1;C:\msys64\mingw64\lib\gcc\x86_64-w64-mingw32\8.1.1\adalib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>msvcrt.lib;oldnames.lib;ucrt.lib;vcruntime.lib;libgnat.a;libgnarl.a;libgcc.a;libgcc_eh.a;libmingwex.a;libmingw32.a;libmsvcrt.a;kernel32.lib;user32.lib;shell32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\msys64\mingw64\lib\winrt;C:\msys64\mingw64\x86_64-w64-mingw32\lib;C:\msys64\mingw64\lib\gcc\x86_64-w64-mingw32\8.1.1;C:\msys64\mingw64\lib\gcc\x86_64-w64-mingw32\8.1.1\adalib;C:\Ada\Software\Win32\Bindings\x64\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>msvcrt.lib;oldnames.lib;ucrt.lib;vcruntime.lib;libgnat.a;libgnarl.a;libgcc.a;libgcc_eh.a;libmingwex.a;libmingw32.a;libmsvcrt.a;kernel32.lib;user32.lib;shell32.lib;advapi32.lib;libWin32.a;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
