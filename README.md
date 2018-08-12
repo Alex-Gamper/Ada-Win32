@@ -2,8 +2,8 @@
 Ada bindings for Win32
 
 \#include <SDKDDKVer.h>
-#if (_MSC_VER >= 1900)
-    #ifdef _WIN64
+\#if (_MSC_VER >= 1900)
+    \#ifdef _WIN64
         #if _WIN32_WINNT >= _WIN32_WINNT_WINBLUE
             #define WIN32_LEAN_AND_MEAN
             #include <windows.h>
