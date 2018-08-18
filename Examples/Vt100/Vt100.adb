@@ -10,9 +10,15 @@ procedure Vt100 is
     StdInMode   : aliased DWORD;
     StdOutMode  : aliased DWORD;
     Result      : BOOL;
-    ResultCode  : DWORD;
+    Coordinates : aliased COORD;
+    Hr          : DWORD;
 
 begin
+
+    Result := SetConsoleDisplayMode(StdOut, CONSOLE_FULLSCREEN_MODE, Coordinates'Unchecked_access);
+    if Result = 0 then
+        Hr := GetLastError;
+    end if;
 
     Result := GetConsoleMode(StdIn , StdInMode'unchecked_access);
     StdInMode := StdInMode or ENABLE_VIRTUAL_TERMINAL_INPUT;
