@@ -25,7 +25,6 @@ Ada bindings for Win32 - Generated from the following C/C== Header file
             
         #endif
         
-    #endif    
-#endif
+    #endif
 
-![screenshot](https://github.com/alex-gamper/Ada-Win32/tree/master/Images/IncludeFile.PNG)
+#endif
