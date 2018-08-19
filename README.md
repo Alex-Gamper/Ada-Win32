@@ -1,5 +1,5 @@
 ## Ada-Win32
-Ada bindings for Win32 - Generated from the following C/C== Header file
+### Ada bindings for Win32 - Generated from the following C/C== Header file
 
 #include <SDKDDKVer.h>
 
