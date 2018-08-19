@@ -1,5 +1,5 @@
 ## Ada-Win32
-Ada bindings for Win32
+### Ada bindings for Win32 - Generated from the following C/C++ Header file
 
 #include <SDKDDKVer.h>
 
@@ -26,7 +26,23 @@ Ada bindings for Win32
         #endif
         
     #endif
-    
+
 #endif
 
-![screenshot](https://github.com/alex-gamper/Ada-Win32/tree/master/Images/IncludeFile.PNG)
+### Prerequisites
+
+You will need a working gcc/gnat **x64** Windows build environment. This release has **NOT** yet been
+tested against 32 bit environments. So you may need to build gcc/gnat **x64** from source if required.
+Details/scripts on how to do this can be found on the mingw64 website.
+
+### Build instructions
+
+  tba
+
+### Examples
+
+  tba
+
+### Feedback
+
+Welcome
