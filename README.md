@@ -28,3 +28,21 @@ Ada bindings for Win32 - Generated from the following C/C== Header file
     #endif
 
 #endif
+
+### Prerequisites
+
+You will need a working gcc/gnat **x64** Windows build environment. This release has **NOT** yet been
+tested against 32 bit environments. So you may need to build gcc/gnat **x64** from source if required.
+Details/scripts on how to do this can be found on the mingw64 website.
+
+### Build instructions
+
+  tba
+
+### Examples
+
+  tba
+
+### Feedback
+
+Welcome
