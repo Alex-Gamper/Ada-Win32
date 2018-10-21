@@ -151,6 +151,8 @@
       <SubType>Code</SubType>
     </AdaCompile>
     <AdaCompile Include="Win32.Extensions.ads" />
+    <AdaCompile Include="Win32.Extensions.Common.adb" />
+    <AdaCompile Include="Win32.Extensions.Common.ads" />
     <AdaCompile Include="Win32.Extensions.Mscorlib.ads" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

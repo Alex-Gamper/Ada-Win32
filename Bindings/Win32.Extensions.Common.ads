@@ -20,5 +20,25 @@
 --                                                                            --
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-package Win32.Extensions is
-end Win32.Extensions;
+with Ada.Unchecked_Conversion;
+--------------------------------------------------------------------------------
+package Win32.Extensions.Common is
+
+    function Addr (S : Wide_String) return LPWSTR;
+    function Addr (S : Wide_String) return LPCWSTR;
+    function Addr (S : Wide_String) return LPOLESTR;
+
+	function To_Ada (Value : BSTR) return Wide_String;
+	function To_BSTR (Value : Wide_String) return BSTR;
+
+    function From_Variant (Value : VARIANT) return IUnknown_Ptr;
+    function To_Variant (Value : IUnknown_Ptr) return VARIANT;
+
+	function From_String (Value : Wide_String) return GUID;
+	function To_String (Value : GUID) return Wide_String;
+
+    ----------------------------------------------------------------------------
+    type LPVOID_Ptr is access all LPVOID;
+    function Convert is new Ada.Unchecked_Conversion(System.Address, LPVOID_Ptr);
+
+end Win32.Extensions.Common;
