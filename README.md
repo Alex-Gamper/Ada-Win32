@@ -29,7 +29,7 @@
 
 #endif
 
-These bindings have been generated from the metadata describing the Win32 api provided in the
+These bindings have been generated from the headers describing the Win32 api provided in the
 Microsoft Windows 10 SDK *1809 (build 10.0.17763)*
 
 ### Prerequisites
