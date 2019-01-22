@@ -29,11 +29,18 @@
 
 #endif
 
+These bindings have been generated from the headers describing the Win32 api provided in the
+Microsoft Windows 10 SDK *1809 (build 10.0.17763)*
+
 ### Prerequisites
 
 You will need a working gcc/gnat **x64** Windows build environment. This release has **NOT** yet been
-tested against 32 bit environments. So you may need to build gcc/gnat **x64** from source if required.
-Details/scripts on how to do this can be found on the mingw64 website.
+tested against 32 bit environments. You may need to build gcc/gnat **x64** from source if required.
+Details/scripts on how to do this can be found on the mingw64 website, alternatively install using MSYS2.
+
+### Project Status
+
+v 1.0 Released
 
 ### Build instructions
 
