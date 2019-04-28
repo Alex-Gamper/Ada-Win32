@@ -18,28 +18,29 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64' or '$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <AdaTarget>x86_64-w64-mingw32</AdaTarget>
+    <GnatRoot>C:\msys64\mingw64</GnatRoot>
+    <GnatRootRTS>C:\msys64\mingw64\lib\gcc\x86_64-w64-mingw32\9.0.1</GnatRootRTS>
+    <GnatMingwRoot>C:\msys64\mingw64\x86_64-w64-mingw32</GnatMingwRoot>
+    <GnatRootRTSAdaLib>$(GnatRootRTS)\adalib</GnatRootRTSAdaLib>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32' or '$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <AdaTarget>i686-w64-mingw32</AdaTarget>
+    <GnatRoot>C:\msys64\mingw32</GnatRoot>
+    <GnatRootRTS>C:\msys64\mingw32\lib\gcc\i686-w64-mingw32\9.0.1</GnatRootRTS>
+    <GnatMingwRoot>C:\msys64\mingw32\i686-w64-mingw32</GnatMingwRoot>
+    <GnatRootRTSAdaLib>$(GnatRootRTS)\adalib</GnatRootRTSAdaLib>
+  </PropertyGroup>
   <PropertyGroup Label="Globals">
     <CustomProjectExtensionsPath>$(MSBuildBinPath)\..\..\VisualAda\BuildSystem\</CustomProjectExtensionsPath>
     <ProjectName>Win32</ProjectName>
-    <ProjectGuid>{77B80C9F-FA7A-4AE8-A491-771A64ED5651}</ProjectGuid>
+    <ProjectGuid>{073F7226-BDC8-4CE8-B7AD-EE333EB0E04B}</ProjectGuid>
     <Keyword>Win32</Keyword>
     <RootNamespace>Win32</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <UseMicrosoftLinker>false</UseMicrosoftLinker>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
-    <PropertyGroup>
-        <GnatRoot>C:\msys64\mingw64</GnatRoot>
-        <GnatRootRTS>C:\msys64\mingw64\lib\gcc\x86_64-w64-mingw32\8.3.0</GnatRootRTS>
-        <GnatRootRTSAda Condition="'$(AdaRTS)'==''">$(GnatRootRTS)</GnatRootRTSAda>
-        <GnatRootRTSAda Condition="'$(AdaRTS)'!=''">$(GnatRootRTS)\rts-$(AdaRTS)</GnatRootRTSAda>
-        <GnatRootRTSAdaLib Condition="'$(AdaRTS)'==''">$(GnatRootRTS)\adalib</GnatRootRTSAdaLib>
-        <GnatRootRTSAdaLib Condition="'$(AdaRTS)'!=''">$(GnatRootRTS)\rts-$(AdaRTS)\adalib</GnatRootRTSAdaLib>
-        <GnatLibraryDir>$(GnatRoot)\lib</GnatLibraryDir>
-        <GnatWinRtLibraryDir>$(GnatRootRTSAda)\lib\WinRt</GnatWinRtLibraryDir>
-        <GnatObjectDir1>C:\msys64\mingw64\lib\gcc\x86_64-w64-mingw32\8.3.0\adalib</GnatObjectDir1>
-        <GprbuildOptions>-aP$(GnatRootRTSAda)\share\gpr</GprbuildOptions>
-    </PropertyGroup>
-    <Import Project="$(CustomProjectExtensionsPath)Ada_Default.props" />
+  <Import Project="$(CustomProjectExtensionsPath)Ada_Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
