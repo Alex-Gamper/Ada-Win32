@@ -30,7 +30,7 @@
 #endif
 
 These bindings have been generated from the headers describing the Win32 api provided in the
-Microsoft Windows 10 SDK *19H1 (build 10.0.18362)*
+Microsoft Windows 10 SDK *20H1 (build 10.0.19041)*
 
 ### Prerequisites
 
